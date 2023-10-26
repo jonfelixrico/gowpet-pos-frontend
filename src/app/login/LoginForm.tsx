@@ -29,10 +29,11 @@ export default function LoginForm() {
   async function handleSubmit (values: Payload, actions: FormikHelpers<Payload>) {
     try {
       // TODO do something about fetch
-      await fetch('http://localhost:8085/api/auth', {
+      const response = await fetch('http://localhost:8085/authenticate', {
         method: 'POST',
         body: JSON.stringify(values)
       })
+      localStorage.setItem('token', await response.text())
     } catch (e) {
       // TODO turn this into an actual chakra modal
       // TODO add logging
