@@ -2,6 +2,7 @@
 
 import { Button, Flex, FormControl, FormLabel, Input } from '@chakra-ui/react'
 import { Formik, Form, Field, FieldProps, FormikHelpers } from 'formik'
+import Cookies from 'js-cookie'
 
 function FieldTemplate({
   fieldName,
@@ -43,7 +44,8 @@ export default function LoginForm() {
           'Content-Type': 'application/json',
         },
       })
-      localStorage.setItem('token', await response.text())
+
+      Cookies.set('token', await response.text())
     } catch (e) {
       // TODO turn this into an actual chakra modal
       // TODO add logging
