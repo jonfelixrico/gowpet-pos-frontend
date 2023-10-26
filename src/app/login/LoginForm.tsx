@@ -33,6 +33,10 @@ export default function LoginForm() {
         method: 'POST',
         body: JSON.stringify(values)
       })
+    } catch (e) {
+      // TODO turn this into an actual chakra modal
+      // TODO add logging
+      alert(`Error while logging in: ${e}`)
     } finally {
       actions.setSubmitting(false)
     }
