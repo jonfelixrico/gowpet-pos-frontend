@@ -3,21 +3,25 @@
 import { Button, Flex, FormControl, FormLabel, Input } from '@chakra-ui/react'
 import { Formik, Form, Field, FieldProps, FormikHelpers } from 'formik'
 
-function FieldTemplate ({
+function FieldTemplate({
   fieldName,
-  label
+  label,
 }: {
-  fieldName: string,
+  fieldName: string
   label: string
 }) {
-  return <Field name={fieldName}>
-    {({ field, form }: FieldProps) => (
-      <FormControl isInvalid={!!form.errors[fieldName] && !!form.touched[fieldName]}>
-        <FormLabel>{label} </FormLabel>
-        <Input {...field} />
-      </FormControl>
-    )}
-  </Field>
+  return (
+    <Field name={fieldName}>
+      {({ field, form }: FieldProps) => (
+        <FormControl
+          isInvalid={!!form.errors[fieldName] && !!form.touched[fieldName]}
+        >
+          <FormLabel>{label} </FormLabel>
+          <Input {...field} />
+        </FormControl>
+      )}
+    </Field>
+  )
 }
 
 interface Payload {
@@ -26,12 +30,18 @@ interface Payload {
 }
 
 export default function LoginForm() {
-  async function handleSubmit (values: Payload, actions: FormikHelpers<Payload>) {
+  async function handleSubmit(
+    values: Payload,
+    actions: FormikHelpers<Payload>
+  ) {
     try {
       // TODO do something about fetch
-      const response = await fetch('http://localhost:8085/authenticate', {
+      const response = await fetch('/api/authenticate', {
         method: 'POST',
-        body: JSON.stringify(values)
+        body: JSON.stringify(values),
+        headers: {
+          'Content-Type': 'application/json',
+        },
       })
       localStorage.setItem('token', await response.text())
     } catch (e) {
@@ -42,25 +52,24 @@ export default function LoginForm() {
       actions.setSubmitting(false)
     }
   }
-  
-  return (<Formik
-    initialValues={{ username: '', password: '' }}
-    onSubmit={handleSubmit}
-  >
-    {(props) => (
-      <Form>
-        <Flex direction="column" alignItems="stretch" gap="2">
-          <FieldTemplate fieldName="username" label="Username" />
-          <FieldTemplate fieldName="password" label="Password" />
 
-          <Button
-            isLoading={props.isSubmitting}
-            type='submit'
-          >
-            Submit
-          </Button>
-        </Flex>
-      </Form>
-    )}
-  </Formik>)
+  return (
+    <Formik
+      initialValues={{ username: '', password: '' }}
+      onSubmit={handleSubmit}
+    >
+      {(props) => (
+        <Form>
+          <Flex direction="column" alignItems="stretch" gap="2">
+            <FieldTemplate fieldName="username" label="Username" />
+            <FieldTemplate fieldName="password" label="Password" />
+
+            <Button isLoading={props.isSubmitting} type="submit">
+              Submit
+            </Button>
+          </Flex>
+        </Form>
+      )}
+    </Formik>
+  )
 }
