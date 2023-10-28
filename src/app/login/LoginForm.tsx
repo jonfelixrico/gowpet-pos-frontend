@@ -39,7 +39,6 @@ export default function LoginForm() {
         return
       }
 
-      
       alert('Unexpected error')
     } finally {
       actions.setSubmitting(false)
@@ -60,7 +59,7 @@ export default function LoginForm() {
                   isInvalid={!!form.errors.username && !!form.touched.username}
                 >
                   <FormLabel>Username</FormLabel>
-                  <Input {...field} type="text" />
+                  <Input {...field} type="text" autoComplete="username" />
                 </FormControl>
               )}
             </Field>
@@ -71,7 +70,11 @@ export default function LoginForm() {
                   isInvalid={!!form.errors.password && !!form.touched.password}
                 >
                   <FormLabel>Username</FormLabel>
-                  <Input {...field} type="password" />
+                  <Input
+                    {...field}
+                    type="password"
+                    autoComplete="current-password"
+                  />
                 </FormControl>
               )}
             </Field>
