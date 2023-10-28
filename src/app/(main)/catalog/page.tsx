@@ -10,6 +10,8 @@ interface CatalogItem {
   type: 'SERVICE'
 }
 
+export const dynamic = 'force-dynamic'
+
 function Layout({ children }: { children: ReactNode }) {
   return (
     <Flex direction="column" gap="2" as="main" height="100%">
