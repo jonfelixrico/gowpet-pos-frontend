@@ -1,4 +1,4 @@
-import { apiFetch } from '@/utils/resource-api-util'
+import { apiFetchData } from '@/utils/resource-api-util'
 
 interface CatalogItem {
   id: string
@@ -8,8 +8,6 @@ interface CatalogItem {
 }
 
 export default async function Catalog() {
-  const response = await apiFetch('/catalog')
-  const data = (await response.json()) as unknown as CatalogItem[]
-
+  const { data } = await apiFetchData<CatalogItem[]>('/catalog')
   return data.map((item) => <div key={item.id}>{JSON.stringify(data)}</div>)
 }
