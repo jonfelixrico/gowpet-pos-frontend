@@ -1,7 +1,9 @@
-import { Center, Spinner } from "@chakra-ui/react";
+import { Center, Spinner } from '@chakra-ui/react'
 
 export default function RootLoading() {
-  return <Center>
-    <Spinner />
-  </Center>
+  return (
+    <Center height="100dvh">
+      <Spinner />
+    </Center>
+  )
 }
