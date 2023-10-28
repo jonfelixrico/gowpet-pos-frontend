@@ -26,6 +26,18 @@ function isRoutePublic(route: string) {
   return PUBLIC_ROUTES.some((pattern) => pattern.match(route))
 }
 
+/**
+ * We're combining middleware matchers with conditionals:
+ * - middleware matchers are used to exclude stuff which aren't actual routes of the app
+ *   - includes assets, etc
+ * - conditional code is used to do actual route matching
+ *
+ * using only middleware can be a challenge since we have to update the regexp each time we have
+ * a new public route.
+ *
+ * using only the conditional code is buggy since it'll also end up blocking asset calls.
+ */
+
 export default async function middleware(req: NextRequest) {
   if (isRoutePublic(req.nextUrl.pathname)) {
     console.debug('Public route; middleware will proceed')
