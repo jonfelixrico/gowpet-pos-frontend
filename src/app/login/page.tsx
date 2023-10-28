@@ -1,13 +1,10 @@
 import { Card, CardBody, Flex } from '@chakra-ui/react'
 import LoginForm from './LoginForm'
-import { cookies } from 'next/headers'
-import { verifyToken } from '@/utils/jwt-utils'
 import { redirect } from 'next/navigation'
+import { checkIfAuthenticated } from '@/utils/page-component-utils'
 
 export default async function Login() {
-  const cookiesStore = cookies()
-  const tokenCookie = cookiesStore.get('token')?.value
-  if (tokenCookie && (await verifyToken(tokenCookie))) {
+  if (await checkIfAuthenticated()) {
     redirect('/home')
   }
 
