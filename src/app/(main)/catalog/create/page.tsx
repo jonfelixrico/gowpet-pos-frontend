@@ -1,3 +1,3 @@
-export default function CreateCatalogPage() {
+export default function CatalogCreate() {
   return <div>test</div>
 }
