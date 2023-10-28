@@ -3,6 +3,21 @@ import { NextRequest, NextResponse } from 'next/server'
 import UrlPattern from 'url-pattern'
 import { redirect } from './utils/next-utils'
 
+export const config = {
+  matcher: [
+    /*
+     * Match all request paths except for the ones starting with:
+     * - api (API routes)
+     * - _next/static (static files)
+     * - _next/image (image optimization files)
+     * - favicon.ico (favicon file)
+     *
+     * Reference: https://nextjs.org/docs/app/building-your-application/routing/middleware#matcher
+     */
+    '/((?!api|_next/static|_next/image|favicon.ico).*)',
+  ],
+}
+
 function buildPatterns(routeStrings: string[]) {
   return routeStrings.map((route) => new UrlPattern(route))
 }
