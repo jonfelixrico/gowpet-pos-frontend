@@ -1,7 +1,18 @@
 'use client'
 
 import { fetchJson } from '@/utils/fetch-utils'
-import { Button, Flex, FormControl, FormLabel, Input } from '@chakra-ui/react'
+import {
+  Button,
+  Flex,
+  FormControl,
+  FormLabel,
+  Input,
+  NumberDecrementStepper,
+  NumberIncrementStepper,
+  NumberInput,
+  NumberInputField,
+  NumberInputStepper,
+} from '@chakra-ui/react'
 import { Field, FieldProps, Form, Formik, FormikHelpers } from 'formik'
 import { useRouter } from 'next/navigation'
 import Cookies from 'js-cookie'
@@ -62,7 +73,18 @@ export default function CatalogCreateForm() {
                   isInvalid={!!form.errors.price && !!form.touched.price}
                 >
                   <FormLabel>Unit Price</FormLabel>
-                  <Input {...field} type="number" />
+                  <NumberInput
+                    {...field}
+                    min={0}
+                    precision={2}
+                    onChange={(val) => form.setFieldValue(field.name, val)}
+                  >
+                    <NumberInputField />
+                    <NumberInputStepper>
+                      <NumberIncrementStepper />
+                      <NumberDecrementStepper />
+                    </NumberInputStepper>
+                  </NumberInput>
                 </FormControl>
               )}
             </Field>
