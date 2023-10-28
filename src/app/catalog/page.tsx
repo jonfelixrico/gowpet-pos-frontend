@@ -1,4 +1,5 @@
 import { apiFetchData } from '@/utils/resource-api-util'
+import { Center } from '@chakra-ui/react'
 
 interface CatalogItem {
   id: string
@@ -11,7 +12,7 @@ export default async function Catalog() {
   const { data } = await apiFetchData<CatalogItem[]>('/catalog')
 
   if (!data.length) {
-    return <main>No items</main>
+    return <Center>No items</Center>
   }
 
   return (
