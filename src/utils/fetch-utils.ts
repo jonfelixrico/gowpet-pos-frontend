@@ -17,17 +17,18 @@ export class FetchError extends Error {
   }
 }
 
-export interface FetchWrapperOptions {
+export interface FetchWrapperOptions<T = undefined> {
   validator?: (response: Response) => boolean
+  dataTransformer?: (response: Response) => T | Promise<T>
 }
 
 const defaultValidator = ({ status }: Response) => inRange(status, 200, 299)
 
-export async function fetchWrapper(
+export async function fetchWrapper<T = undefined>(
   input: RequestInfo,
   init?: RequestInit,
-  options?: FetchWrapperOptions
-) {
+  options?: FetchWrapperOptions<T>
+): Promise<ApiResponse<T>> {
   const response = await fetch(input, init)
 
   const validator = options?.validator ?? defaultValidator
@@ -35,23 +36,26 @@ export async function fetchWrapper(
     throw new FetchError(response)
   }
 
-  return response
+  if (options?.dataTransformer) {
+    Object.assign(response, {
+      data: await options.dataTransformer(response),
+    })
+  }
+
+  return response as ApiResponse<T>
 }
 
 export interface ApiResponse<T> extends Response {
   data: T
 }
 
-export async function fetchJson<T = any>(
+export async function fetchJson(
   input: string,
   init?: RequestInit,
   options?: FetchWrapperOptions
-): Promise<ApiResponse<T>> {
-  const response = await fetchWrapper(input, init, options)
-
-  Object.assign(response, {
-    data: await response.json(),
+) {
+  return fetchWrapper(input, init, {
+    ...(options ?? {}),
+    dataTransformer: (response) => response.json(),
   })
-
-  return response as ApiResponse<T>
 }
