@@ -9,5 +9,16 @@ interface CatalogItem {
 
 export default async function Catalog() {
   const { data } = await apiFetchData<CatalogItem[]>('/catalog')
-  return data.map((item) => <div key={item.id}>{JSON.stringify(data)}</div>)
+
+  if (!data.length) {
+    return <main>No items</main>
+  }
+
+  return (
+    <main>
+      {data.map((item) => (
+        <div key={item.id}>{JSON.stringify(data)}</div>
+      ))}
+    </main>
+  )
 }
