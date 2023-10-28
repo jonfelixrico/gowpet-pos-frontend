@@ -7,6 +7,14 @@ export class FetchError extends Error {
       cause: response,
     })
   }
+
+  public get is5XX() {
+    return inRange(this.response.status, 500, 599)
+  }
+
+  public get is4XX() {
+    return inRange(this.response.status, 500, 599)
+  }
 }
 
 interface WrapperOptions {
