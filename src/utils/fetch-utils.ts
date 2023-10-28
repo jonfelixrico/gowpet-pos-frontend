@@ -37,3 +37,21 @@ export async function fetchWrapper(
 
   return response
 }
+
+export interface ApiResponse<T> extends Response {
+  data: T
+}
+
+export async function fetchData<T = any>(
+  input: string,
+  init?: RequestInit,
+  options?: FetchWrapperOptions
+): Promise<ApiResponse<T>> {
+  const response = await fetchWrapper(input, init, options)
+
+  Object.assign(response, {
+    data: await response.json(),
+  })
+
+  return response as ApiResponse<T>
+}
