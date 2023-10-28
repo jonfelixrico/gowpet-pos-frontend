@@ -17,8 +17,8 @@ export class FetchError extends Error {
   }
 }
 
-interface WrapperOptions {
-  validator: (response: Response) => boolean
+export interface FetchWrapperOptions {
+  validator?: (response: Response) => boolean
 }
 
 const defaultValidator = ({ status }: Response) => inRange(status, 200, 299)
@@ -26,7 +26,7 @@ const defaultValidator = ({ status }: Response) => inRange(status, 200, 299)
 export async function fetchWrapper(
   input: RequestInfo,
   init?: RequestInit,
-  options?: Partial<WrapperOptions>
+  options?: FetchWrapperOptions
 ) {
   const response = await fetch(input, init)
 
