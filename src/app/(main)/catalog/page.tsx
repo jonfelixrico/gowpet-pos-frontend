@@ -1,4 +1,4 @@
-import { apiFetchData } from '@/utils/resource-api-util'
+import { apiFetchData } from '@/server-utils/resource-api-util'
 import { Box, Button, Center, Divider, Flex } from '@chakra-ui/react'
 import Link from 'next/link'
 import { ReactNode } from 'react'

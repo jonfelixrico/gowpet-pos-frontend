@@ -2,7 +2,7 @@ import { Card, CardBody, Flex } from '@chakra-ui/react'
 import LoginForm from './LoginForm'
 import { redirect } from 'next/navigation'
 import { getAuthToken } from '@/utils/auth-util'
-import { verifyToken } from '@/utils/jwt-utils'
+import { verifyToken } from '@/server-utils/jwt-utils'
 
 export default async function Login() {
   const authToken = getAuthToken()

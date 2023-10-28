@@ -1,4 +1,4 @@
-import { fetchWrapper } from './fetch-utils'
+import { fetchWrapper } from '../utils/fetch-utils'
 import { importSPKI, jwtVerify } from 'jose'
 
 async function getPublicKey() {

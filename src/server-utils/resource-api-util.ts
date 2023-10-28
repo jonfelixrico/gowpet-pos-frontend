@@ -1,5 +1,5 @@
-import { getAuthToken } from './auth-util'
-import { FetchWrapperOptions, fetchWrapper } from './fetch-utils'
+import { getAuthToken } from '../utils/auth-util'
+import { FetchWrapperOptions, fetchWrapper } from '../utils/fetch-utils'
 
 export function apiFetch(
   input: string,
