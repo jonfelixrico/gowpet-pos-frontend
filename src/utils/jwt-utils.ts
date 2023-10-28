@@ -13,10 +13,12 @@ async function getPublicKey() {
 export async function verifyToken(token: string) {
   const key = await getPublicKey()
 
-  await new Promise((resolve, reject) => {
+  return await new Promise((resolve) => {
     verify(token, key, {}, (err) => {
       if (err) {
-        reject(err)
+        // TODO use a proper logger
+        console.debug(err)
+        resolve(false)
         return
       }
 
