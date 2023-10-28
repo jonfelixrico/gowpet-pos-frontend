@@ -1,3 +1,6 @@
+import { redirect } from 'next/navigation'
+
 export default function HomePage() {
-  return <div>Home</div>
+  // TODO decide a better destination for this
+  redirect('/catalog')
 }
