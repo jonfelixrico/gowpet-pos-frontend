@@ -1,5 +1,10 @@
-import { Box } from '@chakra-ui/react'
+import { Box, Center } from '@chakra-ui/react'
+import CatalogCreateForm from './CatalogCreateForm'
 
 export default function CatalogCreate() {
-  return <Box height="100%">Test</Box>
+  return (
+    <Center height="100%">
+      <CatalogCreateForm />
+    </Center>
+  )
 }
