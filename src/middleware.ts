@@ -1,6 +1,7 @@
 import { verifyToken } from '@/utils/jwt-utils'
 import { NextRequest, NextResponse } from 'next/server'
 import UrlPattern from 'url-pattern'
+import { redirect } from './utils/next-utils'
 
 function buildPatterns(routeStrings: string[]) {
   return routeStrings.map((route) => new UrlPattern(route))
@@ -20,13 +21,13 @@ export default async function middleware(req: NextRequest) {
   if (!token) {
     console.debug('No token found; redirecting')
     // TODO do something to generate a better redirect
-    return NextResponse.redirect('http://localhost:3000/login')
+    return redirect(req.nextUrl, '/login')
   }
 
   if (!(await verifyToken(token))) {
     console.debug('Invalid token; redirecting')
     // TODO do something to generate a better redirect
-    return NextResponse.redirect('http://localhost:3000/login')
+    return redirect(req.nextUrl, '/login')
   }
 
   return NextResponse.next()
