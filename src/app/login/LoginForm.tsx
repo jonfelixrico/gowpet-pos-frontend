@@ -5,27 +5,7 @@ import { Button, Flex, FormControl, FormLabel, Input } from '@chakra-ui/react'
 import { Formik, Form, Field, FieldProps, FormikHelpers } from 'formik'
 import Cookies from 'js-cookie'
 import { useRouter } from 'next/navigation'
-
-function FieldTemplate({
-  fieldName,
-  label,
-}: {
-  fieldName: string
-  label: string
-}) {
-  return (
-    <Field name={fieldName}>
-      {({ field, form }: FieldProps) => (
-        <FormControl
-          isInvalid={!!form.errors[fieldName] && !!form.touched[fieldName]}
-        >
-          <FormLabel>{label} </FormLabel>
-          <Input {...field} />
-        </FormControl>
-      )}
-    </Field>
-  )
-}
+import { HTMLInputTypeAttribute } from 'react'
 
 interface Payload {
   username: string
@@ -68,8 +48,27 @@ export default function LoginForm() {
       {(props) => (
         <Form>
           <Flex direction="column" alignItems="stretch" gap="2">
-            <FieldTemplate fieldName="username" label="Username" />
-            <FieldTemplate fieldName="password" label="Password" />
+            <Field name="username">
+              {({ field, form }: FieldProps) => (
+                <FormControl
+                  isInvalid={!!form.errors.username && !!form.touched.username}
+                >
+                  <FormLabel>Username</FormLabel>
+                  <Input {...field} type="text" />
+                </FormControl>
+              )}
+            </Field>
+
+            <Field name="password">
+              {({ field, form }: FieldProps) => (
+                <FormControl
+                  isInvalid={!!form.errors.password && !!form.touched.password}
+                >
+                  <FormLabel>Username</FormLabel>
+                  <Input {...field} type="password" />
+                </FormControl>
+              )}
+            </Field>
 
             <Button isLoading={props.isSubmitting} type="submit">
               Submit
