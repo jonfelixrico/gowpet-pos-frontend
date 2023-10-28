@@ -11,7 +11,7 @@ interface CatalogItem {
 
 function Layout({ children }: { children: ReactNode }) {
   return (
-    <Flex direction="column" gap="2" as="main">
+    <Flex direction="column" gap="2" as="main" height="100%">
       <Flex justify="end">
         <Button>Create</Button>
       </Flex>
