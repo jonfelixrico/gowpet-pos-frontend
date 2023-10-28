@@ -1,5 +1,6 @@
 'use client'
 
+import { fetchWrapper } from '@/utils/fetch-utils'
 import { Button, Flex, FormControl, FormLabel, Input } from '@chakra-ui/react'
 import { Formik, Form, Field, FieldProps, FormikHelpers } from 'formik'
 import Cookies from 'js-cookie'
@@ -40,7 +41,7 @@ export default function LoginForm() {
   ) {
     try {
       // TODO do something about fetch
-      const response = await fetch('/api/authenticate', {
+      const response = await fetchWrapper('/api/authenticate', {
         method: 'POST',
         body: JSON.stringify(values),
         headers: {
