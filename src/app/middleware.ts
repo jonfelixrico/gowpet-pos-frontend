@@ -16,7 +16,13 @@ export default async function middleware(req: NextRequest) {
   }
 
   const token = req.cookies.get('token')?.value
-  if (!token || !(await verifyToken(token))) {
+  if (!token) {
+    console.debug('No token found; redirecting')
+    return NextResponse.redirect('/login')
+  }
+
+  if (!(await verifyToken(token))) {
+    console.debug('Invalid token; redirecting')
     return NextResponse.redirect('/login')
   }
 
