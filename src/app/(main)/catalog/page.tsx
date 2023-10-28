@@ -1,21 +1,6 @@
 import CatalogItemTable from '@/components/catalog/CatalogItemTable'
 import { apiFetchData } from '@/server-utils/resource-api-util'
-import {
-  Box,
-  Button,
-  Card,
-  CardHeader,
-  Center,
-  Divider,
-  Flex,
-  Table,
-  TableContainer,
-  Tbody,
-  Td,
-  Th,
-  Thead,
-  Tr,
-} from '@chakra-ui/react'
+import { Button, Center, Divider, Flex } from '@chakra-ui/react'
 import Link from 'next/link'
 import { ReactNode } from 'react'
 
