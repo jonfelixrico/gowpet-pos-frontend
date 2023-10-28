@@ -1,3 +1,5 @@
+import { Box } from '@chakra-ui/react'
+
 export default function CatalogCreate() {
-  return <div>test</div>
+  return <Box height="100%">Test</Box>
 }
