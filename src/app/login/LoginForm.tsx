@@ -1,6 +1,6 @@
 'use client'
 
-import { fetchWrapper } from '@/utils/fetch-utils'
+import { FetchError, fetchWrapper } from '@/utils/fetch-utils'
 import { Button, Flex, FormControl, FormLabel, Input } from '@chakra-ui/react'
 import { Formik, Form, Field, FieldProps, FormikHelpers } from 'formik'
 import Cookies from 'js-cookie'
@@ -32,9 +32,15 @@ export default function LoginForm() {
       Cookies.set('token', await response.text())
       router.push('/home')
     } catch (e) {
-      // TODO turn this into an actual chakra modal
-      // TODO add logging
-      alert(`Error while logging in: ${e}`)
+      // TODO turn these into actual modals
+
+      if (e instanceof FetchError && e.is4XX) {
+        alert('Wrong credentials')
+        return
+      }
+
+      
+      alert('Unexpected error')
     } finally {
       actions.setSubmitting(false)
     }
