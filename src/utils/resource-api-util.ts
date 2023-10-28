@@ -21,3 +21,21 @@ export function apiFetch(
     options
   )
 }
+
+export interface ApiResponse<T> extends Response {
+  data: T
+}
+
+export async function apiFetchData<T = any>(
+  input: string,
+  init?: RequestInit,
+  options?: FetchWrapperOptions
+): Promise<ApiResponse<T>> {
+  const response = await apiFetch(input, init, options)
+
+  Object.assign(response, {
+    data: await response.json(),
+  })
+
+  return response as ApiResponse<T>
+}
