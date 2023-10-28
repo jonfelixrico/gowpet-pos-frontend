@@ -1,5 +1,6 @@
 import { apiFetchData } from '@/utils/resource-api-util'
-import { Center } from '@chakra-ui/react'
+import { Box, Button, Center, Divider, Flex } from '@chakra-ui/react'
+import { ReactNode } from 'react'
 
 interface CatalogItem {
   id: string
@@ -8,18 +9,44 @@ interface CatalogItem {
   type: 'SERVICE'
 }
 
-export default async function Catalog() {
-  const { data } = await apiFetchData<CatalogItem[]>('/catalog')
+function Layout({ children }: { children: ReactNode }) {
+  return (
+    <Flex
+      direction="column"
+      width="1000px"
+      marginX="auto"
+      height="100dvh"
+      gap="2"
+      as="main"
+    >
+      <Flex justify="end">
+        <Button>Create</Button>
+      </Flex>
+      <Divider />
+      {children}
+    </Flex>
+  )
+}
 
-  if (!data.length) {
-    return <Center>No items</Center>
+function Content({ items }: { items: CatalogItem[] }) {
+  if (!items.length) {
+    return <Center flex="1">No items</Center>
   }
 
   return (
-    <main>
-      {data.map((item) => (
-        <div key={item.id}>{JSON.stringify(data)}</div>
+    <Box flex="1">
+      {items.map((item) => (
+        <div key={item.id}>{JSON.stringify(item)}</div>
       ))}
-    </main>
+    </Box>
+  )
+}
+
+export default async function Catalog() {
+  const { data } = await apiFetchData<CatalogItem[]>('/catalog')
+  return (
+    <Layout>
+      <Content items={data} />
+    </Layout>
   )
 }
