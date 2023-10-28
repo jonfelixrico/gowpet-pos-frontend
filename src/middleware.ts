@@ -12,18 +12,21 @@ function isRoutePublic(route: string) {
 
 export default async function middleware(req: NextRequest) {
   if (isRoutePublic(req.nextUrl.pathname)) {
+    console.debug('Public route; middleware will proceed')
     return NextResponse.next()
   }
 
   const token = req.cookies.get('token')?.value
   if (!token) {
     console.debug('No token found; redirecting')
-    return NextResponse.redirect('/login')
+    // TODO do something to generate a better redirect
+    return NextResponse.redirect('http://localhost:3000/login')
   }
 
   if (!(await verifyToken(token))) {
     console.debug('Invalid token; redirecting')
-    return NextResponse.redirect('/login')
+    // TODO do something to generate a better redirect
+    return NextResponse.redirect('http://localhost:3000/login')
   }
 
   return NextResponse.next()
