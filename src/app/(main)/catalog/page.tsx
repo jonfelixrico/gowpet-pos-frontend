@@ -36,7 +36,9 @@ function Content({ items }: { items: CatalogItem[] }) {
 }
 
 export default async function Catalog() {
-  const { data } = await apiFetchData<CatalogItem[]>('/catalog')
+  const { data } = await apiFetchData<CatalogItem[]>('/catalog', {
+    cache: 'no-cache',
+  })
   return (
     <Layout>
       <Content items={data} />
