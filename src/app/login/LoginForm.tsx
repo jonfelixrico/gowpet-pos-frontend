@@ -20,7 +20,6 @@ export default function LoginForm() {
     actions: FormikHelpers<Payload>
   ) {
     try {
-      // TODO do something about fetch
       const response = await fetchWrapper('/api/authenticate', {
         method: 'POST',
         body: JSON.stringify(values),
