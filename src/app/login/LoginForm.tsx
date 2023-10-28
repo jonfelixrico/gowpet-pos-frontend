@@ -3,6 +3,7 @@
 import { Button, Flex, FormControl, FormLabel, Input } from '@chakra-ui/react'
 import { Formik, Form, Field, FieldProps, FormikHelpers } from 'formik'
 import Cookies from 'js-cookie'
+import { useRouter } from 'next/navigation'
 
 function FieldTemplate({
   fieldName,
@@ -31,6 +32,8 @@ interface Payload {
 }
 
 export default function LoginForm() {
+  const router = useRouter()
+
   async function handleSubmit(
     values: Payload,
     actions: FormikHelpers<Payload>
@@ -46,6 +49,7 @@ export default function LoginForm() {
       })
 
       Cookies.set('token', await response.text())
+      router.push('/home')
     } catch (e) {
       // TODO turn this into an actual chakra modal
       // TODO add logging
