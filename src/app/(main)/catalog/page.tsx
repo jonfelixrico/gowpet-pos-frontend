@@ -46,7 +46,6 @@ function ContentItem({ item }: { item: CatalogItem }) {
     <Tr>
       <Td>{item.name}</Td>
       <Td isNumeric>{item.price}</Td>
-      <Td>TODO add button</Td>
     </Tr>
   )
 }
@@ -63,7 +62,6 @@ function Content({ items }: { items: CatalogItem[] }) {
           <Tr>
             <Th>Name</Th>
             <Th isNumeric>Price</Th>
-            <Th></Th>
           </Tr>
         </Thead>
 
