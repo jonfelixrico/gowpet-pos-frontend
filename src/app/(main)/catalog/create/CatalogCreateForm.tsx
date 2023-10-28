@@ -48,6 +48,7 @@ export default function CatalogCreateForm() {
     }
   }
 
+  // TODO i18nize this
   return (
     <Formik
       initialValues={{ name: '', price: 0 } as Payload}
@@ -62,7 +63,11 @@ export default function CatalogCreateForm() {
                   isInvalid={!!form.errors.name && !!form.touched.name}
                 >
                   <FormLabel>Name</FormLabel>
-                  <Input {...field} type="text" />
+                  <Input
+                    {...field}
+                    type="text"
+                    placeholder="Type your product name here"
+                  />
                 </FormControl>
               )}
             </Field>
