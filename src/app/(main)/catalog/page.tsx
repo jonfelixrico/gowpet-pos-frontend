@@ -1,5 +1,20 @@
 import { apiFetchData } from '@/server-utils/resource-api-util'
-import { Box, Button, Center, Divider, Flex } from '@chakra-ui/react'
+import {
+  Box,
+  Button,
+  Card,
+  CardHeader,
+  Center,
+  Divider,
+  Flex,
+  Table,
+  TableContainer,
+  Tbody,
+  Td,
+  Th,
+  Thead,
+  Tr,
+} from '@chakra-ui/react'
 import Link from 'next/link'
 import { ReactNode } from 'react'
 
@@ -26,17 +41,39 @@ function Layout({ children }: { children: ReactNode }) {
   )
 }
 
+function ContentItem({ item }: { item: CatalogItem }) {
+  return (
+    <Tr>
+      <Td>{item.name}</Td>
+      <Td isNumeric>{item.price}</Td>
+      <Td>TODO add button</Td>
+    </Tr>
+  )
+}
+
 function Content({ items }: { items: CatalogItem[] }) {
   if (!items.length) {
     return <Center flex="1">No items</Center>
   }
 
   return (
-    <Box flex="1">
-      {items.map((item) => (
-        <div key={item.id}>{JSON.stringify(item)}</div>
-      ))}
-    </Box>
+    <TableContainer flex="1">
+      <Table>
+        <Thead>
+          <Tr>
+            <Th>Name</Th>
+            <Th isNumeric>Price</Th>
+            <Th></Th>
+          </Tr>
+        </Thead>
+
+        <Tbody>
+          {items.map((item) => (
+            <ContentItem item={item} key={item.id} />
+          ))}
+        </Tbody>
+      </Table>
+    </TableContainer>
   )
 }
 
