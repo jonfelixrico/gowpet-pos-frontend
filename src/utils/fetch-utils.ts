@@ -13,7 +13,7 @@ export class FetchError extends Error {
   }
 
   public get is4XX() {
-    return inRange(this.response.status, 500, 599)
+    return inRange(this.response.status, 400, 499)
   }
 }
 
