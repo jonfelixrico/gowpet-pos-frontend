@@ -42,7 +42,7 @@ export default function CatalogCreateForm() {
       {(props) => (
         <Form>
           <Flex direction="column" alignItems="stretch" gap="2">
-            <Field name="username">
+            <Field name="name">
               {({ field, form }: FieldProps) => (
                 <FormControl
                   isInvalid={!!form.errors.name && !!form.touched.name}
