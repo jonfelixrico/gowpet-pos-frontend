@@ -1,6 +1,5 @@
 import { verify } from 'jsonwebtoken'
 import { fetchWrapper } from './fetch-utils'
-import pify from 'pify'
 
 async function getPublicKey() {
   // TODO cache the response
