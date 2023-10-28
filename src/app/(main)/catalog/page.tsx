@@ -1,5 +1,6 @@
 import { apiFetchData } from '@/utils/resource-api-util'
 import { Box, Button, Center, Divider, Flex } from '@chakra-ui/react'
+import Link from 'next/link'
 import { ReactNode } from 'react'
 
 interface CatalogItem {
@@ -13,7 +14,9 @@ function Layout({ children }: { children: ReactNode }) {
   return (
     <Flex direction="column" gap="2" as="main" height="100%">
       <Flex justify="end">
-        <Button>Create</Button>
+        <Link href="/catalog/create">
+          <Button>Create</Button>
+        </Link>
       </Flex>
       <Divider />
       {children}
