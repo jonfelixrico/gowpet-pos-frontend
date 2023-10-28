@@ -4,6 +4,7 @@ import { fetchJson } from '@/utils/fetch-utils'
 import { Button, Flex, FormControl, FormLabel, Input } from '@chakra-ui/react'
 import { Field, FieldProps, Form, Formik, FormikHelpers } from 'formik'
 import { useRouter } from 'next/navigation'
+import Cookies from 'js-cookie'
 
 interface Payload {
   name: string
@@ -23,6 +24,8 @@ export default function CatalogCreateForm() {
         body: JSON.stringify(values),
         headers: {
           'Content-Type': 'application/json',
+          // TODO make a util to do this automatically
+          Authorization: `Bearer ${Cookies.get('token')}`,
         },
       })
 
