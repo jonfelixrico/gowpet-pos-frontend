@@ -1,5 +1,5 @@
-import { verify } from 'jsonwebtoken'
 import { fetchWrapper } from './fetch-utils'
+import { importSPKI, jwtVerify } from 'jose'
 
 async function getPublicKey() {
   // TODO cache the response
@@ -7,22 +7,19 @@ async function getPublicKey() {
     'http://localhost:3005/authenticate/publicKey'
   )
 
-  return await response.text()
+  const key = await response.text()
+  return await importSPKI(key, 'RS256')
 }
 
 export async function verifyToken(token: string) {
   const key = await getPublicKey()
 
-  return await new Promise((resolve) => {
-    verify(token, key, {}, (err) => {
-      if (err) {
-        // TODO use a proper logger
-        console.debug(err)
-        resolve(false)
-        return
-      }
-
-      resolve(true)
-    })
-  })
+  try {
+    await jwtVerify(token, key)
+    return true
+  } catch (e) {
+    // TODO polish this logging
+    console.debug(e)
+    return false
+  }
 }
