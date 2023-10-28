@@ -26,7 +26,7 @@ function isRoutePublic(route: string) {
   return PUBLIC_ROUTES.some((pattern) => pattern.match(route))
 }
 
-/**
+/*
  * We're combining middleware matchers with conditionals:
  * - middleware matchers are used to exclude stuff which aren't actual routes of the app
  *   - includes assets, etc
