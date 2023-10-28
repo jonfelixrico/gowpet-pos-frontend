@@ -1,3 +1,3 @@
-export default function DummyPage() {
-  return <div>Dummy</div>
+export default function HomePage() {
+  return <div>Home</div>
 }
