@@ -9,7 +9,7 @@ interface CatalogItem {
 
 export default async function Catalog() {
   const response = await apiFetch('/catalog')
-  const data = response.json() as unknown as CatalogItem[]
+  const data = (await response.json()) as unknown as CatalogItem[]
 
   return data.map((item) => <div key={item.id}>{JSON.stringify(data)}</div>)
 }
