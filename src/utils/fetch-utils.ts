@@ -42,7 +42,7 @@ export interface ApiResponse<T> extends Response {
   data: T
 }
 
-export async function fetchData<T = any>(
+export async function fetchJson<T = any>(
   input: string,
   init?: RequestInit,
   options?: FetchWrapperOptions
