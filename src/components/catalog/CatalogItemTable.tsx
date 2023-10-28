@@ -9,14 +9,12 @@ import {
   Thead,
   Tr,
 } from '@chakra-ui/react'
-import { useFormatter } from 'next-intl'
 
 function ContentItemTableRow({ item }: { item: CatalogItem }) {
-  const format = useFormatter()
   return (
     <Tr>
       <Td>{item.name}</Td>
-      <Td isNumeric>{format.number(item.price, { style: 'currency' })}</Td>
+      <Td isNumeric>{item.price}</Td>
     </Tr>
   )
 }
