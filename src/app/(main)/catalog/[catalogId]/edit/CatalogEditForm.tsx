@@ -30,7 +30,9 @@ export default function CatalogEditForm({
 
   return (
     <CatalogForm initialValues={initialValues} handleSubmit={handleSubmit}>
-      <Button type="submit">Save Changes</Button>
+      <Button type="submit" colorScheme="blue">
+        Save Changes
+      </Button>
     </CatalogForm>
   )
 }
