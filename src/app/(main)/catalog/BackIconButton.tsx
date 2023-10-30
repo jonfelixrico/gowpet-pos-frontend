@@ -14,6 +14,7 @@ export default function BackIconButton() {
       isRound
       icon={<Icon as={IoIosArrowBack} />}
       aria-label="Back to catalog list"
+      variant="ghost"
     />
   )
 }
