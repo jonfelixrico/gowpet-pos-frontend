@@ -40,7 +40,6 @@ export default async function CatalogDetails({ params }: { params: Params }) {
           <Button>Edit</Button>
         </Link>
 
-        {/* Looks like server actions doesn't work with the onClick handler... it has to be form actions */}
         <CatalogDeleteButton onDelete={submitDelete} />
       </Flex>
       <Card>
