@@ -1,5 +1,6 @@
 describe('login', () => {
   it('can log in', () => {
+    cy.setCookie('token', '')
     cy.visit('/login')
 
     cy.get('[data-cy="username"]').type('root')
