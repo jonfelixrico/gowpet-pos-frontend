@@ -5,7 +5,6 @@ import { Button, Flex, FormControl, FormLabel, Input } from '@chakra-ui/react'
 import { Formik, Form, Field, FieldProps, FormikHelpers } from 'formik'
 import Cookies from 'js-cookie'
 import { useRouter } from 'next/navigation'
-import { HTMLInputTypeAttribute } from 'react'
 
 interface Payload {
   username: string
