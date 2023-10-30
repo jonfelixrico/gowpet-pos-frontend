@@ -7,7 +7,7 @@ export default function CatalogCreate() {
   return (
     <Flex height="full" width="full" direction="column" gap="5">
       <Flex gap="5" align="center">
-        <Link href="/catalog">
+        <Link href="/catalog" prefetch={false}>
           <BackIconButton />
         </Link>
         <Heading>Create Item</Heading>
