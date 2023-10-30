@@ -7,6 +7,11 @@ describe('login', () => {
     cy.get('[data-cy="password"]').type('password')
     cy.get('[data-cy="submit"]').click()
 
-    cy.url().should('not.include', 'login')
+    cy.url().should('include', 'catalog')
+  })
+
+  it('should not show the login page to already-authenticated users', () => {
+    cy.visit('/login')
+    cy.url().should('include', 'catalog')
   })
 })
