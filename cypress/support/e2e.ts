@@ -18,3 +18,22 @@ import './commands'
 
 // Alternatively you can use CommonJS syntax:
 // require('./commands')
+
+let authToken: string = ''
+
+before(() => {
+  cy.request({
+    method: 'POST',
+    body: {
+      username: 'username',
+      password: 'password',
+    },
+    url: '/api/authenticate',
+  }).then((response) => {
+    authToken = response.body
+  })
+})
+
+beforeEach(() => {
+  cy.setCookie('token', authToken)
+})
