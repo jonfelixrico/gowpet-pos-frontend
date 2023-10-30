@@ -29,7 +29,7 @@ export default async function CatalogEdit({ params }: { params: Params }) {
       body: JSON.stringify(value),
     })
 
-    redirect(`/catalog/${url}`)
+    redirect(`/catalog/${params.catalogId}`)
   }
 
   return (
