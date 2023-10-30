@@ -9,6 +9,8 @@ interface Params {
   catalogId: string
 }
 
+export const dynamic = 'force-dynamic'
+
 export default async function CatalogEdit({ params }: { params: Params }) {
   const { data } = await apiFetchData<CatalogItem>(
     `/catalog/product/${params.catalogId}`,
