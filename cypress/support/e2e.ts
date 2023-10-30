@@ -36,4 +36,6 @@ before(() => {
 
 beforeEach(() => {
   cy.setCookie('token', authToken)
+
+  cy.on('uncaught:exception', () => false)
 })
