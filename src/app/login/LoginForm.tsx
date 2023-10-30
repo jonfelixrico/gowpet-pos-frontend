@@ -68,7 +68,7 @@ export default function LoginForm() {
                 <FormControl
                   isInvalid={!!form.errors.password && !!form.touched.password}
                 >
-                  <FormLabel>Username</FormLabel>
+                  <FormLabel>Password</FormLabel>
                   <Input
                     {...field}
                     type="password"
