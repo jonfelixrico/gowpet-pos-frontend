@@ -25,7 +25,7 @@ before(() => {
   cy.request({
     method: 'POST',
     body: {
-      username: 'username',
+      username: 'root',
       password: 'password',
     },
     url: '/api/authenticate',
