@@ -15,8 +15,8 @@ import Link from 'next/link'
 
 function ContentItemTableRow({ item }: { item: CatalogItem }) {
   return (
-    <Tr>
-      <Td>{item.name}</Td>
+    <Tr data-cy="row">
+      <Td data-cy="name">{item.name}</Td>
       <Td isNumeric>{item.price}</Td>
       <Td>
         <Flex justify="end" w="full">
@@ -36,7 +36,7 @@ export default function CatalogItemTable({ items }: { items: CatalogItem[] }) {
 
   return (
     <TableContainer flex="1">
-      <Table>
+      <Table data-cy="table">
         <Thead>
           <Tr>
             <Th>Name</Th>
