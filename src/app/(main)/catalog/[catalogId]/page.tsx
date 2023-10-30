@@ -8,12 +8,11 @@ interface Params {
   catalogId: string
 }
 
+const dynamic = 'force-dynamic'
+
 export default async function CatalogDetails({ params }: { params: Params }) {
   const { data } = await apiFetchData<CatalogItem>(
-    `/catalog/product/${params.catalogId}`,
-    {
-      cache: 'no-store',
-    }
+    `/catalog/product/${params.catalogId}`
   )
 
   return (
