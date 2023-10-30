@@ -13,10 +13,7 @@ export const dynamic = 'force-dynamic'
 
 export default async function CatalogEdit({ params }: { params: Params }) {
   const { data } = await apiFetchData<CatalogItem>(
-    `/catalog/product/${params.catalogId}`,
-    {
-      cache: 'no-store',
-    }
+    `/catalog/product/${params.catalogId}`
   )
 
   return (
