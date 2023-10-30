@@ -30,7 +30,7 @@ export default function CatalogEditForm({
           Authorization: `Bearer ${Cookies.get('token')}`,
         },
       })
-      redirect(`catalog/${id}`)
+      redirect(`/catalog/${id}`)
     } catch (e) {
       alert('Error while editing')
     } finally {
