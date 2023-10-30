@@ -18,14 +18,13 @@ describe('catalog', () => {
     cy.get('[data-cy="create"]').click()
 
     cy.url().should('contain', 'catalog/create')
-    cy.get('[data-cy="form"] [data-cy="name"]').type('Test Item')
+    const name = `Test item ${Date.now()}`
+    cy.get('[data-cy="form"] [data-cy="name"]').type(name)
     cy.get('[data-cy="form"] [data-cy="price"]').type('123.45')
     cy.get('[data-cy="submit"]').click()
 
     cy.url().should('contain', '/catalog')
     cy.url().should('not.contain', '/catalog/create')
-    cy.get('[data-cy="table"] [data-cy="row"] [data-cy="name"]').contains(
-      'Test Item'
-    )
+    cy.get('[data-cy="table"] [data-cy="row"] [data-cy="name"]').contains(name)
   })
 })
