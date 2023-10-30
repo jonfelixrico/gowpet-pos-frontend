@@ -18,14 +18,14 @@ export default async function CatalogDetails({ params }: { params: Params }) {
   return (
     <Flex height="full" gap={5} direction="column">
       <Flex align="center" gap={5}>
-        <Link href="/catalog">
+        <Link href="/catalog" prefetch={false}>
           <BackIconButton />
         </Link>
         <Heading>Item Details</Heading>
 
         <Spacer />
 
-        <Link href={`/catalog/${params.catalogId}/edit`}>
+        <Link href={`/catalog/${params.catalogId}/edit`} prefetch={false}>
           <Button>Edit</Button>
         </Link>
       </Flex>
