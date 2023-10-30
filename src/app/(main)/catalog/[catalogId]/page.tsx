@@ -12,7 +12,7 @@ export default async function CatalogDetails({ params }: { params: Params }) {
   const { data } = await apiFetchData<CatalogItem>(
     `/catalog/product/${params.catalogId}`,
     {
-      cache: 'no-cache',
+      cache: 'no-store',
     }
   )
 
