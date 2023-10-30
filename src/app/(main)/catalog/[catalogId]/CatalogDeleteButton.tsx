@@ -28,7 +28,7 @@ export default function CatalogDeleteButton(props: {
 
   return (
     <>
-      {/* Looks like server actions doesn't work with the onClick handler... it has to be form actions */}
+      {/* Using button onClick with `onDelete` as a server action doesn't seem to work... it has to be a form */}
       <form action={promptDelete}>
         <Button type="submit">Delete</Button>
       </form>
