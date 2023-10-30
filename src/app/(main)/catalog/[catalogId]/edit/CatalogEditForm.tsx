@@ -4,35 +4,22 @@ import CatalogForm, {
   CatalogFormFields,
 } from '@/components/catalog/CatalogForm'
 import { FormikSubmit } from '@/types/formik'
-import { fetchJson } from '@/utils/fetch-utils'
 import { Button } from '@chakra-ui/react'
-import Cookies from 'js-cookie'
-import { useRouter } from 'next/navigation'
 
 export default function CatalogEditForm({
   initialValues,
-  id,
+  onSubmit,
 }: {
   initialValues: CatalogFormFields
   id: string
+  onSubmit: (value: CatalogFormFields) => Promise<void>
 }) {
-  const router = useRouter()
-
   const handleSubmit: FormikSubmit<CatalogFormFields> = async (
     values,
     actions
   ) => {
     try {
-      await fetchJson(`/api/catalog/product/${id}`, {
-        method: 'PUT',
-        body: JSON.stringify(values),
-        headers: {
-          'Content-Type': 'application/json',
-          // TODO make a util to do this automatically
-          Authorization: `Bearer ${Cookies.get('token')}`,
-        },
-      })
-      router.push(`/catalog/${id}`)
+      await onSubmit(values)
     } catch (e) {
       console.error('Error while saving', e)
       alert('Error while editing')
