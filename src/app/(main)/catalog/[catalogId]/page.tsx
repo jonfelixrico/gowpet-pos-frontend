@@ -2,6 +2,7 @@ import { CatalogItem } from '@/models/CatalogItem'
 import { apiFetchData } from '@/server-utils/resource-api-util'
 import { Card, CardBody, Flex, Heading } from '@chakra-ui/react'
 import BackIconButton from '../BackIconButton'
+import Link from 'next/link'
 
 interface Params {
   catalogId: string
@@ -18,7 +19,9 @@ export default async function CatalogDetails({ params }: { params: Params }) {
   return (
     <Flex height="full" gap={5} direction="column">
       <Flex align="center" gap={5}>
-        <BackIconButton />
+        <Link href="/catalog">
+          <BackIconButton />
+        </Link>
         <Heading>Item Details</Heading>
       </Flex>
       <Card>
