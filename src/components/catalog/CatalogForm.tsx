@@ -35,7 +35,7 @@ export default function CatalogForm({
   return (
     <Formik initialValues={initialValues} onSubmit={handleSubmit}>
       {(props) => (
-        <Form>
+        <Form data-cy="form">
           <Flex direction="column" alignItems="stretch" gap={2}>
             <Field name="name">
               {({ field, form }: FieldProps) => (
