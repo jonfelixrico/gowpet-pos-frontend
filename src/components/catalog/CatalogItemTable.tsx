@@ -1,6 +1,8 @@
 import { CatalogItem } from '@/models/CatalogItem'
 import {
+  Button,
   Center,
+  Flex,
   Table,
   TableContainer,
   Tbody,
@@ -9,12 +11,20 @@ import {
   Thead,
   Tr,
 } from '@chakra-ui/react'
+import Link from 'next/link'
 
 function ContentItemTableRow({ item }: { item: CatalogItem }) {
   return (
     <Tr>
       <Td>{item.name}</Td>
       <Td isNumeric>{item.price}</Td>
+      <Td>
+        <Flex justify="end" w="full">
+          <Link href={`/catalog/${item.id}`}>
+            <Button>Show Details</Button>
+          </Link>
+        </Flex>
+      </Td>
     </Tr>
   )
 }
@@ -31,6 +41,8 @@ export default function CatalogItemTable({ items }: { items: CatalogItem[] }) {
           <Tr>
             <Th>Name</Th>
             <Th isNumeric>Price</Th>
+            {/* intended to be empty; this is for the buttons */}
+            <Th></Th>
           </Tr>
         </Thead>
 
