@@ -1,6 +1,6 @@
 import { CatalogItem } from '@/models/CatalogItem'
 import { apiFetchData } from '@/server-utils/resource-api-util'
-import { Card, CardBody, Flex, Heading } from '@chakra-ui/react'
+import { Button, Card, CardBody, Flex, Heading, Spacer } from '@chakra-ui/react'
 import BackIconButton from '../BackIconButton'
 import Link from 'next/link'
 
@@ -23,6 +23,12 @@ export default async function CatalogDetails({ params }: { params: Params }) {
           <BackIconButton />
         </Link>
         <Heading>Item Details</Heading>
+
+        <Spacer />
+
+        <Link href={`/catalog/${params.catalogId}/edit`}>
+          <Button>Edit</Button>
+        </Link>
       </Flex>
       <Card>
         <CardBody>
@@ -31,6 +37,7 @@ export default async function CatalogDetails({ params }: { params: Params }) {
               <Heading size="sx">Name:</Heading>
               {data.name}
             </Flex>
+
             <Flex gap={2}>
               <Heading size="sx">Price:</Heading>
               {data.price}
