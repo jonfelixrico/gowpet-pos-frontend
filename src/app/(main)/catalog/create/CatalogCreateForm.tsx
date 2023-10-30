@@ -18,7 +18,8 @@ export default function CatalogCreateForm() {
   const router = useRouter()
 
   const handleSubmit: FormikSubmit<CatalogFormFields> = async (
-    values: Payload
+    values,
+    actions
   ) => {
     try {
       await fetchJson('/api/catalog/product', {
@@ -36,6 +37,8 @@ export default function CatalogCreateForm() {
     } catch (e) {
       // TODO improve error handling
       alert(`Error! ${e}`)
+    } finally {
+      actions.setSubmitting(false)
     }
   }
 
