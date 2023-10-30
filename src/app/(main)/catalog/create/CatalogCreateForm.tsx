@@ -1,7 +1,6 @@
 'use client'
 
 import { Button } from '@chakra-ui/react'
-import { useRouter } from 'next/navigation'
 import { FormikSubmit } from '@/types/formik'
 import CatalogForm, {
   CatalogFormFields,
@@ -26,7 +25,9 @@ export default function CatalogCreateForm(props: {
 
   return (
     <CatalogForm handleSubmit={handleSubmit}>
-      <Button type="submit">Create</Button>
+      <Button type="submit" colorScheme="blue">
+        Create
+      </Button>
     </CatalogForm>
   )
 }

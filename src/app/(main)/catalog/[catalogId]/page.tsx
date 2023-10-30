@@ -37,7 +37,7 @@ export default async function CatalogDetails({ params }: { params: Params }) {
         <Spacer />
 
         <Link href={`/catalog/${params.catalogId}/edit`}>
-          <Button>Edit</Button>
+          <Button colorScheme="blue">Edit</Button>
         </Link>
 
         <CatalogDeleteButton onDelete={submitDelete} />
