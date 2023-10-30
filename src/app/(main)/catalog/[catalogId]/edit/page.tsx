@@ -4,6 +4,8 @@ import CatalogEditForm from './CatalogEditForm'
 import { Card, CardBody, Flex, Heading } from '@chakra-ui/react'
 import Link from 'next/link'
 import BackIconButton from '../../BackIconButton'
+import { CatalogFormFields } from '@/components/catalog/CatalogForm'
+import { redirect } from 'next/navigation'
 
 interface Params {
   catalogId: string
@@ -12,9 +14,23 @@ interface Params {
 export const dynamic = 'force-dynamic'
 
 export default async function CatalogEdit({ params }: { params: Params }) {
-  const { data } = await apiFetchData<CatalogItem>(
-    `/catalog/product/${params.catalogId}`
-  )
+  const url = `/catalog/product/${params.catalogId}`
+
+  const { data } = await apiFetchData<CatalogItem>(url)
+
+  async function uploadChanges(value: CatalogFormFields) {
+    'use server'
+
+    await apiFetchData(url, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(value),
+    })
+
+    redirect(`/catalog/${url}`)
+  }
 
   return (
     <Flex height="full" gap={5} direction="column">
@@ -28,7 +44,11 @@ export default async function CatalogEdit({ params }: { params: Params }) {
 
       <Card>
         <CardBody>
-          <CatalogEditForm id={data.id} initialValues={data} />
+          <CatalogEditForm
+            id={data.id}
+            initialValues={data}
+            onSubmit={uploadChanges}
+          />
         </CardBody>
       </Card>
     </Flex>
