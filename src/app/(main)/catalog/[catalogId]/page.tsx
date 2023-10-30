@@ -4,6 +4,7 @@ import { Button, Card, CardBody, Flex, Heading, Spacer } from '@chakra-ui/react'
 import BackIconButton from '../BackIconButton'
 import Link from 'next/link'
 import { redirect } from 'next/navigation'
+import CatalogDeleteButton from './CatalogDeleteButton'
 
 interface Params {
   catalogId: string
@@ -40,9 +41,7 @@ export default async function CatalogDetails({ params }: { params: Params }) {
         </Link>
 
         {/* Looks like server actions doesn't work with the onClick handler... it has to be form actions */}
-        <form action={submitDelete}>
-          <Button type="submit">Delete</Button>
-        </form>
+        <CatalogDeleteButton onDelete={submitDelete} />
       </Flex>
       <Card>
         <CardBody>
