@@ -20,7 +20,7 @@ function ContentItemTableRow({ item }: { item: CatalogItem }) {
       <Td isNumeric>{item.price}</Td>
       <Td>
         <Flex justify="end" w="full">
-          <Link href={`/catalog/${item.id}`}>
+          <Link href={`/catalog/${item.id}`} prefetch={false}>
             <Button>Show Details</Button>
           </Link>
         </Flex>
