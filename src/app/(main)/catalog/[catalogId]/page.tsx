@@ -3,6 +3,8 @@ import { apiFetchData } from '@/server-utils/resource-api-util'
 import { Button, Card, CardBody, Flex, Heading, Spacer } from '@chakra-ui/react'
 import BackIconButton from '../BackIconButton'
 import Link from 'next/link'
+import CatalogDetailsDeleteButton from './CatalogDetailsDeleteButton'
+import { redirect } from 'next/navigation'
 
 interface Params {
   catalogId: string
@@ -11,9 +13,18 @@ interface Params {
 export const dynamic = 'force-dynamic'
 
 export default async function CatalogDetails({ params }: { params: Params }) {
-  const { data } = await apiFetchData<CatalogItem>(
-    `/catalog/product/${params.catalogId}`
-  )
+  const url = `/catalog/product/${params.catalogId}`
+
+  const { data } = await apiFetchData<CatalogItem>(url)
+
+  async function submitDelete() {
+    'use server'
+
+    await apiFetchData(url, {
+      method: 'DELETE',
+    })
+    redirect('/catalog')
+  }
 
   return (
     <Flex height="full" gap={5} direction="column">
@@ -28,6 +39,8 @@ export default async function CatalogDetails({ params }: { params: Params }) {
         <Link href={`/catalog/${params.catalogId}/edit`}>
           <Button>Edit</Button>
         </Link>
+
+        <CatalogDetailsDeleteButton onClick={submitDelete} />
       </Flex>
       <Card>
         <CardBody>
