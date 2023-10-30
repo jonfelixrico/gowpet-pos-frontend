@@ -1,5 +1,5 @@
 import { CatalogItem } from '@/types/CatalogItem'
-import { apiFetchData } from '@/server-utils/resource-api-util'
+import { apiFetch, apiFetchData } from '@/server-utils/resource-api-util'
 import { Button, Card, CardBody, Flex, Heading, Spacer } from '@chakra-ui/react'
 import BackIconButton from '../BackIconButton'
 import Link from 'next/link'
@@ -20,7 +20,7 @@ export default async function CatalogDetails({ params }: { params: Params }) {
   async function submitDelete() {
     'use server'
 
-    await apiFetchData(url, {
+    await apiFetch(url, {
       method: 'DELETE',
     })
     redirect('/catalog')
@@ -40,7 +40,10 @@ export default async function CatalogDetails({ params }: { params: Params }) {
           <Button>Edit</Button>
         </Link>
 
-        <CatalogDetailsDeleteButton onClick={submitDelete} />
+        {/* Looks like server actions doesn't work with the onClick handler... it has to be form actions */}
+        <form action={submitDelete}>
+          <Button type="submit">Delete</Button>
+        </form>
       </Flex>
       <Card>
         <CardBody>
