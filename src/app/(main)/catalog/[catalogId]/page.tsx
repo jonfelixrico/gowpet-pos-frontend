@@ -1,5 +1,7 @@
 import { CatalogItem } from '@/models/CatalogItem'
 import { apiFetchData } from '@/server-utils/resource-api-util'
+import { Card, CardBody, Flex, Heading } from '@chakra-ui/react'
+import BackIconButton from '../BackIconButton'
 
 interface Params {
   catalogId: string
@@ -13,5 +15,26 @@ export default async function CatalogDetails({ params }: { params: Params }) {
     }
   )
 
-  return <div>{JSON.stringify(data)}</div>
+  return (
+    <Flex height="full" gap={5} direction="column">
+      <Flex align="center" gap={5}>
+        <BackIconButton />
+        <Heading>Item Details</Heading>
+      </Flex>
+      <Card>
+        <CardBody>
+          <Flex direction="column" gap={2}>
+            <Flex gap={2}>
+              <Heading size="sx">Name:</Heading>
+              {data.name}
+            </Flex>
+            <Flex gap={2}>
+              <Heading size="sx">Price:</Heading>
+              {data.price}
+            </Flex>
+          </Flex>
+        </CardBody>
+      </Card>
+    </Flex>
+  )
 }
