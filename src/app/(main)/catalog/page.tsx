@@ -1,5 +1,5 @@
 import CatalogItemTable from '@/components/catalog/CatalogItemTable'
-import { CatalogItem } from '@/models/CatalogItem'
+import { CatalogItem } from '@/types/CatalogItem'
 import { apiFetchData } from '@/server-utils/resource-api-util'
 import { Button, Center, Divider, Flex } from '@chakra-ui/react'
 import Link from 'next/link'

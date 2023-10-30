@@ -1,4 +1,4 @@
-import { CatalogItem } from '@/models/CatalogItem'
+import { CatalogItem } from '@/types/CatalogItem'
 import {
   Button,
   Center,
