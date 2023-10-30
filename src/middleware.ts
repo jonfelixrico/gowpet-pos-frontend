@@ -1,7 +1,7 @@
-import { verifyToken } from '@/utils/jwt-utils'
+import { verifyToken } from '@/server-utils/jwt-utils'
 import { NextRequest, NextResponse } from 'next/server'
 import UrlPattern from 'url-pattern'
-import { redirect } from './utils/next-utils'
+import { redirect } from './server-utils/next-utils'
 
 export const config = {
   matcher: [
