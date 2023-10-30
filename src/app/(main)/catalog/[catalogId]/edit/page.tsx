@@ -35,7 +35,7 @@ export default async function CatalogEdit({ params }: { params: Params }) {
   return (
     <Flex height="full" gap={5} direction="column">
       <Flex align="center" gap={5}>
-        <Link href={`/catalog/${params.catalogId}`} prefetch={false}>
+        <Link href={`/catalog/${params.catalogId}`}>
           <BackIconButton />
         </Link>
 
