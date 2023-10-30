@@ -1,15 +1,9 @@
 import CatalogItemTable from '@/components/catalog/CatalogItemTable'
+import { CatalogItem } from '@/models/CatalogItem'
 import { apiFetchData } from '@/server-utils/resource-api-util'
 import { Button, Center, Divider, Flex } from '@chakra-ui/react'
 import Link from 'next/link'
 import { ReactNode } from 'react'
-
-interface CatalogItem {
-  id: string
-  name: string
-  price: number
-  type: 'SERVICE'
-}
 
 export const dynamic = 'force-dynamic'
 
