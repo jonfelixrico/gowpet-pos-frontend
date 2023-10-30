@@ -57,7 +57,12 @@ export default function LoginForm() {
                   isInvalid={!!form.errors.username && !!form.touched.username}
                 >
                   <FormLabel>Username</FormLabel>
-                  <Input {...field} type="text" autoComplete="username" />
+                  <Input
+                    {...field}
+                    type="text"
+                    autoComplete="username"
+                    data-cy="username"
+                  />
                 </FormControl>
               )}
             </Field>
@@ -72,12 +77,17 @@ export default function LoginForm() {
                     {...field}
                     type="password"
                     autoComplete="current-password"
+                    data-cy="password"
                   />
                 </FormControl>
               )}
             </Field>
 
-            <Button isLoading={props.isSubmitting} type="submit">
+            <Button
+              isLoading={props.isSubmitting}
+              type="submit"
+              data-cy="submit"
+            >
               Submit
             </Button>
           </Flex>
