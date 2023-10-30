@@ -6,8 +6,8 @@ import CatalogForm, {
 import { FormikSubmit } from '@/types/formik'
 import { fetchJson } from '@/utils/fetch-utils'
 import { Button } from '@chakra-ui/react'
-import { redirect } from 'next/navigation'
 import Cookies from 'js-cookie'
+import { useRouter } from 'next/navigation'
 
 export default function CatalogEditForm({
   initialValues,
@@ -16,6 +16,8 @@ export default function CatalogEditForm({
   initialValues: CatalogFormFields
   id: string
 }) {
+  const router = useRouter()
+
   const handleSubmit: FormikSubmit<CatalogFormFields> = async (
     values,
     actions
@@ -30,8 +32,9 @@ export default function CatalogEditForm({
           Authorization: `Bearer ${Cookies.get('token')}`,
         },
       })
-      redirect(`/catalog/${id}`)
+      router.push(`/catalog/${id}`)
     } catch (e) {
+      console.error('Error while saving', e)
       alert('Error while editing')
     } finally {
       actions.setSubmitting(false)
