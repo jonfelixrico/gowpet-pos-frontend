@@ -3,7 +3,6 @@ import { apiFetch, apiFetchData } from '@/server-utils/resource-api-util'
 import { Button, Card, CardBody, Flex, Heading, Spacer } from '@chakra-ui/react'
 import BackIconButton from '../BackIconButton'
 import Link from 'next/link'
-import CatalogDetailsDeleteButton from './CatalogDetailsDeleteButton'
 import { redirect } from 'next/navigation'
 
 interface Params {
