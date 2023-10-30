@@ -21,7 +21,7 @@ export default function CatalogEditForm({
     actions
   ) => {
     try {
-      await fetchJson('/api/catalog/product', {
+      await fetchJson(`/api/catalog/product/${id}`, {
         method: 'PUT',
         body: JSON.stringify(values),
         headers: {
