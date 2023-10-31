@@ -15,13 +15,17 @@ import Link from 'next/link'
 
 function ContentItemTableRow({ item }: { item: CatalogItem }) {
   return (
-    <Tr>
-      <Td>{item.name}</Td>
-      <Td isNumeric>{item.price}</Td>
+    <Tr data-cy="row" data-catalog-id={item.id}>
+      <Td data-cy="name">{item.name}</Td>
+      <Td isNumeric data-cy="price">
+        {item.price}
+      </Td>
       <Td>
         <Flex justify="end" w="full">
           <Link href={`/catalog/${item.id}`} prefetch={false}>
-            <Button variant="ghost">Show Details</Button>
+            <Button variant="ghost" data-cy="showDetails">
+              Show Details
+            </Button>
           </Link>
         </Flex>
       </Td>
@@ -36,7 +40,7 @@ export default function CatalogItemTable({ items }: { items: CatalogItem[] }) {
 
   return (
     <TableContainer flex="1">
-      <Table>
+      <Table data-cy="table">
         <Thead>
           <Tr>
             <Th>Name</Th>

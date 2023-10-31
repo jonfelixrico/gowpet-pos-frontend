@@ -30,14 +30,14 @@ export default function CatalogDeleteButton(props: {
     <>
       {/* Using button onClick with `onDelete` as a server action doesn't seem to work... it has to be a form */}
       <form action={promptDelete}>
-        <Button type="submit" colorScheme="red">
+        <Button type="submit" colorScheme="red" data-cy="delete">
           Delete
         </Button>
       </form>
 
       <Modal isOpen={isOpen} onClose={onClose}>
         <ModalOverlay />
-        <ModalContent>
+        <ModalContent data-cy="delete-dialog" data-open={isOpen}>
           <ModalHeader>Delete Item</ModalHeader>
           <ModalCloseButton />
           <ModalBody>
@@ -46,11 +46,11 @@ export default function CatalogDeleteButton(props: {
           </ModalBody>
 
           <ModalFooter gap={2}>
-            <Button colorScheme="red" onClick={confirmDelete}>
+            <Button colorScheme="red" onClick={confirmDelete} data-cy="submit">
               Yes, delete
             </Button>
 
-            <Button variant="ghost" onClick={onClose}>
+            <Button variant="ghost" onClick={onClose} data-cy="cancel">
               No, cancel
             </Button>
           </ModalFooter>

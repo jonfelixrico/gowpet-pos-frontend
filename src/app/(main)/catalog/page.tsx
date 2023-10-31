@@ -12,7 +12,9 @@ function Layout({ children }: { children: ReactNode }) {
     <Flex direction="column" gap="2" as="main" height="100%">
       <Flex justify="end">
         <Link href="/catalog/create">
-          <Button colorScheme="blue">Create</Button>
+          <Button colorScheme="blue" data-cy="create">
+            Create
+          </Button>
         </Link>
       </Flex>
       <Divider />

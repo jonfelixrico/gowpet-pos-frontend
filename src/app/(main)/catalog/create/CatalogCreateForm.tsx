@@ -25,7 +25,7 @@ export default function CatalogCreateForm(props: {
 
   return (
     <CatalogForm handleSubmit={handleSubmit}>
-      <Button type="submit" colorScheme="blue">
+      <Button type="submit" colorScheme="blue" data-cy="submit">
         Create
       </Button>
     </CatalogForm>

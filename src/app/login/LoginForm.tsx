@@ -5,7 +5,6 @@ import { Button, Flex, FormControl, FormLabel, Input } from '@chakra-ui/react'
 import { Formik, Form, Field, FieldProps, FormikHelpers } from 'formik'
 import Cookies from 'js-cookie'
 import { useRouter } from 'next/navigation'
-import { HTMLInputTypeAttribute } from 'react'
 
 interface Payload {
   username: string
@@ -58,7 +57,12 @@ export default function LoginForm() {
                   isInvalid={!!form.errors.username && !!form.touched.username}
                 >
                   <FormLabel>Username</FormLabel>
-                  <Input {...field} type="text" autoComplete="username" />
+                  <Input
+                    {...field}
+                    type="text"
+                    autoComplete="username"
+                    data-cy="username"
+                  />
                 </FormControl>
               )}
             </Field>
@@ -73,12 +77,17 @@ export default function LoginForm() {
                     {...field}
                     type="password"
                     autoComplete="current-password"
+                    data-cy="password"
                   />
                 </FormControl>
               )}
             </Field>
 
-            <Button isLoading={props.isSubmitting} type="submit">
+            <Button
+              isLoading={props.isSubmitting}
+              type="submit"
+              data-cy="submit"
+            >
               Submit
             </Button>
           </Flex>

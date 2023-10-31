@@ -1,6 +1,14 @@
 import { CatalogItem } from '@/types/CatalogItem'
 import { apiFetch, apiFetchData } from '@/server-utils/resource-api-util'
-import { Button, Card, CardBody, Flex, Heading, Spacer } from '@chakra-ui/react'
+import {
+  Button,
+  Card,
+  CardBody,
+  Flex,
+  Heading,
+  Spacer,
+  Text,
+} from '@chakra-ui/react'
 import BackIconButton from '../BackIconButton'
 import Link from 'next/link'
 import { redirect } from 'next/navigation'
@@ -29,7 +37,7 @@ export default async function CatalogDetails({ params }: { params: Params }) {
   return (
     <Flex height="full" gap={5} direction="column">
       <Flex align="center" gap={5}>
-        <Link href="/catalog">
+        <Link href="/catalog" data-cy="back">
           <BackIconButton />
         </Link>
         <Heading>Item Details</Heading>
@@ -37,7 +45,9 @@ export default async function CatalogDetails({ params }: { params: Params }) {
         <Spacer />
 
         <Link href={`/catalog/${params.catalogId}/edit`}>
-          <Button colorScheme="blue">Edit</Button>
+          <Button colorScheme="blue" data-cy="edit">
+            Edit
+          </Button>
         </Link>
 
         <CatalogDeleteButton onDelete={submitDelete} />
@@ -47,12 +57,14 @@ export default async function CatalogDetails({ params }: { params: Params }) {
           <Flex direction="column" gap={2}>
             <Flex gap={2}>
               <Heading size="sx">Name:</Heading>
-              {data.name}
+              <Text data-cy="name">{data.name}</Text>
             </Flex>
 
             <Flex gap={2}>
-              <Heading size="sx">Price:</Heading>
-              {data.price}
+              <Heading size="sx" data-cy="price">
+                Price:
+              </Heading>
+              <Text data-cy="price">{data.price}</Text>
             </Flex>
           </Flex>
         </CardBody>
