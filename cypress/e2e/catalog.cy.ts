@@ -54,6 +54,31 @@ describe('catalog', () => {
       })
   })
 
+  it('can leave the update page', () => {
+    cy.visit('/catalog')
+    cy.get('[data-cy="showDetails"]').first().click()
+
+    cy.location('pathname').should('match', /\/catalog\/.+$/)
+
+    cy.get('[data-cy="back"]').click()
+
+    cy.location('pathname').should('equal', '/catalog')
+  })
+
+  it('can cancel delete', () => {
+    cy.visit('/catalog')
+    cy.get('[data-cy="showDetails"]').first().click()
+
+    cy.location('pathname').should('match', /\/catalog\/.+$/)
+
+    cy.get('[data-cy="delete"]').click()
+    const dialog = cy.get('[data-cy="delete-dialog"][data-open="true"]')
+    dialog.should('exist')
+    dialog.get('[data-cy="cancel"]').click()
+
+    cy.get('[data-cy="delete-dialog"][data-open="true"]').should('not.exist')
+  })
+
   it('supports delete', () => {
     cy.visit('/catalog')
     cy.get('[data-cy="showDetails"]').first().click()
