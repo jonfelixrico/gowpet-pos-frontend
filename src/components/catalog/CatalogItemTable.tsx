@@ -24,7 +24,7 @@ function ContentItemTableRow({ item }: { item: CatalogItem }) {
       <Td>
         <Flex justify="end" w="full">
           <Link href={`/catalog/${item.id}`} prefetch={false}>
-            <Button variant="ghost" data-cy="showDetails">
+            <Button variant="ghost" data-cy="show-details">
               Show Details
             </Button>
           </Link>
