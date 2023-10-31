@@ -27,10 +27,7 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-pnpm-store-
 
-      - name: Install dependencies
-        shell: bash
-        run: pnpm i --frozen-lockfile
-
-      - name: Run Cypress
-        shell: bash
-        run: pnpm test:component:ci
+      - name: Cypress run
+        uses: cypress-io/github-action@v6
+        with:
+          component: true
