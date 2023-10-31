@@ -23,19 +23,19 @@ function Layout({ children }: { children: ReactNode }) {
   )
 }
 
-function Content({ items }: { items: CatalogItem[] }) {
+export function CatalogContent({ items }: { items: CatalogItem[] }) {
   if (!items.length) {
     return <Center flex="1">No items</Center>
   }
 
-  return <CatalogItemTable items={items} />
+  return <CatalogItemTable items={items} flex={1} />
 }
 
 export default async function Catalog() {
   const { data } = await apiFetchData<CatalogItem[]>('/catalog')
   return (
     <Layout>
-      <Content items={data} />
+      <CatalogContent items={data} />
     </Layout>
   )
 }
