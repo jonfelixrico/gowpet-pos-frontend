@@ -25,12 +25,19 @@ describe('catalog', () => {
     cy.visit('/catalog')
     cy.get('[data-cy="showDetails"]').first().click()
 
+    const idRegex = /\/catalog\/((?:\w|\d|-)+)$/
     // match /catalog/:id
-    cy.url().contains(/\/catalog\/(\w|\d|-)+$/)
+    cy.url().should('match', idRegex)
+
+    let id = ''
+    cy.url().then((url) => {
+      const [_, extractedId] = idRegex.exec(url) ?? []
+      id = extractedId
+    })
 
     // check navigation to the edit page
     cy.get('[data-cy="edit"]').click()
-    cy.url().contains(/\/catalog\/.+\/edit/)
+    cy.url().should('equal', `/catalog/${id}/edit`)
 
     // do data input
     const newName = `Test data ${Date.now()}`
@@ -40,15 +47,9 @@ describe('catalog', () => {
     cy.get('[data-cy="price"]').type(newPrice)
     cy.get('[data-cy="submit"]').click()
 
-    cy.url().contains(/\/catalog\/(\w|\d|-)+$/)
+    cy.url().should('equal', `/catalog/${id}`)
     cy.get('[data-cy="name"]').contains(newName)
     cy.get('[data-cy="price"]').contains(newPrice)
-
-    let id = ''
-    cy.url().then((url) => {
-      const [_, extractedId] = /\/catalog\/((?:\w|\d|-)+)$/.exec(url) ?? []
-      id = extractedId
-    })
 
     cy.visit('/catalog')
     cy.get(`[data-cy="row"][data-catalog-id="${id}"]`).should('exist')
