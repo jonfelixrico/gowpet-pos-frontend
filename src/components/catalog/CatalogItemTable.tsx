@@ -1,15 +1,16 @@
 import { CatalogItem } from '@/types/CatalogItem'
 import {
   Button,
-  Center,
   Flex,
   Table,
   TableContainer,
+  TableContainerProps,
   Tbody,
   Td,
   Th,
   Thead,
   Tr,
+  forwardRef,
 } from '@chakra-ui/react'
 import Link from 'next/link'
 
@@ -33,29 +34,28 @@ function ContentItemTableRow({ item }: { item: CatalogItem }) {
   )
 }
 
-export default function CatalogItemTable({ items }: { items: CatalogItem[] }) {
-  if (!items.length) {
-    return <Center flex="1">No items</Center>
-  }
+const CatalogItemTable = forwardRef<
+  TableContainerProps & { items: CatalogItem[] },
+  'div'
+>(({ items, ...props }, ref) => (
+  <TableContainer {...props} ref={ref}>
+    <Table data-cy="table">
+      <Thead>
+        <Tr>
+          <Th>Name</Th>
+          <Th isNumeric>Price</Th>
+          {/* intended to be empty; this is for the buttons */}
+          <Th></Th>
+        </Tr>
+      </Thead>
 
-  return (
-    <TableContainer flex="1">
-      <Table data-cy="table">
-        <Thead>
-          <Tr>
-            <Th>Name</Th>
-            <Th isNumeric>Price</Th>
-            {/* intended to be empty; this is for the buttons */}
-            <Th></Th>
-          </Tr>
-        </Thead>
+      <Tbody>
+        {items.map((item) => (
+          <ContentItemTableRow item={item} key={item.id} />
+        ))}
+      </Tbody>
+    </Table>
+  </TableContainer>
+))
 
-        <Tbody>
-          {items.map((item) => (
-            <ContentItemTableRow item={item} key={item.id} />
-          ))}
-        </Tbody>
-      </Table>
-    </TableContainer>
-  )
-}
+export default CatalogItemTable
