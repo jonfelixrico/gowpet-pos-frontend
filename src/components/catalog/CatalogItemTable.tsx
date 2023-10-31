@@ -34,28 +34,31 @@ function ContentItemTableRow({ item }: { item: CatalogItem }) {
   )
 }
 
-const CatalogItemTable = forwardRef<
-  TableContainerProps & { items: CatalogItem[] },
-  'div'
->(({ items, ...props }, ref) => (
-  <TableContainer {...props} ref={ref}>
-    <Table data-cy="table">
-      <Thead>
-        <Tr>
-          <Th>Name</Th>
-          <Th isNumeric>Price</Th>
-          {/* intended to be empty; this is for the buttons */}
-          <Th></Th>
-        </Tr>
-      </Thead>
+export type CatalogItemTableProps = TableContainerProps & {
+  items: CatalogItem[]
+}
 
-      <Tbody>
-        {items.map((item) => (
-          <ContentItemTableRow item={item} key={item.id} />
-        ))}
-      </Tbody>
-    </Table>
-  </TableContainer>
-))
+const CatalogItemTable = forwardRef<CatalogItemTableProps, 'div'>(
+  ({ items, ...props }, ref) => (
+    <TableContainer {...props} ref={ref}>
+      <Table>
+        <Thead>
+          <Tr>
+            <Th>Name</Th>
+            <Th isNumeric>Price</Th>
+            {/* intended to be empty; this is for the buttons */}
+            <Th></Th>
+          </Tr>
+        </Thead>
+
+        <Tbody>
+          {items.map((item) => (
+            <ContentItemTableRow item={item} key={item.id} />
+          ))}
+        </Tbody>
+      </Table>
+    </TableContainer>
+  )
+)
 
 export default CatalogItemTable
