@@ -23,7 +23,7 @@ describe('catalog', () => {
 
   it('supports update', () => {
     cy.visit('/catalog')
-    cy.get('[data-cy="showDetails"]').first().click()
+    cy.get('[data-cy="show-details"]').first().click()
 
     // match /catalog/:id
     cy.url()
@@ -56,7 +56,7 @@ describe('catalog', () => {
 
   it('can leave the update page', () => {
     cy.visit('/catalog')
-    cy.get('[data-cy="showDetails"]').first().click()
+    cy.get('[data-cy="show-details"]').first().click()
 
     cy.location('pathname').should('match', /\/catalog\/.+$/)
 
@@ -67,7 +67,7 @@ describe('catalog', () => {
 
   it('can cancel delete', () => {
     cy.visit('/catalog')
-    cy.get('[data-cy="showDetails"]').first().click()
+    cy.get('[data-cy="show-details"]').first().click()
 
     cy.location('pathname').should('match', /\/catalog\/.+$/)
 
@@ -81,7 +81,7 @@ describe('catalog', () => {
 
   it('supports delete', () => {
     cy.visit('/catalog')
-    cy.get('[data-cy="showDetails"]').first().click()
+    cy.get('[data-cy="show-details"]').first().click()
 
     cy.url()
       .should('match', ID_REGEX)

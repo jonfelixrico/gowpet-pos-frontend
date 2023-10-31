@@ -7,8 +7,9 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "format": "prettier --write \"src/**/*.{js,jsx,ts,tsx}\"",
-    "cypress:open": "cypress open"
+    "format": "prettier --write \"**/*.{js,jsx,ts,tsx}\"",
+    "cypress:open": "cypress open",
+    "test:component:ci": "cypress run --component"
   },
   "dependencies": {
     "@chakra-ui/next-js": "^2.1.5",
