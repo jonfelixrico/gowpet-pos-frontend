@@ -16,13 +16,13 @@ describe('CatalogContenet', () => {
 
   const ITEMS: CatalogItem[] = [
     {
-      id: 'sample 1',
+      id: 'sample-1',
       name: 'sample 1 name',
       price: 1234.56,
       type: 'SERVICE',
     },
     {
-      id: 'sample 2',
+      id: 'sample-2',
       name: 'sample 2 name',
       price: 789.1,
       type: 'SERVICE',
@@ -48,12 +48,27 @@ describe('CatalogContenet', () => {
     )
 
     cy.get('[data-cy="row"]').should('have.length', 2)
-    const firstRow = cy.get('[data-cy="row"]').eq(0)
-    firstRow.get('[data-cy="name"]').contains('sample 1 name')
-    firstRow.get('[data-cy="price"]').contains('1234.56')
 
-    const secondRow = cy.get('[data-cy="row"]').eq(1)
-    secondRow.get('[data-cy="name"]').contains('sample 2 name')
-    secondRow.get('[data-cy="price"]').contains('789.1')
+    // check 1st row
+    cy.get('[data-catalog-id="sample-1"] [data-cy="name"]').contains(
+      'sample 1 name'
+    )
+    cy.get('[data-catalog-id="sample-1"] [data-cy="price"]').contains('1234.56')
+    cy.get('[data-catalog-id="sample-1"] [data-cy="show-details"]').should(
+      'have.attr',
+      'href',
+      '/catalog/sample-1'
+    )
+
+    // check 2nd row
+    cy.get('[data-catalog-id="sample-2"] [data-cy="name"]').contains(
+      'sample 2 name'
+    )
+    cy.get('[data-catalog-id="sample-2"] [data-cy="price"]').contains('789.1')
+    cy.get('[data-catalog-id="sample-2"] [data-cy="show-details"]').should(
+      'have.attr',
+      'href',
+      '/catalog/sample-2'
+    )
   })
 })
