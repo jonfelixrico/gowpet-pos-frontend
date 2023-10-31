@@ -37,7 +37,7 @@ export default async function CatalogDetails({ params }: { params: Params }) {
   return (
     <Flex height="full" gap={5} direction="column">
       <Flex align="center" gap={5}>
-        <Link href="/catalog">
+        <Link href="/catalog" data-cy="back">
           <BackIconButton />
         </Link>
         <Heading>Item Details</Heading>

@@ -50,7 +50,7 @@ export default function CatalogDeleteButton(props: {
               Yes, delete
             </Button>
 
-            <Button variant="ghost" onClick={onClose}>
+            <Button variant="ghost" onClick={onClose} data-cy="cancel">
               No, cancel
             </Button>
           </ModalFooter>
