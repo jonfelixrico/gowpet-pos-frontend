@@ -23,17 +23,17 @@ describe('catalog', () => {
     cy.get('[data-cy="table"] [data-cy="row"] [data-cy="name"]').contains(name)
   })
 
+  const ID_REGEX = /\/catalog\/((?:\w|\d|-)+)$/
+
   it('supports update', () => {
     cy.visit('/catalog')
     cy.get('[data-cy="showDetails"]').first().click()
 
-    const idRegex = /\/catalog\/((?:\w|\d|-)+)$/
-
     // match /catalog/:id
     cy.url()
-      .should('match', idRegex)
+      .should('match', ID_REGEX)
       .then((url) => {
-        const [_, id] = idRegex.exec(url) ?? []
+        const [_, id] = ID_REGEX.exec(url) ?? []
 
         // check navigation to the edit page
         cy.get('[data-cy="edit"]').click()
