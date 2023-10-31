@@ -15,13 +15,15 @@ import Link from 'next/link'
 
 function ContentItemTableRow({ item }: { item: CatalogItem }) {
   return (
-    <Tr data-cy="row">
+    <Tr data-cy="row" data-catalog-id={item.id}>
       <Td data-cy="name">{item.name}</Td>
       <Td isNumeric>{item.price}</Td>
       <Td>
         <Flex justify="end" w="full">
           <Link href={`/catalog/${item.id}`} prefetch={false}>
-            <Button variant="ghost">Show Details</Button>
+            <Button variant="ghost" data-cy="showDetails">
+              Show Details
+            </Button>
           </Link>
         </Flex>
       </Td>
