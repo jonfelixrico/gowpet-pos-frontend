@@ -8,7 +8,7 @@ describe('catalog', () => {
     cy.url().should('not.contain', '/catalog/create')
   })
 
-  it('supports item creation', () => {
+  it('supports create', () => {
     cy.visit('/catalog')
     cy.get('[data-cy="create"]').click()
 
@@ -23,7 +23,7 @@ describe('catalog', () => {
     cy.get('[data-cy="table"] [data-cy="row"] [data-cy="name"]').contains(name)
   })
 
-  it('supports item update', () => {
+  it('supports update', () => {
     cy.visit('/catalog')
     cy.get('[data-cy="showDetails"]').first().click()
 
