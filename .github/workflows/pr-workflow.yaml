@@ -27,7 +27,6 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-pnpm-store-
 
-      - name: Cypress run
-        uses: cypress-io/github-action@v6
-        with:
-          start: pnpm test:component:ci
+      - name: Run Cypress
+        shell: bash
+        run: pnpm test:component:ci
