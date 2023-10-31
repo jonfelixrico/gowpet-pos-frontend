@@ -33,7 +33,7 @@ describe('catalog', () => {
     cy.url()
       .should('match', ID_REGEX)
       .then((url) => {
-        const [_, id] = ID_REGEX.exec(url) ?? []
+        const [_, id] = ID_REGEX.exec(url) ?? [] // this shouldn't end up having an empty array value since we've tested that the Regexp is valid via "should match"
 
         // check navigation to the edit page
         cy.get('[data-cy="edit"]').click()
@@ -55,6 +55,30 @@ describe('catalog', () => {
         const row = cy.get(`[data-cy="row"][data-catalog-id="${id}"]`)
         row.get('[data-cy="name"]').contains(newName)
         row.get('[data-cy="price"]').contains(newPrice)
+      })
+  })
+
+  it('supports delete', () => {
+    cy.visit('/catalog')
+    cy.get('[data-cy="showDetails"]').first().click()
+
+    cy.url()
+      .should('match', ID_REGEX)
+      .then((url) => {
+        const [_, id] = ID_REGEX.exec(url) ?? [] // this shouldn't end up having an empty array value since we've tested that the Regexp is valid via "should match"
+
+        // launch confirmation
+        cy.get('[data-cy="delete"]').click()
+        // check if dialog exists and is opened
+        const dialog = cy.get('[data-cy="delete-dialog"][data-open="true"]')
+        dialog.should('exist')
+
+        // do the actual delete
+        dialog.get('[data-cy="submit"]').click()
+
+        cy.location('pathname').should('equal', '/catalog')
+        // should not exist in listing
+        cy.get(`[data-catalog-id="${id}"]`).should('not.exist')
       })
   })
 })
