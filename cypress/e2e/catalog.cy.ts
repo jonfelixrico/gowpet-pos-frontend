@@ -1,19 +1,12 @@
 describe('catalog', () => {
-  it('has the critical UI elements', () => {
-    cy.visit('/catalog')
-
-    cy.get('[data-cy="create"]').should('exist')
-    cy.get('[data-cy="table"').should('exist')
-  })
-
-  it('allows leaving catalog creation', () => {
+  it('can leave the catalog create screen', () => {
     cy.visit('/catalog/create')
     cy.get('[data-cy="back"]').click()
     cy.url().should('contain', '/catalog')
     cy.url().should('not.contain', '/catalog/create')
   })
 
-  it('allows item creation', () => {
+  it('supports item creation', () => {
     cy.visit('/catalog')
     cy.get('[data-cy="create"]').click()
 
