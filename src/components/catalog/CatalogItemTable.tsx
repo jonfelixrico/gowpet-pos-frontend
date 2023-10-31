@@ -23,10 +23,12 @@ function ContentItemTableRow({ item }: { item: CatalogItem }) {
       </Td>
       <Td>
         <Flex justify="end" w="full">
-          <Link href={`/catalog/${item.id}`} prefetch={false}>
-            <Button variant="ghost" data-cy="show-details">
-              Show Details
-            </Button>
+          <Link
+            href={`/catalog/${item.id}`}
+            prefetch={false}
+            data-cy="show-details"
+          >
+            <Button variant="ghost">Show Details</Button>
           </Link>
         </Flex>
       </Td>
