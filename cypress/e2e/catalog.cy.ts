@@ -1,7 +1,5 @@
-import { expect } from 'chai'
-
 describe('catalog', () => {
-  it('can leave the catalog create screen', () => {
+  it('can leave the create page', () => {
     cy.visit('/catalog/create')
     cy.get('[data-cy="back"]').click()
     cy.url().should('contain', '/catalog')
