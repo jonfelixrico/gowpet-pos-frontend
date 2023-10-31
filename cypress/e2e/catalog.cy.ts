@@ -1,3 +1,5 @@
+import { expect } from 'chai'
+
 describe('catalog', () => {
   it('can leave the catalog create screen', () => {
     cy.visit('/catalog/create')
@@ -50,7 +52,9 @@ describe('catalog', () => {
         cy.get('[data-cy="price"]').contains(newPrice)
 
         cy.visit('/catalog')
-        cy.get(`[data-cy="row"][data-catalog-id="${id}"]`).should('exist')
+        const row = cy.get(`[data-cy="row"][data-catalog-id="${id}"]`)
+        row.get('[data-cy="name"]').contains(newName)
+        row.get('[data-cy="price"]').contains(newPrice)
       })
   })
 })
