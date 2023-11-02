@@ -24,8 +24,6 @@ services:
     build: https://github.com/jonfelixrico/gowpet-pos-backend.git#dockerfile-test
     ports:
       - 3005:3005
-    environment:
-      - spring_datasource_url=jdbc:postgresql://postgres/gowpet-pos
     # depends_on:
     #   - postgres
     container_name: backend
