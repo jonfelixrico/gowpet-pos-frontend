@@ -4,49 +4,47 @@ services:
     build: .
     ports:
       - '3000:3000'
+    container_name: frontend
+    network_mode: host
 
-  postgres:
-    image: postgres:14-alpine
-    ports:
-      - 5432:5432
-    volumes:
-      - ~/apps/postgres:/var/lib/postgresql/data
-    environment:
-      - POSTGRES_PASSWORD=postgres
-      - POSTGRES_USER=postgres
-      - POSTGRES_DB=gowpet-pos
+  # postgres:
+  #   image: postgres:14-alpine
+  #   ports:
+  #     - 5432:5432
+  #   volumes:
+  #     - ~/apps/postgres:/var/lib/postgresql/data
+  #   environment:
+  #     - POSTGRES_PASSWORD=postgres
+  #     - POSTGRES_USER=postgres
+  #     - POSTGRES_DB=gowpet-pos
+  #   container_name: db
+  #   network_mode: host
 
   backend:
-    build: https://github.com/jonfelixrico/gowpet-pos-backend.git#develop
-    ports: 3005:3005
+    build: https://github.com/jonfelixrico/gowpet-pos-backend.git#dockerfile-test
+    ports:
+      - 3005:3005
     environment:
-      - spring_datasource_url: jdbc:postgresql://postgres/gowpet-pos
-    depends_on:
-      - postgres
+      - spring_datasource_url=jdbc:postgresql://postgres/gowpet-pos
+    # depends_on:
+    #   - postgres
+    container_name: backend
+    network_mode: host
 
-  e2e:
-    image: cypress
-    build: ./e2e
-    container_name: cypress
+  cypress:
+    image: cypress:latest
+    profiles:
+      - cypress
     depends_on:
       - frontend
       - backend
-    # note: inside e2e container, the network allows accessing
-    # "web" host under name "web"
-    # so "curl http://web" would return whatever the webserver
-    # in the "web" container is cooking
-    # see https://docs.docker.com/compose/networking/
     environment:
-      - CYPRESS_baseUrl=http://frontend:3000
-    command: npx cypress run
-    # mount the host directory e2e/cypress and the file e2e/cypress.config.js as
-    # volumes within the container
-    # this means that:
-    #  1. anything that Cypress writes to these folders (e.g., screenshots,
-    #     videos) appears also on the Docker host's filesystem
-    #  2. any change that the developer applies to Cypress files on the host
-    #     machine immediately takes effect within the e2e container (no docker
-    #     rebuild required).
+      # pass base url to test pointing at the web application
+      - CYPRESS_baseUrl=http://localhost:3000
+    command: 'npx cypress run'
+    ipc: host
+    build: ./services/cypress
+    ports:
+      - '9000:80'
     volumes:
-      - ./e2e/cypress:/app/cypress
-      - ./e2e/cypress.config.js:/app/cypress.config.js
+      - './cypress/e2e:/app/tests:ro'
