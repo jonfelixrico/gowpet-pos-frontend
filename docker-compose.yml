@@ -6,6 +6,8 @@ services:
       - '3000:3000'
     container_name: frontend
     network_mode: host
+    depends_on:
+      - backend
 
   # postgres:
   #   image: postgres:14-alpine
@@ -29,20 +31,13 @@ services:
     container_name: backend
     network_mode: host
 
-  cypress:
-    image: cypress:latest
-    profiles:
-      - cypress
-    depends_on:
-      - frontend
-      - backend
-    environment:
-      # pass base url to test pointing at the web application
-      - CYPRESS_baseUrl=http://localhost:3000
-    command: 'npx cypress run'
-    ipc: host
-    build: ./services/cypress
-    ports:
-      - '9000:80'
+  cypress-chrome:
+    image: cypress/included:12.8.1
+    command: '--browser chrome'
+    working_dir: /cypress
     volumes:
-      - './cypress/e2e:/app/tests:ro'
+      - ./:/cypress
+    depends_on:
+      - backend
+      - frontend
+    network_mode: host
