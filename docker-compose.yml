@@ -1,0 +1,52 @@
+version: '3.8'
+services:
+  frontend:
+    build: .
+    ports:
+      - '3000:3000'
+
+  postgres:
+    image: postgres:14-alpine
+    ports:
+      - 5432:5432
+    volumes:
+      - ~/apps/postgres:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_USER=postgres
+      - POSTGRES_DB=gowpet-pos
+
+  backend:
+    build: https://github.com/jonfelixrico/gowpet-pos-backend.git#develop
+    ports: 3005:3005
+    environment:
+      - spring_datasource_url: jdbc:postgresql://postgres/gowpet-pos
+    depends_on:
+      - postgres
+
+  e2e:
+    image: cypress
+    build: ./e2e
+    container_name: cypress
+    depends_on:
+      - frontend
+      - backend
+    # note: inside e2e container, the network allows accessing
+    # "web" host under name "web"
+    # so "curl http://web" would return whatever the webserver
+    # in the "web" container is cooking
+    # see https://docs.docker.com/compose/networking/
+    environment:
+      - CYPRESS_baseUrl=http://frontend:3000
+    command: npx cypress run
+    # mount the host directory e2e/cypress and the file e2e/cypress.config.js as
+    # volumes within the container
+    # this means that:
+    #  1. anything that Cypress writes to these folders (e.g., screenshots,
+    #     videos) appears also on the Docker host's filesystem
+    #  2. any change that the developer applies to Cypress files on the host
+    #     machine immediately takes effect within the e2e container (no docker
+    #     rebuild required).
+    volumes:
+      - ./e2e/cypress:/app/cypress
+      - ./e2e/cypress.config.js:/app/cypress.config.js
