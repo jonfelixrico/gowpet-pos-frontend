@@ -10,7 +10,6 @@ import {
   Th,
   Thead,
   Tr,
-  forwardRef,
 } from '@chakra-ui/react'
 import Link from 'next/link'
 
