@@ -40,9 +40,12 @@ export type CatalogItemTableProps = TableContainerProps & {
   items: CatalogItem[]
 }
 
-const CatalogItemTable = forwardRef<CatalogItemTableProps, 'div'>(
-  ({ items, ...props }, ref) => (
-    <TableContainer {...props} ref={ref}>
+export default function CatalogItemTable({
+  items,
+  ...props
+}: CatalogItemTableProps) {
+  return (
+    <TableContainer {...props}>
       <Table>
         <Thead>
           <Tr>
@@ -61,6 +64,4 @@ const CatalogItemTable = forwardRef<CatalogItemTableProps, 'div'>(
       </Table>
     </TableContainer>
   )
-)
-
-export default CatalogItemTable
+}
