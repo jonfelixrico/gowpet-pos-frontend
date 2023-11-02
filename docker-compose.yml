@@ -31,13 +31,12 @@ services:
     container_name: backend
     network_mode: host
 
-  cypress-chrome:
-    image: cypress/included:12.8.1
-    command: '--browser chrome'
-    working_dir: /cypress
-    volumes:
-      - ./:/cypress
+  cypress:
+    build:
+      dockerfile: ./docker/cypress/Dockerfile
+    command: 'pnpm test:e2e:ci'
+    network_mode: host
+    working_dir: /app
     depends_on:
       - backend
       - frontend
-    network_mode: host
