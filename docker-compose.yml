@@ -32,6 +32,8 @@ services:
   cypress:
     build:
       dockerfile: ./docker/cypress/Dockerfile
-    command: dockerize -wait http://localhost:3005/authenticate/publicKey -wait http://localhost:3000 && pnpm test:e2e:ci
+    command: |
+      dockerize -wait http://localhost:3005/authenticate/publicKey -wait http://localhost:3000 -timeout 30s
+      pnpm test:e2e:ci
     network_mode: host
     working_dir: /app
