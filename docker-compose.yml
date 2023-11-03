@@ -2,38 +2,32 @@ version: '3.8'
 services:
   frontend:
     build: .
-    ports:
-      - 3000:3000
     container_name: frontend
-    network_mode: host
 
-  # postgres:
-  #   image: postgres:14-alpine
-  #   ports:
-  #     - 5432:5432
-  #   volumes:
-  #     - ~/apps/postgres:/var/lib/postgresql/data
-  #   environment:
-  #     - POSTGRES_PASSWORD=postgres
-  #     - POSTGRES_USER=postgres
-  #     - POSTGRES_DB=gowpet-pos
-  #   container_name: db
-  #   network_mode: host
+  postgres:
+    image: postgres:14-alpine
+    volumes:
+      - ~/apps/postgres:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_USER=postgres
+      - POSTGRES_DB=gowpet-pos
+    container_name: db
 
   backend:
     build: https://github.com/jonfelixrico/gowpet-pos-backend.git#develop
-    ports:
-      - 3005:3005
-    # depends_on:
-    #   - postgres
+    depends_on:
+      - postgres
     container_name: backend
-    network_mode: host
+    environment:
+      - spring.datasource.url=jdbc://postgresql://postgres/gowpet-pos
 
   cypress:
     build:
       dockerfile: ./docker/cypress/Dockerfile
     command: |
-      dockerize -wait http://localhost:3005/authenticate/publicKey -wait http://localhost:3000 -timeout 30s
+      dockerize -wait http://backend:3005/authenticate/publicKey -wait http://frontend:3000 -timeout 30s
       pnpm test:e2e:ci
-    network_mode: host
     working_dir: /app
+    environment:
+      - CYPRESS_BASE_URL=http://nginx
