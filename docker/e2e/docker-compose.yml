@@ -25,7 +25,7 @@ services:
 
   cypress:
     build:
-      dockerfile: ./docker/cypress/Dockerfile
+      dockerfile: ../cypress/Dockerfile
     command: |
       dockerize -wait http://backend:3005/authenticate/publicKey -wait http://frontend:3000 -timeout 30s
       pnpm test:e2e:ci
