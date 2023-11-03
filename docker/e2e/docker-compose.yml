@@ -4,8 +4,8 @@ services:
     build:
       dockerfile: docker/e2e/Dockerfile
       context: ../..
-      environment:
-        - BACKEND_URL=http://backend
+    environment:
+      - BACKEND_URL=http://backend
 
   db:
     image: postgres:14-alpine
@@ -36,7 +36,7 @@ services:
     # 2. Create test user
     # 3. Execut the test
     command: >
-      bash -c "dockerize -wait http://backend:3005/authenticate/publicKey -wait http://frontend:3000 -timeout 60s
+      bash -c "dockerize -wait http://nginx/api/authenticate/publicKey -wait http://nginx -timeout 60s
       && curl -XPOST -H \"Content-type: application/json\" -d '{ \"username\": \"root\", \"password\": \"password\" }' -v 'http://backend:3005/debug/user'
       && pnpm test:e2e:ci"
     working_dir: /app
