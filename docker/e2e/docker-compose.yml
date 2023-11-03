@@ -17,6 +17,7 @@ services:
     restart: on-failure
     environment:
       - SPRING_DATASOURCE_URL=jdbc:postgresql://db:5432/gowpet-pos
+      - APP_DEBUG=true
 
   nginx:
     image: nginx:latest
@@ -32,10 +33,10 @@ services:
     # 1. Make sure that FE and BE are up
     # 2. Create test user
     # 3. Execut the test
-    command: |
-      dockerize -wait http://backend:3005/authenticate/publicKey -wait http://frontend:3000 -timeout 30s
-      curl -XPOST -H "Content-type: application/json" -d '{ "username": "root", "password": "password" }' 'http://backend:3005'
-      pnpm test:e2e:ci
+    command: >
+      bash -c "dockerize -wait http://backend:3005/authenticate/publicKey -wait http://frontend:3000 -timeout 60s
+      && curl -XPOST -H \"Content-type: application/json\" -d '{ \"username\": \"root\", \"password\": \"password\" }' -v 'http://backend:3005/debug/user'
+      && pnpm test:e2e:ci"
     working_dir: /app
     environment:
       - CYPRESS_BASE_URL=http://nginx
