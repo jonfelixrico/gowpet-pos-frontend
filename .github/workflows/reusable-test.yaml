@@ -38,6 +38,16 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
+      # In this step, this action saves a list of existing images,
+      # the cache is created without them in the post run.
+      # It also restores the cache if it exists.
+      - uses: satackey/action-docker-layer-caching@v0.0.11
+        continue-on-error: true
+
+      - name: Pull latest images
+        shell: bash
+        run: cd ./docker/e2e && docker-compose pull
+
       - name: Run the dockerized E2E suite
         shell: bash
         run: npm run test:e2e:ci:docker
