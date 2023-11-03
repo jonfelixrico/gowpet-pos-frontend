@@ -2,31 +2,30 @@ version: '3.8'
 services:
   frontend:
     build:
-      dockerfile: ./Dockerfile
+      dockerfile: docker/e2e/Dockerfile
       context: ../..
-    container_name: frontend
 
-  postgres:
+  db:
     image: postgres:14-alpine
-    volumes:
-      - ~/apps/postgres:/var/lib/postgresql/data
     environment:
       - POSTGRES_PASSWORD=postgres
       - POSTGRES_USER=postgres
       - POSTGRES_DB=gowpet-pos
-    container_name: db
 
   backend:
-    build: https://github.com/jonfelixrico/gowpet-pos-backend.git#develop
-    depends_on:
-      - postgres
-    container_name: backend
+    build: https://github.com/jonfelixrico/gowpet-pos-backend.git#debug-routes
+    restart: on-failure
     environment:
-      - spring.datasource.url=jdbc://postgresql://postgres/gowpet-pos
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://db:5432/gowpet-pos
+
+  nginx:
+    image: nginx:latest
+    volumes:
+      - ./nginx/default.conf:/etc/nginx/conf.d/default.conf:ro
 
   cypress:
     build:
-      dockerfile: ../cypress/Dockerfile
+      dockerfile: docker/cypress/Dockerfile
       context: ../..
 
     # Steps involved:
