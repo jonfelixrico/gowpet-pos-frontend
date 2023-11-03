@@ -15,4 +15,8 @@ FROM base AS runner
 WORKDIR /app
 COPY --from=deps /app/node_modules ./node_modules
 COPY . .
+
+# TODO figure out a way to provide this at runtime
+ENV BACKEND_URL http://backend:3005
+
 CMD ["pnpm", "dev"]
