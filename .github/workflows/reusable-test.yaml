@@ -61,6 +61,7 @@ jobs:
         run: pnpm lint
 
   test-component:
+    needs: [build, lint]
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -89,6 +90,7 @@ jobs:
         with:
           component: true
   test-e2e:
+    needs: [build, lint]
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
