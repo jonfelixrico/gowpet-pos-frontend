@@ -36,8 +36,7 @@ services:
     command: >
       bash -c "dockerize -wait http://nginx/api/authenticate/publicKey -wait http://nginx -timeout 60s
       && curl -XPOST -H \"Content-type: application/json\" -d '{ \"username\": \"root\", \"password\": \"password\" }' -v 'http://backend:3005/debug/user'
-      && cd docker/e2e
-      && docker-compose up --abort-on-container-exit --exit-code-from cypress
+      && pnpm test:e2e:ci"
     working_dir: /app
     environment:
       - CYPRESS_BASE_URL=http://nginx
