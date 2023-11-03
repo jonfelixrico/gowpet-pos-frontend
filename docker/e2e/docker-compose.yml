@@ -4,6 +4,8 @@ services:
     build:
       dockerfile: docker/e2e/Dockerfile
       context: ../..
+      environment:
+        - BACKEND_URL=http://backend
 
   db:
     image: postgres:14-alpine
