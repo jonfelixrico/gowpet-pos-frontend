@@ -11,7 +11,7 @@
     "cypress:open": "cypress open",
     "test:component:ci": "cypress run --component",
     "test:e2e:ci": "cypress run",
-    "test:e2e:ci:docker": "cd docker/e2e && docker-compose up --abort-on-container-exit --exit-code-from cypress"
+    "test:e2e:ci:docker": "cd docker/e2e && docker-compose up --build --abort-on-container-exit --exit-code-from cypress"
   },
   "dependencies": {
     "@chakra-ui/next-js": "^2.1.5",
