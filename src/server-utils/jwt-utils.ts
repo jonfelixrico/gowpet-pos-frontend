@@ -4,7 +4,7 @@ import { importSPKI, jwtVerify } from 'jose'
 async function getPublicKey() {
   // TODO cache the response
   const response = await fetchWrapper(
-    'http://localhost:3005/authenticate/publicKey'
+    new URL('/authenticate/publicKey', process.env.BACKEND_URL).toString()
   )
 
   const key = await response.text()
