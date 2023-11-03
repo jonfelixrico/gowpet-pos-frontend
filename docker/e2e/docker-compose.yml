@@ -3,6 +3,7 @@ services:
   frontend:
     build:
       dockerfile: ./Dockerfile
+      context: ../..
     container_name: frontend
 
   postgres:
@@ -26,6 +27,7 @@ services:
   cypress:
     build:
       dockerfile: ../cypress/Dockerfile
+      context: ../..
     command: |
       dockerize -wait http://backend:3005/authenticate/publicKey -wait http://frontend:3000 -timeout 30s
       pnpm test:e2e:ci
