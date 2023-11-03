@@ -51,4 +51,4 @@ jobs:
 
       - name: Run the dockerized E2E suite
         shell: bash
-        run: npm run test:e2e:ci:docker
+        run: cd docker/e2e && docker-compose up --build --abort-on-container-exit --exit-code-from cypress
