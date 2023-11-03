@@ -1,7 +1,8 @@
 version: '3.8'
 services:
   frontend:
-    build: .
+    build:
+      dockerfile: ./Dockerfile
     container_name: frontend
 
   postgres:
