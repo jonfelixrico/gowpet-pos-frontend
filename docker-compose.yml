@@ -21,7 +21,7 @@ services:
   #   network_mode: host
 
   backend:
-    build: https://github.com/jonfelixrico/gowpet-pos-backend.git#dockerfile-test
+    build: https://github.com/jonfelixrico/gowpet-pos-backend.git#develop
     ports:
       - 3005:3005
     # depends_on:
