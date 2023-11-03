@@ -4,7 +4,7 @@ on:
   workflow_call:
 
 jobs:
-  cypress-run:
+  test-component:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -28,7 +28,14 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-pnpm-store-
 
-      - name: Cypress run
+      - name: Run Cypress component testing
         uses: cypress-io/github-action@v6
         with:
           component: true
+  test-e2e:
+    - name: Checkout
+      uses: actions/checkout@v4
+
+    - name: Run the dockerized E2E suite
+      shell: bash
+      run: npm run test:e2e:ci:docker
