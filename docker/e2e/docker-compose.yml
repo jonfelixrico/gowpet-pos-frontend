@@ -28,8 +28,14 @@ services:
     build:
       dockerfile: ../cypress/Dockerfile
       context: ../..
+
+    # Steps involved:
+    # 1. Make sure that FE and BE are up
+    # 2. Create test user
+    # 3. Execut the test
     command: |
       dockerize -wait http://backend:3005/authenticate/publicKey -wait http://frontend:3000 -timeout 30s
+      curl -XPOST -H "Content-type: application/json" -d '{ "username": "root", "password": "password" }' 'http://backend:3005'
       pnpm test:e2e:ci
     working_dir: /app
     environment:
