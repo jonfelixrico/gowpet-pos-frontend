@@ -1,0 +1,19 @@
+version: '3.8'
+services:
+  db:
+    image: postgres:14-alpine
+    environment:
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_USER=postgres
+      - POSTGRES_DB=gowpet-pos
+
+  backend:
+    image: ghcr.io/jonfelixrico/gowpet-pos-backend:beta
+    restart: on-failure
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://db:5432/gowpet-pos
+      - APP_DEBUG=true
+    depends_on:
+      - db
+    ports:
+      - 3005:3005

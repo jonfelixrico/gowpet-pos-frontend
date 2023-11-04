@@ -1,5 +1,8 @@
-import { inRange } from 'lodash'
 import { sprintf } from 'sprintf-js'
+
+function inRange(toTest: number, min: number, max: number) {
+  return toTest >= min && toTest <= max
+}
 
 export class FetchError extends Error {
   constructor(public response: Response) {

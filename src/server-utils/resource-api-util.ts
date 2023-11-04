@@ -7,7 +7,7 @@ export function apiFetch(
   options?: FetchWrapperOptions
 ) {
   // TODO take this value from env vars
-  const url = new URL(input, 'http://localhost:3005')
+  const url = new URL(input, process.env.BACKEND_URL)
 
   return fetchWrapper(
     url.toString(),
