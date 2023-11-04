@@ -5,10 +5,6 @@ export default defineConfig({
     baseUrl: 'http://localhost:3000',
   },
 
-  reporterOptions: {
-    mochaFile: 'cypress/results/output.xml',
-  },
-
   component: {
     devServer: {
       framework: 'next',
