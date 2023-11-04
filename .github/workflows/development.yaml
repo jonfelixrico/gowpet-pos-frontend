@@ -1,7 +1,14 @@
-name: Do Tests
+name: Development workflow
 
 on:
-  workflow_call:
+  push:
+    branches:
+      - develop
+      - feature/*
+  pull_request:
+    branches:
+      - 'develop'
+      - 'feature/*'
 
 jobs:
   build:
@@ -35,6 +42,7 @@ jobs:
         uses: cypress-io/github-action@v6
         with:
           component: true
+
   test-e2e:
     needs: [build]
     runs-on: ubuntu-latest
@@ -49,6 +57,21 @@ jobs:
         shell: bash
         run: pnpm i --frozen-lockfile
 
+      - name: Get branch names
+        id: branch-name
+        uses: tj-actions/branch-names@v7
+
+      # From https://stackoverflow.com/a/67290085
+      - name: Convert branch name into docker tags
+        run: |
+          BRANCH_NAME=${{ steps.branch-name.outputs.base_ref_branch || steps.branch-name.outputs.current_branch }}
+          CONVERTED="${BRANCH_NAME/\//\-}"
+          echo Will use the tag $CONVERTED for the docker image
+          echo "converted=$CONVERTED" >> $GITHUB_OUTPUT
+        id: convert
+
       - name: Run e2e tests
         shell: bash
         run: pnpm test:e2e:ci
+        env:
+          E2E_BACKEND_IMAGE: ghcr.io/jonfelixrico/gowpet-pos-backend:${{ steps.convert.outputs.converted }}
