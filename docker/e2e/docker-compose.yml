@@ -1,10 +1,5 @@
 version: '3.8'
 services:
-  frontend:
-    build:
-      dockerfile: docker/e2e/Dockerfile
-      context: ../..
-
   db:
     image: postgres:14-alpine
     environment:
@@ -13,30 +8,12 @@ services:
       - POSTGRES_DB=gowpet-pos
 
   backend:
-    build: https://github.com/jonfelixrico/gowpet-pos-backend.git#develop
+    image: ghcr.io/jonfelixrico/gowpet-pos-backend:beta
     restart: on-failure
     environment:
       - SPRING_DATASOURCE_URL=jdbc:postgresql://db:5432/gowpet-pos
       - APP_DEBUG=true
-
-  nginx:
-    image: nginx:latest
-    volumes:
-      - ./nginx/default.conf:/etc/nginx/conf.d/default.conf:ro
-
-  cypress:
-    build:
-      dockerfile: docker/cypress/Dockerfile
-      context: ../..
-
-    # Steps involved:
-    # 1. Make sure that FE and BE are up
-    # 2. Create test user
-    # 3. Execut the test
-    command: >
-      bash -c "dockerize -wait http://nginx/api/authenticate/publicKey -wait http://nginx -timeout 60s
-      && curl -XPOST -H \"Content-type: application/json\" -d '{ \"username\": \"root\", \"password\": \"password\" }' -v 'http://backend:3005/debug/user'
-      && pnpm test:e2e:ci"
-    working_dir: /app
-    environment:
-      - CYPRESS_BASE_URL=http://nginx
+    depends_on:
+      - db
+    ports:
+      - 3005:3005
