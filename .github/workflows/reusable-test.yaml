@@ -23,6 +23,8 @@ jobs:
       - name: Setup pnpm cache
         uses: actions/cache@v3
         with:
+          # 1. pnpm cache path
+          # 2. cypress binary path
           path: |
             ${{ env.STORE_PATH }}
             /home/runner/.cache/Cypress
@@ -57,6 +59,8 @@ jobs:
       - name: Setup pnpm cache
         uses: actions/cache@v3
         with:
+          # 1. pnpm cache path
+          # 2. cypress binary path
           path: |
             ${{ env.STORE_PATH }}
             /home/runner/.cache/Cypress
