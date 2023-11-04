@@ -1,6 +1,14 @@
 name: PR Workflow
 
-on: pull_request
+on:
+  push:
+    branches:
+      - develop
+      - feature/*
+  pull_request:
+    branches:
+      - '*'
+      - '!master'
 
 jobs:
   build:
