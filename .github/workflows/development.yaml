@@ -1,4 +1,4 @@
-name: PR Workflow
+name: Development workflow
 
 on:
   push:
