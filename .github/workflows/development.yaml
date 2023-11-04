@@ -62,11 +62,11 @@ jobs:
         uses: tj-actions/branch-names@v7
 
       # From https://stackoverflow.com/a/67290085
-      - name: Convert slashes to dashes
+      - name: Convert branch name into docker tags
         run: |
           BRANCH_NAME=${{ steps.branch-name.outputs.base_ref_branch || steps.branch-name.outputs.current_branch }}
           CONVERTED="${BRANCH_NAME/\//\-}"
-          echo $CONVERTED
+          echo Will use the tag $CONVERTED for the docker image
           echo "converted=$CONVERTED" >> $GITHUB_OUTPUT
         id: convert
 
