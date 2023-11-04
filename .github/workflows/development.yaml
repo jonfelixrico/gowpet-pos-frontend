@@ -65,7 +65,7 @@ jobs:
       - name: Convert slashes to dashes
         run: |
           BRANCH_NAME=${{ steps.branch-name.outputs.current_branch }}
-          DB_NAME="${BRANCH_NAME/"\//\-}"
+          DB_NAME="${BRANCH_NAME/\//\-}"
           echo "converted=$DB_NAME" >> $GITHUB_OUTPUT
         id: convert
 
