@@ -42,17 +42,9 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Pull latest images
-        shell: bash
-        run: cd ./docker/e2e && docker-compose pull
+      - name: Prepare PNPM
+        uses: ./.github/actions/prepare-pnpm
 
-      # In this step, this action saves a list of existing images,
-      # the cache is created without them in the post run.
-      # It also restores the cache if it exists.
-      - name: Do docker layer caching
-        uses: satackey/action-docker-layer-caching@v0.0.11
-        continue-on-error: true
-
-      - name: Run the dockerized E2E suite
+      - name: Run e2e tests
         shell: bash
-        run: cd docker/e2e && docker-compose up --build --abort-on-container-exit --exit-code-from cypress
+        run: pnpm test:e2e:ci
