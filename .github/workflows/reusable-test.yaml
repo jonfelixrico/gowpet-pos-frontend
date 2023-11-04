@@ -10,27 +10,9 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Install pnpm
-        uses: pnpm/action-setup@v2
-        with:
-          version: 8
+      - name: Prepare PNPM
+        uses: ./.github/actions/prepare-pnpm
 
-      - name: Get pnpm store directory
-        shell: bash
-        run: |
-          echo "STORE_PATH=$(pnpm store path --silent)" >> $GITHUB_ENV
-
-      - name: Setup pnpm cache
-        uses: actions/cache@v3
-        with:
-          # 1. pnpm cache path
-          # 2. cypress binary path
-          path: |
-            ${{ env.STORE_PATH }}
-            /home/runner/.cache/Cypress
-          key: ${{ runner.os }}-pnpm-store-${{ hashFiles('pnpm-lock.yaml') }}
-          restore-keys: |
-            ${{ runner.os }}-pnpm-store-
       - name: Install dependencies
         shell: bash
         run: pnpm i --frozen-lockfile
@@ -46,27 +28,8 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Install pnpm
-        uses: pnpm/action-setup@v2
-        with:
-          version: 8
-
-      - name: Get pnpm store directory
-        shell: bash
-        run: |
-          echo "STORE_PATH=$(pnpm store path --silent)" >> $GITHUB_ENV
-
-      - name: Setup pnpm cache
-        uses: actions/cache@v3
-        with:
-          # 1. pnpm cache path
-          # 2. cypress binary path
-          path: |
-            ${{ env.STORE_PATH }}
-            /home/runner/.cache/Cypress
-          key: ${{ runner.os }}-pnpm-store-${{ hashFiles('pnpm-lock.yaml') }}
-          restore-keys: |
-            ${{ runner.os }}-pnpm-store-
+      - name: Prepare PNPM
+        uses: ./.github/actions/prepare-pnpm
 
       - name: Run Cypress component testing
         uses: cypress-io/github-action@v6
