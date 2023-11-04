@@ -64,16 +64,14 @@ jobs:
       # From https://stackoverflow.com/a/67290085
       - name: Convert slashes to dashes
         run: |
-          BRANCH_NAME=${{ steps.branch-name.outputs.current_branch }}
-          DB_NAME="${BRANCH_NAME/\//\-}"
-          echo "converted=$DB_NAME" >> $GITHUB_OUTPUT
+          BRANCH_NAME=${{ steps.branch-name.outputs.base_ref_branch || steps.branch-name.outputs.current_branch }}
+          CONVERTED="${BRANCH_NAME/\//\-}"
+          echo $CONVERTED
+          echo "converted=$CONVERTED" >> $GITHUB_OUTPUT
         id: convert
-
-      - name: Test
-        run: echo ${{ steps.convert.outputs.converted }}
 
       - name: Run e2e tests
         shell: bash
         run: pnpm test:e2e:ci
         env:
-          E2E_BACKEND_IMAGE: ghcr.io/jonfelixrico/gowpet-pos-backend:${{ github.ref_name }}
+          E2E_BACKEND_IMAGE: ghcr.io/jonfelixrico/gowpet-pos-backend:${{ steps.convert.outputs.converted }}
