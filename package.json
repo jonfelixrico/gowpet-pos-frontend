@@ -10,8 +10,9 @@
     "format": "prettier --write \"**/*.{js,jsx,ts,tsx}\"",
     "cypress:open": "cypress open",
     "test:component:ci": "cypress run --component",
-    "test:e2e:ci": "cypress run",
-    "test:e2e:ci:setup": "cd docker/e2e-be && docker-compose up -d"
+    "test:e2e:ci:setup-be": "cd docker/e2e-be && docker-compose up -d",
+    "test:e2e:ci:setup-user": "curl -XPOST -H \"Content-type: application/json\" -d '{ \"username\": \"root\", \"password\": \"password\" }' -v 'http://backend:3005/debug/user'",
+    "test:e2e:ci": "start-server-and-test \"start && test:e2e:ci:setup-be\" \"http://localhost:3000|http://localhost:3005/authenticate/publicKey\" \"test:e2e:ci:setup-user && cypress run\""
   },
   "dependencies": {
     "@chakra-ui/next-js": "^2.1.5",
