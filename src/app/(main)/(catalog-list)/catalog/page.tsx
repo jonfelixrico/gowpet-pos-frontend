@@ -29,7 +29,9 @@ export default async function Catalog({
     qp.set('pageNo', String(parseInt(pageNo ?? '1') + 1))
   }
 
-  const { data, headers } = await apiFetchData<CatalogItem[]>('/catalog')
+  const { data, headers } = await apiFetchData<CatalogItem[]>(
+    `/catalog?${qp.toString()}`
+  )
   const pageCount = parseInt(headers.get('X-Total-Count') ?? '1')
 
   if (!data?.length) {
