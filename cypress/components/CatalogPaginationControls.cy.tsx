@@ -67,7 +67,7 @@ describe('CatalogPaginationControls', () => {
     cy.get('[data-cy="first"] a').should(
       'have.attr',
       'href',
-      '/catalog?pageNo=0'
+      '/catalog?pageNo=1'
     )
     cy.get('[data-cy="prev"] a').should(
       'have.attr',
