@@ -7,7 +7,7 @@ import {
   PiCaretRightBold,
 } from 'react-icons/pi'
 
-function PaginationControls({
+export function CatalogPaginationControls({
   pageCount,
   pageNo,
   additionalQuery,
