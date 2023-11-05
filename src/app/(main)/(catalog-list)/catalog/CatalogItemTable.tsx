@@ -48,7 +48,7 @@ export default function CatalogItemTable({
   footer,
   ...props
 }: CatalogItemTableProps & {
-  footer: ReactNode
+  footer?: ReactNode
 }) {
   return (
     <TableContainer {...props}>
