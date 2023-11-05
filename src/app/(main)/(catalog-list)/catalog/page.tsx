@@ -15,19 +15,14 @@ export default async function Catalog({
     searchTerm?: string
   }
 }) {
-  const { pageNo, searchTerm } = searchParams
-  if (!pageNo) {
-    redirect('/catalog?pageNo=1')
-  }
-
+  const { searchTerm } = searchParams
   const qp = new URLSearchParams()
   if (searchTerm) {
     qp.set('searchTerm', searchTerm)
   }
 
-  if (pageNo) {
-    qp.set('pageNo', String(parseInt(pageNo ?? '1') - 1))
-  }
+  const pageNo = searchParams.pageNo ? parseInt(searchParams.pageNo) : 1
+  qp.set('pageNo', String(pageNo - 1))
 
   const { data, headers } = await apiFetchData<CatalogItem[]>(
     `/catalog?${qp.toString()}`
@@ -57,7 +52,7 @@ export default async function Catalog({
 
       <CatalogPaginationControls
         pageCount={pageCount}
-        pageNo={parseInt(pageNo ?? '0')}
+        pageNo={pageNo}
         additionalQuery={searchParams}
       />
     </Flex>
