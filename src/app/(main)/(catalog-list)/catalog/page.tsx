@@ -1,7 +1,7 @@
 import { CatalogItem } from '@/types/CatalogItem'
 import { apiFetchData } from '@/server-utils/resource-api-util'
 import CatalogItemTable from './CatalogItemTable'
-import { Box, Card, CardBody, Center, Flex } from '@chakra-ui/react'
+import { Center, Flex } from '@chakra-ui/react'
 import { CatalogPaginationControls } from './CatalogPaginationControls'
 import { redirect } from 'next/navigation'
 
