@@ -21,7 +21,7 @@ export function CatalogPaginationControls({
 
   function buildHref(pageNo: number) {
     return {
-      path: '/catalog',
+      pathname: '/catalog',
       query: {
         ...additionalQuery,
         pageNo,
