@@ -31,13 +31,13 @@ export function CatalogPaginationControls({
 
   return (
     <Flex gap={3} align="center">
-      <Link href={buildHref(0)}>
+      <Link href={buildHref(0)} prefetch={false}>
         <IconButton aria-label="First page" isDisabled={isOnFirstPage}>
           <PiCaretDoubleLeftBold />
         </IconButton>
       </Link>
 
-      <Link href={buildHref(pageNo - 1)}>
+      <Link href={buildHref(pageNo - 1)} prefetch={!isOnFirstPage}>
         <IconButton aria-label="Prev page" isDisabled={isOnFirstPage}>
           <PiCaretLeftBold />
         </IconButton>
@@ -45,13 +45,13 @@ export function CatalogPaginationControls({
 
       <Text>{`Page ${pageNo} of ${pageCount}`}</Text>
 
-      <Link href={buildHref(pageNo + 1)}>
+      <Link href={buildHref(pageNo + 1)} prefetch={!isOnLastPage}>
         <IconButton aria-label="Next page" isDisabled={isOnLastPage}>
           <PiCaretRightBold />
         </IconButton>
       </Link>
 
-      <Link href={buildHref(pageCount - 1)}>
+      <Link href={buildHref(pageCount - 1)} prefetch={false}>
         <IconButton aria-label="Last page" isDisabled={isOnLastPage}>
           <PiCaretDoubleRightBold />
         </IconButton>
