@@ -6,5 +6,5 @@ export const dynamic = 'force-dynamic'
 
 export default async function Catalog() {
   const { data } = await apiFetchData<CatalogItem[]>('/catalog')
-  return <CatalogContent items={data} height="full" />
+  return <CatalogContent items={data} height="full" width="full" />
 }
