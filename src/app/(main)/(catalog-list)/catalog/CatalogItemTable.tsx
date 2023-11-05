@@ -51,7 +51,7 @@ export default function CatalogItemTable({
   footer?: ReactNode
 }) {
   return (
-    <TableContainer {...props}>
+    <TableContainer {...props} overflowY="auto">
       <Table>
         <Thead>
           <Tr>

@@ -1,7 +1,7 @@
 import { CatalogItem } from '@/types/CatalogItem'
 import { apiFetchData } from '@/server-utils/resource-api-util'
 import CatalogItemTable from './CatalogItemTable'
-import { Center } from '@chakra-ui/react'
+import { Box, Card, CardBody, Center, Flex } from '@chakra-ui/react'
 import { CatalogPaginationControls } from './CatalogPaginationControls'
 import { redirect } from 'next/navigation'
 
@@ -43,18 +43,29 @@ export default async function Catalog({
   }
 
   return (
-    <CatalogItemTable
-      items={data}
-      height="full"
-      width="full"
-      data-cy="table"
-      footer={
+    <Flex direction="column" height="full" width="full" gap={2}>
+      <Card flex={1}>
+        <CardBody>
+          <Box width="full" height="full" position="relative">
+            <CatalogItemTable
+              items={data}
+              data-cy="table"
+              width="full"
+              position="absolute"
+              height="full"
+              overflowY="auto"
+            />
+          </Box>
+        </CardBody>
+      </Card>
+
+      <Flex justify="end">
         <CatalogPaginationControls
           pageCount={pageCount}
           pageNo={parseInt(pageNo ?? '0')}
           additionalQuery={searchParams}
         />
-      }
-    />
+      </Flex>
+    </Flex>
   )
 }

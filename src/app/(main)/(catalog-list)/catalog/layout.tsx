@@ -23,8 +23,6 @@ export default function CatalogListLayout({
         {toolbar}
       </Flex>
 
-      <Divider />
-
       <Flex flex={1}>{children}</Flex>
     </Flex>
   )
