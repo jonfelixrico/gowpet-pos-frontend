@@ -12,7 +12,6 @@ import {
   Tr,
 } from '@chakra-ui/react'
 import Link from 'next/link'
-import { ReactNode } from 'react'
 
 function ContentItemTableRow({ item }: { item: CatalogItem }) {
   return (
