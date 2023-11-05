@@ -56,4 +56,33 @@ describe('CatalogPaginationControls', () => {
     cy.get('[data-cy="next"] button').should('not.be.disabled')
     cy.get('[data-cy="last"] button').should('not.be.disabled')
   })
+
+  it('links to the correct urls - without additional params', () => {
+    cy.mount(
+      <ChakraProvider>
+        <CatalogPaginationControls pageCount={10} pageNo={5} />
+      </ChakraProvider>
+    )
+
+    cy.get('[data-cy="first"] a').should(
+      'have.attr',
+      'href',
+      '/catalog?pageNo=0'
+    )
+    cy.get('[data-cy="prev"] a').should(
+      'have.attr',
+      'href',
+      '/catalog?pageNo=4'
+    )
+    cy.get('[data-cy="next"] a').should(
+      'have.attr',
+      'href',
+      '/catalog?pageNo=6'
+    )
+    cy.get('[data-cy="last"] a').should(
+      'have.attr',
+      'href',
+      '/catalog?pageNo=10'
+    )
+  })
 })
