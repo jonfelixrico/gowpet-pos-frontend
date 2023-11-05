@@ -1,7 +1,5 @@
-import If from '@/components/common/If'
 import { CatalogItem } from '@/types/CatalogItem'
 import {
-  Box,
   Button,
   Flex,
   Table,
@@ -9,7 +7,6 @@ import {
   TableContainerProps,
   Tbody,
   Td,
-  Tfoot,
   Th,
   Thead,
   Tr,
@@ -45,11 +42,8 @@ export type CatalogItemTableProps = TableContainerProps & {
 
 export default function CatalogItemTable({
   items,
-  footer,
   ...props
-}: CatalogItemTableProps & {
-  footer?: ReactNode
-}) {
+}: CatalogItemTableProps) {
   return (
     <TableContainer {...props} overflowY="auto">
       <Table>
@@ -67,18 +61,6 @@ export default function CatalogItemTable({
             <ContentItemTableRow item={item} key={item.id} />
           ))}
         </Tbody>
-
-        <If condition={!!footer}>
-          <Tfoot>
-            <Tr>
-              <Td colSpan={3}>
-                <Flex width="full" justify="end">
-                  {footer}
-                </Flex>
-              </Td>
-            </Tr>
-          </Tfoot>
-        </If>
       </Table>
     </TableContainer>
   )
