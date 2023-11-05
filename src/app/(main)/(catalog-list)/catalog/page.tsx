@@ -8,37 +8,59 @@ import {
   PiCaretLeftBold,
   PiCaretRightBold,
 } from 'react-icons/pi'
+import Link from 'next/link'
 
 export const dynamic = 'force-dynamic'
 
 function PaginationControls({
   pageCount,
   pageNo,
+  additionalQuery,
 }: {
   pageNo: number
   pageCount: number
+  additionalQuery?: Record<string, string>
 }) {
-  const isOnFirstPage = pageNo === 0
-  const isOnLastPage = pageNo === pageCount - 1
+  const isOnFirstPage = pageNo === 1
+  const isOnLastPage = pageNo === pageCount
+
+  function buildHref(pageNo: number) {
+    return {
+      path: '/catalog',
+      query: {
+        ...additionalQuery,
+        pageNo,
+      },
+    }
+  }
+
   return (
     <Flex gap={3} align="center">
-      <IconButton aria-label="First page" isDisabled={isOnFirstPage}>
-        <PiCaretDoubleLeftBold />
-      </IconButton>
+      <Link href={buildHref(0)}>
+        <IconButton aria-label="First page" isDisabled={isOnFirstPage}>
+          <PiCaretDoubleLeftBold />
+        </IconButton>
+      </Link>
 
-      <IconButton aria-label="Prev page" isDisabled={isOnFirstPage}>
-        <PiCaretLeftBold />
-      </IconButton>
+      <Link href={buildHref(pageNo - 1)}>
+        <IconButton aria-label="Prev page" isDisabled={isOnFirstPage}>
+          <PiCaretLeftBold />
+        </IconButton>
+      </Link>
 
-      <Text>{`Page ${pageNo + 1} of ${pageCount}`}</Text>
+      <Text>{`Page ${pageNo} of ${pageCount}`}</Text>
 
-      <IconButton aria-label="Next page" isDisabled={isOnLastPage}>
-        <PiCaretRightBold />
-      </IconButton>
+      <Link href={buildHref(pageNo + 1)}>
+        <IconButton aria-label="Next page" isDisabled={isOnLastPage}>
+          <PiCaretRightBold />
+        </IconButton>
+      </Link>
 
-      <IconButton aria-label="Last page" isDisabled={isOnLastPage}>
-        <PiCaretDoubleRightBold />
-      </IconButton>
+      <Link href={buildHref(pageCount - 1)}>
+        <IconButton aria-label="Last page" isDisabled={isOnLastPage}>
+          <PiCaretDoubleRightBold />
+        </IconButton>
+      </Link>
     </Flex>
   )
 }
@@ -73,6 +95,7 @@ export default async function Catalog({
         <PaginationControls
           pageCount={pageCount}
           pageNo={parseInt(searchParams.pageNo ?? '0')}
+          additionalQuery={searchParams}
         />
       }
     />
