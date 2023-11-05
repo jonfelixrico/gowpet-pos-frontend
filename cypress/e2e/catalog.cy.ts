@@ -103,8 +103,8 @@ describe('catalog', () => {
         dialog.get('[data-cy="submit"]').click()
 
         cy.location('pathname').should('equal', '/catalog')
-        // should not exist in listing
-        cy.get(`[data-catalog-id="${id}"]`).should('not.exist')
+        cy.visit(`/catalog/${id}`)
+        cy.get('[data-cy="not-found"]').should('exist')
       })
   })
 })
