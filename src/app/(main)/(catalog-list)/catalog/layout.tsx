@@ -19,7 +19,7 @@ export default function CatalogListLayout({
 
       <Divider />
 
-      {children}
+      <Flex flex={1}>{children}</Flex>
     </Flex>
   )
 }
