@@ -55,13 +55,11 @@ export default async function Catalog({
         />
       </Flex>
 
-      <Flex justify="end">
-        <CatalogPaginationControls
-          pageCount={pageCount}
-          pageNo={parseInt(pageNo ?? '0')}
-          additionalQuery={searchParams}
-        />
-      </Flex>
+      <CatalogPaginationControls
+        pageCount={pageCount}
+        pageNo={parseInt(pageNo ?? '0')}
+        additionalQuery={searchParams}
+      />
     </Flex>
   )
 }

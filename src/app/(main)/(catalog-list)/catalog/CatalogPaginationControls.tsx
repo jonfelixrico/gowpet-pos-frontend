@@ -1,4 +1,4 @@
-import { Flex, IconButton, Text } from '@chakra-ui/react'
+import { Flex, IconButton, Spacer, Text } from '@chakra-ui/react'
 import Link from 'next/link'
 import {
   PiCaretDoubleLeftBold,
@@ -43,7 +43,11 @@ export function CatalogPaginationControls({
         </IconButton>
       </Link>
 
+      <Spacer />
+
       <Text>{`Page ${pageNo} of ${pageCount}`}</Text>
+
+      <Spacer />
 
       <Link href={buildHref(pageNo + 1)} prefetch={!isOnLastPage}>
         <IconButton aria-label="Next page" isDisabled={isOnLastPage}>
