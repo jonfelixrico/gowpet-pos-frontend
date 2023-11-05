@@ -34,7 +34,7 @@ export default function CatalogSearchInput({
           }}
           prefetch={false}
         >
-          <IconButton isRound aria-label="Search" size="sm">
+          <IconButton isRound aria-label="Search" size="sm" isDisabled={!value}>
             <FaSearch />
           </IconButton>
         </Link>
