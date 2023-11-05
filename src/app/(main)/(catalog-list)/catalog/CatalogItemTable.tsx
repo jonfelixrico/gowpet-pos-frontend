@@ -53,7 +53,7 @@ export default function CatalogItemTable({
   return (
     <TableContainer {...props} overflowY="auto">
       <Table>
-        <Thead>
+        <Thead position="sticky" top={0} backgroundColor="white">
           <Tr>
             <Th>Name</Th>
             <Th isNumeric>Price</Th>

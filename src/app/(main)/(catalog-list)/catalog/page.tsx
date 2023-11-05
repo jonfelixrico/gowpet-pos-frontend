@@ -44,20 +44,16 @@ export default async function Catalog({
 
   return (
     <Flex direction="column" height="full" width="full" gap={2}>
-      <Card flex={1}>
-        <CardBody>
-          <Box width="full" height="full" position="relative">
-            <CatalogItemTable
-              items={data}
-              data-cy="table"
-              width="full"
-              position="absolute"
-              height="full"
-              overflowY="auto"
-            />
-          </Box>
-        </CardBody>
-      </Card>
+      <Flex flex={1} position="relative">
+        <CatalogItemTable
+          items={data}
+          data-cy="table"
+          width="full"
+          position="absolute"
+          height="full"
+          overflowY="auto"
+        />
+      </Flex>
 
       <Flex justify="end">
         <CatalogPaginationControls
