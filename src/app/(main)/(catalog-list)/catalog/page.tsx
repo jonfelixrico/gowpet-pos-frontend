@@ -1,7 +1,7 @@
 import { CatalogItem } from '@/types/CatalogItem'
 import { apiFetchData } from '@/server-utils/resource-api-util'
 import CatalogItemTable from './CatalogItemTable'
-import { Center, IconButton } from '@chakra-ui/react'
+import { Center, Flex, IconButton, Text } from '@chakra-ui/react'
 import {
   PiCaretDoubleLeftBold,
   PiCaretDoubleRightBold,
@@ -18,24 +18,28 @@ function PaginationControls({
   pageNo: number
   pageCount: number
 }) {
+  const isOnFirstPage = pageNo === 0
+  const isOnLastPage = pageNo === pageCount - 1
   return (
-    <>
-      <IconButton aria-label="First page">
+    <Flex gap={3} align="center">
+      <IconButton aria-label="First page" isDisabled={isOnFirstPage}>
         <PiCaretDoubleLeftBold />
       </IconButton>
 
-      <IconButton aria-label="Prev page" disabled={pageNo === 0}>
+      <IconButton aria-label="Prev page" isDisabled={isOnFirstPage}>
         <PiCaretLeftBold />
       </IconButton>
 
-      <IconButton aria-label="Next page" disabled={pageNo === pageCount - 1}>
+      <Text>{`Page ${pageNo + 1} of ${pageCount}`}</Text>
+
+      <IconButton aria-label="Next page" isDisabled={isOnLastPage}>
         <PiCaretRightBold />
       </IconButton>
 
-      <IconButton aria-label="Last page">
+      <IconButton aria-label="Last page" isDisabled={isOnLastPage}>
         <PiCaretDoubleRightBold />
       </IconButton>
-    </>
+    </Flex>
   )
 }
 
