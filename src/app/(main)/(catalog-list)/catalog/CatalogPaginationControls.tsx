@@ -32,7 +32,7 @@ export function CatalogPaginationControls({
   return (
     <Flex gap={3} align="center">
       <Box data-cy="first">
-        <Link href={buildHref(0)} prefetch={false}>
+        <Link href={buildHref(1)} prefetch={false}>
           <IconButton aria-label="First page" isDisabled={isOnFirstPage}>
             <PiCaretDoubleLeftBold />
           </IconButton>
