@@ -5,20 +5,15 @@ import {
   InputGroup,
   InputRightElement,
 } from '@chakra-ui/react'
-import { FaSearch } from 'react-icons/fa'
+import { useRouter } from 'next/router'
+import CatalogSearchInput from './CatalogSearchInput'
 
 export default function CatalogListToolbar() {
+  const { query } = useRouter()
+
   return (
     <Box>
-      <InputGroup>
-        <Input />
-        <InputRightElement padding={5}>
-          {/* TODO replace with search button */}
-          <IconButton isRound aria-label="Search" size="sm">
-            <FaSearch />
-          </IconButton>
-        </InputRightElement>
-      </InputGroup>
+      <CatalogSearchInput initialValue={query.searchTerm as string} />
     </Box>
   )
 }
