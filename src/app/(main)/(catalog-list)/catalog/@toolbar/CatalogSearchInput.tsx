@@ -20,18 +20,20 @@ export default function CatalogSearchInput({
     setValue(event.target.value)
   }
 
-  const href = useMemo(() => {
-    const queryParams = new URLSearchParams()
-    queryParams.set('searchTerm', value)
-
-    return `/catalog?${queryParams.toString()}`
-  }, [value])
-
   return (
     <InputGroup>
       <Input value={value} onChange={handleInput} />
       <InputRightElement padding={5}>
-        <Link href={href} prefetch={false}>
+        <Link
+          href={{
+            pathname: '/catalog',
+            query: {
+              pageNo: 1,
+              searchTerm: value,
+            },
+          }}
+          prefetch={false}
+        >
           <IconButton isRound aria-label="Search" size="sm">
             <FaSearch />
           </IconButton>
