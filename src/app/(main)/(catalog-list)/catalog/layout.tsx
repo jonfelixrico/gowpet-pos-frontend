@@ -4,12 +4,16 @@ import { ReactNode } from 'react'
 
 export default function CatalogListLayout({
   children,
+  toolbar,
 }: {
   children: ReactNode
+  toolbar?: ReactNode
 }) {
   return (
     <Flex direction="column" gap="2" as="main" height="100%">
-      <Flex justify="end">
+      <Flex gap={2} justify="end">
+        {toolbar}
+
         <Link href="/catalog/create">
           <Button colorScheme="blue" data-cy="create">
             Create
