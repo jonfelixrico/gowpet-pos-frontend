@@ -1,6 +1,6 @@
 import CatalogItemTable, {
   CatalogItemTableProps,
-} from '@/components/catalog/CatalogItemTable'
+} from '@/app/(main)/(catalog-list)/catalog/CatalogItemTable'
 import { Center, CenterProps } from '@chakra-ui/react'
 
 export default function CatalogContent({
