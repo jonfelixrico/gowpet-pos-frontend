@@ -1,4 +1,4 @@
-import { Flex, IconButton, Spacer, Text } from '@chakra-ui/react'
+import { Box, Flex, IconButton, Spacer, Text } from '@chakra-ui/react'
 import Link from 'next/link'
 import {
   PiCaretDoubleLeftBold,
@@ -31,21 +31,21 @@ export function CatalogPaginationControls({
 
   return (
     <Flex gap={3} align="center">
-      <Link href={buildHref(0)} prefetch={false} data-cy="first">
-        <IconButton aria-label="First page" isDisabled={isOnFirstPage}>
-          <PiCaretDoubleLeftBold />
-        </IconButton>
-      </Link>
+      <Box data-cy="first">
+        <Link href={buildHref(0)} prefetch={false}>
+          <IconButton aria-label="First page" isDisabled={isOnFirstPage}>
+            <PiCaretDoubleLeftBold />
+          </IconButton>
+        </Link>
+      </Box>
 
-      <Link
-        href={buildHref(pageNo - 1)}
-        prefetch={!isOnFirstPage}
-        data-cy="prev"
-      >
-        <IconButton aria-label="Prev page" isDisabled={isOnFirstPage}>
-          <PiCaretLeftBold />
-        </IconButton>
-      </Link>
+      <Box data-cy="prev">
+        <Link href={buildHref(pageNo - 1)} prefetch={!isOnFirstPage}>
+          <IconButton aria-label="Prev page" isDisabled={isOnFirstPage}>
+            <PiCaretLeftBold />
+          </IconButton>
+        </Link>
+      </Box>
 
       <Spacer />
 
@@ -53,21 +53,21 @@ export function CatalogPaginationControls({
 
       <Spacer />
 
-      <Link
-        href={buildHref(pageNo + 1)}
-        prefetch={!isOnLastPage}
-        data-cy="next"
-      >
-        <IconButton aria-label="Next page" isDisabled={isOnLastPage}>
-          <PiCaretRightBold />
-        </IconButton>
-      </Link>
+      <Box data-cy="next">
+        <Link href={buildHref(pageNo + 1)} prefetch={!isOnLastPage}>
+          <IconButton aria-label="Next page" isDisabled={isOnLastPage}>
+            <PiCaretRightBold />
+          </IconButton>
+        </Link>
+      </Box>
 
-      <Link href={buildHref(pageCount - 1)} prefetch={false} data-cy="last">
-        <IconButton aria-label="Last page" isDisabled={isOnLastPage}>
-          <PiCaretDoubleRightBold />
-        </IconButton>
-      </Link>
+      <Box data-cy="last">
+        <Link href={buildHref(pageCount)} prefetch={false}>
+          <IconButton aria-label="Last page" isDisabled={isOnLastPage}>
+            <PiCaretDoubleRightBold />
+          </IconButton>
+        </Link>
+      </Box>
     </Flex>
   )
 }
