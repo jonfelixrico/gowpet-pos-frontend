@@ -1,10 +1,11 @@
 import {
   Box,
-  Button,
+  IconButton,
   Input,
   InputGroup,
   InputRightElement,
 } from '@chakra-ui/react'
+import { FaSearch } from 'react-icons/fa'
 
 export default function CatalogListToolbar() {
   return (
@@ -13,7 +14,9 @@ export default function CatalogListToolbar() {
         <Input />
         <InputRightElement padding={5}>
           {/* TODO replace with search button */}
-          <Button size="sm">Test</Button>
+          <IconButton isRound aria-label="Search" size="sm">
+            <FaSearch />
+          </IconButton>
         </InputRightElement>
       </InputGroup>
     </Box>
