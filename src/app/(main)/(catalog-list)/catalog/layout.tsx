@@ -12,15 +12,15 @@ export default function CatalogListLayout({
   return (
     <Flex direction="column" gap="2" as="main" height="100%">
       <Flex gap={2} align="center">
-        {toolbar}
-
-        <Spacer />
-
         <Link href="/catalog/create">
           <Button colorScheme="blue" data-cy="create">
             Create
           </Button>
         </Link>
+
+        <Spacer />
+
+        {toolbar}
       </Flex>
 
       <Divider />
