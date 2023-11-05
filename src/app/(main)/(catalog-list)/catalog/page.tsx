@@ -26,7 +26,7 @@ export default async function Catalog({
   }
 
   if (pageNo) {
-    qp.set('pageNo', String(parseInt(pageNo ?? '1') + 1))
+    qp.set('pageNo', String(parseInt(pageNo ?? '1') - 1))
   }
 
   const { data, headers } = await apiFetchData<CatalogItem[]>(
