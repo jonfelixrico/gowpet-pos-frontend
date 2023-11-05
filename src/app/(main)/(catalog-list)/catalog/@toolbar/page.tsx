@@ -1,19 +1,17 @@
-import {
-  Box,
-  IconButton,
-  Input,
-  InputGroup,
-  InputRightElement,
-} from '@chakra-ui/react'
-import { useRouter } from 'next/router'
+import { Box } from '@chakra-ui/react'
+import { useSearchParams } from 'next/navigation'
 import CatalogSearchInput from './CatalogSearchInput'
 
-export default function CatalogListToolbar() {
-  const { query } = useRouter()
-
+export default function CatalogListToolbar({
+  searchParams,
+}: {
+  searchParams: {
+    searchTerm?: string | null
+  }
+}) {
   return (
     <Box>
-      <CatalogSearchInput initialValue={query.searchTerm as string} />
+      <CatalogSearchInput initialValue={searchParams.searchTerm} />
     </Box>
   )
 }
