@@ -9,7 +9,7 @@ import {
   Spacer,
   Text,
 } from '@chakra-ui/react'
-import BackIconButton from '../BackIconButton'
+import BackIconButton from '../../../../components/catalog/BackIconButton'
 import Link from 'next/link'
 import { redirect } from 'next/navigation'
 import CatalogDeleteButton from './CatalogDeleteButton'
