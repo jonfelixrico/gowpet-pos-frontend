@@ -1,4 +1,4 @@
-import CatalogContent from '@/app/(main)/catalog/CatalogContent'
+import CatalogContent from '@/app/(main)/(catalog-list)/catalog/CatalogContent'
 import { CatalogItem } from '@/types/CatalogItem'
 import { ChakraProvider } from '@chakra-ui/react'
 
