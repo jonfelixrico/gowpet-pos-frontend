@@ -19,7 +19,7 @@ describe('CatalogSearchInput', () => {
       </ChakraProvider>
     )
 
-    cy.get('[data-cy="search-input" input]').should('be.empty')
+    cy.get('[data-cy="search-input"] input').should('be.empty')
   })
 
   it('should generate the href on input change', () => {
@@ -30,6 +30,13 @@ describe('CatalogSearchInput', () => {
     )
 
     cy.get('[data-cy="search-input"] input').type('search test')
-    cy.get('[data-cy="search-input"] a[href~="search test"]').should('exist')
+    cy.get('[data-cy="search-input"] a[href*="searchTerm=search+test"]').should(
+      'exist'
+    )
+
+    cy.get('[data-cy="search-input"] input').clear().type('search test 123')
+    cy.get(
+      '[data-cy="search-input"] a[href*="searchTerm=search+test+123"]'
+    ).should('exist')
   })
 })
