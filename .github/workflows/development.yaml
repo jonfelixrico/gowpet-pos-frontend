@@ -68,7 +68,6 @@ jobs:
       - name: Build E2E environment
         shell: bash
         run: pnpm build
-        if: ${{ steps.cache-npm.outputs.cache-hit != 'true' }}
 
       - name: Get branch names
         id: branch-name
