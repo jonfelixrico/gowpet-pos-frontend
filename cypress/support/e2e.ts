@@ -47,5 +47,6 @@ before(() => {
 beforeEach(() => {
   cy.setCookie('token', authToken)
 
+  // This is to avoid next.js redirects from breaking the tests
   cy.on('uncaught:exception', () => false)
 })
