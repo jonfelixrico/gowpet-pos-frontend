@@ -57,6 +57,10 @@ jobs:
         shell: bash
         run: pnpm i --frozen-lockfile
 
+      - name: Build E2E environment
+        shell: bash
+        run: pnpm build
+
       - name: Get branch names
         id: branch-name
         uses: tj-actions/branch-names@v7
