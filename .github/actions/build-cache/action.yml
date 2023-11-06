@@ -1,5 +1,10 @@
 name: Prepare PNPM
 
+outputs:
+  cache-hit:
+    description: 'Boolean that indicates if the cache was hit'
+    value: ${{ steps.cache.outputs.cache-hit }}
+
 runs:
   using: composite
   steps:
@@ -9,3 +14,4 @@ runs:
         path: .next
         # Generate a new cache whenever packages or source files change.
         key: ${{ runner.os }}-nextjs-${{ hashFiles('pnpm-lock.yaml') }}-${{ hashFiles('src/**/*.ts', 'src/**/*.tsx') }}
+      id: cache

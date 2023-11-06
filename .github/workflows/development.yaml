@@ -65,10 +65,10 @@ jobs:
         id: build-cache
 
       # This will run if no builds were found in the cache
-      - name: Build E2E environment
+      - if: ${{ steps.build-cache.outputs.cache-hit != 'true' }}
+        name: Build E2E environment
         shell: bash
         run: pnpm build
-        if: ${{ steps.build-cache.outputs.cache-hit != 'true' }}
 
       - name: Get branch names
         id: branch-name
