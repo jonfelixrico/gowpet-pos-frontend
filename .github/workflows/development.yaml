@@ -20,6 +20,9 @@ jobs:
       - name: Prepare PNPM
         uses: ./.github/actions/prepare-pnpm
 
+      - name: Prepare Next.js build cache
+        uses: ./.github/actions/build-cache
+
       - name: Install dependencies
         shell: bash
         run: pnpm i --frozen-lockfile
@@ -57,7 +60,13 @@ jobs:
         shell: bash
         run: pnpm i --frozen-lockfile
 
-      - name: Build E2E environment
+      - name: Prepare Next.js build cache
+        uses: ./.github/actions/build-cache
+        id: build-cache
+
+      # This will run if no builds were found in the cache
+      - if: ${{ steps.build-cache.outputs.cache-hit != 'true' }}
+        name: Build E2E environment
         shell: bash
         run: pnpm build
 
