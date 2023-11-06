@@ -21,29 +21,26 @@ import './commands'
 
 let authToken: string = ''
 
-before(async () => {
-  await fetch(new URL('/debug/user', Cypress.config('baseUrl') ?? ''), {
-    body: JSON.stringify({
-      username: 'root',
-      password: 'password',
-    }),
-    headers: {
-      'Content-Type': 'application/json',
-    },
+before(() => {
+  const creds = {
+    username: 'root',
+    password: 'password',
+  }
+
+  cy.request({
     method: 'POST',
-  }).catch((e) => {
-    console.error('Error while trying to create the E2E user', e)
+    body: creds,
+    url: '/api/debug/user',
+    failOnStatusCode: false,
   })
 
-  await fetch(new URL('/api/authenticate', Cypress.config('baseUrl') ?? ''), {
-    body: JSON.stringify({
-      username: 'root',
-      password: 'password',
-    }),
-    headers: {
-      'Content-Type': 'application/json',
-    },
+  cy.request<string>({
     method: 'POST',
+    body: creds,
+    url: '/api/authenticate',
+  }).then((response) => {
+    authToken = response.body
+    cy.log('Generated test user auth token', authToken)
   })
 })
 
