@@ -11,8 +11,7 @@
     "cypress:open": "cypress open",
     "test:component:ci": "cypress run --component",
     "test:e2e:ci:setup:be": "cd docker/e2e-be && docker-compose up -d",
-    "test:e2e:ci:setup:fe": "next build && next start",
-    "test:e2e:ci": "cross-env NODE_ENV=test start-server-and-test \"pnpm test:e2e:ci:setup:be && pnpm test:e2e:ci:setup:fe\" \"http://localhost:3000|http://localhost:3005/authenticate/publicKey\" \"cypress run\"",
+    "test:e2e:ci": "cross-env NODE_ENV=test start-server-and-test \"pnpm test:e2e:ci:setup:be && pnpm start\" \"http://localhost:3000|http://localhost:3005/authenticate/publicKey\" \"cypress run\"",
     "test:e2e:run": "cypress run"
   },
   "dependencies": {
