@@ -1,7 +1,7 @@
 import { Card, CardBody, Flex, Heading } from '@chakra-ui/react'
 import CatalogCreateForm from './CatalogCreateForm'
 import Link from 'next/link'
-import BackIconButton from '../BackIconButton'
+import BackIconButton from '@/components/catalog/BackIconButton'
 import { CatalogFormFields } from '@/components/catalog/CatalogForm'
 import { apiFetchData } from '@/server-utils/resource-api-util'
 import { redirect } from 'next/navigation'

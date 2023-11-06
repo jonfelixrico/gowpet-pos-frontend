@@ -16,6 +16,8 @@ describe('catalog', () => {
     cy.get('[data-cy="submit"]').click()
 
     cy.location('pathname').should('equal', '/catalog')
+    cy.get('[data-cy="search-input"] input').type(name)
+    cy.get('[data-cy="search-input"] button').click()
     cy.get('[data-cy="table"] [data-cy="row"] [data-cy="name"]').contains(name)
   })
 
@@ -48,6 +50,9 @@ describe('catalog', () => {
         cy.get('[data-cy="price"]').contains(newPrice)
 
         cy.visit('/catalog')
+        cy.get('[data-cy="search-input"] input').type(newName)
+        cy.get('[data-cy="search-input"] button').click()
+
         const row = cy.get(`[data-cy="row"][data-catalog-id="${id}"]`)
         row.get('[data-cy="name"]').contains(newName)
         row.get('[data-cy="price"]').contains(newPrice)
@@ -98,8 +103,8 @@ describe('catalog', () => {
         dialog.get('[data-cy="submit"]').click()
 
         cy.location('pathname').should('equal', '/catalog')
-        // should not exist in listing
-        cy.get(`[data-catalog-id="${id}"]`).should('not.exist')
+        cy.visit(`/catalog/${id}`)
+        cy.get('[data-cy="not-found"]').should('exist')
       })
   })
 })
