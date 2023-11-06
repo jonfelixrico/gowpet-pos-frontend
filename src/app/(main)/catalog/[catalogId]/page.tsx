@@ -9,10 +9,11 @@ import {
   Spacer,
   Text,
 } from '@chakra-ui/react'
-import BackIconButton from '../BackIconButton'
+import BackIconButton from '@/components/catalog/BackIconButton'
 import Link from 'next/link'
-import { redirect } from 'next/navigation'
+import { notFound, redirect } from 'next/navigation'
 import CatalogDeleteButton from './CatalogDeleteButton'
+import { FetchError } from '@/utils/fetch-utils'
 
 interface Params {
   catalogId: string
@@ -23,7 +24,17 @@ export const dynamic = 'force-dynamic'
 export default async function CatalogDetails({ params }: { params: Params }) {
   const url = `/catalog/product/${params.catalogId}`
 
-  const { data } = await apiFetchData<CatalogItem>(url)
+  let data: CatalogItem | null = null
+  try {
+    const response = await apiFetchData<CatalogItem>(url)
+    data = response.data
+  } catch (e) {
+    if (e instanceof FetchError && e.response.status === 404) {
+      notFound()
+    }
+
+    throw e
+  }
 
   async function submitDelete() {
     'use server'

@@ -35,18 +35,16 @@ function ContentItemTableRow({ item }: { item: CatalogItem }) {
   )
 }
 
-export type CatalogItemTableProps = TableContainerProps & {
-  items: CatalogItem[]
-}
-
 export default function CatalogItemTable({
   items,
   ...props
-}: CatalogItemTableProps) {
+}: TableContainerProps & {
+  items: CatalogItem[]
+}) {
   return (
-    <TableContainer {...props}>
+    <TableContainer {...props} overflowY="auto">
       <Table>
-        <Thead>
+        <Thead position="sticky" top={0} backgroundColor="white">
           <Tr>
             <Th>Name</Th>
             <Th isNumeric>Price</Th>

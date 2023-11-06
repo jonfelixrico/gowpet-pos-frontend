@@ -1,19 +1,8 @@
-import CatalogContent from '@/app/(main)/catalog/CatalogContent'
+import CatalogItemTable from '@/app/(main)/(catalog-list)/catalog/CatalogItemTable'
 import { CatalogItem } from '@/types/CatalogItem'
 import { ChakraProvider } from '@chakra-ui/react'
 
-describe('CatalogContenet', () => {
-  it('shows the empty message', () => {
-    cy.mount(
-      <ChakraProvider>
-        <CatalogContent items={[]} />
-      </ChakraProvider>
-    )
-
-    cy.get('[data-cy="empty"]').should('exist')
-    cy.get('[data-cy="table"]').should('not.exist')
-  })
-
+describe('CatalogItemTable', () => {
   const ITEMS: CatalogItem[] = [
     {
       id: 'sample-1',
@@ -29,21 +18,10 @@ describe('CatalogContenet', () => {
     },
   ]
 
-  it('shows the table', () => {
-    cy.mount(
-      <ChakraProvider>
-        <CatalogContent items={ITEMS} />
-      </ChakraProvider>
-    )
-
-    cy.get('[data-cy="empty"]').should('not.exist')
-    cy.get('[data-cy="table"]').should('exist')
-  })
-
   it('renders the rows', () => {
     cy.mount(
       <ChakraProvider>
-        <CatalogContent items={ITEMS} />
+        <CatalogItemTable items={ITEMS} />
       </ChakraProvider>
     )
 
