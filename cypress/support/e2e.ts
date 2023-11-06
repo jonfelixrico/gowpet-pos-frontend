@@ -27,13 +27,24 @@ before(() => {
     password: 'password',
   }
 
+  /*
+   * Create test user
+   * If this POST call returns an error, we'll assume that the user already exists
+   */
   cy.request({
     method: 'POST',
     body: creds,
     url: '/api/debug/user',
+    // This is to avoid breaking the E2E test if the error above does happen
     failOnStatusCode: false,
   })
 
+  /*
+   * This is to generate an auth token which will be passed before each test is executed. This makes the user
+   * look authenticated to the user.
+   *
+   * This saves us the hassle of having to log the user in via the actual tests.
+   */
   cy.request<string>({
     method: 'POST',
     body: creds,
