@@ -16,4 +16,4 @@ services:
     depends_on:
       - db
     ports:
-      - 3006:3005
+      - 3005:3005
