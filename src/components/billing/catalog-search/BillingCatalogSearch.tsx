@@ -1,12 +1,14 @@
 'use client'
 
 import { CatalogItem } from '@/types/CatalogItem'
-import { Box, Button, Flex, FlexProps, Input, Text } from '@chakra-ui/react'
-import { ReactNode, useState } from 'react'
+import { Box, Button, Flex, FlexProps, Input } from '@chakra-ui/react'
+import { useMemo, useState } from 'react'
 import { fetchData } from '@/utils/fetch-utils'
 import qs from 'query-string'
 import If from '@/components/common/If'
 import BillingCatalogSearchItem from './BillingCatalogSearchItem'
+import { Billing } from '@/types/Billing'
+import { produce } from 'immer'
 
 async function fetchResults(searchTerm: string, pageNo: number) {
   const qp = qs.stringify({
@@ -54,14 +56,14 @@ export interface SearchState {
 
 type BillingCatalogSearchProps = {
   initialState: SearchState
-  onAdd: (value: CatalogItem) => void
-  itemIds: Set<string>
-} & Omit<FlexProps, 'children'>
+  billing: Billing
+  onBillingChange: (value: Billing) => void
+} & FlexProps
 
 export default function BillingCatalogSearch({
   initialState,
-  onAdd,
-  itemIds,
+  billing,
+  onBillingChange,
   ...props
 }: BillingCatalogSearchProps) {
   const [{ items, pageCount, pageNo, searchTerm }, setSearchState] =
@@ -95,6 +97,24 @@ export default function BillingCatalogSearch({
     })
   }
 
+  const itemIds = useMemo(
+    () => new Set(billing.items.map(({ catalogId }) => catalogId)),
+    [billing]
+  )
+
+  function onItemAdd({ id, name, price }: CatalogItem) {
+    onBillingChange(
+      produce(billing, ({ items }) => {
+        items.push({
+          catalogId: id,
+          name,
+          price,
+          quantity: 1,
+        })
+      })
+    )
+  }
+
   return (
     <Flex {...props} direction="column" gap={2}>
       <Flex gap={2}>
@@ -107,7 +127,7 @@ export default function BillingCatalogSearch({
             {items.map((item) => (
               <BillingCatalogSearchItem
                 catalogItem={item}
-                onAdd={() => onAdd(item)}
+                onAdd={() => onItemAdd(item)}
                 key={item.id}
                 canAdd={!itemIds.has(item.id)}
               />
