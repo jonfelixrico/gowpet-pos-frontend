@@ -1,3 +1,0 @@
-describe('InputBilling', () => {
-  // TODO tests
-})
