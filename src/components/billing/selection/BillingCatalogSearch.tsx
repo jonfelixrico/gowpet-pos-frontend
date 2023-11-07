@@ -4,6 +4,7 @@ import { CatalogItem } from '@/types/CatalogItem'
 import { Button, Flex, Input, Text } from '@chakra-ui/react'
 import { ReactNode, useState } from 'react'
 import { useBillingCatalogSearch } from './useBillingCatalogSearch'
+import { useMount } from 'react-use'
 
 interface BillingCatalogSearchProps {
   onAdd: (item: CatalogItem) => void
@@ -26,6 +27,11 @@ function Search({
     setPageCount(pageCount)
     setPageNo(pageNo)
   }
+
+  useMount(() => {
+    // this is to do the initial search
+    doSearch()
+  })
 
   return (
     <Flex direction="column">
