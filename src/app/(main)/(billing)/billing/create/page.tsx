@@ -6,5 +6,14 @@ export default async function BillingCreatePage() {
   const { data, headers } =
     await apiFetchData<CatalogItem[]>('/catalog?pageNo=0')
 
-  return <BillingCreateContent />
+  return (
+    <BillingCreateContent
+      initialState={{
+        items: data,
+        pageCount: parseInt(headers.get('X-Total-Count') ?? '0'),
+        pageNo: 0,
+        searchTerm: '',
+      }}
+    />
+  )
 }
