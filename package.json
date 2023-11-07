@@ -23,6 +23,7 @@
     "@emotion/styled": "^11.11.0",
     "formik": "^2.4.5",
     "framer-motion": "^10.16.4",
+    "immer": "^10.0.3",
     "jose": "^5.0.1",
     "js-cookie": "^3.0.5",
     "next": "13.5.6",
