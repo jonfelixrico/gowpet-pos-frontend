@@ -1,14 +1,8 @@
 import { fetchData } from '@/utils/fetch-utils'
-import { useEffect, useState } from 'react'
 import qs from 'query-string'
 import { CatalogItem } from '@/types/CatalogItem'
 
 export function useBillingCatalogSearch() {
-  const [searchTerm, setSearchTerm] = useState('')
-  const [pageNo, setPageNo] = useState(0)
-  const [pageCount, setPageCount] = useState(0)
-  const [items, setItems] = useState<CatalogItem[]>([])
-
   async function fetchResults(searchTerm: string, pageNo: number) {
     const url = qs.stringifyUrl({
       url: '/api/catalog',
@@ -30,32 +24,7 @@ export function useBillingCatalogSearch() {
     }
   }
 
-  useEffect(() => {
-    async function run() {
-      const { pageCount, items } = await fetchResults(searchTerm, pageNo)
-      setPageCount(pageCount)
-      setItems(items)
-    }
-    run()
-  }, [searchTerm, pageNo, setPageCount, setItems])
-
   return {
-    items,
-    searchTerm,
-
-    setSearchTerm(searchTerm: string) {
-      setSearchTerm(searchTerm)
-      setPageNo(0)
-    },
-
-    hasItemsRemaining: pageNo < pageCount - 1,
-
-    loadMore() {
-      if (pageNo === pageCount - 1) {
-        return
-      }
-
-      setPageNo((pageNo) => pageNo + 1)
-    },
+    fetchResults,
   }
 }
