@@ -38,12 +38,14 @@ export default function InputBillingItem({
       >
         <NumberInputField data-cy="quantity" />
         <NumberInputStepper>
-          <NumberIncrementStepper />
-          <NumberDecrementStepper />
+          <NumberIncrementStepper data-cy="increment" />
+          <NumberDecrementStepper data-cy="decrement" />
         </NumberInputStepper>
       </NumberInput>
 
-      <Button onClick={onDelete}>Delete</Button>
+      <Button onClick={onDelete} data-cy="delete">
+        Delete
+      </Button>
     </Box>
   )
 }
