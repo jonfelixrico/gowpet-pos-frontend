@@ -56,7 +56,7 @@ type BillingCatalogSearchProps = {
   initialState: SearchState
 } & Omit<FlexProps, 'children'>
 
-export default function BillingCatalogSearch2({
+export default function BillingCatalogSearch({
   children,
   initialState,
   ...props
