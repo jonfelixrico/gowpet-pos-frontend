@@ -1,7 +1,7 @@
 'use client'
 
 import { CatalogItem } from '@/types/CatalogItem'
-import { Button, Flex, FlexProps, Input, Text } from '@chakra-ui/react'
+import { Box, Button, Flex, FlexProps, Input, Text } from '@chakra-ui/react'
 import { ReactNode, useState } from 'react'
 import { useBillingCatalogSearch } from './useBillingCatalogSearch'
 import { useMount } from 'react-use'
@@ -15,7 +15,7 @@ function Search({
   children,
   ...props
 }: Omit<FlexProps, 'children'> & {
-  children: (items: CatalogItem[]) => ReactNode
+  children: (item: CatalogItem) => ReactNode
 }) {
   const [items, setItems] = useState<CatalogItem[]>([])
   const [searchTerm, setSearchTerm] = useState('')
@@ -36,8 +36,8 @@ function Search({
   })
 
   return (
-    <Flex direction="column" {...props}>
-      <Flex>
+    <Flex {...props} direction="column" gap={2}>
+      <Flex gap={2}>
         <Input
           value={searchTerm}
           onChange={(event) => setSearchTerm(event.target.value)}
@@ -45,9 +45,15 @@ function Search({
         <Button onClick={() => doSearch()}>Search</Button>
       </Flex>
 
-      <Flex flex={1}>{children(items)}</Flex>
+      <Flex flex={1} position="relative">
+        <Box height="full" width="full" position="absolute" overflowY="auto">
+          <Flex direction="column" gap={2}>
+            {items.map(children)}
+          </Flex>
+        </Box>
+      </Flex>
 
-      <Flex>
+      <Flex justify="space-between">
         <Button onClick={() => doSearch(pageNo - 1)} isDisabled={pageNo === 0}>
           Prev
         </Button>
@@ -72,16 +78,14 @@ export default function BillingCatalogSearch({
 }: BillingCatalogSearchProps & Omit<FlexProps, 'children'>) {
   return (
     <Search>
-      {(items) =>
-        items.map((item) => (
-          <BillingCatalogSearchItem
-            key={item.id}
-            onAdd={() => onAdd(item)}
-            canAdd={true}
-            catalogItem={item}
-          />
-        ))
-      }
+      {(item) => (
+        <BillingCatalogSearchItem
+          key={item.id}
+          onAdd={() => onAdd(item)}
+          canAdd={true}
+          catalogItem={item}
+        />
+      )}
     </Search>
   )
 }
