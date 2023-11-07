@@ -1,6 +1,6 @@
 'use client'
 
-import BillingCatalogSearch from '@/components/billing/selection/BillingCatalogSearch'
+import BillingCatalogSearch from '@/components/billing/catalog-search/BillingCatalogSearch'
 import { Flex } from '@chakra-ui/react'
 
 export default function BillingCreateContent() {
