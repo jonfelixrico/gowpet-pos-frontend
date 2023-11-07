@@ -1,3 +1,5 @@
+'use client'
+
 import { Flex } from '@chakra-ui/react'
 import InputBillingItem from './InputBillingItem'
 import { produce } from 'immer'
