@@ -24,6 +24,9 @@ export default async function BillingCreatePage() {
         ...billing,
         items: dtoItems,
       }),
+      headers: {
+        'Content-Type': 'application/json',
+      },
     })
     redirect('/billing')
   }
