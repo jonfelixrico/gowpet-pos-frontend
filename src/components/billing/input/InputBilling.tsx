@@ -32,7 +32,12 @@ export default function InputBilling({ billing, onChange }: InputBillingProps) {
     const updatedBilling = produce(billing, ({ items }) => {
       const item = items.find((inArr) => inArr.catalogId === catalogId)
       if (!item) {
-        throw new Error('item not found')
+        /*
+         * We're throwing an error here because we're expecting an item of `catalogId` to always
+         * be found. If it's not found, then its a data error and shouldn't really be happening
+         * from the start.
+         */
+        throw new Error('Data error: item not found')
       }
 
       item.quantity = newQuantity
