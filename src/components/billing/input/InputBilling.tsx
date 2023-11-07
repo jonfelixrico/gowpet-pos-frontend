@@ -3,19 +3,11 @@
 import { Flex } from '@chakra-ui/react'
 import InputBillingItem from './InputBillingItem'
 import { produce } from 'immer'
-
-interface InputBilling {
-  items: {
-    catalogId: string
-    name: string
-    price: number
-    quantity: number
-  }[]
-}
+import { Billing } from '@/types/Billing'
 
 export interface InputBillingProps {
-  billing: InputBilling
-  onChange: (value: InputBilling) => void
+  billing: Billing
+  onChange: (value: Billing) => void
 }
 
 export default function InputBilling({ billing, onChange }: InputBillingProps) {

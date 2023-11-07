@@ -1,5 +1,6 @@
 'use client'
 
+import { Billing } from '@/types/Billing'
 import {
   Box,
   Button,
@@ -12,12 +13,7 @@ import {
 } from '@chakra-ui/react'
 
 interface InputBillingItemProps {
-  item: {
-    catalogId: string
-    name: string
-    price: number
-    quantity: number
-  }
+  item: Billing['items'][number]
   onQuantityChange: (number: number) => void
   onDelete: () => void
 }
