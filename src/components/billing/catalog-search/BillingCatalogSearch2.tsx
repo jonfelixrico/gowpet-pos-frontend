@@ -5,7 +5,6 @@ import { Box, Button, Flex, FlexProps, Input, Text } from '@chakra-ui/react'
 import { ReactNode, useState } from 'react'
 import { fetchData } from '@/utils/fetch-utils'
 import qs from 'query-string'
-import Cookies from 'js-cookie'
 import If from '@/components/common/If'
 
 async function fetchResults(searchTerm: string, pageNo: number) {
