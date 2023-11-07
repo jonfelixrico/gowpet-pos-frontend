@@ -4,7 +4,7 @@ import BillingCatalogSearch from '@/components/billing/catalog-search/BillingCat
 import { SearchState } from '@/components/billing/catalog-search/BillingCatalogSearch'
 import InputBilling from '@/components/billing/input/InputBilling'
 import { Billing } from '@/types/Billing'
-import { Flex } from '@chakra-ui/react'
+import { Box, Flex } from '@chakra-ui/react'
 import { useState } from 'react'
 
 export default function BillingCreateContent({
@@ -17,9 +17,11 @@ export default function BillingCreateContent({
   })
 
   return (
-    <Flex width="full" height="full">
-      <Flex flex={1}>
-        <InputBilling billing={billing} onChange={setBilling} />
+    <Flex width="full" height="full" gap={2}>
+      <Flex flex={1} position="relative">
+        <Box position="absolute" width="full" height="full" overflowY="auto">
+          <InputBilling billing={billing} onChange={setBilling} />
+        </Box>
       </Flex>
       <BillingCatalogSearch
         initialState={initialState}
