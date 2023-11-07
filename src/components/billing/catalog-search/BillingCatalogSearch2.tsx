@@ -51,35 +51,52 @@ function SearchBar({
   )
 }
 
+interface SearchState {
+  searchTerm: string
+  pageNo: number
+  pageCount: number
+  items: CatalogItem[]
+}
+
 type BillingCatalogSearchProps = {
   children: (item: CatalogItem) => ReactNode
+  initialState: SearchState
 } & Omit<FlexProps, 'children'>
 
 export default function BillingCatalogSearch2({
   children,
+  initialState,
   ...props
 }: BillingCatalogSearchProps) {
-  const [items, setItems] = useState<CatalogItem[]>([])
-  const [searchTerm, setSearchTerm] = useState('')
-  const [pageCount, setPageCount] = useState(0)
-  const [pageNo, setPageNo] = useState(0)
+  const [{ items, pageCount, pageNo, searchTerm }, setSearchState] =
+    useState<SearchState>(initialState)
 
   async function startSearch(searchTerm: string) {
     const { items, pageCount } = await fetchResults(searchTerm, 0)
-    setItems(items)
-    setPageCount(pageCount)
-    setPageNo(0)
-    setSearchTerm(searchTerm)
+    setSearchState({
+      pageNo: 0,
+      pageCount,
+      searchTerm,
+      items,
+    })
   }
 
   async function loadMore() {
     const newPageNo = pageNo + 1
 
-    const { items, pageCount } = await fetchResults(searchTerm, newPageNo)
+    const { items: fetchedItems, pageCount } = await fetchResults(
+      searchTerm,
+      newPageNo
+    )
 
-    setItems((inState) => inState.concat(items))
-    setPageCount(pageCount)
-    setPageNo(newPageNo)
+    setSearchState(({ searchTerm, items }) => {
+      return {
+        pageCount,
+        pageNo: newPageNo,
+        searchTerm,
+        items: items.concat(fetchedItems),
+      }
+    })
   }
 
   return (
