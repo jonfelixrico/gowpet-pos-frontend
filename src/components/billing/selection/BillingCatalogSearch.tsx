@@ -1,7 +1,7 @@
 'use client'
 
 import { CatalogItem } from '@/types/CatalogItem'
-import { Button, Flex, Input, Text } from '@chakra-ui/react'
+import { Button, Flex, FlexProps, Input, Text } from '@chakra-ui/react'
 import { ReactNode, useState } from 'react'
 import { useBillingCatalogSearch } from './useBillingCatalogSearch'
 import { useMount } from 'react-use'
@@ -13,7 +13,8 @@ interface BillingCatalogSearchProps {
 
 function Search({
   children,
-}: {
+  ...props
+}: Omit<FlexProps, 'children'> & {
   children: (items: CatalogItem[]) => ReactNode
 }) {
   const [items, setItems] = useState<CatalogItem[]>([])
@@ -35,7 +36,7 @@ function Search({
   })
 
   return (
-    <Flex direction="column">
+    <Flex direction="column" {...props}>
       <Flex>
         <Input
           value={searchTerm}
@@ -68,7 +69,7 @@ function Search({
 
 export default function BillingCatalogSearch({
   onAdd,
-}: BillingCatalogSearchProps) {
+}: BillingCatalogSearchProps & Omit<FlexProps, 'children'>) {
   return (
     <Search>
       {(items) =>
