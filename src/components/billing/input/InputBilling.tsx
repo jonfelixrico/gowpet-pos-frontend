@@ -50,7 +50,7 @@ export default function InputBilling({ billing, onChange }: InputBillingProps) {
   }
 
   return (
-    <Flex direction="column">
+    <Flex direction="column" gap={5}>
       {billing.items.map((item) => (
         <InputBillingItem
           key={item.catalogId}
