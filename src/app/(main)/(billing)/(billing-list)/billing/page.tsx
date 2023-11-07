@@ -6,6 +6,7 @@ export default async function BillingListPage() {
   const { data: billings } = await apiFetchData<Billing[]>('/billing')
   return (
     <Box>
+      {/* TODO implement listing */}
       {billings.map((billing, index) => (
         <Text key={index}>{JSON.stringify(billing)}</Text>
       ))}
