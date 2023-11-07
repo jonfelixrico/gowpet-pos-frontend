@@ -16,13 +16,9 @@ async function fetchResults(searchTerm: string, pageNo: number) {
 
   // TODO use API routes for this endpoint
   const { data, headers } = await fetchData<CatalogItem[]>(
-    `/api/catalog?${qp}`,
-    {
-      headers: {
-        Authorization: `Bearer ${Cookies.get('token')}`,
-      },
-    }
+    `/billing/catalog-search?${qp}`
   )
+
   const pageCount = headers.get('X-Total-Count')
   if (pageCount === null) {
     throw new Error('Data error: page count not incldued')
