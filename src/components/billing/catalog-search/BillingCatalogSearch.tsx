@@ -6,6 +6,7 @@ import { ReactNode, useState } from 'react'
 import { fetchData } from '@/utils/fetch-utils'
 import qs from 'query-string'
 import If from '@/components/common/If'
+import BillingCatalogSearchItem from './BillingCatalogSearchItem'
 
 async function fetchResults(searchTerm: string, pageNo: number) {
   const qp = qs.stringify({
@@ -52,13 +53,13 @@ export interface SearchState {
 }
 
 type BillingCatalogSearchProps = {
-  children: (item: CatalogItem) => ReactNode
   initialState: SearchState
+  onAdd: (value: CatalogItem) => void
 } & Omit<FlexProps, 'children'>
 
 export default function BillingCatalogSearch({
-  children,
   initialState,
+  onAdd,
   ...props
 }: BillingCatalogSearchProps) {
   const [{ items, pageCount, pageNo, searchTerm }, setSearchState] =
@@ -101,7 +102,14 @@ export default function BillingCatalogSearch({
       <Flex flex={1} position="relative">
         <Box height="full" width="full" position="absolute" overflowY="auto">
           <Flex direction="column" gap={2}>
-            {items.map(children)}
+            {items.map((item) => (
+              <BillingCatalogSearchItem
+                catalogItem={item}
+                onAdd={() => onAdd(item)}
+                key={item.id}
+                canAdd={true}
+              />
+            ))}
 
             <If condition={pageNo < pageCount - 1}>
               <Button onClick={() => loadMore()}>Load More</Button>
