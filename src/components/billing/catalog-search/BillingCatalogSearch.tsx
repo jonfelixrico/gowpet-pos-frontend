@@ -3,89 +3,112 @@
 import { CatalogItem } from '@/types/CatalogItem'
 import { Box, Button, Flex, FlexProps, Input, Text } from '@chakra-ui/react'
 import { ReactNode, useState } from 'react'
-import { useBillingCatalogSearch } from './useBillingCatalogSearch'
-import { useMount } from 'react-use'
-import BillingCatalogSearchItem from './BillingCatalogSearchItem'
+import { fetchData } from '@/utils/fetch-utils'
+import qs from 'query-string'
+import If from '@/components/common/If'
 
-interface BillingCatalogSearchProps {
-  onAdd: (item: CatalogItem) => void
-}
+async function fetchResults(searchTerm: string, pageNo: number) {
+  const qp = qs.stringify({
+    searchTerm,
+    pageNo,
+  })
 
-function Search({
-  children,
-  ...props
-}: Omit<FlexProps, 'children'> & {
-  children: (item: CatalogItem) => ReactNode
-}) {
-  const [items, setItems] = useState<CatalogItem[]>([])
-  const [searchTerm, setSearchTerm] = useState('')
-  const [pageCount, setPageCount] = useState(0)
-  const [pageNo, setPageNo] = useState(0)
+  // TODO use API routes for this endpoint
+  const { data, headers } = await fetchData<CatalogItem[]>(
+    `/billing/catalog-search?${qp}`
+  )
 
-  const { fetchResults } = useBillingCatalogSearch()
-  async function doSearch(pageNo: number = 0) {
-    const { items, pageCount } = await fetchResults(searchTerm, pageNo)
-    setItems(items)
-    setPageCount(pageCount)
-    setPageNo(pageNo)
+  const pageCount = headers.get('X-Total-Count')
+  if (pageCount === null) {
+    throw new Error('Data error: page count not incldued')
   }
 
-  useMount(() => {
-    // this is to do the initial search
-    doSearch()
-  })
+  return {
+    items: data,
+    pageCount: parseInt(pageCount),
+  }
+}
+
+function SearchBar({
+  triggerSearch,
+}: {
+  triggerSearch: (searchTerm: string) => void
+}) {
+  const [input, setInput] = useState('')
+
+  return (
+    <>
+      <Input value={input} onChange={(event) => setInput(event.target.value)} />
+      <Button onClick={() => triggerSearch(input)}>Search</Button>
+    </>
+  )
+}
+
+export interface SearchState {
+  searchTerm: string
+  pageNo: number
+  pageCount: number
+  items: CatalogItem[]
+}
+
+type BillingCatalogSearchProps = {
+  children: (item: CatalogItem) => ReactNode
+  initialState: SearchState
+} & Omit<FlexProps, 'children'>
+
+export default function BillingCatalogSearch({
+  children,
+  initialState,
+  ...props
+}: BillingCatalogSearchProps) {
+  const [{ items, pageCount, pageNo, searchTerm }, setSearchState] =
+    useState<SearchState>(initialState)
+
+  async function startSearch(searchTerm: string) {
+    const { items, pageCount } = await fetchResults(searchTerm, 0)
+    setSearchState({
+      pageNo: 0,
+      pageCount,
+      searchTerm,
+      items,
+    })
+  }
+
+  async function loadMore() {
+    const newPageNo = pageNo + 1
+
+    const { items: fetchedItems, pageCount } = await fetchResults(
+      searchTerm,
+      newPageNo
+    )
+
+    setSearchState(({ searchTerm, items }) => {
+      return {
+        pageCount,
+        pageNo: newPageNo,
+        searchTerm,
+        items: items.concat(fetchedItems),
+      }
+    })
+  }
 
   return (
     <Flex {...props} direction="column" gap={2}>
       <Flex gap={2}>
-        <Input
-          value={searchTerm}
-          onChange={(event) => setSearchTerm(event.target.value)}
-        />
-        <Button onClick={() => doSearch()}>Search</Button>
+        <SearchBar triggerSearch={(searchTerm) => startSearch(searchTerm)} />
       </Flex>
 
       <Flex flex={1} position="relative">
         <Box height="full" width="full" position="absolute" overflowY="auto">
           <Flex direction="column" gap={2}>
             {items.map(children)}
+
+            <If condition={pageNo < pageCount - 1}>
+              <Button onClick={() => loadMore()}>Load More</Button>
+            </If>
           </Flex>
         </Box>
       </Flex>
-
-      <Flex justify="space-between">
-        <Button onClick={() => doSearch(pageNo - 1)} isDisabled={pageNo === 0}>
-          Prev
-        </Button>
-
-        <Text>
-          Page {pageNo + 1} of {pageCount}
-        </Text>
-
-        <Button
-          onClick={() => doSearch(pageNo + 1)}
-          isDisabled={pageNo >= pageCount - 1}
-        >
-          Next
-        </Button>
-      </Flex>
     </Flex>
-  )
-}
-
-export default function BillingCatalogSearch({
-  onAdd,
-}: BillingCatalogSearchProps & Omit<FlexProps, 'children'>) {
-  return (
-    <Search>
-      {(item) => (
-        <BillingCatalogSearchItem
-          key={item.id}
-          onAdd={() => onAdd(item)}
-          canAdd={true}
-          catalogItem={item}
-        />
-      )}
-    </Search>
   )
 }

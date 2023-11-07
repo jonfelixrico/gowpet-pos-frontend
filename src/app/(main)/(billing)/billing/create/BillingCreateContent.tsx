@@ -1,7 +1,7 @@
 'use client'
 
-import BillingCatalogSearch from '@/components/billing/catalog-search/BillingCatalogSearch2'
-import { SearchState } from '@/components/billing/catalog-search/BillingCatalogSearch2'
+import BillingCatalogSearch from '@/components/billing/catalog-search/BillingCatalogSearch'
+import { SearchState } from '@/components/billing/catalog-search/BillingCatalogSearch'
 import BillingCatalogSearchItem from '@/components/billing/catalog-search/BillingCatalogSearchItem'
 import { Flex } from '@chakra-ui/react'
 
