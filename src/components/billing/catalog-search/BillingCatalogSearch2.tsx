@@ -44,7 +44,7 @@ function SearchBar({
   )
 }
 
-interface SearchState {
+export interface SearchState {
   searchTerm: string
   pageNo: number
   pageCount: number
