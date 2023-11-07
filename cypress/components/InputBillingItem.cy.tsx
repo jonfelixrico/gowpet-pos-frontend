@@ -1,38 +1,44 @@
 import InputBillingItem from '@/components/billing/input/InputBillingItem'
+import { ChakraProvider } from '@chakra-ui/react'
 
 describe('InputBillingItem', () => {
   it('displays the data', () => {
     cy.mount(
-      <InputBillingItem
-        onDelete={() => {}}
-        onQuantityChange={() => {}}
-        item={{
-          catalogId: 'id',
-          name: 'foo',
-          price: 125.0,
-          quantity: 10,
-        }}
-      />
+      <ChakraProvider>
+        <InputBillingItem
+          onDelete={() => {}}
+          onQuantityChange={() => {}}
+          item={{
+            catalogId: 'id',
+            name: 'foo',
+            price: 125.0,
+            quantity: 10,
+          }}
+        />
+      </ChakraProvider>
     )
 
     cy.get('[data-cy="quantity"]').should('have.value', 10)
     cy.get('[data-cy="name"]').should('contain.text', 'foo')
     cy.get('[data-cy="price"]').should('contain.text', '125')
+    cy.get('[data-cy="amount"]').should('contain.text', '1250')
   })
 
   it('reacts to delete', () => {
     const onDeleteSpy = cy.spy()
     cy.mount(
-      <InputBillingItem
-        onDelete={onDeleteSpy}
-        onQuantityChange={() => {}}
-        item={{
-          catalogId: 'id',
-          name: 'foo',
-          price: 125.0,
-          quantity: 10,
-        }}
-      />
+      <ChakraProvider>
+        <InputBillingItem
+          onDelete={onDeleteSpy}
+          onQuantityChange={() => {}}
+          item={{
+            catalogId: 'id',
+            name: 'foo',
+            price: 125.0,
+            quantity: 10,
+          }}
+        />
+      </ChakraProvider>
     )
 
     cy.get('[data-cy="delete"]')
@@ -45,16 +51,18 @@ describe('InputBillingItem', () => {
   it('can adjust quantity', () => {
     const onChange = cy.spy()
     cy.mount(
-      <InputBillingItem
-        onDelete={() => {}}
-        onQuantityChange={onChange}
-        item={{
-          catalogId: 'id',
-          name: 'foo',
-          price: 125.0,
-          quantity: 10,
-        }}
-      />
+      <ChakraProvider>
+        <InputBillingItem
+          onDelete={() => {}}
+          onQuantityChange={onChange}
+          item={{
+            catalogId: 'id',
+            name: 'foo',
+            price: 125.0,
+            quantity: 10,
+          }}
+        />
+      </ChakraProvider>
     )
 
     // TODO test typing into the input
