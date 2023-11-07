@@ -22,6 +22,17 @@ export default function InputBilling({ billing, onChange }: InputBillingProps) {
   function onItemDelete(catalogId: string) {
     const updatedBilling = produce(billing, ({ items }) => {
       const idx = items.findIndex((item) => item.catalogId === catalogId)
+
+      // -1 means findIndex didn't find a match
+      if (idx === -1) {
+        /*
+         * We're throwing an error here because we're expecting an item of `catalogId` to always
+         * be found. If it's not found, then its a data error and shouldn't really be happening
+         * from the start.
+         */
+        throw new Error('Data error: item not found')
+      }
+
       items.splice(idx, 1)
     })
 
