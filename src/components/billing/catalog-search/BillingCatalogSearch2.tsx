@@ -94,7 +94,7 @@ export default function BillingCatalogSearch2({
             {items.map(children)}
 
             <If condition={pageNo < pageCount - 1}>
-              <Button>Load More</Button>
+              <Button onClick={() => loadMore()}>Load More</Button>
             </If>
           </Flex>
         </Box>
