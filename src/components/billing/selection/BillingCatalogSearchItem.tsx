@@ -1,6 +1,6 @@
 import { Box, Button, Text } from '@chakra-ui/react'
 
-export interface BillingCatalogItemProps {
+export interface BillingCatalogSearchItemProps {
   catalogItem: {
     name: string
     price: number
@@ -10,11 +10,11 @@ export interface BillingCatalogItemProps {
   onAdd: () => void
 }
 
-export default function BillingCatalogItem({
+export default function BillingCatalogSearchItem({
   catalogItem,
   canAdd,
   onAdd,
-}: BillingCatalogItemProps) {
+}: BillingCatalogSearchItemProps) {
   return (
     <Box>
       <Text>{catalogItem.name}</Text>
