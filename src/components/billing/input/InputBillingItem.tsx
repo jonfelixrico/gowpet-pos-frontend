@@ -8,6 +8,7 @@ import {
   NumberInput,
   NumberInputField,
   NumberInputStepper,
+  Text,
 } from '@chakra-ui/react'
 
 interface InputBillingItemProps {
@@ -29,13 +30,13 @@ export default function InputBillingItem({
   return (
     // TODO stub for now
     <Box>
-      {item.name}
-      {item.price}
+      <Text data-cy="name">{item.name}</Text>
+      <Text data-cy="price">{item.price}</Text>
       <NumberInput
         value={item.quantity}
         onChange={(_, val) => onQuantityChange(val)}
       >
-        <NumberInputField />
+        <NumberInputField data-cy="quantity" />
         <NumberInputStepper>
           <NumberIncrementStepper />
           <NumberDecrementStepper />
