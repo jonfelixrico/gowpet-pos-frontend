@@ -5,6 +5,7 @@ import { Button, Flex, Input, Text } from '@chakra-ui/react'
 import { ReactNode, useState } from 'react'
 import { useBillingCatalogSearch } from './useBillingCatalogSearch'
 import { useMount } from 'react-use'
+import BillingCatalogSearchItem from './BillingCatalogSearchItem'
 
 interface BillingCatalogSearchProps {
   onAdd: (item: CatalogItem) => void
@@ -69,12 +70,17 @@ export default function BillingCatalogSearch({
   onAdd,
 }: BillingCatalogSearchProps) {
   return (
-    <Flex direction="column">
-      <Flex>
-        <Input />
-      </Flex>
-      <Flex flex={1}>{/* TODO add content */}</Flex>
-      <Flex>Test</Flex>
-    </Flex>
+    <Search>
+      {(items) =>
+        items.map((item) => (
+          <BillingCatalogSearchItem
+            key={item.id}
+            onAdd={() => onAdd(item)}
+            canAdd={true}
+            catalogItem={item}
+          />
+        ))
+      }
+    </Search>
   )
 }
