@@ -1,3 +1,5 @@
+'use client'
+
 import { Box, Button, Text } from '@chakra-ui/react'
 
 export interface BillingCatalogSearchItemProps {
