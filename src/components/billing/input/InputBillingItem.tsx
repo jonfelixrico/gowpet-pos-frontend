@@ -32,6 +32,7 @@ export default function InputBillingItem({
     <Box>
       <Text data-cy="name">{item.name}</Text>
       <Text data-cy="price">{item.price}</Text>
+      <Text data-cy="amount">{item.price * item.quantity}</Text>
       <NumberInput
         value={item.quantity}
         onChange={(_, val) => onQuantityChange(val)}
