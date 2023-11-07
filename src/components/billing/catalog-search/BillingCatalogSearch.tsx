@@ -55,11 +55,13 @@ export interface SearchState {
 type BillingCatalogSearchProps = {
   initialState: SearchState
   onAdd: (value: CatalogItem) => void
+  itemIds: Set<string>
 } & Omit<FlexProps, 'children'>
 
 export default function BillingCatalogSearch({
   initialState,
   onAdd,
+  itemIds,
   ...props
 }: BillingCatalogSearchProps) {
   const [{ items, pageCount, pageNo, searchTerm }, setSearchState] =
@@ -107,7 +109,7 @@ export default function BillingCatalogSearch({
                 catalogItem={item}
                 onAdd={() => onAdd(item)}
                 key={item.id}
-                canAdd={true}
+                canAdd={!itemIds.has(item.id)}
               />
             ))}
 

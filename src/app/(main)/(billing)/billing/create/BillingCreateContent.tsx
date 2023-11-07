@@ -6,7 +6,7 @@ import { Billing } from '@/types/Billing'
 import { CatalogItem } from '@/types/CatalogItem'
 import { Flex } from '@chakra-ui/react'
 import { produce } from 'immer'
-import { useState } from 'react'
+import { useMemo, useState } from 'react'
 
 export default function BillingCreateContent({
   initialState,
@@ -16,6 +16,11 @@ export default function BillingCreateContent({
   const [billing, setBilling] = useState<Billing>({
     items: [],
   })
+
+  const itemIds = useMemo(
+    () => new Set(billing.items.map(({ catalogId }) => catalogId)),
+    [billing]
+  )
 
   function onItemAdd({ id, name, price }: CatalogItem) {
     setBilling((billing) =>
@@ -37,6 +42,7 @@ export default function BillingCreateContent({
         initialState={initialState}
         flex={1}
         onAdd={onItemAdd}
+        itemIds={itemIds}
       />
     </Flex>
   )
