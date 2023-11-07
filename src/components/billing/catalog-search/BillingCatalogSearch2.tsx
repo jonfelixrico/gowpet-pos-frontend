@@ -3,8 +3,6 @@
 import { CatalogItem } from '@/types/CatalogItem'
 import { Box, Button, Flex, FlexProps, Input, Text } from '@chakra-ui/react'
 import { ReactNode, useState } from 'react'
-import { useBillingCatalogSearch } from './useBillingCatalogSearch'
-import { useMount } from 'react-use'
 import { fetchData } from '@/utils/fetch-utils'
 import qs from 'query-string'
 import Cookies from 'js-cookie'
