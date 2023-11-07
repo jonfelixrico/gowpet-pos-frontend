@@ -9,8 +9,10 @@ import { useState } from 'react'
 
 export default function BillingCreateContent({
   initialState,
+  onSave,
 }: {
   initialState: SearchState
+  onSave: (billing: Billing) => void
 }) {
   const [billing, setBilling] = useState<Billing>({
     items: [],
@@ -25,7 +27,11 @@ export default function BillingCreateContent({
           </Box>
         </Flex>
 
-        <Button colorScheme="blue">Save</Button>
+        <form action={() => onSave(billing)}>
+          <Button colorScheme="blue" type="submit">
+            Save
+          </Button>
+        </form>
       </Flex>
       <BillingCatalogSearch
         initialState={initialState}
