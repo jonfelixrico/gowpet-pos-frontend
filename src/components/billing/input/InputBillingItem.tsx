@@ -9,7 +9,6 @@ import {
   NumberInputField,
   NumberInputStepper,
 } from '@chakra-ui/react'
-import { useCallback } from 'react'
 
 interface InputBillingItemProps {
   item: {
