@@ -28,7 +28,7 @@ export default function BillingCreateContent({
         </Flex>
 
         <form action={() => onSave(billing)}>
-          <Button colorScheme="blue" type="submit">
+          <Button width="full" colorScheme="blue" type="submit">
             Save
           </Button>
         </form>
