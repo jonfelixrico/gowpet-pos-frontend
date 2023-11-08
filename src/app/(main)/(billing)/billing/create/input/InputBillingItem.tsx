@@ -6,16 +6,16 @@ import { MdAdd, MdRemove } from 'react-icons/md'
 
 interface InputBillingItemProps {
   item: Billing['items'][number]
-  onQuantityChange: (number: number) => void
-  onDelete: () => void
-  onEdit: () => void
+  onQuantityChange?: (number: number) => void
+  onDelete?: () => void
+  onEdit?: () => void
 }
 
 export default function InputBillingItem({
   item,
-  onQuantityChange,
-  onDelete,
-  onEdit,
+  onQuantityChange = () => {},
+  onDelete = () => {},
+  onEdit = () => {},
 }: InputBillingItemProps) {
   function decrementOrDelete() {
     if (item.quantity === 1) {
