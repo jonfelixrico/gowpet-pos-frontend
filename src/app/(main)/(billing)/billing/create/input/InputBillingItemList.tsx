@@ -10,7 +10,10 @@ export interface InputBillingProps {
   onChange: (value: Billing) => void
 }
 
-export default function InputBilling({ billing, onChange }: InputBillingProps) {
+export default function InputBillingItemList({
+  billing,
+  onChange,
+}: InputBillingProps) {
   function onItemDelete(catalogId: string) {
     const updatedBilling = produce(billing, ({ items }) => {
       const idx = items.findIndex((item) => item.catalogId === catalogId)

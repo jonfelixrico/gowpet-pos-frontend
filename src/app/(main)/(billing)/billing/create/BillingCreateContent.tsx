@@ -1,6 +1,6 @@
 'use client'
 
-import InputBilling from '@/app/(main)/(billing)/billing/create/input/InputBillingItemList'
+import InputBillingItemList from '@/app/(main)/(billing)/billing/create/input/InputBillingItemList'
 import { Billing } from '@/types/Billing'
 import {
   Box,
@@ -54,7 +54,7 @@ export default function BillingCreateContent({
           <Card flex={1}>
             <CardBody as={Flex} direction="column" gap={2}>
               <Flex flex={1}>
-                <InputBilling billing={billing} onChange={setBilling} />
+                <InputBillingItemList billing={billing} onChange={setBilling} />
               </Flex>
 
               <Divider />
