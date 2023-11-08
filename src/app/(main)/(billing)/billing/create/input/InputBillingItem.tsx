@@ -68,28 +68,34 @@ function QuantitySection({
   quantity: number
 }) {
   return (
-    <Flex gap={3} align="center">
-      <IconButton
-        data-cy="decrement"
-        isRound
-        size="xs"
-        aria-label="subtract"
-        onClick={onDecrement}
-      >
-        <MdRemove />
-      </IconButton>
-      <Text data-cy="quantity" fontSize="xl">
-        {quantity}
-      </Text>
-      <IconButton
-        data-cy="increment"
-        isRound
-        size="xs"
-        aria-label="add"
-        onClick={onIncrement}
-      >
-        <MdAdd />
-      </IconButton>
+    <Flex direction="column" align="center">
+      <Flex gap={3} align="center">
+        <IconButton
+          data-cy="decrement"
+          isRound
+          size="xs"
+          aria-label="subtract"
+          onClick={onDecrement}
+        >
+          <MdRemove />
+        </IconButton>
+
+        <Text data-cy="quantity" fontSize="xl" fontWeight="medium">
+          {quantity}
+        </Text>
+
+        <IconButton
+          data-cy="increment"
+          isRound
+          size="xs"
+          aria-label="add"
+          onClick={onIncrement}
+        >
+          <MdAdd />
+        </IconButton>
+      </Flex>
+
+      <Text fontSize="xs">{quantity === 1 ? 'unit' : 'units'}</Text>
     </Flex>
   )
 }
