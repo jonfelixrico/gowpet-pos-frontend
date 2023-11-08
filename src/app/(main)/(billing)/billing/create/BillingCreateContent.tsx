@@ -1,7 +1,7 @@
 'use client'
 
-import BillingCatalogSearch from '@/components/billing/catalog-search/BillingCatalogSearch'
-import { SearchState } from '@/components/billing/catalog-search/BillingCatalogSearch'
+import BillingCatalogSearch from '@/app/(main)/(billing)/billing/create/search/BillingCatalogSearch'
+import { SearchState } from '@/app/(main)/(billing)/billing/create/search/BillingCatalogSearch'
 import InputBilling from '@/components/billing/input/InputBilling'
 import { Billing } from '@/types/Billing'
 import {
