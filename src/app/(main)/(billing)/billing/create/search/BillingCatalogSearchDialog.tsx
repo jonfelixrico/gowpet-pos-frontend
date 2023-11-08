@@ -22,15 +22,23 @@ import If from '@/components/common/If'
 
 function SearchBarContent({
   triggerSearch,
+  isLoading,
 }: {
   triggerSearch: (searchTerm: string) => void
+  isLoading: boolean
 }) {
   const [input, setInput] = useState('')
 
   return (
     <>
-      <Input value={input} onChange={(event) => setInput(event.target.value)} />
-      <Button onClick={() => triggerSearch(input)}>Search</Button>
+      <Input
+        value={input}
+        onChange={(event) => setInput(event.target.value)}
+        isReadOnly={isLoading}
+      />
+      <Button isLoading={isLoading} onClick={() => triggerSearch(input)}>
+        Search
+      </Button>
     </>
   )
 }
@@ -48,7 +56,9 @@ export default function BillingCreateSearchDialog({
   onAdd,
   cannotAdd,
 }: BillingCatalogSearchDialogProps) {
-  const { items, canLoadMore, startSearch, loadMore } = useSearch(initialState)
+  const { items, canLoadMore, startSearch, loadMore, isLoading } =
+    useSearch(initialState)
+
   return (
     <Modal isOpen={isOpen} onClose={onClose} scrollBehavior="inside">
       <ModalOverlay />
@@ -56,7 +66,10 @@ export default function BillingCreateSearchDialog({
         <ModalHeader as={Flex} direction="column" gap={5}>
           <Text>Add Item</Text>
           <Flex gap={2} align="center">
-            <SearchBarContent triggerSearch={startSearch} />
+            <SearchBarContent
+              triggerSearch={startSearch}
+              isLoading={isLoading}
+            />
           </Flex>
         </ModalHeader>
         <ModalCloseButton />
@@ -72,7 +85,9 @@ export default function BillingCreateSearchDialog({
             ))}
 
             <If condition={canLoadMore}>
-              <Button onClick={loadMore}>Load More</Button>
+              <Button onClick={loadMore} isLoading={isLoading}>
+                Load More
+              </Button>
             </If>
           </Flex>
         </ModalBody>
