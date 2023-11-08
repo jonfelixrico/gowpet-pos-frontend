@@ -13,8 +13,10 @@ import {
   Flex,
   useDisclosure,
 } from '@chakra-ui/react'
-import { useState } from 'react'
+import { useMemo, useState } from 'react'
 import BillingCreateSearchDialog from './search/BillingCatalogSearchDialog'
+import { produce } from 'immer'
+import { CatalogItem } from '@/types/CatalogItem'
 
 export default function BillingCreateContent({
   initialState,
@@ -27,8 +29,25 @@ export default function BillingCreateContent({
     items: [],
   })
 
-  const { isOpen, onOpen, onClose } = useDisclosure()
+  const alreadyAdded = useMemo(
+    () => new Set(billing.items.map(({ catalogId }) => catalogId)),
+    [billing]
+  )
 
+  function addItemToBilling({ id, name, price }: CatalogItem) {
+    setBilling((billing) =>
+      produce(billing, ({ items }) => {
+        items.push({
+          catalogId: id,
+          name,
+          price,
+          quantity: 1,
+        })
+      })
+    )
+  }
+
+  const { isOpen, onOpen, onClose } = useDisclosure()
   return (
     <>
       <Flex width="full" height="full" gap={2} direction="column">
@@ -57,13 +76,13 @@ export default function BillingCreateContent({
         </form>
       </Flex>
 
-      <BillingCreateSearchDialog isOpen={isOpen} onClose={onClose}>
-        <BillingCatalogSearch
-          initialState={initialState}
-          onBillingChange={setBilling}
-          billing={billing}
-        />
-      </BillingCreateSearchDialog>
+      <BillingCreateSearchDialog
+        isOpen={isOpen}
+        onClose={onClose}
+        initialState={initialState}
+        cannotAdd={alreadyAdded}
+        onAdd={addItemToBilling}
+      />
     </>
   )
 }
