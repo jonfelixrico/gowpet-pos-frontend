@@ -1,6 +1,6 @@
 'use client'
 
-import InputBilling from '@/components/billing/input/InputBilling'
+import InputBilling from '@/app/(main)/(billing)/billing/create/input/InputBilling'
 import { Billing } from '@/types/Billing'
 import {
   Box,
