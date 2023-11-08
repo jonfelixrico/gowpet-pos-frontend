@@ -34,7 +34,8 @@ export default function InputBillingItem({
             {item.price} per unit
           </Text>
           <Text data-cy="amount" fontSize="small">
-            {item.price * item.quantity} for {item.quantity} units
+            Total of {item.price * item.quantity}
+            {item.price}
           </Text>
         </Box>
 
