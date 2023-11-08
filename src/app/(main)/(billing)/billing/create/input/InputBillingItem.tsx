@@ -66,7 +66,7 @@ export default function InputBillingItem({
       <Flex gap={3}>
         {/* TODO add trigger */}
         <Button size="xs">Edit Quantity</Button>
-        <Button size="xs" onClick={onDelete}>
+        <Button data-cy="delete" size="xs" onClick={onDelete}>
           Delete
         </Button>
       </Flex>
