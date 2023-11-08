@@ -52,6 +52,20 @@ export default function BillingCreateContent({
       <Flex width="full" height="full" gap={2}>
         <Card flex={1}>
           <CardBody as={Flex} direction="column" gap={2}>
+            <Flex flex={1}></Flex>
+
+            <Divider />
+
+            <form action={() => onSave(billing)}>
+              <Button width="full" colorScheme="blue" type="submit">
+                Save
+              </Button>
+            </form>
+          </CardBody>
+        </Card>
+
+        <Card flex={1}>
+          <CardBody as={Flex} direction="column" gap={2}>
             <Flex flex={1} position="relative">
               <Box
                 position="absolute"
@@ -66,20 +80,6 @@ export default function BillingCreateContent({
             <Divider />
 
             <Button onClick={onOpen}>Add Items</Button>
-          </CardBody>
-        </Card>
-
-        <Card flex={1}>
-          <CardBody as={Flex} direction="column" gap={2}>
-            <Flex flex={1}></Flex>
-
-            <Divider />
-
-            <form action={() => onSave(billing)}>
-              <Button width="full" colorScheme="blue" type="submit">
-                Save
-              </Button>
-            </form>
           </CardBody>
         </Card>
       </Flex>
