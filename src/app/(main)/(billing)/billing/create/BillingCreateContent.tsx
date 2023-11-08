@@ -1,7 +1,5 @@
 'use client'
 
-import BillingCatalogSearch from '@/app/(main)/(billing)/billing/create/search/BillingCatalogSearch'
-import { SearchState } from '@/app/(main)/(billing)/billing/create/search/BillingCatalogSearch'
 import InputBilling from '@/components/billing/input/InputBilling'
 import { Billing } from '@/types/Billing'
 import {
@@ -17,6 +15,7 @@ import { useMemo, useState } from 'react'
 import BillingCreateSearchDialog from './search/BillingCatalogSearchDialog'
 import { produce } from 'immer'
 import { CatalogItem } from '@/types/CatalogItem'
+import { SearchState } from './search/useSearch'
 
 export default function BillingCreateContent({
   initialState,
