@@ -10,6 +10,7 @@ import {
   ButtonProps,
 } from '@chakra-ui/react'
 import { ReactNode, useRef } from 'react'
+import If from './If'
 
 export default function ConfirmDialog({
   onCancel,
@@ -50,7 +51,8 @@ export default function ConfirmDialog({
 
           <AlertDialogFooter>
             <Button ref={cancelRef} onClick={onCancel}>
-              {cancelLabel}
+              <If condition={cancelLabel !== undefined}>{cancelLabel}</If>
+              <If condition={cancelLabel === undefined}>Cancel</If>
             </Button>
 
             <Button
@@ -62,7 +64,8 @@ export default function ConfirmDialog({
               onClick={onOk}
               ml={3}
             >
-              {okLabel}
+              <If condition={okLabel !== undefined}>{okLabel}</If>
+              <If condition={okLabel === undefined}>Ok</If>
             </Button>
           </AlertDialogFooter>
         </AlertDialogContent>
