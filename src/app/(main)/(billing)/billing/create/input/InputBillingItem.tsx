@@ -52,7 +52,7 @@ export default function InputBillingItem({
         <Button size="xs" onClick={onEdit}>
           Edit Quantity
         </Button>
-        <Button data-cy="delete" size="xs" onClick={onDelete}>
+        <Button data-cy="delete" size="xs" onClick={onDelete} colorScheme="red">
           Delete
         </Button>
       </Flex>
@@ -76,8 +76,9 @@ function QuantitySection({
           data-cy="decrement"
           isRound
           size="xs"
-          aria-label="subtract"
+          aria-label={quantity === 1 ? 'delete' : 'subtract'}
           onClick={onDecrement}
+          colorScheme={quantity === 1 ? 'red' : undefined}
         >
           <MdRemove />
         </IconButton>
