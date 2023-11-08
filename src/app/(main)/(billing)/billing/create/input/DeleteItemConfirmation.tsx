@@ -1,15 +1,5 @@
 /* eslint-disable react/no-unescaped-entities */
-import {
-  AlertDialog,
-  AlertDialogBody,
-  AlertDialogContent,
-  AlertDialogFooter,
-  AlertDialogHeader,
-  AlertDialogOverlay,
-  AlertDialogProps,
-  Button,
-} from '@chakra-ui/react'
-import { useRef } from 'react'
+import ConfirmDialog from '@/components/common/ConfirmDialog'
 
 export default function DeleteItemConfirmation({
   onConfirm,
@@ -20,43 +10,16 @@ export default function DeleteItemConfirmation({
   onClose: () => void
   idForDeletion: string | null
 }) {
-  const cancelRef = useRef<HTMLButtonElement>(null)
-
   return (
-    <AlertDialog
-      leastDestructiveRef={cancelRef}
-      onClose={onClose}
+    <ConfirmDialog
       isOpen={!!idForDeletion}
-    >
-      <AlertDialogOverlay>
-        <AlertDialogContent>
-          <AlertDialogHeader fontSize="lg" fontWeight="bold">
-            Remove Item
-          </AlertDialogHeader>
-
-          <AlertDialogBody>
-            Are you sure you want to remove this item?
-          </AlertDialogBody>
-
-          <AlertDialogFooter>
-            <Button ref={cancelRef} onClick={onClose}>
-              Cancel
-            </Button>
-
-            <Button
-              colorScheme="red"
-              /*
-               * idForDeletion will never be null since this dialog will be hidden if it's null
-               * hidden dialog = button cannot be clicked
-               */
-              onClick={() => onConfirm(idForDeletion as string)}
-              ml={3}
-            >
-              Delete
-            </Button>
-          </AlertDialogFooter>
-        </AlertDialogContent>
-      </AlertDialogOverlay>
-    </AlertDialog>
+      onOk={() => onConfirm(idForDeletion as string)}
+      onCancel={onClose}
+      onDismiss={onClose}
+      okColorScheme="red"
+      okLabel="Yes, delete"
+      message="Are you sure you want to remove this item?"
+      title="Remove Item"
+    />
   )
 }
