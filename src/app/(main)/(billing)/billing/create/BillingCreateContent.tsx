@@ -7,8 +7,10 @@ import {
   Button,
   Card,
   CardBody,
+  Center,
   Divider,
   Flex,
+  Text,
   useDisclosure,
 } from '@chakra-ui/react'
 import { useMemo, useState } from 'react'
@@ -16,6 +18,7 @@ import BillingCreateSearchDialog from './search/BillingCatalogSearchDialog'
 import { produce } from 'immer'
 import { CatalogItem } from '@/types/CatalogItem'
 import { SearchState } from './search/useSearch'
+import If from '@/components/common/If'
 
 export default function BillingCreateContent({
   initialState,
@@ -46,6 +49,8 @@ export default function BillingCreateContent({
     )
   }
 
+  const hasItems = billing.items.length > 0
+
   const { isOpen, onOpen, onClose } = useDisclosure()
   return (
     <>
@@ -66,16 +71,36 @@ export default function BillingCreateContent({
 
         <Card flex={1}>
           <CardBody as={Flex} direction="column" gap={2}>
-            <Flex flex={1} position="relative">
-              <Box
-                position="absolute"
-                height="full"
-                width="full"
-                overflowY="auto"
+            <If condition={hasItems}>
+              <Flex flex={1} position="relative">
+                <Box
+                  position="absolute"
+                  height="full"
+                  width="full"
+                  overflowY="auto"
+                >
+                  <InputBillingItemList
+                    billing={billing}
+                    onChange={setBilling}
+                  />
+                </Box>
+              </Flex>
+            </If>
+
+            <If condition={!hasItems}>
+              <Flex
+                flex={1}
+                direction="column"
+                justify="center"
+                align="center"
+                gap={2}
               >
-                <InputBillingItemList billing={billing} onChange={setBilling} />
-              </Box>
-            </Flex>
+                <Text fontSize="lg">No items yet</Text>
+                <Button size="xs" onClick={onOpen}>
+                  Add Items
+                </Button>
+              </Flex>
+            </If>
 
             <Divider />
 
