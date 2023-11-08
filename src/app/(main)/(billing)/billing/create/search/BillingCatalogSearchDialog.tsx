@@ -2,6 +2,7 @@
 
 import {
   Button,
+  Center,
   Flex,
   Input,
   Modal,
@@ -75,19 +76,25 @@ export default function BillingCreateSearchDialog({
         <ModalCloseButton />
         <ModalBody>
           <Flex direction="column" gap={3}>
-            {items.map((item) => (
-              <BillingCatalogSearchItem
-                catalogItem={item}
-                onAdd={() => onAdd(item)}
-                key={item.id}
-                canAdd={!cannotAdd.has(item.id)}
-              />
-            ))}
+            <If condition={items.length > 0}>
+              {items.map((item) => (
+                <BillingCatalogSearchItem
+                  catalogItem={item}
+                  onAdd={() => onAdd(item)}
+                  key={item.id}
+                  canAdd={!cannotAdd.has(item.id)}
+                />
+              ))}
 
-            <If condition={canLoadMore}>
-              <Button onClick={loadMore} isLoading={isLoading}>
-                Load More
-              </Button>
+              <If condition={canLoadMore}>
+                <Button onClick={loadMore} isLoading={isLoading}>
+                  Load More
+                </Button>
+              </If>
+            </If>
+
+            <If condition={items.length === 0}>
+              <Center width="full">No items to show</Center>
             </If>
           </Flex>
         </ModalBody>
