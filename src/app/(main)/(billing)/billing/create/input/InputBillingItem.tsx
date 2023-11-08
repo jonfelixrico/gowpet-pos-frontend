@@ -15,7 +15,7 @@ export default function InputBillingItem({
   onQuantityChange,
   onDelete,
 }: InputBillingItemProps) {
-  function onSubtract() {
+  function decrementOrDelete() {
     if (item.quantity === 1) {
       onDelete()
       return
@@ -39,29 +39,11 @@ export default function InputBillingItem({
           </Text>
         </Box>
 
-        <Flex gap={3} align="center">
-          <IconButton
-            data-cy="decrement"
-            isRound
-            size="xs"
-            aria-label="subtract"
-            onClick={onSubtract}
-          >
-            <MdRemove />
-          </IconButton>
-          <Text data-cy="quantity" fontSize="xl">
-            {item.quantity}
-          </Text>
-          <IconButton
-            data-cy="increment"
-            isRound
-            size="xs"
-            aria-label="add"
-            onClick={() => onQuantityChange(item.quantity + 1)}
-          >
-            <MdAdd />
-          </IconButton>
-        </Flex>
+        <QuantitySection
+          onDecrement={decrementOrDelete}
+          onIncrement={() => onQuantityChange(item.quantity + 1)}
+          quantity={item.quantity}
+        />
       </Flex>
 
       <Flex gap={3}>
@@ -71,6 +53,42 @@ export default function InputBillingItem({
           Delete
         </Button>
       </Flex>
+    </Flex>
+  )
+}
+
+function QuantitySection({
+  onDecrement,
+  onIncrement,
+  quantity,
+}: {
+  onIncrement: () => void
+  onDecrement: () => void
+  quantity: number
+}) {
+  return (
+    <Flex gap={3} align="center">
+      <IconButton
+        data-cy="decrement"
+        isRound
+        size="xs"
+        aria-label="subtract"
+        onClick={onDecrement}
+      >
+        <MdRemove />
+      </IconButton>
+      <Text data-cy="quantity" fontSize="xl">
+        {quantity}
+      </Text>
+      <IconButton
+        data-cy="increment"
+        isRound
+        size="xs"
+        aria-label="add"
+        onClick={onIncrement}
+      >
+        <MdAdd />
+      </IconButton>
     </Flex>
   )
 }
