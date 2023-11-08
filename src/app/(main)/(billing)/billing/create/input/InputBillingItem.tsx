@@ -17,15 +17,6 @@ export default function InputBillingItem({
   onDelete = () => {},
   onEdit = () => {},
 }: InputBillingItemProps) {
-  function decrementOrDelete() {
-    if (item.quantity === 1) {
-      onDelete()
-      return
-    }
-
-    onQuantityChange(item.quantity - 1)
-  }
-
   return (
     <Flex direction="column" gap={3}>
       <Flex gap={5} align="start">
@@ -42,7 +33,7 @@ export default function InputBillingItem({
         </Box>
 
         <QuantitySection
-          onDecrement={decrementOrDelete}
+          onDecrement={() => onQuantityChange(item.quantity - 1)}
           onIncrement={() => onQuantityChange(item.quantity + 1)}
           quantity={item.quantity}
         />
@@ -76,9 +67,9 @@ function QuantitySection({
           data-cy="decrement"
           isRound
           size="xs"
-          aria-label={quantity === 1 ? 'delete' : 'subtract'}
+          aria-label="subtract"
           onClick={onDecrement}
-          colorScheme={quantity === 1 ? 'red' : undefined}
+          isDisabled={quantity === 1}
         >
           <MdRemove />
         </IconButton>
