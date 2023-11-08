@@ -8,12 +8,14 @@ interface InputBillingItemProps {
   item: Billing['items'][number]
   onQuantityChange: (number: number) => void
   onDelete: () => void
+  onEdit: () => void
 }
 
 export default function InputBillingItem({
   item,
   onQuantityChange,
   onDelete,
+  onEdit,
 }: InputBillingItemProps) {
   function decrementOrDelete() {
     if (item.quantity === 1) {
@@ -25,7 +27,6 @@ export default function InputBillingItem({
   }
 
   return (
-    // TODO stub for now
     <Flex direction="column" gap={3}>
       <Flex gap={5} align="start">
         <Box flex={1}>
@@ -35,7 +36,6 @@ export default function InputBillingItem({
           </Text>
           <Text data-cy="amount" fontSize="small">
             Total of {item.price * item.quantity}
-            {item.price}
           </Text>
         </Box>
 
@@ -47,8 +47,9 @@ export default function InputBillingItem({
       </Flex>
 
       <Flex gap={3}>
-        {/* TODO add trigger */}
-        <Button size="xs">Edit Quantity</Button>
+        <Button size="xs" onClick={onEdit}>
+          Edit Quantity
+        </Button>
         <Button data-cy="delete" size="xs" onClick={onDelete}>
           Delete
         </Button>
