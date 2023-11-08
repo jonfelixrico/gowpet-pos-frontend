@@ -30,7 +30,9 @@ export default function InputBillingItem({
     <Flex direction="column" gap={3}>
       <Flex gap={5} align="start">
         <Box flex={1}>
-          <Text data-cy="name">{item.name}</Text>
+          <Text data-cy="name" marginBottom={2}>
+            {item.name}
+          </Text>
           <Text data-cy="price" fontSize="small">
             {item.price} per unit
           </Text>
