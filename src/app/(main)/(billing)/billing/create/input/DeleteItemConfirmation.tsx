@@ -13,16 +13,21 @@ import { useRef } from 'react'
 
 export default function DeleteItemConfirmation({
   onConfirm,
-  id,
-  ...props
-}: AlertDialogProps & {
-  onConfirm: (id: string) => {}
-  id: string | null
+  idForDeletion,
+  onClose,
+}: {
+  onConfirm: (id: string) => void
+  onClose: () => void
+  idForDeletion: string | null
 }) {
   const cancelRef = useRef<HTMLButtonElement>(null)
 
   return (
-    <AlertDialog {...props}>
+    <AlertDialog
+      leastDestructiveRef={cancelRef}
+      onClose={onClose}
+      isOpen={!!idForDeletion}
+    >
       <AlertDialogOverlay>
         <AlertDialogContent>
           <AlertDialogHeader fontSize="lg" fontWeight="bold">
@@ -34,11 +39,19 @@ export default function DeleteItemConfirmation({
           </AlertDialogBody>
 
           <AlertDialogFooter>
-            <Button ref={cancelRef} onClick={props.onClose}>
+            <Button ref={cancelRef} onClick={onClose}>
               Cancel
             </Button>
 
-            <Button colorScheme="red" onClick={() => onConfirm(id)} ml={3}>
+            <Button
+              colorScheme="red"
+              /*
+               * idForDeletion will never be null since this dialog will be hidden if it's null
+               * hidden dialog = button cannot be clicked
+               */
+              onClick={() => onConfirm(idForDeletion as string)}
+              ml={3}
+            >
               Delete
             </Button>
           </AlertDialogFooter>
