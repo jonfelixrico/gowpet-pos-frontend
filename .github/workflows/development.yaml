@@ -83,8 +83,15 @@ jobs:
           echo "converted=$CONVERTED" >> $GITHUB_OUTPUT
         id: convert
 
-      - name: Run e2e tests
+      - name: Start BE environment for E2E tests
         shell: bash
-        run: pnpm test:e2e:ci
+        run: cd docker/e2e-be && docker-compose up -d
         env:
           E2E_BACKEND_IMAGE: ghcr.io/jonfelixrico/gowpet-pos-backend:${{ steps.convert.outputs.converted }}
+
+      - name: Run E2E tests
+        uses: cypress-io/github-action@v6
+        with:
+          start: pnpm start
+          wait-on: 'http://localhost:3000, http://localhost:3005/authenticate/publicKey'
+          wait-on-timeout: 90
