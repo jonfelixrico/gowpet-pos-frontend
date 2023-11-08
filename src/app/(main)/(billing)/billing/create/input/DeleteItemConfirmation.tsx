@@ -13,9 +13,11 @@ import { useRef } from 'react'
 
 export default function DeleteItemConfirmation({
   onConfirm,
+  id,
   ...props
 }: AlertDialogProps & {
-  onConfirm: () => {}
+  onConfirm: (id: string) => {}
+  id: string
 }) {
   const cancelRef = useRef<HTMLButtonElement>(null)
 
@@ -36,7 +38,7 @@ export default function DeleteItemConfirmation({
               Cancel
             </Button>
 
-            <Button colorScheme="red" onClick={onConfirm} ml={3}>
+            <Button colorScheme="red" onClick={() => onConfirm(id)} ml={3}>
               Delete
             </Button>
           </AlertDialogFooter>
