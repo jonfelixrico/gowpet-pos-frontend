@@ -4,8 +4,8 @@ import { Flex, useDisclosure } from '@chakra-ui/react'
 import InputBillingItem from './InputBillingItem'
 import { produce } from 'immer'
 import { Billing } from '@/types/Billing'
-import DeleteItemConfirmation from './DeleteItemConfirmation'
 import { useState } from 'react'
+import ConfirmDialog from '@/components/common/ConfirmDialog'
 
 export interface InputBillingProps {
   billing: Billing
@@ -76,10 +76,15 @@ export default function InputBillingItemList({
         ))}
       </Flex>
 
-      <DeleteItemConfirmation
-        onClose={() => setIdForDeletion(null)}
-        idForDeletion={idForDeletion}
-        onConfirm={handleConfirm}
+      <ConfirmDialog
+        isOpen={!!idForDeletion}
+        onOk={() => handleConfirm(idForDeletion as string)}
+        onCancel={() => setIdForDeletion(null)}
+        onDismiss={() => setIdForDeletion(null)}
+        okColorScheme="red"
+        okLabel="Yes, delete"
+        message="Are you sure you want to remove this item?"
+        title="Remove Item"
       />
     </>
   )
