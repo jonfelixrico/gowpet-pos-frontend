@@ -61,8 +61,6 @@ describe('InputBillingItem', () => {
       </ChakraProvider>
     )
 
-    // TODO test typing into the input
-
     cy.get('[data-cy="increment"]')
       .click()
       .then(() => {
@@ -74,5 +72,24 @@ describe('InputBillingItem', () => {
       .then(() => {
         expect(onChange).to.have.been.calledWith(9)
       })
+  })
+
+  it('cannot decrement if quantity is 1', () => {
+    const onChange = cy.spy()
+    cy.mount(
+      <ChakraProvider>
+        <InputBillingItem
+          onQuantityChange={onChange}
+          item={{
+            catalogId: 'id',
+            name: 'foo',
+            price: 125.0,
+            quantity: 1,
+          }}
+        />
+      </ChakraProvider>
+    )
+
+    cy.get('[data-cy="decrement"]').should('be.disabled')
   })
 })
