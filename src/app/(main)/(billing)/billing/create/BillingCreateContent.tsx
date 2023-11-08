@@ -52,8 +52,15 @@ export default function BillingCreateContent({
       <Flex width="full" height="full" gap={2}>
         <Card flex={1}>
           <CardBody as={Flex} direction="column" gap={2}>
-            <Flex flex={1}>
-              <InputBillingItemList billing={billing} onChange={setBilling} />
+            <Flex flex={1} position="relative">
+              <Box
+                position="absolute"
+                height="full"
+                width="full"
+                overflowY="auto"
+              >
+                <InputBillingItemList billing={billing} onChange={setBilling} />
+              </Box>
             </Flex>
 
             <Divider />
