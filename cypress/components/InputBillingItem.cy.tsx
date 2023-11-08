@@ -1,4 +1,4 @@
-import InputBillingItem from '@/app/(main)/(billing)/billing/create/input/InputBillingItem'
+import InputBillingItem from '@/components/billing/input/InputBillingItem'
 import { ChakraProvider } from '@chakra-ui/react'
 
 describe('InputBillingItem', () => {

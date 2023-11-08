@@ -1,8 +1,8 @@
 'use client'
 
-import BillingCatalogSearch from '@/app/(main)/(billing)/billing/create/catalog-search/BillingCatalogSearch'
-import { SearchState } from '@/app/(main)/(billing)/billing/create/catalog-search/BillingCatalogSearch'
-import InputBilling from '@/app/(main)/(billing)/billing/create/input/InputBilling'
+import BillingCatalogSearch from '@/components/billing/catalog-search/BillingCatalogSearch'
+import { SearchState } from '@/components/billing/catalog-search/BillingCatalogSearch'
+import InputBilling from '@/components/billing/input/InputBilling'
 import { Billing } from '@/types/Billing'
 import { Box, Button, Flex } from '@chakra-ui/react'
 import { useState } from 'react'
