@@ -83,7 +83,7 @@ jobs:
           echo "converted=$CONVERTED" >> $GITHUB_OUTPUT
         id: convert
 
-      - name: Start BE environment
+      - name: Start BE environment for E2E tests
         shell: bash
         run: cd docker/e2e-be && docker-compose up -d
         env:
