@@ -49,30 +49,32 @@ export default function BillingCreateContent({
   const { isOpen, onOpen, onClose } = useDisclosure()
   return (
     <>
-      <Flex width="full" height="full" gap={2} direction="column">
-        <Flex flex={1} gap={2}>
-          <Card flex={1}>
-            <CardBody as={Flex} direction="column" gap={2}>
-              <Flex flex={1}>
-                <InputBillingItemList billing={billing} onChange={setBilling} />
-              </Flex>
+      <Flex width="full" height="full" gap={2}>
+        <Card flex={1}>
+          <CardBody as={Flex} direction="column" gap={2}>
+            <Flex flex={1}>
+              <InputBillingItemList billing={billing} onChange={setBilling} />
+            </Flex>
 
-              <Divider />
+            <Divider />
 
-              <Button onClick={onOpen}>Add Items</Button>
-            </CardBody>
-          </Card>
+            <Button onClick={onOpen}>Add Items</Button>
+          </CardBody>
+        </Card>
 
-          <Card flex={1}>
-            <CardBody></CardBody>
-          </Card>
-        </Flex>
+        <Card flex={1}>
+          <CardBody as={Flex} direction="column" gap={2}>
+            <Flex flex={1}></Flex>
 
-        <form action={() => onSave(billing)}>
-          <Button width="full" colorScheme="blue" type="submit">
-            Save
-          </Button>
-        </form>
+            <Divider />
+
+            <form action={() => onSave(billing)}>
+              <Button width="full" colorScheme="blue" type="submit">
+                Save
+              </Button>
+            </form>
+          </CardBody>
+        </Card>
       </Flex>
 
       <BillingCreateSearchDialog
