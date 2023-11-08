@@ -1,6 +1,6 @@
 'use client'
 
-import InputBilling from '@/app/(main)/(billing)/billing/create/input/InputBilling'
+import InputBilling from '@/app/(main)/(billing)/billing/create/input/InputBillingItemList'
 import { Billing } from '@/types/Billing'
 import {
   Box,

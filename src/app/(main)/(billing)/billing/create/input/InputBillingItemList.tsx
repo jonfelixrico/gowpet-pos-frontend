@@ -57,6 +57,7 @@ export default function InputBilling({ billing, onChange }: InputBillingProps) {
           item={item}
           onDelete={() => onItemDelete(item.catalogId)}
           onQuantityChange={(val) => onItemQuantityChange(item.catalogId, val)}
+          onEdit={() => {}}
         />
       ))}
     </Flex>
