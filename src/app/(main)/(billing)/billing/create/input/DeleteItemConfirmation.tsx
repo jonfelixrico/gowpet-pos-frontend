@@ -17,7 +17,7 @@ export default function DeleteItemConfirmation({
   ...props
 }: AlertDialogProps & {
   onConfirm: (id: string) => {}
-  id: string
+  id: string | null
 }) {
   const cancelRef = useRef<HTMLButtonElement>(null)
 
