@@ -1,9 +1,11 @@
 'use client'
 
-import { Flex } from '@chakra-ui/react'
+import { Flex, useDisclosure } from '@chakra-ui/react'
 import InputBillingItem from './InputBillingItem'
 import { produce } from 'immer'
 import { Billing } from '@/types/Billing'
+import DeleteItemConfirmation from './DeleteItemConfirmation'
+import { useState } from 'react'
 
 export interface InputBillingProps {
   billing: Billing
@@ -52,17 +54,33 @@ export default function InputBillingItemList({
     onChange(updatedBilling)
   }
 
+  const [idForDeletion, setIdForDeletion] = useState<string | null>(null)
+  function handleConfirm(id: string) {
+    setIdForDeletion(null)
+    onItemDelete(id)
+  }
+
   return (
-    <Flex direction="column" gap={5}>
-      {billing.items.map((item) => (
-        <InputBillingItem
-          key={item.catalogId}
-          item={item}
-          onDelete={() => onItemDelete(item.catalogId)}
-          onQuantityChange={(val) => onItemQuantityChange(item.catalogId, val)}
-          onEdit={() => {}}
-        />
-      ))}
-    </Flex>
+    <>
+      <Flex direction="column" gap={5}>
+        {billing.items.map((item) => (
+          <InputBillingItem
+            key={item.catalogId}
+            item={item}
+            onDelete={() => setIdForDeletion(item.catalogId)}
+            onQuantityChange={(val) =>
+              onItemQuantityChange(item.catalogId, val)
+            }
+            onEdit={() => {}}
+          />
+        ))}
+      </Flex>
+
+      <DeleteItemConfirmation
+        onClose={() => setIdForDeletion(null)}
+        idForDeletion={idForDeletion}
+        onConfirm={handleConfirm}
+      />
+    </>
   )
 }
