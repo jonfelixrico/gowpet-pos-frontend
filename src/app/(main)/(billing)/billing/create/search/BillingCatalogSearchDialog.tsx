@@ -20,7 +20,7 @@ import { CatalogItem } from '@/types/CatalogItem'
 import { useState } from 'react'
 import If from '@/components/common/If'
 
-function SearchBar({
+function SearchBarContent({
   triggerSearch,
 }: {
   triggerSearch: (searchTerm: string) => void
@@ -53,9 +53,11 @@ export default function BillingCreateSearchDialog({
     <Modal isOpen={isOpen} onClose={onClose} scrollBehavior="inside">
       <ModalOverlay />
       <ModalContent>
-        <ModalHeader>
+        <ModalHeader as={Flex} direction="column" gap={5}>
           <Text>Add Item</Text>
-          <SearchBar triggerSearch={startSearch} />
+          <Flex gap={2} align="center">
+            <SearchBarContent triggerSearch={startSearch} />
+          </Flex>
         </ModalHeader>
         <ModalCloseButton />
         <ModalBody>
