@@ -31,11 +31,11 @@ export default function DeleteItemConfirmation({
       <AlertDialogOverlay>
         <AlertDialogContent>
           <AlertDialogHeader fontSize="lg" fontWeight="bold">
-            Delete Customer
+            Remove Item
           </AlertDialogHeader>
 
           <AlertDialogBody>
-            Are you sure? You can't undo this action afterwards.
+            Are you sure you want to remove this item?
           </AlertDialogBody>
 
           <AlertDialogFooter>
