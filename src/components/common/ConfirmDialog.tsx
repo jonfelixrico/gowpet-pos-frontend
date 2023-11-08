@@ -11,7 +11,7 @@ import {
 } from '@chakra-ui/react'
 import { ReactNode, useRef } from 'react'
 
-export default function DeleteItemConfirmation({
+export default function ConfirmDialog({
   onCancel,
   onOk,
   onDismiss,
