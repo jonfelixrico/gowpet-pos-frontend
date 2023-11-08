@@ -17,7 +17,7 @@ export default function BillingCreateSearchDialog({
   ...props
 }: ModalProps) {
   return (
-    <Modal isOpen={isOpen} onClose={onClose} {...props}>
+    <Modal {...props} isOpen={isOpen} onClose={onClose}>
       <ModalOverlay />
       <ModalContent>
         <ModalHeader>Add Item</ModalHeader>
