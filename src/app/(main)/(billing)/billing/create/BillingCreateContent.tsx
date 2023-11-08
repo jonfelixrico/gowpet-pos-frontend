@@ -14,7 +14,7 @@ import {
   useDisclosure,
 } from '@chakra-ui/react'
 import { useState } from 'react'
-import BillingCreateSearchDialog from './search/BillingCreateSearchDialog'
+import BillingCreateSearchDialog from './search/BillingCatalogSearchDialog'
 
 export default function BillingCreateContent({
   initialState,
