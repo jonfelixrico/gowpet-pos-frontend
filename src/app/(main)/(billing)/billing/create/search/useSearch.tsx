@@ -36,32 +36,44 @@ export function useSearch(initialState: SearchState) {
   const [{ items, pageCount, pageNo, searchTerm }, setSearchState] =
     useState<SearchState>(initialState)
 
+  const [isLoading, setIsLoading] = useState(false)
+
   async function startSearch(searchTerm: string) {
-    const { items, pageCount } = await fetchResults(searchTerm, 0)
-    setSearchState({
-      pageNo: 0,
-      pageCount,
-      searchTerm,
-      items,
-    })
+    setIsLoading(true)
+    try {
+      const { items, pageCount } = await fetchResults(searchTerm, 0)
+      setSearchState({
+        pageNo: 0,
+        pageCount,
+        searchTerm,
+        items,
+      })
+    } finally {
+      setIsLoading(false)
+    }
   }
 
   async function loadMore() {
-    const newPageNo = pageNo + 1
+    setIsLoading(true)
 
-    const { items: fetchedItems, pageCount } = await fetchResults(
-      searchTerm,
-      newPageNo
-    )
-
-    setSearchState(({ searchTerm, items }) => {
-      return {
-        pageCount,
-        pageNo: newPageNo,
+    try {
+      const newPageNo = pageNo + 1
+      const { items: fetchedItems, pageCount } = await fetchResults(
         searchTerm,
-        items: items.concat(fetchedItems),
-      }
-    })
+        newPageNo
+      )
+
+      setSearchState(({ searchTerm, items }) => {
+        return {
+          pageCount,
+          pageNo: newPageNo,
+          searchTerm,
+          items: items.concat(fetchedItems),
+        }
+      })
+    } finally {
+      setIsLoading(false)
+    }
   }
 
   return {
@@ -69,5 +81,6 @@ export function useSearch(initialState: SearchState) {
     canLoadMore: pageNo < pageCount - 1,
     startSearch,
     loadMore,
+    isLoading,
   }
 }
