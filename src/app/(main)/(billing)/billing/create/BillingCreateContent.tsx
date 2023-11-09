@@ -10,6 +10,7 @@ import {
   Center,
   Divider,
   Flex,
+  IconButton,
   Text,
   useDisclosure,
 } from '@chakra-ui/react'
@@ -76,12 +77,15 @@ export default function BillingCreateContent({
               <Text fontSize="xl" fontWeight="medium">
                 Items
               </Text>
-              <Button onClick={onOpen}>
-                <Flex align="center" gap={2}>
-                  <MdAdd />
-                  <Text>Add Items</Text>
-                </Flex>
-              </Button>
+              <IconButton
+                size="sm"
+                isRound
+                aria-label="Add item"
+                onClick={onOpen}
+                colorScheme="blue"
+              >
+                <MdAdd />
+              </IconButton>
             </Flex>
 
             <Divider />
