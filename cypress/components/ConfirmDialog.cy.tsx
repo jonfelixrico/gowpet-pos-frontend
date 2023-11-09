@@ -21,4 +21,28 @@ describe('ConfirmDialog', () => {
     cy.get('[data-cy="title"]').should('contain.text', 'title')
     cy.get('[data-cy="message"]').should('contain.text', 'message')
   })
+
+  it('shows custom button labels', () => {
+    cy.mount(
+      <ChakraProvider>
+        <ConfirmDialog
+          isOpen={true}
+          onOk={() => {}}
+          onCancel={() => {}}
+          onDismiss={() => {}}
+          title="title"
+          message="message"
+          ok={{
+            label: 'custom ok',
+          }}
+          cancel={{
+            label: 'custom cancel',
+          }}
+        />
+      </ChakraProvider>
+    )
+
+    cy.get('[data-cy="ok"]').should('contain.text', 'custom ok')
+    cy.get('[data-cy="cancel"]').should('contain.text', 'custom cancel')
+  })
 })
