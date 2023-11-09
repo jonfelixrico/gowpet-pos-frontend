@@ -19,9 +19,8 @@ export default function ConfirmDialog({
   isOpen,
   title,
   message,
-  cancelLabel,
-  okLabel,
-  okColorScheme,
+  cancel,
+  ok,
 }: {
   onCancel: () => void
   onOk: () => void
@@ -29,9 +28,13 @@ export default function ConfirmDialog({
   isOpen: boolean
   title?: ReactNode
   message?: ReactNode
-  cancelLabel?: ReactNode
-  okLabel?: ReactNode
-  okColorScheme?: ButtonProps['colorScheme']
+  ok?: {
+    label: ReactNode
+    colorScheme?: ButtonProps['colorScheme']
+  }
+  cancel?: {
+    label?: ReactNode
+  }
 }) {
   const cancelRef = useRef<HTMLButtonElement>(null)
 
@@ -51,12 +54,11 @@ export default function ConfirmDialog({
 
           <AlertDialogFooter>
             <Button ref={cancelRef} onClick={onCancel}>
-              <If condition={cancelLabel !== undefined}>{cancelLabel}</If>
-              <If condition={cancelLabel === undefined}>Cancel</If>
+              {cancel?.label === undefined ? 'Cancel' : cancel.label}
             </Button>
 
             <Button
-              colorScheme={okColorScheme}
+              colorScheme={ok?.colorScheme}
               /*
                * idForDeletion will never be null since this dialog will be hidden if it's null
                * hidden dialog = button cannot be clicked
@@ -64,8 +66,7 @@ export default function ConfirmDialog({
               onClick={onOk}
               ml={3}
             >
-              <If condition={okLabel !== undefined}>{okLabel}</If>
-              <If condition={okLabel === undefined}>Ok</If>
+              {ok?.label === undefined ? 'Ok' : ok.label}
             </Button>
           </AlertDialogFooter>
         </AlertDialogContent>
