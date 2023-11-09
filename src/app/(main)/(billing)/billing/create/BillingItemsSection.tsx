@@ -22,6 +22,11 @@ import { SearchState } from './search/useSearch'
 import If from '@/components/common/If'
 import { MdAdd } from 'react-icons/md'
 
+interface BillingStateProps {
+  billing: Billing
+  setBilling: Dispatch<SetStateAction<Billing>>
+}
+
 export default function BillingItemsSection({
   initialState,
   billing,
@@ -29,9 +34,8 @@ export default function BillingItemsSection({
   ...props
 }: {
   initialState: SearchState
-  billing: Billing
-  setBilling: Dispatch<SetStateAction<Billing>>
-} & CardProps) {
+} & CardProps &
+  BillingStateProps) {
   const alreadyAdded = useMemo(
     () => new Set(billing.items.map(({ catalogId }) => catalogId)),
     [billing]
