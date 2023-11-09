@@ -81,8 +81,10 @@ export default function InputBillingItemList({
         onOk={() => handleConfirm(idForDeletion as string)}
         onCancel={() => setIdForDeletion(null)}
         onDismiss={() => setIdForDeletion(null)}
-        okColorScheme="red"
-        okLabel="Yes, delete"
+        ok={{
+          colorScheme: 'red',
+          label: 'Yes, delete',
+        }}
         message="Are you sure you want to remove this item?"
         title="Remove Item"
       />
