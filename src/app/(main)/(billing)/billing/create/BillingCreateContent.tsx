@@ -21,6 +21,9 @@ export default function BillingCreateContent({
   onSave,
 }: {
   initialState: SearchState
+  /**
+   * Server action saving the billing
+   */
   onSave: (billing: Billing) => void
 }) {
   const [billing, setBilling] = useState<Billing>({

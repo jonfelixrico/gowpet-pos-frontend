@@ -15,6 +15,9 @@ export default function BillingSaveButton({
   onSave,
   billing,
 }: {
+  /**
+   * Server action for saving the billing
+   */
   onSave: (billing: Billing) => void
   billing: Billing
 }) {
@@ -48,6 +51,8 @@ export default function BillingSaveButton({
                 Cancel
               </Button>
 
+              {/* We're using action here instead of the button's onClick because onSave is a server action.
+                  Server actions cannot be called via onClick */}
               <form action={() => onSave(billing)}>
                 <Button colorScheme="blue" type="submit" ml={3}>
                   Yes, save
