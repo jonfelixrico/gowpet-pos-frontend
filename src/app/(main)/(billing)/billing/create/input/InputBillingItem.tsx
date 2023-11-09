@@ -1,11 +1,11 @@
 'use client'
 
-import { Billing } from '@/types/Billing'
+import { BillingItem } from '@/types/Billing'
 import { Box, Button, Flex, IconButton, Text } from '@chakra-ui/react'
 import { MdAdd, MdRemove } from 'react-icons/md'
 
 interface InputBillingItemProps {
-  item: Billing['items'][number]
+  item: BillingItem
   onQuantityChange?: (number: number) => void
   onDelete?: () => void
   onEdit?: () => void
