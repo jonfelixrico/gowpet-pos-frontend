@@ -1,26 +1,10 @@
 'use client'
 
-import InputBillingItemList from '@/app/(main)/(billing)/billing/create/input/InputBillingItemList'
 import { Billing } from '@/types/Billing'
-import {
-  Box,
-  Button,
-  Card,
-  CardBody,
-  Center,
-  Divider,
-  Flex,
-  IconButton,
-  Text,
-  useDisclosure,
-} from '@chakra-ui/react'
-import { useMemo, useState } from 'react'
-import BillingCreateSearchDialog from './search/BillingCatalogSearchDialog'
-import { produce } from 'immer'
-import { CatalogItem } from '@/types/CatalogItem'
+import { Button, Card, CardBody, Divider, Flex } from '@chakra-ui/react'
+import { useState } from 'react'
 import { SearchState } from './search/useSearch'
-import If from '@/components/common/If'
-import { MdAdd } from 'react-icons/md'
+import BillingItemsSection from './BillingItemsSection'
 
 export default function BillingCreateContent({
   initialState,
@@ -33,116 +17,28 @@ export default function BillingCreateContent({
     items: [],
   })
 
-  const alreadyAdded = useMemo(
-    () => new Set(billing.items.map(({ catalogId }) => catalogId)),
-    [billing]
-  )
-
-  function addItemToBilling({ id, name, price }: CatalogItem) {
-    setBilling((billing) =>
-      produce(billing, ({ items }) => {
-        items.push({
-          catalogId: id,
-          name,
-          price,
-          quantity: 1,
-        })
-      })
-    )
-  }
-
-  const hasItems = billing.items.length > 0
-
-  const { isOpen, onOpen, onClose } = useDisclosure()
   return (
-    <>
-      <Flex width="full" height="full" gap={2}>
-        <Card flex={1}>
-          <CardBody as={Flex} direction="column" gap={2}>
-            <Flex flex={1}></Flex>
+    <Flex width="full" height="full" gap={2}>
+      <Card flex={1}>
+        <CardBody as={Flex} direction="column" gap={2}>
+          <Flex flex={1}></Flex>
 
-            <Divider />
+          <Divider />
 
-            <form action={() => onSave(billing)}>
-              <Button width="full" colorScheme="blue" type="submit">
-                Save
-              </Button>
-            </form>
-          </CardBody>
-        </Card>
+          <form action={() => onSave(billing)}>
+            <Button width="full" colorScheme="blue" type="submit">
+              Save
+            </Button>
+          </form>
+        </CardBody>
+      </Card>
 
-        <Card flex={1}>
-          <CardBody as={Flex} direction="column" gap={2}>
-            <Flex justify="space-between" align="center">
-              <Text fontSize="xl" fontWeight="medium">
-                Items
-              </Text>
-              <IconButton
-                size="sm"
-                isRound
-                aria-label="Add item"
-                onClick={onOpen}
-                colorScheme="blue"
-              >
-                <MdAdd />
-              </IconButton>
-            </Flex>
-
-            <Divider />
-
-            <If condition={hasItems}>
-              <Flex flex={1} position="relative">
-                <Box
-                  position="absolute"
-                  height="full"
-                  width="full"
-                  overflowY="auto"
-                >
-                  <InputBillingItemList
-                    billing={billing}
-                    onChange={setBilling}
-                  />
-                </Box>
-              </Flex>
-            </If>
-
-            <If condition={!hasItems}>
-              <Flex
-                flex={1}
-                direction="column"
-                justify="center"
-                align="center"
-                gap={2}
-              >
-                <Text fontSize="lg">No items yet</Text>
-                <Button size="xs" onClick={onOpen}>
-                  Add Items
-                </Button>
-              </Flex>
-            </If>
-
-            <Divider />
-
-            <Flex justify="space-between">
-              <Text fontWeight="bold">Total</Text>
-              <Text>
-                {billing.items.reduce(
-                  (acc, val) => acc + val.price * val.quantity,
-                  0
-                )}
-              </Text>
-            </Flex>
-          </CardBody>
-        </Card>
-      </Flex>
-
-      <BillingCreateSearchDialog
-        isOpen={isOpen}
-        onClose={onClose}
+      <BillingItemsSection
+        billing={billing}
+        setBilling={setBilling}
         initialState={initialState}
-        cannotAdd={alreadyAdded}
-        onAdd={addItemToBilling}
+        flex={1}
       />
-    </>
+    </Flex>
   )
 }
