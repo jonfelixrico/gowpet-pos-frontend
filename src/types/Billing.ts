@@ -5,4 +5,5 @@ export interface Billing {
     price: number
     quantity: number
   }[]
+  notes: string
 }
