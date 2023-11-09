@@ -1,16 +1,21 @@
 'use client'
 
-import { Flex } from '@chakra-ui/react'
+import { Flex, useDisclosure } from '@chakra-ui/react'
 import InputBillingItem from './InputBillingItem'
 import { produce } from 'immer'
 import { Billing } from '@/types/Billing'
+import { useState } from 'react'
+import ConfirmDialog from '@/components/common/ConfirmDialog'
 
 export interface InputBillingProps {
   billing: Billing
   onChange: (value: Billing) => void
 }
 
-export default function InputBilling({ billing, onChange }: InputBillingProps) {
+export default function InputBillingItemList({
+  billing,
+  onChange,
+}: InputBillingProps) {
   function onItemDelete(catalogId: string) {
     const updatedBilling = produce(billing, ({ items }) => {
       const idx = items.findIndex((item) => item.catalogId === catalogId)
@@ -49,16 +54,40 @@ export default function InputBilling({ billing, onChange }: InputBillingProps) {
     onChange(updatedBilling)
   }
 
+  const [idForDeletion, setIdForDeletion] = useState<string | null>(null)
+  function handleConfirm(id: string) {
+    setIdForDeletion(null)
+    onItemDelete(id)
+  }
+
   return (
-    <Flex direction="column" gap={5}>
-      {billing.items.map((item) => (
-        <InputBillingItem
-          key={item.catalogId}
-          item={item}
-          onDelete={() => onItemDelete(item.catalogId)}
-          onQuantityChange={(val) => onItemQuantityChange(item.catalogId, val)}
-        />
-      ))}
-    </Flex>
+    <>
+      <Flex direction="column" gap={5}>
+        {billing.items.map((item) => (
+          <InputBillingItem
+            key={item.catalogId}
+            item={item}
+            onDelete={() => setIdForDeletion(item.catalogId)}
+            onQuantityChange={(val) =>
+              onItemQuantityChange(item.catalogId, val)
+            }
+            onEdit={() => {}}
+          />
+        ))}
+      </Flex>
+
+      <ConfirmDialog
+        isOpen={!!idForDeletion}
+        onOk={() => handleConfirm(idForDeletion as string)}
+        onCancel={() => setIdForDeletion(null)}
+        onDismiss={() => setIdForDeletion(null)}
+        ok={{
+          colorScheme: 'red',
+          label: 'Yes, delete',
+        }}
+        message="Are you sure you want to remove this item?"
+        title="Remove Item"
+      />
+    </>
   )
 }
