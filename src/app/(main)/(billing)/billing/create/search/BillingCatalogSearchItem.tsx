@@ -1,6 +1,6 @@
 'use client'
 
-import { Box, Button, Text } from '@chakra-ui/react'
+import { Box, Button, Flex, Text } from '@chakra-ui/react'
 
 export interface BillingCatalogSearchItemProps {
   catalogItem: {
@@ -18,12 +18,15 @@ export default function BillingCatalogSearchItem({
   onAdd,
 }: BillingCatalogSearchItemProps) {
   return (
-    <Box>
-      <Text>{catalogItem.name}</Text>
-      <Text>{catalogItem.price}</Text>
+    <Flex justify="space-between" gap={2}>
+      <Box>
+        <Text>{catalogItem.name}</Text>
+        <Text fontSize="xs">{catalogItem.price}</Text>
+      </Box>
+
       <Button isDisabled={!canAdd} onClick={onAdd}>
         Add
       </Button>
-    </Box>
+    </Flex>
   )
 }

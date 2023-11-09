@@ -1,43 +1,74 @@
 'use client'
 
-import BillingCatalogSearch from '@/components/billing/catalog-search/BillingCatalogSearch'
-import { SearchState } from '@/components/billing/catalog-search/BillingCatalogSearch'
-import InputBilling from '@/components/billing/input/InputBilling'
 import { Billing } from '@/types/Billing'
-import { Box, Button, Flex } from '@chakra-ui/react'
+import {
+  Card,
+  CardBody,
+  Divider,
+  Flex,
+  Spacer,
+  Text,
+  Textarea,
+} from '@chakra-ui/react'
 import { useState } from 'react'
+import { SearchState } from './search/useSearch'
+import BillingItemsSection from './BillingItemsSection'
+import { produce } from 'immer'
+import BillingSaveButton from './BillingSaveButton'
 
 export default function BillingCreateContent({
   initialState,
   onSave,
 }: {
   initialState: SearchState
+  /**
+   * Server action saving the billing
+   */
   onSave: (billing: Billing) => void
 }) {
   const [billing, setBilling] = useState<Billing>({
     items: [],
+    notes: '',
   })
+
+  function setNotes(value: string) {
+    setBilling((inState) =>
+      produce(inState, (billing) => {
+        billing.notes = value
+      })
+    )
+  }
 
   return (
     <Flex width="full" height="full" gap={2}>
-      <Flex flex={1} direction="column">
-        <Flex flex={1} position="relative">
-          <Box position="absolute" width="full" height="full" overflowY="auto">
-            <InputBilling billing={billing} onChange={setBilling} />
-          </Box>
-        </Flex>
+      <Card flex={1}>
+        <CardBody as={Flex} direction="column" gap={2}>
+          <Flex flex={1} direction="column" gap={2}>
+            {/* TODO implement other features */}
+            <Spacer />
+            <Divider />
+            <Flex direction="column" gap={2} flex={0.66}>
+              <Text fontWeight="bold">Notes</Text>
+              <Textarea
+                flex={1}
+                resize="none"
+                value={billing.notes}
+                onChange={(event) => setNotes(event.target.value)}
+              />
+            </Flex>
+          </Flex>
 
-        <form action={() => onSave(billing)}>
-          <Button width="full" colorScheme="blue" type="submit">
-            Save
-          </Button>
-        </form>
-      </Flex>
-      <BillingCatalogSearch
+          <Divider />
+
+          <BillingSaveButton billing={billing} onSave={onSave} />
+        </CardBody>
+      </Card>
+
+      <BillingItemsSection
+        billing={billing}
+        setBilling={setBilling}
         initialState={initialState}
         flex={1}
-        onBillingChange={setBilling}
-        billing={billing}
       />
     </Flex>
   )
