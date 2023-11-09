@@ -1,10 +1,19 @@
 'use client'
 
 import { Billing } from '@/types/Billing'
-import { Button, Card, CardBody, Divider, Flex } from '@chakra-ui/react'
+import {
+  Button,
+  Card,
+  CardBody,
+  Divider,
+  Flex,
+  Text,
+  Textarea,
+} from '@chakra-ui/react'
 import { useState } from 'react'
 import { SearchState } from './search/useSearch'
 import BillingItemsSection from './BillingItemsSection'
+import { produce } from 'immer'
 
 export default function BillingCreateContent({
   initialState,
@@ -18,11 +27,25 @@ export default function BillingCreateContent({
     notes: '',
   })
 
+  function setNotes(value: string) {
+    setBilling((inState) =>
+      produce(inState, (billing) => {
+        billing.notes = value
+      })
+    )
+  }
+
   return (
     <Flex width="full" height="full" gap={2}>
       <Card flex={1}>
         <CardBody as={Flex} direction="column" gap={2}>
-          <Flex flex={1}></Flex>
+          <Text>Notes</Text>
+          <Flex flex={1}>
+            <Textarea
+              value={billing.notes}
+              onChange={(event) => setNotes(event.target.value)}
+            />
+          </Flex>
 
           <Divider />
 
