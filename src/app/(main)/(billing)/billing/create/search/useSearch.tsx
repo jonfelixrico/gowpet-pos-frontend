@@ -16,7 +16,6 @@ async function fetchResults(searchTerm: string, pageNo: number) {
     pageNo,
   })
 
-  // TODO use API routes for this endpoint
   const { data, headers } = await fetchData<CatalogItem[]>(
     `/billing/catalog-search?${qp}`
   )
