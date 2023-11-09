@@ -22,7 +22,7 @@ import { SearchState } from './search/useSearch'
 import If from '@/components/common/If'
 import { MdAdd } from 'react-icons/md'
 
-export default function BillingCreateContent({
+export default function BillingItemsSection({
   initialState,
   billing,
   setBilling,
