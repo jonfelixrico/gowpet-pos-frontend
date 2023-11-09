@@ -7,6 +7,7 @@ import {
   CardBody,
   Divider,
   Flex,
+  Spacer,
   Text,
   Textarea,
 } from '@chakra-ui/react'
@@ -39,12 +40,19 @@ export default function BillingCreateContent({
     <Flex width="full" height="full" gap={2}>
       <Card flex={1}>
         <CardBody as={Flex} direction="column" gap={2}>
-          <Text>Notes</Text>
-          <Flex flex={1}>
-            <Textarea
-              value={billing.notes}
-              onChange={(event) => setNotes(event.target.value)}
-            />
+          <Flex flex={1} direction="column" gap={2}>
+            {/* TODO implement other features */}
+            <Spacer />
+            <Divider />
+            <Flex direction="column" gap={2} flex={0.66}>
+              <Text fontWeight="bold">Notes</Text>
+              <Textarea
+                flex={1}
+                resize="none"
+                value={billing.notes}
+                onChange={(event) => setNotes(event.target.value)}
+              />
+            </Flex>
           </Flex>
 
           <Divider />
