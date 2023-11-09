@@ -1,87 +1,75 @@
 'use client'
 
-import InputBilling from '@/components/billing/input/InputBilling'
 import { Billing } from '@/types/Billing'
 import {
-  Box,
-  Button,
   Card,
   CardBody,
   Divider,
   Flex,
-  useDisclosure,
+  Spacer,
+  Text,
+  Textarea,
 } from '@chakra-ui/react'
-import { useMemo, useState } from 'react'
-import BillingCreateSearchDialog from './search/BillingCatalogSearchDialog'
-import { produce } from 'immer'
-import { CatalogItem } from '@/types/CatalogItem'
+import { useState } from 'react'
 import { SearchState } from './search/useSearch'
+import BillingItemsSection from './BillingItemsSection'
+import { produce } from 'immer'
+import BillingSaveButton from './BillingSaveButton'
 
 export default function BillingCreateContent({
   initialState,
   onSave,
 }: {
   initialState: SearchState
+  /**
+   * Server action saving the billing
+   */
   onSave: (billing: Billing) => void
 }) {
   const [billing, setBilling] = useState<Billing>({
     items: [],
+    notes: '',
   })
 
-  const alreadyAdded = useMemo(
-    () => new Set(billing.items.map(({ catalogId }) => catalogId)),
-    [billing]
-  )
-
-  function addItemToBilling({ id, name, price }: CatalogItem) {
-    setBilling((billing) =>
-      produce(billing, ({ items }) => {
-        items.push({
-          catalogId: id,
-          name,
-          price,
-          quantity: 1,
-        })
+  function setNotes(value: string) {
+    setBilling((inState) =>
+      produce(inState, (billing) => {
+        billing.notes = value
       })
     )
   }
 
-  const { isOpen, onOpen, onClose } = useDisclosure()
   return (
-    <>
-      <Flex width="full" height="full" gap={2} direction="column">
-        <Flex flex={1} gap={2}>
-          <Card flex={1}>
-            <CardBody as={Flex} direction="column" gap={2}>
-              <Flex flex={1}>
-                <InputBilling billing={billing} onChange={setBilling} />
-              </Flex>
+    <Flex width="full" height="full" gap={2}>
+      <Card flex={1}>
+        <CardBody as={Flex} direction="column" gap={2}>
+          <Flex flex={1} direction="column" gap={2}>
+            {/* TODO implement other features */}
+            <Spacer />
+            <Divider />
+            <Flex direction="column" gap={2} flex={0.66}>
+              <Text fontWeight="bold">Notes</Text>
+              <Textarea
+                flex={1}
+                resize="none"
+                value={billing.notes}
+                onChange={(event) => setNotes(event.target.value)}
+              />
+            </Flex>
+          </Flex>
 
-              <Divider />
+          <Divider />
 
-              <Button onClick={onOpen}>Add Items</Button>
-            </CardBody>
-          </Card>
+          <BillingSaveButton billing={billing} onSave={onSave} />
+        </CardBody>
+      </Card>
 
-          <Card flex={1}>
-            <CardBody></CardBody>
-          </Card>
-        </Flex>
-
-        <form action={() => onSave(billing)}>
-          <Button width="full" colorScheme="blue" type="submit">
-            Save
-          </Button>
-        </form>
-      </Flex>
-
-      <BillingCreateSearchDialog
-        isOpen={isOpen}
-        onClose={onClose}
+      <BillingItemsSection
+        billing={billing}
+        setBilling={setBilling}
         initialState={initialState}
-        cannotAdd={alreadyAdded}
-        onAdd={addItemToBilling}
+        flex={1}
       />
-    </>
+    </Flex>
   )
 }
