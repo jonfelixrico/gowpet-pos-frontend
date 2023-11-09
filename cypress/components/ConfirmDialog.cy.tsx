@@ -45,4 +45,40 @@ describe('ConfirmDialog', () => {
     cy.get('[data-cy="ok"]').should('contain.text', 'custom ok')
     cy.get('[data-cy="cancel"]').should('contain.text', 'custom cancel')
   })
+
+  it('shows custom button labels', () => {
+    const onOk = cy.spy()
+    const onCancel = cy.spy()
+
+    cy.mount(
+      <ChakraProvider>
+        <ConfirmDialog
+          isOpen={true}
+          onOk={onOk}
+          onCancel={onCancel}
+          onDismiss={() => {}}
+          title="title"
+          message="message"
+          ok={{
+            label: 'custom ok',
+          }}
+          cancel={{
+            label: 'custom cancel',
+          }}
+        />
+      </ChakraProvider>
+    )
+
+    cy.get('[data-cy="ok"]')
+      .click()
+      .should(() => {
+        expect(onOk).to.have.been.calledOnce
+      })
+
+    cy.get('[data-cy="cancel"]')
+      .click()
+      .should(() => {
+        expect(onCancel).to.have.been.calledOnce
+      })
+  })
 })
