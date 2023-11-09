@@ -19,6 +19,7 @@ import { produce } from 'immer'
 import { CatalogItem } from '@/types/CatalogItem'
 import { SearchState } from './search/useSearch'
 import If from '@/components/common/If'
+import { MdAdd } from 'react-icons/md'
 
 export default function BillingCreateContent({
   initialState,
@@ -71,6 +72,20 @@ export default function BillingCreateContent({
 
         <Card flex={1}>
           <CardBody as={Flex} direction="column" gap={2}>
+            <Flex justify="space-between" align="center">
+              <Text fontSize="xl" fontWeight="medium">
+                Items
+              </Text>
+              <Button onClick={onOpen}>
+                <Flex align="center" gap={2}>
+                  <MdAdd />
+                  <Text>Add Items</Text>
+                </Flex>
+              </Button>
+            </Flex>
+
+            <Divider />
+
             <If condition={hasItems}>
               <Flex flex={1} position="relative">
                 <Box
@@ -101,10 +116,6 @@ export default function BillingCreateContent({
                 </Button>
               </Flex>
             </If>
-
-            <Divider />
-
-            <Button onClick={onOpen}>Add Items</Button>
           </CardBody>
         </Card>
       </Flex>
