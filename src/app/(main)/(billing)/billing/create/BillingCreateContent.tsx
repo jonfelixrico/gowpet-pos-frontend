@@ -15,6 +15,7 @@ export default function BillingCreateContent({
 }) {
   const [billing, setBilling] = useState<Billing>({
     items: [],
+    notes: '',
   })
 
   return (
