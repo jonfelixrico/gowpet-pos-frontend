@@ -116,6 +116,18 @@ export default function BillingCreateContent({
                 </Button>
               </Flex>
             </If>
+
+            <Divider />
+
+            <Flex justify="space-between">
+              <Text fontWeight="bold">Total</Text>
+              <Text>
+                {billing.items.reduce(
+                  (acc, val) => acc + val.price * val.quantity,
+                  0
+                )}
+              </Text>
+            </Flex>
           </CardBody>
         </Card>
       </Flex>
