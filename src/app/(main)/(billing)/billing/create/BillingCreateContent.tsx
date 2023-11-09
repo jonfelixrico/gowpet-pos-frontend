@@ -15,6 +15,7 @@ import { useState } from 'react'
 import { SearchState } from './search/useSearch'
 import BillingItemsSection from './BillingItemsSection'
 import { produce } from 'immer'
+import BillingSaveButton from './BillingSaveButton'
 
 export default function BillingCreateContent({
   initialState,
@@ -57,11 +58,7 @@ export default function BillingCreateContent({
 
           <Divider />
 
-          <form action={() => onSave(billing)}>
-            <Button width="full" colorScheme="blue" type="submit">
-              Save
-            </Button>
-          </form>
+          <BillingSaveButton billing={billing} onSave={onSave} />
         </CardBody>
       </Card>
 
