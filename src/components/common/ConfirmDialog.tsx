@@ -29,7 +29,7 @@ export default function ConfirmDialog({
   title?: ReactNode
   message?: ReactNode
   ok?: {
-    label: ReactNode
+    label?: ReactNode
     colorScheme?: ButtonProps['colorScheme']
   }
   cancel?: {
