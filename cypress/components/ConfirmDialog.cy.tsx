@@ -1,16 +1,19 @@
 import ConfirmDialog from '@/components/common/ConfirmDialog'
+import { ChakraProvider } from '@chakra-ui/react'
 
 describe('ConfirmDialog', () => {
   it('shows defaults', () => {
     cy.mount(
-      <ConfirmDialog
-        isOpen={true}
-        onOk={() => {}}
-        onCancel={() => {}}
-        onDismiss={() => {}}
-        title="title"
-        message="message"
-      />
+      <ChakraProvider>
+        <ConfirmDialog
+          isOpen={true}
+          onOk={() => {}}
+          onCancel={() => {}}
+          onDismiss={() => {}}
+          title="title"
+          message="message"
+        />
+      </ChakraProvider>
     )
 
     cy.get('[data-cy="ok"]').should('contain.text', 'Ok')
