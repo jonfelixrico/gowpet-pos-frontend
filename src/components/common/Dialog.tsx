@@ -21,7 +21,7 @@ export default function Dialog({
   onDismiss,
   isOpen,
   header,
-  body,
+  children,
   cancel,
   ok,
 }: {
@@ -30,7 +30,7 @@ export default function Dialog({
   onDismiss: () => void
   isOpen: boolean
   header?: ReactNode
-  body?: ReactNode
+  children?: ReactNode
   ok?: DialogButtonProps
   cancel?: DialogButtonProps
 }) {
@@ -44,7 +44,7 @@ export default function Dialog({
         <ModalHeader>{header}</ModalHeader>
         <ModalCloseButton />
 
-        <ModalBody>{body}</ModalBody>
+        <ModalBody>{children}</ModalBody>
 
         <ModalFooter>
           <Button {...cancelProps} onClick={onCancel}>
