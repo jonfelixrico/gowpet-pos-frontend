@@ -1,6 +1,6 @@
 'use client'
 
-import { Flex, Table, TableContainer, Tbody, Th } from '@chakra-ui/react'
+import { Flex, Table, TableContainer, Tbody, Th, Thead } from '@chakra-ui/react'
 import BillingItemTableRow from './BillingItemTableRow'
 import { produce } from 'immer'
 import { Billing } from '@/types/Billing'
@@ -62,41 +62,30 @@ export default function BillingItemTable({
 
   return (
     <>
-      <Flex direction="column" gap={5}>
-        {billing.items.map((item) => (
-          <BillingItemTableRow
-            key={item.catalogId}
-            item={item}
-            onDelete={() => setIdForDeletion(item.catalogId)}
-            onQuantityChange={(val) =>
-              onItemQuantityChange(item.catalogId, val)
-            }
-            onEdit={() => {}}
-          />
-        ))}
-      </Flex>
-
       <TableContainer>
         <Table>
-          <Th>Name</Th>
-          <Th>Price</Th>
-          <Th>Quantity</Th>
-          <Th>Amount</Th>
-          <Th />
+          <Thead>
+            <Th>Name</Th>
+            <Th>Price</Th>
+            <Th>Quantity</Th>
+            <Th>Amount</Th>
+            <Th />
+          </Thead>
+
+          <Tbody>
+            {billing.items.map((item) => (
+              <BillingItemTableRow
+                key={item.catalogId}
+                item={item}
+                onDelete={() => setIdForDeletion(item.catalogId)}
+                onQuantityChange={(val) =>
+                  onItemQuantityChange(item.catalogId, val)
+                }
+                onEdit={() => {}}
+              />
+            ))}
+          </Tbody>
         </Table>
-        <Tbody>
-          {billing.items.map((item) => (
-            <BillingItemTableRow
-              key={item.catalogId}
-              item={item}
-              onDelete={() => setIdForDeletion(item.catalogId)}
-              onQuantityChange={(val) =>
-                onItemQuantityChange(item.catalogId, val)
-              }
-              onEdit={() => {}}
-            />
-          ))}
-        </Tbody>
       </TableContainer>
 
       <ConfirmDialog
