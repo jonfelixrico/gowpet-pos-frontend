@@ -1,7 +1,7 @@
 'use client'
 
 import { Flex, useDisclosure } from '@chakra-ui/react'
-import InputBillingItem from './InputBillingItem'
+import BillingItemTableRow from './BillingItemTableRow'
 import { produce } from 'immer'
 import { Billing } from '@/types/Billing'
 import { useState } from 'react'
@@ -64,7 +64,7 @@ export default function InputBillingItemList({
     <>
       <Flex direction="column" gap={5}>
         {billing.items.map((item) => (
-          <InputBillingItem
+          <BillingItemTableRow
             key={item.catalogId}
             item={item}
             onDelete={() => setIdForDeletion(item.catalogId)}

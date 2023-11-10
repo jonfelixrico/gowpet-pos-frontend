@@ -4,19 +4,19 @@ import { BillingItem } from '@/types/Billing'
 import { Box, Button, Flex, IconButton, Text } from '@chakra-ui/react'
 import { MdAdd, MdRemove } from 'react-icons/md'
 
-interface InputBillingItemProps {
+interface BillingItemTableRow {
   item: BillingItem
   onQuantityChange?: (number: number) => void
   onDelete?: () => void
   onEdit?: () => void
 }
 
-export default function InputBillingItem({
+export default function BillingItemTableRow({
   item,
   onQuantityChange = () => {},
   onDelete = () => {},
   onEdit = () => {},
-}: InputBillingItemProps) {
+}: BillingItemTableRow) {
   return (
     <Flex direction="column" gap={3}>
       <Flex gap={5} align="start">

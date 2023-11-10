@@ -1,11 +1,11 @@
-import InputBillingItem from '@/app/(main)/(billing)/billing/create/input/InputBillingItem'
+import BillingItemTableRow from '@/app/(main)/(billing)/billing/create/input/BillingItemTableRow'
 import { ChakraProvider } from '@chakra-ui/react'
 
-describe('InputBillingItem', () => {
+describe('BillingItemTableRow', () => {
   it('displays the data', () => {
     cy.mount(
       <ChakraProvider>
-        <InputBillingItem
+        <BillingItemTableRow
           item={{
             catalogId: 'id',
             name: 'foo',
@@ -26,7 +26,7 @@ describe('InputBillingItem', () => {
     const onDeleteSpy = cy.spy()
     cy.mount(
       <ChakraProvider>
-        <InputBillingItem
+        <BillingItemTableRow
           onDelete={onDeleteSpy}
           item={{
             catalogId: 'id',
@@ -49,7 +49,7 @@ describe('InputBillingItem', () => {
     const onChange = cy.spy()
     cy.mount(
       <ChakraProvider>
-        <InputBillingItem
+        <BillingItemTableRow
           onQuantityChange={onChange}
           item={{
             catalogId: 'id',
@@ -78,7 +78,7 @@ describe('InputBillingItem', () => {
     const onChange = cy.spy()
     cy.mount(
       <ChakraProvider>
-        <InputBillingItem
+        <BillingItemTableRow
           onQuantityChange={onChange}
           item={{
             catalogId: 'id',
