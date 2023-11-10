@@ -3,9 +3,10 @@
 import { Flex, Table, TableContainer, Tbody, Th, Thead } from '@chakra-ui/react'
 import BillingItemTableRow from './BillingItemTableRow'
 import { produce } from 'immer'
-import { Billing } from '@/types/Billing'
+import { Billing, BillingItem } from '@/types/Billing'
 import { useState } from 'react'
 import ConfirmDialog from '@/components/common/ConfirmDialog'
+import BillingItemEditDialog from './BillingItemEditDialog'
 
 export interface BillingItemTableProps {
   billing: Billing
@@ -54,6 +55,20 @@ export default function BillingItemTable({
     onChange(updatedBilling)
   }
 
+  const [itemToEdit, setItemToEdit] = useState<BillingItem | null>(null)
+  function saveChanges(toSave: BillingItem) {
+    const updated = produce(billing, (toUpdate) => {
+      const idx = toUpdate.items.findIndex(
+        (item) => item.catalogId === toSave.catalogId
+      )
+
+      toUpdate.items[idx] = toSave
+    })
+
+    onChange(updated)
+    setItemToEdit(null)
+  }
+
   const [idForDeletion, setIdForDeletion] = useState<string | null>(null)
   function handleConfirm(id: string) {
     setIdForDeletion(null)
@@ -81,7 +96,9 @@ export default function BillingItemTable({
                 onQuantityChange={(val) =>
                   onItemQuantityChange(item.catalogId, val)
                 }
-                onEdit={() => {}}
+                onEdit={() => {
+                  setItemToEdit(item)
+                }}
               />
             ))}
           </Tbody>
@@ -99,6 +116,14 @@ export default function BillingItemTable({
         }}
         message="Are you sure you want to remove this item?"
         title="Remove Item"
+      />
+
+      <BillingItemEditDialog
+        key={itemToEdit?.catalogId ?? 'edit dialog'}
+        isOpen={!!itemToEdit}
+        onDismiss={() => setItemToEdit(null)}
+        onOk={saveChanges}
+        item={itemToEdit as BillingItem}
       />
     </>
   )
