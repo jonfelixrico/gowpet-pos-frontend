@@ -1,21 +1,21 @@
 'use client'
 
-import { Flex, useDisclosure } from '@chakra-ui/react'
+import { Flex } from '@chakra-ui/react'
 import BillingItemTableRow from './BillingItemTableRow'
 import { produce } from 'immer'
 import { Billing } from '@/types/Billing'
 import { useState } from 'react'
 import ConfirmDialog from '@/components/common/ConfirmDialog'
 
-export interface InputBillingProps {
+export interface BillingItemTableProps {
   billing: Billing
   onChange: (value: Billing) => void
 }
 
-export default function InputBillingItemList({
+export default function BillingItemTable({
   billing,
   onChange,
-}: InputBillingProps) {
+}: BillingItemTableProps) {
   function onItemDelete(catalogId: string) {
     const updatedBilling = produce(billing, ({ items }) => {
       const idx = items.findIndex((item) => item.catalogId === catalogId)

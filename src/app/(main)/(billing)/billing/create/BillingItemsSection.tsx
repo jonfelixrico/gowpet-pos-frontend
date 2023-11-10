@@ -1,6 +1,6 @@
 'use client'
 
-import InputBillingItemList from '@/app/(main)/(billing)/billing/create/input/InputBillingItemList'
+import BillingItemTable from '@/app/(main)/(billing)/billing/create/input/BillingItemTable'
 import { Billing } from '@/types/Billing'
 import {
   Box,
@@ -86,7 +86,7 @@ export default function BillingItemsSection({
                 width="full"
                 overflowY="auto"
               >
-                <InputBillingItemList billing={billing} onChange={setBilling} />
+                <BillingItemTable billing={billing} onChange={setBilling} />
               </Box>
             </Flex>
           </If>
