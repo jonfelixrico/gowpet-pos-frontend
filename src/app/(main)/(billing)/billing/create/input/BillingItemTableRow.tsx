@@ -1,7 +1,7 @@
 'use client'
 
 import { BillingItem } from '@/types/Billing'
-import { Box, Button, Flex, IconButton, Text } from '@chakra-ui/react'
+import { Box, Button, Flex, IconButton, Td, Text, Tr } from '@chakra-ui/react'
 import { MdAdd, MdRemove } from 'react-icons/md'
 
 interface BillingItemTableRow {
@@ -12,42 +12,44 @@ interface BillingItemTableRow {
 }
 
 export default function BillingItemTableRow({
-  item,
+  item: { name, price, quantity },
   onQuantityChange = () => {},
   onDelete = () => {},
   onEdit = () => {},
 }: BillingItemTableRow) {
   return (
-    <Flex direction="column" gap={3}>
-      <Flex gap={5} align="start">
-        <Box flex={1}>
-          <Text data-cy="name" marginBottom={2}>
-            {item.name}
-          </Text>
-          <Text data-cy="price" fontSize="small">
-            {item.price} per unit
-          </Text>
-          <Text data-cy="amount" fontSize="small">
-            Total of {item.price * item.quantity}
-          </Text>
-        </Box>
+    <Tr>
+      <Td data-cy="name">{name}</Td>
 
+      <Td data-cy="price">{price}</Td>
+
+      <Td>
         <QuantitySection
-          onDecrement={() => onQuantityChange(item.quantity - 1)}
-          onIncrement={() => onQuantityChange(item.quantity + 1)}
-          quantity={item.quantity}
+          onDecrement={() => onQuantityChange(quantity - 1)}
+          onIncrement={() => onQuantityChange(quantity + 1)}
+          quantity={quantity}
         />
-      </Flex>
+      </Td>
 
-      <Flex gap={3}>
-        <Button size="xs" onClick={onEdit}>
-          Edit Quantity
-        </Button>
-        <Button data-cy="delete" size="xs" onClick={onDelete} colorScheme="red">
-          Delete
-        </Button>
-      </Flex>
-    </Flex>
+      <Td data-cy="amount">{price * quantity}</Td>
+
+      <Td>
+        <Flex gap={3}>
+          <Button size="xs" onClick={onEdit}>
+            Edit Quantity
+          </Button>
+
+          <Button
+            data-cy="delete"
+            size="xs"
+            onClick={onDelete}
+            colorScheme="red"
+          >
+            Delete
+          </Button>
+        </Flex>
+      </Td>
+    </Tr>
   )
 }
 
