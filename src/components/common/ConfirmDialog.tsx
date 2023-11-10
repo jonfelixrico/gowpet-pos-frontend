@@ -46,14 +46,14 @@ export default function ConfirmDialog({
     >
       <AlertDialogOverlay>
         <AlertDialogContent>
-          <AlertDialogHeader fontSize="lg" fontWeight="bold">
+          <AlertDialogHeader fontSize="lg" fontWeight="bold" data-cy="title">
             {title}
           </AlertDialogHeader>
 
-          <AlertDialogBody>{message}</AlertDialogBody>
+          <AlertDialogBody data-cy="message">{message}</AlertDialogBody>
 
           <AlertDialogFooter>
-            <Button ref={cancelRef} onClick={onCancel}>
+            <Button ref={cancelRef} onClick={onCancel} data-cy="cancel">
               {cancel?.label === undefined ? 'Cancel' : cancel.label}
             </Button>
 
@@ -65,6 +65,7 @@ export default function ConfirmDialog({
                */
               onClick={onOk}
               ml={3}
+              data-cy="ok"
             >
               {ok?.label === undefined ? 'Ok' : ok.label}
             </Button>
