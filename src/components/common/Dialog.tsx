@@ -15,7 +15,7 @@ type DialogButtonProps = Omit<ButtonProps, 'onClick' | 'children'> & {
   label?: ReactNode
 }
 
-export default function ConfirmDialog({
+export default function Dialog({
   onCancel,
   onOk,
   onDismiss,
