@@ -62,7 +62,7 @@ export default function BillingItemsSection({
       <Card {...props}>
         <CardBody as={Flex} direction="column" gap={2}>
           <Flex justify="space-between" align="center">
-            <Text fontSize="xl" fontWeight="medium">
+            <Text fontSize="xl" fontWeight="bold">
               Items
             </Text>
             <IconButton
@@ -74,6 +74,18 @@ export default function BillingItemsSection({
             >
               <MdAdd />
             </IconButton>
+          </Flex>
+
+          <Flex gap={2}>
+            <Text fontSize="sm" fontWeight="bold">
+              Total
+            </Text>
+            <Text fontSize="sm">
+              {billing.items.reduce(
+                (acc, val) => acc + val.price * val.quantity,
+                0
+              )}
+            </Text>
           </Flex>
 
           <Divider />
@@ -96,18 +108,6 @@ export default function BillingItemsSection({
               </Button>
             </Flex>
           </If>
-
-          <Divider />
-
-          <Flex justify="space-between">
-            <Text fontWeight="bold">Total</Text>
-            <Text>
-              {billing.items.reduce(
-                (acc, val) => acc + val.price * val.quantity,
-                0
-              )}
-            </Text>
-          </Flex>
         </CardBody>
       </Card>
 

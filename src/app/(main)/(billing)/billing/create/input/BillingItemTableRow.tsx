@@ -34,7 +34,7 @@ export default function BillingItemTableRow({
       <Td data-cy="amount">{price * quantity}</Td>
 
       <Td>
-        <Flex gap={3}>
+        <Flex gap={3} direction="column">
           <Button size="xs" onClick={onEdit}>
             Edit Quantity
           </Button>
