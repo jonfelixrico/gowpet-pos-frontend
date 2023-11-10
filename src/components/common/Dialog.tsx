@@ -46,7 +46,7 @@ export default function Dialog({
 
         <ModalBody>{children}</ModalBody>
 
-        <ModalFooter>
+        <ModalFooter gap={2}>
           <Button {...cancelProps} onClick={onCancel}>
             {cancel?.label ?? 'Cancel'}
           </Button>
