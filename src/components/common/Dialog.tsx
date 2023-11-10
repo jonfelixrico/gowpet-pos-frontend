@@ -1,6 +1,7 @@
 import {
   Button,
   ButtonProps,
+  Divider,
   Modal,
   ModalBody,
   ModalCloseButton,
@@ -44,7 +45,11 @@ export default function Dialog({
         <ModalHeader>{header}</ModalHeader>
         <ModalCloseButton />
 
-        <ModalBody>{children}</ModalBody>
+        <Divider />
+
+        <ModalBody paddingY={5}>{children}</ModalBody>
+
+        <Divider />
 
         <ModalFooter gap={2}>
           <Button {...cancelProps} onClick={onCancel}>
