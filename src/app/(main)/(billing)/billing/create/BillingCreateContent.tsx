@@ -40,7 +40,7 @@ export default function BillingCreateContent({
   }
 
   return (
-    <Flex width="full" height="full" gap={2}>
+    <Flex width="full" height="full" gap={2} direction="column">
       <Card flex={1}>
         <CardBody as={Flex} direction="column" gap={2}>
           <Flex flex={1} direction="column" gap={2}>
