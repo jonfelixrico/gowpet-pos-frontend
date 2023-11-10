@@ -2,6 +2,7 @@
 
 import { Billing } from '@/types/Billing'
 import {
+  Box,
   Card,
   CardBody,
   Divider,
@@ -43,7 +44,17 @@ export default function BillingCreateContent({
     <Flex width="full" height="full" gap={2} direction="column">
       <Card>
         <CardBody as={Flex} direction="column" gap={2}>
-          <Flex direction="column" gap={2} flex={0.66}>
+          <Flex justify="space-between">
+            {/* TODO add back button */}
+            <Text fontSize="xl" fontWeight="bold">
+              Create Billing
+            </Text>
+            <BillingSaveButton billing={billing} onSave={onSave} />
+          </Flex>
+
+          <Divider />
+
+          <Flex direction="column" gap={2}>
             <Text fontWeight="bold">Notes</Text>
             <Textarea
               flex={1}
@@ -52,9 +63,6 @@ export default function BillingCreateContent({
               onChange={(event) => setNotes(event.target.value)}
             />
           </Flex>
-          <Divider />
-
-          <BillingSaveButton billing={billing} onSave={onSave} />
         </CardBody>
       </Card>
 
