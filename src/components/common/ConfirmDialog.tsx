@@ -10,7 +10,6 @@ import {
   ButtonProps,
 } from '@chakra-ui/react'
 import { ReactNode, useRef } from 'react'
-import If from './If'
 
 export default function ConfirmDialog({
   onCancel,
