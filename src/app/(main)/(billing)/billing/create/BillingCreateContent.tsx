@@ -41,23 +41,17 @@ export default function BillingCreateContent({
 
   return (
     <Flex width="full" height="full" gap={2} direction="column">
-      <Card flex={1}>
+      <Card>
         <CardBody as={Flex} direction="column" gap={2}>
-          <Flex flex={1} direction="column" gap={2}>
-            {/* TODO implement other features */}
-            <Spacer />
-            <Divider />
-            <Flex direction="column" gap={2} flex={0.66}>
-              <Text fontWeight="bold">Notes</Text>
-              <Textarea
-                flex={1}
-                resize="none"
-                value={billing.notes}
-                onChange={(event) => setNotes(event.target.value)}
-              />
-            </Flex>
+          <Flex direction="column" gap={2} flex={0.66}>
+            <Text fontWeight="bold">Notes</Text>
+            <Textarea
+              flex={1}
+              resize="none"
+              value={billing.notes}
+              onChange={(event) => setNotes(event.target.value)}
+            />
           </Flex>
-
           <Divider />
 
           <BillingSaveButton billing={billing} onSave={onSave} />
@@ -68,7 +62,6 @@ export default function BillingCreateContent({
         billing={billing}
         setBilling={setBilling}
         initialState={initialState}
-        flex={1}
       />
     </Flex>
   )
