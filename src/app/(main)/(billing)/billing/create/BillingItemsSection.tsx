@@ -79,21 +79,12 @@ export default function BillingItemsSection({
           <Divider />
 
           <If condition={hasItems}>
-            <Flex flex={1} position="relative">
-              <Box
-                position="absolute"
-                height="full"
-                width="full"
-                overflowY="auto"
-              >
-                <BillingItemTable billing={billing} onChange={setBilling} />
-              </Box>
-            </Flex>
+            <BillingItemTable billing={billing} onChange={setBilling} />
           </If>
 
           <If condition={!hasItems}>
             <Flex
-              flex={1}
+              height="40dvh"
               direction="column"
               justify="center"
               align="center"
