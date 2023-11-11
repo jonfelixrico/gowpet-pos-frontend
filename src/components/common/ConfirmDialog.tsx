@@ -48,11 +48,11 @@ export default function ConfirmDialog({
     >
       <AlertDialogOverlay>
         <AlertDialogContent>
-          <AlertDialogHeader fontSize="lg" fontWeight="bold" data-cy="title">
+          <AlertDialogHeader fontSize="lg" fontWeight="bold" data-cy="header">
             {header}
           </AlertDialogHeader>
 
-          <AlertDialogBody data-cy="message">{children}</AlertDialogBody>
+          <AlertDialogBody data-cy="body">{children}</AlertDialogBody>
 
           <AlertDialogFooter>
             <Button
