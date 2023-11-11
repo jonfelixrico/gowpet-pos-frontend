@@ -1,25 +1,40 @@
+interface TestCatalogItem {
+  id: string
+  name: string
+  price: number
+}
+
 describe('billing', () => {
   const now = Date.now()
+  let items: TestCatalogItem[] = []
 
   before(() => {
-    const items: Record<number, string> = {}
+    const genItems: TestCatalogItem[] = []
+
     for (let i = 0; i < 20; i++) {
+      const data = {
+        name: `for billing e2e - ${now} - ${i}`,
+        price: 150 + i * 10,
+      }
+
       cy.request({
         url: 'http://localhost:3005/catalog/product',
         method: 'POST',
 
-        body: JSON.stringify({
-          name: `for billing e2e - ${now} - ${i}`,
-          price: 150 + i * 10,
-        }),
+        body: JSON.stringify(data),
 
         headers: {
           'Content-Type': 'application/json',
           Authorization: `Bearer ${Cypress.env('authToken')}`,
         },
       }).then((res) => {
-        items[i] = res.body.id
+        genItems.push({
+          ...data,
+          id: res.body.id,
+        })
       })
+
+      items = genItems
     }
   })
 
