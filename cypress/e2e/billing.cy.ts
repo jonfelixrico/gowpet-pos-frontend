@@ -40,4 +40,21 @@ describe('billing', () => {
     cy.get('[data-cy="not-found"]').should('exist')
     cy.get('[data-cy="content"]').should('not.exist')
   })
+
+  it('can do happy path for billing create', () => {
+    cy.visit('/billing/create')
+    cy.get('[data-cy="add-items"]').click()
+    cy.get('[data-cy="add-items-dialog"] [data-cy="search"] input').type(
+      `for billing e2e - ${now}`
+    )
+    cy.get('[data-cy="add-items-dialog"] [data-cy="search"] button').click()
+
+    const toAdd = items.filter((_, index) => index % 2 === 0)
+
+    for (const { id } of toAdd) {
+      cy.get(
+        `[data-cy="add-items-dialog"] [data-cy="item"][data-item-id="${id}"] [data-cy="add"]`
+      ).click()
+    }
+  })
 })
