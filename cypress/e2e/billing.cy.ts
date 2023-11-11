@@ -144,6 +144,8 @@ describe('billing', () => {
 
   it('handles delete', () => {
     cy.visit('/billing/create')
+
+    // add items to populate the table
     cy.get('[data-cy="add-items"]').click()
     cy.get('[data-cy="add-items-dialog"] [data-cy="search"] input').type(
       `for billing e2e - ${now}`
@@ -157,8 +159,8 @@ describe('billing', () => {
     }
     cy.get('[data-cy="add-items-dialog"] [data-cy="close"]').click()
 
+    // start deleting each item
     const toDelete = items.filter((_, index) => index % 2 === 0)
-
     for (const { id } of toDelete) {
       cy.get(
         `[data-cy="items-table"] [data-item-id="${id}"] [data-cy="delete"]`
@@ -167,18 +169,22 @@ describe('billing', () => {
       cy.get(
         `[data-cy="confirmation-dialog"][data-dialog-open="true"] [data-cy="ok"]`
       ).click()
-    }
 
-    for (const { id } of toDelete) {
       cy.get(`[data-cy="items-table"] [data-item-id="${id}"]`).should(
         'not.exist'
       )
     }
 
+    // make sure that items which aren't supposed to be deleted are not removed somehow
     const toKeep = items.filter((_, index) => index % 2 !== 0)
-
     for (const { id } of toKeep) {
       cy.get(`[data-cy="items-table"] [data-item-id="${id}"]`).should('exist')
     }
+
+    // to make sure that deleted items aren't contributing to the total anymore
+    cy.get('[data-cy="total-amount"]').should(
+      'contain',
+      toKeep.reduce((total, { price }) => total + price, 0)
+    )
   })
 })
