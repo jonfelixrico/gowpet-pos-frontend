@@ -225,6 +225,10 @@ describe('billing', () => {
       cy.get(
         '[data-cy="dialog"][data-dialog-open="true"] [data-cy="ok"]'
       ).click()
+
+      cy.get(
+        `[data-cy="items-table"] [data-item-id="${id}"] [data-cy="quantity"]`
+      ).should('contain', 1 + index)
     })
   })
 })
