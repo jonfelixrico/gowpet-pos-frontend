@@ -78,7 +78,7 @@ export default function BillingItemTable({
   return (
     <>
       <TableContainer>
-        <Table>
+        <Table data-cy="items-table">
           <Thead>
             <Th>Name</Th>
             <Th>Price</Th>

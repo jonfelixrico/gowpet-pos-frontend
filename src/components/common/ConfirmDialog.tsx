@@ -50,7 +50,10 @@ export default function ConfirmDialog({
       isOpen={!!isOpen}
     >
       <AlertDialogOverlay>
-        <AlertDialogContent>
+        <AlertDialogContent
+          data-cy="confirmation-dialog"
+          data-dialog-open={isOpen}
+        >
           <AlertDialogHeader fontSize="lg" fontWeight="bold" data-cy="header">
             {header}
           </AlertDialogHeader>

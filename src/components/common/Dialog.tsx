@@ -42,7 +42,7 @@ export default function Dialog({
   return (
     <Modal isOpen={!!isOpen} onClose={onDismiss}>
       <ModalOverlay />
-      <ModalContent>
+      <ModalContent data-cy="dialog" data-dialog-open={isOpen}>
         <ModalHeader data-cy="header">{header}</ModalHeader>
         <ModalCloseButton />
 
