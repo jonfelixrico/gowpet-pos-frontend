@@ -114,7 +114,7 @@ export default function BillingItemTable({
           colorScheme: 'red',
           content: 'Yes, delete',
         }}
-        title="Remove Item"
+        header="Remove Item"
       >
         Are you sure you want to remove this item?
       </ConfirmDialog>

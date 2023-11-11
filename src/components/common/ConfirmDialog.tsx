@@ -21,7 +21,7 @@ export default function ConfirmDialog({
   onOk = EMPTY_FN,
   onDismiss = EMPTY_FN,
   isOpen,
-  title,
+  header,
   children,
   cancel: cancel,
   ok,
@@ -30,7 +30,7 @@ export default function ConfirmDialog({
   onOk?: () => void
   onDismiss?: () => void
   isOpen?: boolean
-  title?: ReactNode
+  header?: ReactNode
   children?: ReactNode
   ok?: DialogButtonProps
   cancel?: DialogButtonProps
@@ -49,7 +49,7 @@ export default function ConfirmDialog({
       <AlertDialogOverlay>
         <AlertDialogContent>
           <AlertDialogHeader fontSize="lg" fontWeight="bold" data-cy="title">
-            {title}
+            {header}
           </AlertDialogHeader>
 
           <AlertDialogBody data-cy="message">{children}</AlertDialogBody>

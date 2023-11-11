@@ -10,7 +10,7 @@ describe('ConfirmDialog', () => {
           onOk={() => {}}
           onCancel={() => {}}
           onDismiss={() => {}}
-          title="title"
+          header="title"
         >
           message
         </ConfirmDialog>
@@ -31,7 +31,7 @@ describe('ConfirmDialog', () => {
           onOk={() => {}}
           onCancel={() => {}}
           onDismiss={() => {}}
-          title="title"
+          header="title"
           ok={{
             content: 'custom ok',
           }}
@@ -59,7 +59,7 @@ describe('ConfirmDialog', () => {
           onOk={onOk}
           onCancel={onCancel}
           onDismiss={() => {}}
-          title="title"
+          header="title"
           ok={{
             content: 'custom ok',
           }}
