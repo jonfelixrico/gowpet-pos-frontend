@@ -23,5 +23,6 @@ export default async function Billing({
     throw e
   }
 
+  // TODO implement the actual content
   return <Box>{JSON.stringify(data)}</Box>
 }
