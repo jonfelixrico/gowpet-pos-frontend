@@ -100,7 +100,7 @@ export default function BillingCreateSearchDialog({
         </ModalBody>
 
         <ModalFooter>
-          <Button colorScheme="blue" mr={3} onClick={onClose}>
+          <Button colorScheme="blue" mr={3} onClick={onClose} data-cy="close">
             Close
           </Button>
         </ModalFooter>

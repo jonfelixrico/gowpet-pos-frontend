@@ -56,5 +56,10 @@ describe('billing', () => {
         `[data-cy="add-items-dialog"] [data-cy="item"][data-item-id="${id}"] [data-cy="add"]`
       ).click()
     }
+    cy.get('[data-cy="add-items-dialog"] [data-cy="close"]').click()
+
+    for (const { id } of toAdd) {
+      cy.get(`[data-cy="items-table"] [data-item-id="${id}"]`).should('exist')
+    }
   })
 })

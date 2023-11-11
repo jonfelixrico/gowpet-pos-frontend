@@ -12,13 +12,13 @@ interface BillingItemTableRow {
 }
 
 export default function BillingItemTableRow({
-  item: { name, price, quantity },
+  item: { name, price, quantity, catalogId },
   onQuantityChange = () => {},
   onDelete = () => {},
   onEdit = () => {},
 }: BillingItemTableRow) {
   return (
-    <Tr>
+    <Tr data-item-id={catalogId}>
       <Td data-cy="name">{name}</Td>
 
       <Td data-cy="price">{price}</Td>
