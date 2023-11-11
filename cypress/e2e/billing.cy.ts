@@ -214,18 +214,18 @@ describe('billing', () => {
 
     // this is to test the increment button
     toAdd.forEach(({ id }, index) => {
+      // do setting
       cy.get(
         `[data-cy="items-table"] [data-item-id="${id}"] [data-cy="edit"]`
       ).click()
-
       cy.get('[data-cy="dialog"][data-dialog-open="true"] [data-cy="quantity"]')
         .clear()
         .type(String(1 + index))
-
       cy.get(
         '[data-cy="dialog"][data-dialog-open="true"] [data-cy="ok"]'
       ).click()
 
+      // verify setting
       cy.get(
         `[data-cy="items-table"] [data-item-id="${id}"] [data-cy="quantity"]`
       ).should('contain', 1 + index)
