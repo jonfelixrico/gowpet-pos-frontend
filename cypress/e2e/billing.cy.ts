@@ -70,6 +70,11 @@ describe('billing', () => {
       ).should('contain', price)
     }
 
+    cy.get('[data-cy="total-amount"]').should(
+      'contain',
+      toAdd.reduce((total, { price }) => total + price, 0)
+    )
+
     cy.get('[data-cy="save"]').click()
     cy.get(
       '[data-cy="save-confirmation-dialog"][data-dialog-open="true"] [data-cy="ok"]'
