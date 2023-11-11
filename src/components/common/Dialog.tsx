@@ -43,21 +43,23 @@ export default function Dialog({
     <Modal isOpen={!!isOpen} onClose={onDismiss}>
       <ModalOverlay />
       <ModalContent>
-        <ModalHeader>{header}</ModalHeader>
+        <ModalHeader data-cy="header">{header}</ModalHeader>
         <ModalCloseButton />
 
         <Divider />
 
-        <ModalBody paddingY={5}>{children}</ModalBody>
+        <ModalBody paddingY={5} data-cy="body">
+          {children}
+        </ModalBody>
 
         <Divider />
 
         <ModalFooter gap={2}>
-          <Button {...cancelProps} onClick={onCancel}>
+          <Button {...cancelProps} onClick={onCancel} data-cy="cancel">
             {cancel?.content ?? 'Cancel'}
           </Button>
 
-          <Button {...okProps} onClick={onOk}>
+          <Button {...okProps} onClick={onOk} data-cy="ok">
             {ok?.content ?? 'Ok'}
           </Button>
         </ModalFooter>
