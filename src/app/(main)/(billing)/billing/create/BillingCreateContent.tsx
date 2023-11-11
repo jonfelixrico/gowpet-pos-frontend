@@ -1,12 +1,23 @@
 'use client'
 
 import { Billing } from '@/types/Billing'
-import { Card, CardBody, Divider, Flex, Text, Textarea } from '@chakra-ui/react'
+import {
+  Card,
+  CardBody,
+  Divider,
+  Flex,
+  IconButton,
+  Spacer,
+  Text,
+  Textarea,
+} from '@chakra-ui/react'
 import { useState } from 'react'
 import { SearchState } from './search/useSearch'
 import BillingItemsSection from './BillingItemsSection'
 import { produce } from 'immer'
 import BillingSaveButton from './BillingSaveButton'
+import { IoIosArrowBack } from 'react-icons/io'
+import Link from 'next/link'
 
 export default function BillingCreateContent({
   initialState,
@@ -35,11 +46,23 @@ export default function BillingCreateContent({
     <Flex width="full" height="full" gap={2} direction="column">
       <Card>
         <CardBody as={Flex} direction="column" gap={2}>
-          <Flex justify="space-between">
-            {/* TODO add back button */}
+          <Flex align="center" gap={2}>
+            <Link href="/billing">
+              <IconButton
+                isRound
+                aria-label="go back to billing list"
+                variant="ghost"
+              >
+                <IoIosArrowBack />
+              </IconButton>
+            </Link>
+
             <Text fontSize="xl" fontWeight="bold">
               Create Billing
             </Text>
+
+            <Spacer />
+
             <BillingSaveButton billing={billing} onSave={onSave} />
           </Flex>
 
