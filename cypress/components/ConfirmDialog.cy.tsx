@@ -33,9 +33,9 @@ describe('ConfirmDialog', () => {
           title="title"
           message="message"
           ok={{
-            label: 'custom ok',
+            content: 'custom ok',
           }}
-          cancel={{
+          content={{
             label: 'custom cancel',
           }}
         />
@@ -60,9 +60,9 @@ describe('ConfirmDialog', () => {
           title="title"
           message="message"
           ok={{
-            label: 'custom ok',
+            content: 'custom ok',
           }}
-          cancel={{
+          content={{
             label: 'custom cancel',
           }}
         />
