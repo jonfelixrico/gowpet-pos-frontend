@@ -26,7 +26,7 @@ export default function BillingSaveButton({
 
   return (
     <>
-      <Button colorScheme="blue" onClick={onOpen}>
+      <Button colorScheme="blue" onClick={onOpen} data-cy="save">
         Save
       </Button>
 
@@ -36,7 +36,10 @@ export default function BillingSaveButton({
         onClose={onClose}
       >
         <AlertDialogOverlay>
-          <AlertDialogContent>
+          <AlertDialogContent
+            data-cy="save-confirmation-dialog"
+            data-dialog-open={isOpen}
+          >
             <AlertDialogHeader fontSize="lg" fontWeight="bold">
               Save Billing
             </AlertDialogHeader>
@@ -54,7 +57,7 @@ export default function BillingSaveButton({
               {/* We're using action here instead of the button's onClick because onSave is a server action.
                   Server actions cannot be called via onClick */}
               <form action={() => onSave(billing)}>
-                <Button colorScheme="blue" type="submit" ml={3}>
+                <Button colorScheme="blue" type="submit" ml={3} data-cy="ok">
                   Yes, save
                 </Button>
               </form>

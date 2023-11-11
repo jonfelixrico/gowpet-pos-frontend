@@ -69,6 +69,13 @@ describe('billing', () => {
         `[data-cy="items-table"] [data-item-id="${id}"] [data-cy="amount"]`
       ).should('contain', price)
     }
+
+    cy.get('[data-cy="save"]').click()
+    cy.get(
+      '[data-cy="save-confirmation-dialog"][data-dialog-open="true"] [data-cy="ok"]'
+    ).click()
+
+    cy.location('pathname').should('match', /\/billing\/.+$/)
   })
 
   it('handles quantity increment and decrement', () => {
