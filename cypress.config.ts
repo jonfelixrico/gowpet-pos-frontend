@@ -12,5 +12,5 @@ export default defineConfig({
     },
   },
 
-  defaultCommandTimeout: 60_000,
+  defaultCommandTimeout: 30_000,
 })
