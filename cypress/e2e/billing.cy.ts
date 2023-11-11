@@ -141,4 +141,44 @@ describe('billing', () => {
       ).should('contain', price)
     })
   })
+
+  it('handles delete', () => {
+    cy.visit('/billing/create')
+    cy.get('[data-cy="add-items"]').click()
+    cy.get('[data-cy="add-items-dialog"] [data-cy="search"] input').type(
+      `for billing e2e - ${now}`
+    )
+    cy.get('[data-cy="add-items-dialog"] [data-cy="search"] button').click()
+
+    for (const { id } of items) {
+      cy.get(
+        `[data-cy="add-items-dialog"] [data-cy="item"][data-item-id="${id}"] [data-cy="add"]`
+      ).click()
+    }
+    cy.get('[data-cy="add-items-dialog"] [data-cy="close"]').click()
+
+    const toDelete = items.filter((_, index) => index % 2 === 0)
+
+    for (const { id } of toDelete) {
+      cy.get(
+        `[data-cy="items-table"] [data-item-id="${id}"] [data-cy="delete"]`
+      ).click()
+
+      cy.get(
+        `[data-cy="confirmation-dialog"][data-dialog-open="true"] [data-cy="ok"]`
+      ).click()
+    }
+
+    for (const { id } of toDelete) {
+      cy.get(`[data-cy="items-table"] [data-item-id="${id}"]`).should(
+        'not.exist'
+      )
+    }
+
+    const toKeep = items.filter((_, index) => index % 2 !== 0)
+
+    for (const { id } of toKeep) {
+      cy.get(`[data-cy="items-table"] [data-item-id="${id}"]`).should('exist')
+    }
+  })
 })
