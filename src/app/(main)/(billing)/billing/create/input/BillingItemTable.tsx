@@ -1,21 +1,21 @@
 'use client'
 
-import { Flex, useDisclosure } from '@chakra-ui/react'
-import InputBillingItem from './InputBillingItem'
+import { Flex, Table, TableContainer, Tbody, Th, Thead } from '@chakra-ui/react'
+import BillingItemTableRow from './BillingItemTableRow'
 import { produce } from 'immer'
 import { Billing } from '@/types/Billing'
 import { useState } from 'react'
 import ConfirmDialog from '@/components/common/ConfirmDialog'
 
-export interface InputBillingProps {
+export interface BillingItemTableProps {
   billing: Billing
   onChange: (value: Billing) => void
 }
 
-export default function InputBillingItemList({
+export default function BillingItemTable({
   billing,
   onChange,
-}: InputBillingProps) {
+}: BillingItemTableProps) {
   function onItemDelete(catalogId: string) {
     const updatedBilling = produce(billing, ({ items }) => {
       const idx = items.findIndex((item) => item.catalogId === catalogId)
@@ -62,19 +62,31 @@ export default function InputBillingItemList({
 
   return (
     <>
-      <Flex direction="column" gap={5}>
-        {billing.items.map((item) => (
-          <InputBillingItem
-            key={item.catalogId}
-            item={item}
-            onDelete={() => setIdForDeletion(item.catalogId)}
-            onQuantityChange={(val) =>
-              onItemQuantityChange(item.catalogId, val)
-            }
-            onEdit={() => {}}
-          />
-        ))}
-      </Flex>
+      <TableContainer>
+        <Table>
+          <Thead>
+            <Th>Name</Th>
+            <Th>Price</Th>
+            <Th>Quantity</Th>
+            <Th>Amount</Th>
+            <Th />
+          </Thead>
+
+          <Tbody>
+            {billing.items.map((item) => (
+              <BillingItemTableRow
+                key={item.catalogId}
+                item={item}
+                onDelete={() => setIdForDeletion(item.catalogId)}
+                onQuantityChange={(val) =>
+                  onItemQuantityChange(item.catalogId, val)
+                }
+                onEdit={() => {}}
+              />
+            ))}
+          </Tbody>
+        </Table>
+      </TableContainer>
 
       <ConfirmDialog
         isOpen={!!idForDeletion}
