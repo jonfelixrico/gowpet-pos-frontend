@@ -6,11 +6,9 @@ interface TestCatalogItem {
 
 describe('billing', () => {
   const now = Date.now()
-  let items: TestCatalogItem[] = []
+  const items: TestCatalogItem[] = []
 
   before(() => {
-    const genItems: TestCatalogItem[] = []
-
     for (let i = 0; i < 20; i++) {
       const data = {
         name: `for billing e2e - ${now} - ${i}`,
@@ -28,13 +26,11 @@ describe('billing', () => {
           Authorization: `Bearer ${Cypress.env('authToken')}`,
         },
       }).then((res) => {
-        genItems.push({
+        items.push({
           ...data,
           id: res.body.id,
         })
       })
-
-      items = genItems
     }
   })
 
