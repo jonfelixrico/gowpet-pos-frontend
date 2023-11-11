@@ -5,13 +5,7 @@ describe('Dialog', () => {
   it('shows defaults', () => {
     cy.mount(
       <ChakraProvider>
-        <Dialog
-          isOpen={true}
-          onOk={() => {}}
-          onCancel={() => {}}
-          onDismiss={() => {}}
-          header="title"
-        >
+        <Dialog isOpen={true} header="title">
           message
         </Dialog>
       </ChakraProvider>
@@ -19,8 +13,8 @@ describe('Dialog', () => {
 
     cy.get('[data-cy="ok"]').should('contain.text', 'Ok')
     cy.get('[data-cy="cancel"]').should('contain.text', 'Cancel')
-    cy.get('[data-cy="title"]').should('contain.text', 'title')
-    cy.get('[data-cy="message"]').should('contain.text', 'message')
+    cy.get('[data-cy="header"]').should('contain.text', 'title')
+    cy.get('[data-cy="body"]').should('contain.text', 'message')
   })
 
   it('shows custom button labels', () => {
@@ -28,9 +22,6 @@ describe('Dialog', () => {
       <ChakraProvider>
         <Dialog
           isOpen={true}
-          onOk={() => {}}
-          onCancel={() => {}}
-          onDismiss={() => {}}
           header="title"
           ok={{
             content: 'custom ok',
@@ -58,7 +49,6 @@ describe('Dialog', () => {
           isOpen={true}
           onOk={onOk}
           onCancel={onCancel}
-          onDismiss={() => {}}
           header="title"
           ok={{
             content: 'custom ok',
