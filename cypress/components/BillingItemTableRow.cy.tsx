@@ -5,6 +5,7 @@ import { ReactNode } from 'react'
 function Wrapper({ children }: { children: ReactNode }) {
   return (
     <ChakraProvider>
+      {/* BillingItemTableRow needs to be a child of a Table component to work */}
       <Table>{children}</Table>
     </ChakraProvider>
   )
