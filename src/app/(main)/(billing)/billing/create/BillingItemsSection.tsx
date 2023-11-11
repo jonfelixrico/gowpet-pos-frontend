@@ -71,6 +71,7 @@ export default function BillingItemsSection({
               aria-label="Add item"
               onClick={onOpen}
               colorScheme="blue"
+              data-cy="add-items"
             >
               <MdAdd />
             </IconButton>
