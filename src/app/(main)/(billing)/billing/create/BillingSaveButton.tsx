@@ -29,7 +29,6 @@ export default function BillingSaveButton({
     setIsSubmitting(true)
     try {
       await onSave(billing)
-      onClose()
     } finally {
       setIsSubmitting(false)
     }
@@ -65,12 +64,7 @@ export default function BillingSaveButton({
               {/* We're using action here instead of the button's onClick because onSave is a server action.
                   Server actions cannot be called via onClick */}
               <form action={submitBilling}>
-                <Button
-                  colorScheme="blue"
-                  type="submit"
-                  ml={3}
-                  isLoading={isSubmitting}
-                >
+                <Button colorScheme="blue" type="submit" ml={3}>
                   Yes, save
                 </Button>
               </form>
