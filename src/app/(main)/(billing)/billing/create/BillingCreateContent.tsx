@@ -25,7 +25,7 @@ export default function BillingCreateContent({
   /**
    * Server action saving the billing
    */
-  onSave: (billing: Billing) => Promise<void>
+  onSave: (billing: Billing) => void
 }) {
   const [billing, setBilling] = useState<Billing>({
     items: [],
