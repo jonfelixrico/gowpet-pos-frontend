@@ -58,8 +58,45 @@ describe('billing', () => {
     }
     cy.get('[data-cy="add-items-dialog"] [data-cy="close"]').click()
 
-    for (const { id } of toAdd) {
+    toAdd.forEach(({ id, price }, index) => {
       cy.get(`[data-cy="items-table"] [data-item-id="${id}"]`).should('exist')
-    }
+      cy.get(
+        `[data-cy="items-table"] [data-item-id="${id}"] [data-cy="price"]`
+      ).should('contain', price)
+      cy.get(
+        `[data-cy="items-table"] [data-item-id="${id}"] [data-cy="quantity"]`
+      ).should('contain', 1)
+      cy.get(
+        `[data-cy="items-table"] [data-item-id="${id}"] [data-cy="amount"]`
+      ).should('contain', price)
+
+      for (let clickCtr = 0; clickCtr < index; clickCtr++) {
+        cy.get(
+          `[data-cy="items-table"] [data-item-id="${id}"] [data-cy="increment"]`
+        ).click()
+      }
+
+      cy.get(
+        `[data-cy="items-table"] [data-item-id="${id}"] [data-cy="quantity"]`
+      ).should('contain', 1 + index)
+      cy.get(
+        `[data-cy="items-table"] [data-item-id="${id}"] [data-cy="amount"]`
+      ).should('contain', price * (1 + index))
+    })
+
+    toAdd.forEach(({ id, price }, index) => {
+      for (let clickCtr = 0; clickCtr < index; clickCtr++) {
+        cy.get(
+          `[data-cy="items-table"] [data-item-id="${id}"] [data-cy="decrement"]`
+        ).click()
+      }
+
+      cy.get(
+        `[data-cy="items-table"] [data-item-id="${id}"] [data-cy="quantity"]`
+      ).should('contain', 1)
+      cy.get(
+        `[data-cy="items-table"] [data-item-id="${id}"] [data-cy="amount"]`
+      ).should('contain', price)
+    })
   })
 })
