@@ -13,7 +13,7 @@ import {
 import { ReactNode } from 'react'
 
 type DialogButtonProps = Omit<ButtonProps, 'onClick' | 'children'> & {
-  label?: ReactNode
+  content?: ReactNode
 }
 
 export default function Dialog({
@@ -35,8 +35,8 @@ export default function Dialog({
   ok?: DialogButtonProps
   cancel?: DialogButtonProps
 }) {
-  const { label: cancelLabel, ...cancelProps } = cancel ?? {}
-  const { label: okLabel, ...okProps } = ok ?? {}
+  const { content: cancelContent, ...cancelProps } = cancel ?? {}
+  const { content: okContent, ...okProps } = ok ?? {}
 
   return (
     <Modal isOpen={isOpen} onClose={onDismiss}>
@@ -53,11 +53,11 @@ export default function Dialog({
 
         <ModalFooter gap={2}>
           <Button {...cancelProps} onClick={onCancel}>
-            {cancel?.label ?? 'Cancel'}
+            {cancel?.content ?? 'Cancel'}
           </Button>
 
           <Button {...okProps} onClick={onOk}>
-            {ok?.label ?? 'Ok'}
+            {ok?.content ?? 'Ok'}
           </Button>
         </ModalFooter>
       </ModalContent>

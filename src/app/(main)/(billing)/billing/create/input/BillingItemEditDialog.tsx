@@ -41,11 +41,10 @@ export default function BillingItemEditDialog({
       onCancel={onDismiss}
       onDismiss={onDismiss}
       ok={{
-        label: 'Save Changes',
+        content: 'Save Changes',
         colorScheme: 'blue',
       }}
       cancel={{
-        label: 'Cancel Changes',
         variant: 'ghost',
       }}
       header="Edit Item"
