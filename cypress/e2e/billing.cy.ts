@@ -44,7 +44,7 @@ describe('billing', () => {
   it('can do happy path for billing create', () => {
     cy.visit('/billing/create')
 
-    // start adding items
+    // start adding items to populate the billing item table
 
     cy.get('[data-cy="add-items"]').click()
     cy.get('[data-cy="add-items-dialog"] [data-cy="search"] input').type(
@@ -68,7 +68,8 @@ describe('billing', () => {
       toAdd.length
     )
     for (const { id, price } of toAdd) {
-      // inspection of critical UI elements for each item
+      // this makes sure that we're showing the critical information per item
+
       cy.get(
         `[data-cy="items-table"] [data-item-id="${id}"] [data-cy="price"]`
       ).should('contain', price)
@@ -80,22 +81,24 @@ describe('billing', () => {
       ).should('contain', price)
     }
 
-    // inspection of critical UI elements for the entire billing
+    // this makes sure that we're displaying the correct billing-wide information
     cy.get('[data-cy="total-amount"]').should(
       'contain',
       toAdd.reduce((total, { price }) => total + price, 0)
     )
 
+    // test that saving works
     cy.get('[data-cy="save"]').click()
     cy.get(
       '[data-cy="save-confirmation-dialog"][data-dialog-open="true"] [data-cy="ok"]'
     ).click()
-
     cy.location('pathname').should('match', /\/billing\/.+$/)
   })
 
   it('handles quantity increment and decrement', () => {
     cy.visit('/billing/create')
+
+    // this is to populate the billing items table with catalog items
     cy.get('[data-cy="add-items"]').click()
     cy.get('[data-cy="add-items-dialog"] [data-cy="search"] input').type(
       `for billing e2e - ${now}`
@@ -111,6 +114,7 @@ describe('billing', () => {
     }
     cy.get('[data-cy="add-items-dialog"] [data-cy="close"]').click()
 
+    // this is to test the increment button
     toAdd.forEach(({ id, price }, index) => {
       for (let clickCtr = 0; clickCtr < index; clickCtr++) {
         cy.get(
@@ -126,6 +130,7 @@ describe('billing', () => {
       ).should('contain', price * (1 + index))
     })
 
+    // this is to test the decrement button
     toAdd.forEach(({ id, price }, index) => {
       for (let clickCtr = 0; clickCtr < index; clickCtr++) {
         cy.get(
