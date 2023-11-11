@@ -16,25 +16,40 @@ type DialogButtonProps = {
   content?: ReactNode
 } & Omit<ButtonProps, 'children' | 'onClick'>
 
-type OkButtonProps = DialogButtonProps | ((value: () => void) => ReactNode)
-
 function OkButton({
   onClick,
   innerProps,
 }: {
-  innerProps?: OkButtonProps
+  innerProps?: DialogButtonProps
   onClick: () => void
 }) {
-  if (typeof innerProps === 'function') {
-    return innerProps(onClick)
-  }
-
   const { content, ...others } = innerProps ?? {}
   return (
     <Button {...others} onClick={onClick} ml={3} data-cy="ok">
       {content ?? 'Ok'}
     </Button>
   )
+}
+
+interface BaseConfirmDialogProps {
+  onCancel?: () => void
+  onOk?: () => void
+  onDismiss?: () => void
+  isOpen?: boolean
+  header?: ReactNode
+  children?: ReactNode
+
+  cancel?: DialogButtonProps
+}
+
+interface ConfirmDialogProps extends BaseConfirmDialogProps {
+  okComponent: undefined
+  ok?: DialogButtonProps
+}
+
+interface ConfirmDialogPropsWithCustomOk extends BaseConfirmDialogProps {
+  okComponent: ReactNode
+  ok: undefined
 }
 
 export default function ConfirmDialog({
@@ -44,18 +59,10 @@ export default function ConfirmDialog({
   isOpen,
   header,
   children,
-  cancel: cancel,
+  cancel,
   ok,
-}: {
-  onCancel?: () => void
-  onOk?: () => void
-  onDismiss?: () => void
-  isOpen?: boolean
-  header?: ReactNode
-  children?: ReactNode
-  ok?: OkButtonProps
-  cancel?: DialogButtonProps
-}) {
+  okComponent,
+}: ConfirmDialogProps | ConfirmDialogPropsWithCustomOk) {
   const cancelRef = useRef<HTMLButtonElement>(null)
 
   const { content: cancelContent, ...cancelProps } = cancel ?? {}
@@ -84,7 +91,11 @@ export default function ConfirmDialog({
               {cancelContent ?? 'Cancel'}
             </Button>
 
-            <OkButton onClick={onOk} innerProps={ok} />
+            {!!okComponent ? (
+              okComponent
+            ) : (
+              <OkButton onClick={onOk} innerProps={ok} />
+            )}
           </AlertDialogFooter>
         </AlertDialogContent>
       </AlertDialogOverlay>
