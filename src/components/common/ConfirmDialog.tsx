@@ -1,4 +1,5 @@
 /* eslint-disable react/no-unescaped-entities */
+import { EMPTY_FN } from '@/utils/misc-utills'
 import {
   AlertDialog,
   AlertDialogBody,
@@ -16,19 +17,19 @@ type DialogButtonProps = {
 } & Omit<ButtonProps, 'children' | 'onClick'>
 
 export default function ConfirmDialog({
-  onCancel,
-  onOk,
-  onDismiss,
+  onCancel = EMPTY_FN,
+  onOk = EMPTY_FN,
+  onDismiss = EMPTY_FN,
   isOpen,
   title,
   message,
   cancel: cancel,
   ok,
 }: {
-  onCancel: () => void
-  onOk: () => void
-  onDismiss: () => void
-  isOpen: boolean
+  onCancel?: () => void
+  onOk?: () => void
+  onDismiss?: () => void
+  isOpen?: boolean
   title?: ReactNode
   message?: ReactNode
   ok?: DialogButtonProps
@@ -43,7 +44,7 @@ export default function ConfirmDialog({
     <AlertDialog
       leastDestructiveRef={cancelRef}
       onClose={onDismiss}
-      isOpen={isOpen}
+      isOpen={!!isOpen}
     >
       <AlertDialogOverlay>
         <AlertDialogContent>
