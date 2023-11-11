@@ -1,16 +1,7 @@
 'use client'
 
 import { Billing } from '@/types/Billing'
-import {
-  Box,
-  Card,
-  CardBody,
-  Divider,
-  Flex,
-  Spacer,
-  Text,
-  Textarea,
-} from '@chakra-ui/react'
+import { Card, CardBody, Divider, Flex, Text, Textarea } from '@chakra-ui/react'
 import { useState } from 'react'
 import { SearchState } from './search/useSearch'
 import BillingItemsSection from './BillingItemsSection'
