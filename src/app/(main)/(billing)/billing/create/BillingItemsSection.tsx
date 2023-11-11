@@ -1,6 +1,6 @@
 'use client'
 
-import InputBillingItemList from '@/app/(main)/(billing)/billing/create/input/InputBillingItemList'
+import BillingItemTable from '@/app/(main)/(billing)/billing/create/input/BillingItemTable'
 import { Billing } from '@/types/Billing'
 import {
   Box,
@@ -62,7 +62,7 @@ export default function BillingItemsSection({
       <Card {...props}>
         <CardBody as={Flex} direction="column" gap={2}>
           <Flex justify="space-between" align="center">
-            <Text fontSize="xl" fontWeight="medium">
+            <Text fontSize="xl" fontWeight="bold">
               Items
             </Text>
             <IconButton
@@ -76,24 +76,27 @@ export default function BillingItemsSection({
             </IconButton>
           </Flex>
 
+          <Flex gap={2}>
+            <Text fontSize="sm" fontWeight="bold">
+              Total
+            </Text>
+            <Text fontSize="sm">
+              {billing.items.reduce(
+                (acc, val) => acc + val.price * val.quantity,
+                0
+              )}
+            </Text>
+          </Flex>
+
           <Divider />
 
           <If condition={hasItems}>
-            <Flex flex={1} position="relative">
-              <Box
-                position="absolute"
-                height="full"
-                width="full"
-                overflowY="auto"
-              >
-                <InputBillingItemList billing={billing} onChange={setBilling} />
-              </Box>
-            </Flex>
+            <BillingItemTable billing={billing} onChange={setBilling} />
           </If>
 
           <If condition={!hasItems}>
             <Flex
-              flex={1}
+              height="40dvh"
               direction="column"
               justify="center"
               align="center"
@@ -105,18 +108,6 @@ export default function BillingItemsSection({
               </Button>
             </Flex>
           </If>
-
-          <Divider />
-
-          <Flex justify="space-between">
-            <Text fontWeight="bold">Total</Text>
-            <Text>
-              {billing.items.reduce(
-                (acc, val) => acc + val.price * val.quantity,
-                0
-              )}
-            </Text>
-          </Flex>
         </CardBody>
       </Card>
 

@@ -1,11 +1,21 @@
-import InputBillingItem from '@/app/(main)/(billing)/billing/create/input/InputBillingItem'
-import { ChakraProvider } from '@chakra-ui/react'
+import BillingItemTableRow from '@/app/(main)/(billing)/billing/create/input/BillingItemTableRow'
+import { ChakraProvider, Table } from '@chakra-ui/react'
+import { ReactNode } from 'react'
 
-describe('InputBillingItem', () => {
+function Wrapper({ children }: { children: ReactNode }) {
+  return (
+    <ChakraProvider>
+      {/* BillingItemTableRow needs to be a child of a Table component to work */}
+      <Table>{children}</Table>
+    </ChakraProvider>
+  )
+}
+
+describe('BillingItemTableRow', () => {
   it('displays the data', () => {
     cy.mount(
-      <ChakraProvider>
-        <InputBillingItem
+      <Wrapper>
+        <BillingItemTableRow
           item={{
             catalogId: 'id',
             name: 'foo',
@@ -13,7 +23,7 @@ describe('InputBillingItem', () => {
             quantity: 10,
           }}
         />
-      </ChakraProvider>
+      </Wrapper>
     )
 
     cy.get('[data-cy="quantity"]').should('contain.text', 10)
@@ -25,8 +35,8 @@ describe('InputBillingItem', () => {
   it('reacts to delete', () => {
     const onDeleteSpy = cy.spy()
     cy.mount(
-      <ChakraProvider>
-        <InputBillingItem
+      <Wrapper>
+        <BillingItemTableRow
           onDelete={onDeleteSpy}
           item={{
             catalogId: 'id',
@@ -35,7 +45,7 @@ describe('InputBillingItem', () => {
             quantity: 10,
           }}
         />
-      </ChakraProvider>
+      </Wrapper>
     )
 
     cy.get('[data-cy="delete"]')
@@ -48,8 +58,8 @@ describe('InputBillingItem', () => {
   it('can adjust quantity', () => {
     const onChange = cy.spy()
     cy.mount(
-      <ChakraProvider>
-        <InputBillingItem
+      <Wrapper>
+        <BillingItemTableRow
           onQuantityChange={onChange}
           item={{
             catalogId: 'id',
@@ -58,7 +68,7 @@ describe('InputBillingItem', () => {
             quantity: 10,
           }}
         />
-      </ChakraProvider>
+      </Wrapper>
     )
 
     cy.get('[data-cy="increment"]')
@@ -77,8 +87,8 @@ describe('InputBillingItem', () => {
   it('cannot decrement if quantity is 1', () => {
     const onChange = cy.spy()
     cy.mount(
-      <ChakraProvider>
-        <InputBillingItem
+      <Wrapper>
+        <BillingItemTableRow
           onQuantityChange={onChange}
           item={{
             catalogId: 'id',
@@ -87,7 +97,7 @@ describe('InputBillingItem', () => {
             quantity: 1,
           }}
         />
-      </ChakraProvider>
+      </Wrapper>
     )
 
     cy.get('[data-cy="decrement"]').should('be.disabled')
