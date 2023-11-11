@@ -52,6 +52,7 @@ before(() => {
   }).then((response) => {
     authToken = response.body
     cy.log('Generated test user auth token', authToken)
+    Cypress.env('authToken', authToken)
   })
 })
 
