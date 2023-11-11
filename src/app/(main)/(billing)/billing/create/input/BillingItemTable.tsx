@@ -112,7 +112,7 @@ export default function BillingItemTable({
         onDismiss={() => setIdForDeletion(null)}
         ok={{
           colorScheme: 'red',
-          label: 'Yes, delete',
+          content: 'Yes, delete',
         }}
         message="Are you sure you want to remove this item?"
         title="Remove Item"
