@@ -22,7 +22,7 @@ export default function ConfirmDialog({
   isOpen,
   title,
   message,
-  content: cancel,
+  cancel: cancel,
   ok,
 }: {
   onCancel: () => void
@@ -32,7 +32,7 @@ export default function ConfirmDialog({
   title?: ReactNode
   message?: ReactNode
   ok?: DialogButtonProps
-  content?: DialogButtonProps
+  cancel?: DialogButtonProps
 }) {
   const cancelRef = useRef<HTMLButtonElement>(null)
 

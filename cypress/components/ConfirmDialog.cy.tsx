@@ -35,8 +35,8 @@ describe('ConfirmDialog', () => {
           ok={{
             content: 'custom ok',
           }}
-          content={{
-            label: 'custom cancel',
+          cancel={{
+            content: 'custom cancel',
           }}
         />
       </ChakraProvider>
@@ -62,8 +62,8 @@ describe('ConfirmDialog', () => {
           ok={{
             content: 'custom ok',
           }}
-          content={{
-            label: 'custom cancel',
+          cancel={{
+            content: 'custom cancel',
           }}
         />
       </ChakraProvider>
