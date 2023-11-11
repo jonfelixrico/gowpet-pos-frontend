@@ -43,6 +43,9 @@ describe('billing', () => {
 
   it('can do happy path for billing create', () => {
     cy.visit('/billing/create')
+
+    // start adding items
+
     cy.get('[data-cy="add-items"]').click()
     cy.get('[data-cy="add-items-dialog"] [data-cy="search"] input').type(
       `for billing e2e - ${now}`
@@ -58,6 +61,10 @@ describe('billing', () => {
     }
     cy.get('[data-cy="add-items-dialog"] [data-cy="close"]').click()
 
+    cy.get('[data-cy="items-table"] [data-cy="row"]').should(
+      'have.length',
+      toAdd.length
+    )
     for (const { id, price } of toAdd) {
       cy.get(
         `[data-cy="items-table"] [data-item-id="${id}"] [data-cy="price"]`

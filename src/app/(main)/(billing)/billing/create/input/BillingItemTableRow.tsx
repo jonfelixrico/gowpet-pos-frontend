@@ -18,7 +18,7 @@ export default function BillingItemTableRow({
   onEdit = () => {},
 }: BillingItemTableRow) {
   return (
-    <Tr data-item-id={catalogId}>
+    <Tr data-item-id={catalogId} data-cy="row">
       <Td data-cy="name">{name}</Td>
 
       <Td data-cy="price">{price}</Td>
