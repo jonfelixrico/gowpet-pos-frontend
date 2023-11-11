@@ -16,22 +16,7 @@ type DialogButtonProps = {
   content?: ReactNode
 } & Omit<ButtonProps, 'children' | 'onClick'>
 
-function OkButton({
-  onClick,
-  innerProps,
-}: {
-  innerProps?: DialogButtonProps
-  onClick: () => void
-}) {
-  const { content, ...others } = innerProps ?? {}
-  return (
-    <Button {...others} onClick={onClick} ml={3} data-cy="ok">
-      {content ?? 'Ok'}
-    </Button>
-  )
-}
-
-interface BaseConfirmDialogProps {
+interface ConfirmDialogProps {
   onCancel?: () => void
   onOk?: () => void
   onDismiss?: () => void
@@ -40,16 +25,7 @@ interface BaseConfirmDialogProps {
   children?: ReactNode
 
   cancel?: DialogButtonProps
-}
-
-interface ConfirmDialogProps extends BaseConfirmDialogProps {
-  okComponent: undefined
   ok?: DialogButtonProps
-}
-
-interface ConfirmDialogPropsWithCustomOk extends BaseConfirmDialogProps {
-  okComponent: ReactNode
-  ok: undefined
 }
 
 export default function ConfirmDialog({
@@ -61,11 +37,11 @@ export default function ConfirmDialog({
   children,
   cancel,
   ok,
-  okComponent,
-}: ConfirmDialogProps | ConfirmDialogPropsWithCustomOk) {
+}: ConfirmDialogProps) {
   const cancelRef = useRef<HTMLButtonElement>(null)
 
   const { content: cancelContent, ...cancelProps } = cancel ?? {}
+  const { content: okContent, ...okProps } = ok ?? {}
 
   return (
     <AlertDialog
@@ -91,11 +67,9 @@ export default function ConfirmDialog({
               {cancelContent ?? 'Cancel'}
             </Button>
 
-            {!!okComponent ? (
-              okComponent
-            ) : (
-              <OkButton onClick={onOk} innerProps={ok} />
-            )}
+            <Button {...okProps} onClick={onOk} ml={3} data-cy="ok">
+              {okContent ?? 'Ok'}
+            </Button>
           </AlertDialogFooter>
         </AlertDialogContent>
       </AlertDialogOverlay>
