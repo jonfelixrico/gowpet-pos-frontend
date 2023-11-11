@@ -58,8 +58,7 @@ describe('billing', () => {
     }
     cy.get('[data-cy="add-items-dialog"] [data-cy="close"]').click()
 
-    toAdd.forEach(({ id, price }, index) => {
-      cy.get(`[data-cy="items-table"] [data-item-id="${id}"]`).should('exist')
+    for (const { id, price } of toAdd) {
       cy.get(
         `[data-cy="items-table"] [data-item-id="${id}"] [data-cy="price"]`
       ).should('contain', price)
@@ -69,7 +68,27 @@ describe('billing', () => {
       cy.get(
         `[data-cy="items-table"] [data-item-id="${id}"] [data-cy="amount"]`
       ).should('contain', price)
+    }
+  })
 
+  it('handles quantity increment and decrement', () => {
+    cy.visit('/billing/create')
+    cy.get('[data-cy="add-items"]').click()
+    cy.get('[data-cy="add-items-dialog"] [data-cy="search"] input').type(
+      `for billing e2e - ${now}`
+    )
+    cy.get('[data-cy="add-items-dialog"] [data-cy="search"] button').click()
+
+    const toAdd = items.filter((_, index) => index % 2 === 0)
+
+    for (const { id } of toAdd) {
+      cy.get(
+        `[data-cy="add-items-dialog"] [data-cy="item"][data-item-id="${id}"] [data-cy="add"]`
+      ).click()
+    }
+    cy.get('[data-cy="add-items-dialog"] [data-cy="close"]').click()
+
+    toAdd.forEach(({ id, price }, index) => {
       for (let clickCtr = 0; clickCtr < index; clickCtr++) {
         cy.get(
           `[data-cy="items-table"] [data-item-id="${id}"] [data-cy="increment"]`
