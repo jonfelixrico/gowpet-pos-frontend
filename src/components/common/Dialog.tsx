@@ -1,3 +1,4 @@
+import { EMPTY_FN } from '@/utils/misc-utills'
 import {
   Button,
   ButtonProps,
@@ -17,19 +18,19 @@ type DialogButtonProps = Omit<ButtonProps, 'onClick' | 'children'> & {
 }
 
 export default function Dialog({
-  onCancel,
-  onOk,
-  onDismiss,
+  onCancel = EMPTY_FN,
+  onOk = EMPTY_FN,
+  onDismiss = EMPTY_FN,
   isOpen,
   header,
   children,
   cancel,
   ok,
 }: {
-  onCancel: () => void
-  onOk: () => void
-  onDismiss: () => void
-  isOpen: boolean
+  onCancel?: () => void
+  onOk?: () => void
+  onDismiss?: () => void
+  isOpen?: boolean
   header?: ReactNode
   children?: ReactNode
   ok?: DialogButtonProps
@@ -39,7 +40,7 @@ export default function Dialog({
   const { content: okContent, ...okProps } = ok ?? {}
 
   return (
-    <Modal isOpen={isOpen} onClose={onDismiss}>
+    <Modal isOpen={!!isOpen} onClose={onDismiss}>
       <ModalOverlay />
       <ModalContent>
         <ModalHeader>{header}</ModalHeader>
