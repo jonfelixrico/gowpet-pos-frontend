@@ -5,21 +5,16 @@ describe('ConfirmDialog', () => {
   it('shows defaults', () => {
     cy.mount(
       <ChakraProvider>
-        <ConfirmDialog
-          isOpen={true}
-          onOk={() => {}}
-          onCancel={() => {}}
-          onDismiss={() => {}}
-          title="title"
-          message="message"
-        />
+        <ConfirmDialog isOpen={true} header="title">
+          message
+        </ConfirmDialog>
       </ChakraProvider>
     )
 
     cy.get('[data-cy="ok"]').should('contain.text', 'Ok')
     cy.get('[data-cy="cancel"]').should('contain.text', 'Cancel')
-    cy.get('[data-cy="title"]').should('contain.text', 'title')
-    cy.get('[data-cy="message"]').should('contain.text', 'message')
+    cy.get('[data-cy="header"]').should('contain.text', 'title')
+    cy.get('[data-cy="body"]').should('contain.text', 'message')
   })
 
   it('shows custom button labels', () => {
@@ -27,18 +22,16 @@ describe('ConfirmDialog', () => {
       <ChakraProvider>
         <ConfirmDialog
           isOpen={true}
-          onOk={() => {}}
-          onCancel={() => {}}
-          onDismiss={() => {}}
-          title="title"
-          message="message"
+          header="title"
           ok={{
-            label: 'custom ok',
+            content: 'custom ok',
           }}
           cancel={{
-            label: 'custom cancel',
+            content: 'custom cancel',
           }}
-        />
+        >
+          message
+        </ConfirmDialog>
       </ChakraProvider>
     )
 
@@ -56,16 +49,16 @@ describe('ConfirmDialog', () => {
           isOpen={true}
           onOk={onOk}
           onCancel={onCancel}
-          onDismiss={() => {}}
-          title="title"
-          message="message"
+          header="title"
           ok={{
-            label: 'custom ok',
+            content: 'custom ok',
           }}
           cancel={{
-            label: 'custom cancel',
+            content: 'custom cancel',
           }}
-        />
+        >
+          message
+        </ConfirmDialog>
       </ChakraProvider>
     )
 

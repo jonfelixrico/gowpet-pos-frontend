@@ -1,4 +1,5 @@
 /* eslint-disable react/no-unescaped-entities */
+import { EMPTY_FN } from '@/utils/misc-utills'
 import {
   AlertDialog,
   AlertDialogBody,
@@ -11,62 +12,63 @@ import {
 } from '@chakra-ui/react'
 import { ReactNode, useRef } from 'react'
 
+type DialogButtonProps = {
+  content?: ReactNode
+} & Omit<ButtonProps, 'children' | 'onClick'>
+
+interface ConfirmDialogProps {
+  onCancel?: () => void
+  onOk?: () => void
+  onDismiss?: () => void
+  isOpen?: boolean
+  header?: ReactNode
+  children?: ReactNode
+
+  cancel?: DialogButtonProps
+  ok?: DialogButtonProps
+}
+
 export default function ConfirmDialog({
-  onCancel,
-  onOk,
-  onDismiss,
+  onCancel = EMPTY_FN,
+  onOk = EMPTY_FN,
+  onDismiss = EMPTY_FN,
   isOpen,
-  title,
-  message,
+  header,
+  children,
   cancel,
   ok,
-}: {
-  onCancel: () => void
-  onOk: () => void
-  onDismiss: () => void
-  isOpen: boolean
-  title?: ReactNode
-  message?: ReactNode
-  ok?: {
-    label?: ReactNode
-    colorScheme?: ButtonProps['colorScheme']
-  }
-  cancel?: {
-    label?: ReactNode
-  }
-}) {
+}: ConfirmDialogProps) {
   const cancelRef = useRef<HTMLButtonElement>(null)
+
+  const { content: cancelContent, ...cancelProps } = cancel ?? {}
+  const { content: okContent, ...okProps } = ok ?? {}
 
   return (
     <AlertDialog
       leastDestructiveRef={cancelRef}
       onClose={onDismiss}
-      isOpen={isOpen}
+      isOpen={!!isOpen}
     >
       <AlertDialogOverlay>
         <AlertDialogContent>
-          <AlertDialogHeader fontSize="lg" fontWeight="bold" data-cy="title">
-            {title}
+          <AlertDialogHeader fontSize="lg" fontWeight="bold" data-cy="header">
+            {header}
           </AlertDialogHeader>
 
-          <AlertDialogBody data-cy="message">{message}</AlertDialogBody>
+          <AlertDialogBody data-cy="body">{children}</AlertDialogBody>
 
           <AlertDialogFooter>
-            <Button ref={cancelRef} onClick={onCancel} data-cy="cancel">
-              {cancel?.label === undefined ? 'Cancel' : cancel.label}
+            <Button
+              {...cancelProps}
+              ref={cancelRef}
+              onClick={onCancel}
+              data-cy="cancel"
+            >
+              {cancelContent ?? 'Cancel'}
             </Button>
 
-            <Button
-              colorScheme={ok?.colorScheme}
-              /*
-               * idForDeletion will never be null since this dialog will be hidden if it's null
-               * hidden dialog = button cannot be clicked
-               */
-              onClick={onOk}
-              ml={3}
-              data-cy="ok"
-            >
-              {ok?.label === undefined ? 'Ok' : ok.label}
+            <Button {...okProps} onClick={onOk} ml={3} data-cy="ok">
+              {okContent ?? 'Ok'}
             </Button>
           </AlertDialogFooter>
         </AlertDialogContent>
