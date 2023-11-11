@@ -9,7 +9,7 @@ import {
   Button,
   useDisclosure,
 } from '@chakra-ui/react'
-import { useRef } from 'react'
+import { useRef, useState } from 'react'
 
 export default function BillingSaveButton({
   onSave,
@@ -18,11 +18,21 @@ export default function BillingSaveButton({
   /**
    * Server action for saving the billing
    */
-  onSave: (billing: Billing) => void
+  onSave: (billing: Billing) => Promise<void>
   billing: Billing
 }) {
   const { isOpen, onOpen, onClose } = useDisclosure()
   const cancelRef = useRef<HTMLButtonElement>(null)
+  const [isSubmitting, setIsSubmitting] = useState(false)
+
+  async function submitBilling() {
+    setIsSubmitting(true)
+    try {
+      await onSave(billing)
+    } finally {
+      setIsSubmitting(false)
+    }
+  }
 
   return (
     <>
@@ -53,7 +63,7 @@ export default function BillingSaveButton({
 
               {/* We're using action here instead of the button's onClick because onSave is a server action.
                   Server actions cannot be called via onClick */}
-              <form action={() => onSave(billing)}>
+              <form action={submitBilling}>
                 <Button colorScheme="blue" type="submit" ml={3}>
                   Yes, save
                 </Button>
