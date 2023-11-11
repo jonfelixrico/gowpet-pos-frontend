@@ -56,7 +56,7 @@ export default function ConfirmDialog({
 
           <AlertDialogFooter>
             <Button
-              {...okProps}
+              {...cancelProps}
               ref={cancelRef}
               onClick={onCancel}
               data-cy="cancel"
