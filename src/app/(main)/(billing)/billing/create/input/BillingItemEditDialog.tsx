@@ -55,6 +55,7 @@ export default function BillingItemEditDialog({
           value={quantity}
           onChange={(inputValue) => setQuantity(parseInt(inputValue))}
           min={1}
+          data-cy="quantity"
         >
           <NumberInputField />
           <NumberInputStepper>
