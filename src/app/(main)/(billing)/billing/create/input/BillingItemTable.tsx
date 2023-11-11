@@ -114,9 +114,10 @@ export default function BillingItemTable({
           colorScheme: 'red',
           content: 'Yes, delete',
         }}
-        message="Are you sure you want to remove this item?"
         title="Remove Item"
-      />
+      >
+        Are you sure you want to remove this item?
+      </ConfirmDialog>
 
       <BillingItemEditDialog
         key={itemToEdit?.catalogId ?? 'edit dialog'}
