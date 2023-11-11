@@ -61,11 +61,14 @@ describe('billing', () => {
     }
     cy.get('[data-cy="add-items-dialog"] [data-cy="close"]').click()
 
+    // check if the items in the billing items table checks out with what we added
+
     cy.get('[data-cy="items-table"] [data-cy="row"]').should(
       'have.length',
       toAdd.length
     )
     for (const { id, price } of toAdd) {
+      // inspection of critical UI elements for each item
       cy.get(
         `[data-cy="items-table"] [data-item-id="${id}"] [data-cy="price"]`
       ).should('contain', price)
@@ -77,6 +80,7 @@ describe('billing', () => {
       ).should('contain', price)
     }
 
+    // inspection of critical UI elements for the entire billing
     cy.get('[data-cy="total-amount"]').should(
       'contain',
       toAdd.reduce((total, { price }) => total + price, 0)
