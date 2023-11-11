@@ -1,7 +1,7 @@
 'use client'
 
 import { BillingItem } from '@/types/Billing'
-import { Box, Button, Flex, IconButton, Td, Text, Tr } from '@chakra-ui/react'
+import { Button, Flex, IconButton, Td, Text, Tr } from '@chakra-ui/react'
 import { MdAdd, MdRemove } from 'react-icons/md'
 
 interface BillingItemTableRow {
