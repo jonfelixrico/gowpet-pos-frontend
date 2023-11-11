@@ -24,5 +24,5 @@ export default async function Billing({
   }
 
   // TODO implement the actual content
-  return <Box>{JSON.stringify(data)}</Box>
+  return <Box data-cy="content">{JSON.stringify(data)}</Box>
 }
