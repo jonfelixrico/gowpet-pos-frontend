@@ -18,7 +18,8 @@ export default async function BillingCreatePage() {
       }
     })
 
-    await apiFetchData('/billing', {
+    // TODO convert to a billing response DTO
+    const { data } = await apiFetchData<{ id: string }>('/billing', {
       method: 'POST',
       body: JSON.stringify({
         ...billing,
@@ -28,7 +29,7 @@ export default async function BillingCreatePage() {
         'Content-Type': 'application/json',
       },
     })
-    redirect('/billing')
+    redirect(`/billing/${data.id}`)
   }
 
   return (
