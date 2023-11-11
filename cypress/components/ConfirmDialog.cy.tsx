@@ -11,8 +11,9 @@ describe('ConfirmDialog', () => {
           onCancel={() => {}}
           onDismiss={() => {}}
           title="title"
-          message="message"
-        />
+        >
+          message
+        </ConfirmDialog>
       </ChakraProvider>
     )
 
@@ -31,14 +32,15 @@ describe('ConfirmDialog', () => {
           onCancel={() => {}}
           onDismiss={() => {}}
           title="title"
-          message="message"
           ok={{
             content: 'custom ok',
           }}
           cancel={{
             content: 'custom cancel',
           }}
-        />
+        >
+          message
+        </ConfirmDialog>
       </ChakraProvider>
     )
 
@@ -58,14 +60,15 @@ describe('ConfirmDialog', () => {
           onCancel={onCancel}
           onDismiss={() => {}}
           title="title"
-          message="message"
           ok={{
             content: 'custom ok',
           }}
           cancel={{
             content: 'custom cancel',
           }}
-        />
+        >
+          message
+        </ConfirmDialog>
       </ChakraProvider>
     )
 

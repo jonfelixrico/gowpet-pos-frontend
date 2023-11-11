@@ -22,7 +22,7 @@ export default function ConfirmDialog({
   onDismiss = EMPTY_FN,
   isOpen,
   title,
-  message,
+  children,
   cancel: cancel,
   ok,
 }: {
@@ -31,7 +31,7 @@ export default function ConfirmDialog({
   onDismiss?: () => void
   isOpen?: boolean
   title?: ReactNode
-  message?: ReactNode
+  children?: ReactNode
   ok?: DialogButtonProps
   cancel?: DialogButtonProps
 }) {
@@ -52,7 +52,7 @@ export default function ConfirmDialog({
             {title}
           </AlertDialogHeader>
 
-          <AlertDialogBody data-cy="message">{message}</AlertDialogBody>
+          <AlertDialogBody data-cy="message">{children}</AlertDialogBody>
 
           <AlertDialogFooter>
             <Button
