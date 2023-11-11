@@ -11,6 +11,10 @@ import {
 } from '@chakra-ui/react'
 import { ReactNode, useRef } from 'react'
 
+type DialogButtonProps = {
+  content?: ReactNode
+} & Omit<ButtonProps, 'children' | 'onClick'>
+
 export default function ConfirmDialog({
   onCancel,
   onOk,
@@ -18,7 +22,7 @@ export default function ConfirmDialog({
   isOpen,
   title,
   message,
-  cancel,
+  content: cancel,
   ok,
 }: {
   onCancel: () => void
@@ -27,15 +31,13 @@ export default function ConfirmDialog({
   isOpen: boolean
   title?: ReactNode
   message?: ReactNode
-  ok?: {
-    label?: ReactNode
-    colorScheme?: ButtonProps['colorScheme']
-  }
-  cancel?: {
-    label?: ReactNode
-  }
+  ok?: DialogButtonProps
+  content?: DialogButtonProps
 }) {
   const cancelRef = useRef<HTMLButtonElement>(null)
+
+  const { content: cancelContent, ...cancelProps } = cancel ?? {}
+  const { content: okContent, ...okProps } = ok ?? {}
 
   return (
     <AlertDialog
@@ -52,21 +54,17 @@ export default function ConfirmDialog({
           <AlertDialogBody data-cy="message">{message}</AlertDialogBody>
 
           <AlertDialogFooter>
-            <Button ref={cancelRef} onClick={onCancel} data-cy="cancel">
-              {cancel?.label === undefined ? 'Cancel' : cancel.label}
+            <Button
+              {...okProps}
+              ref={cancelRef}
+              onClick={onCancel}
+              data-cy="cancel"
+            >
+              {cancelContent ?? 'Cancel'}
             </Button>
 
-            <Button
-              colorScheme={ok?.colorScheme}
-              /*
-               * idForDeletion will never be null since this dialog will be hidden if it's null
-               * hidden dialog = button cannot be clicked
-               */
-              onClick={onOk}
-              ml={3}
-              data-cy="ok"
-            >
-              {ok?.label === undefined ? 'Ok' : ok.label}
+            <Button {...okProps} onClick={onOk} ml={3} data-cy="ok">
+              {okContent ?? 'Ok'}
             </Button>
           </AlertDialogFooter>
         </AlertDialogContent>
