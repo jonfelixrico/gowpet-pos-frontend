@@ -9,6 +9,7 @@ import {
 } from '@chakra-ui/react'
 import { SavedBilling } from '../../BillingDetailsData'
 import Link from 'next/link'
+import If from '@/components/common/If'
 
 export default function BillingListItem({
   billing,
@@ -19,7 +20,9 @@ export default function BillingListItem({
     <Card>
       <CardBody as={Flex} gap={2} align="center">
         <Box flex={1}>
-          <Text noOfLines={2}>{billing.notes}</Text>
+          <If condition={!billing.notes}>
+            <Text noOfLines={2}>{billing.notes}</Text>
+          </If>
         </Box>
 
         <Link href={`/billing/${billing.id}`} prefetch={false}>
