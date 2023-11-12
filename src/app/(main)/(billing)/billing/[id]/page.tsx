@@ -1,8 +1,19 @@
 import { apiFetchData } from '@/server-utils/resource-api-util'
-import { Billing } from '@/types/Billing'
 import { FetchError } from '@/utils/fetch-utils'
-import { Box } from '@chakra-ui/react'
+import {
+  Card,
+  CardBody,
+  Divider,
+  Flex,
+  IconButton,
+  Text,
+  Textarea,
+} from '@chakra-ui/react'
 import { notFound } from 'next/navigation'
+import BillingDetailsItemsSection from './BillingDetailsItemsSection'
+import Link from 'next/link'
+import { IoIosArrowBack } from 'react-icons/io'
+import { BillingDetailsData } from './BillingDetailsData'
 
 export default async function Billing({
   params,
@@ -11,7 +22,7 @@ export default async function Billing({
     id: string
   }
 }) {
-  let data: Billing
+  let data: BillingDetailsData
   try {
     const response = await apiFetchData(`/billing/${params.id}`)
     data = response.data
@@ -23,6 +34,46 @@ export default async function Billing({
     throw e
   }
 
-  // TODO implement the actual content
-  return <Box data-cy="content">{JSON.stringify(data)}</Box>
+  const { items, notes } = data
+
+  return (
+    <Flex direction="column" gap="2" width="full" height="full">
+      <Card>
+        <CardBody as={Flex} gap={2} direction="column">
+          <Flex gap={2} align="center">
+            <Link href="/billing">
+              <IconButton
+                aria-label="go back to billings list"
+                variant="ghost"
+                isRound
+              >
+                <IoIosArrowBack />
+              </IconButton>
+            </Link>
+
+            <Text fontWeight="bold" fontSize="xl">
+              Billing Information
+            </Text>
+          </Flex>
+
+          <Divider />
+
+          <Flex direction="column" gap={2}>
+            <Text fontWeight="bold">Notes</Text>
+            <Textarea isReadOnly resize="none" value={notes} />
+          </Flex>
+        </CardBody>
+      </Card>
+
+      <Card>
+        <CardBody as={Flex} gap={2} direction="column">
+          <Text fontSize="lg" fontWeight="bold">
+            Items
+          </Text>
+          <Divider />
+          <BillingDetailsItemsSection items={items} />
+        </CardBody>
+      </Card>
+    </Flex>
+  )
 }
