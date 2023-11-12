@@ -26,7 +26,11 @@ export function PaginationControls({
     <Flex gap={3} align="center">
       <Box data-cy="first">
         <Link href={hrefBuilder(1)} prefetch={false}>
-          <IconButton aria-label="First page" isDisabled={isOnFirstPage}>
+          <IconButton
+            variant="ghost"
+            aria-label="First page"
+            isDisabled={isOnFirstPage}
+          >
             <PiCaretDoubleLeftBold />
           </IconButton>
         </Link>
@@ -34,7 +38,11 @@ export function PaginationControls({
 
       <Box data-cy="prev">
         <Link href={hrefBuilder(pageNo - 1)} prefetch={!isOnFirstPage}>
-          <IconButton aria-label="Prev page" isDisabled={isOnFirstPage}>
+          <IconButton
+            variant="ghost"
+            aria-label="Prev page"
+            isDisabled={isOnFirstPage}
+          >
             <PiCaretLeftBold />
           </IconButton>
         </Link>
@@ -48,7 +56,11 @@ export function PaginationControls({
 
       <Box data-cy="next">
         <Link href={hrefBuilder(pageNo + 1)} prefetch={!isOnLastPage}>
-          <IconButton aria-label="Next page" isDisabled={isOnLastPage}>
+          <IconButton
+            variant="ghost"
+            aria-label="Next page"
+            isDisabled={isOnLastPage}
+          >
             <PiCaretRightBold />
           </IconButton>
         </Link>
@@ -56,7 +68,11 @@ export function PaginationControls({
 
       <Box data-cy="last">
         <Link href={hrefBuilder(pageCount)} prefetch={false}>
-          <IconButton aria-label="Last page" isDisabled={isOnLastPage}>
+          <IconButton
+            variant="ghost"
+            aria-label="Last page"
+            isDisabled={isOnLastPage}
+          >
             <PiCaretDoubleRightBold />
           </IconButton>
         </Link>
