@@ -40,8 +40,8 @@ export default function BillingDetailsItemTable({
         </Thead>
 
         <Tbody>
-          {items.map((item) => (
-            <BillingDetailsItemTableRow item={item} key={item.catalogItem.id} />
+          {items.map((item, index) => (
+            <BillingDetailsItemTableRow item={item} key={index} />
           ))}
         </Tbody>
       </Table>
