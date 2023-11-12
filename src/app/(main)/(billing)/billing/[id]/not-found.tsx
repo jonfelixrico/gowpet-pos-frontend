@@ -14,7 +14,7 @@ export default function Billing404() {
       data-cy="not-found"
       gap={3}
     >
-      <Text fontSize="2xl">
+      <Text fontSize="2xl" fontWeight="medium">
         The billing that you tried to access does not exist
       </Text>
       <Link href="/billing">
