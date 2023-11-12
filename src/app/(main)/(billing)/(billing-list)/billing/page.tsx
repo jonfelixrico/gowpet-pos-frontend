@@ -55,6 +55,12 @@ export default async function BillingListPage({
       {data.map((billing) => (
         <BillingListItem billing={billing} key={billing.id} />
       ))}
+
+      <PaginationControls
+        hrefBuilder={hrefBuilder}
+        pageCount={parseInt(xTotalCount)}
+        pageNo={parsedPageNo}
+      />
     </Flex>
   )
 }
