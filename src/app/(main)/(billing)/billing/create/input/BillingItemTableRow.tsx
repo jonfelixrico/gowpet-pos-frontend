@@ -12,13 +12,13 @@ interface BillingItemTableRow {
 }
 
 export default function BillingItemTableRow({
-  item: { name, price, quantity },
+  item: { name, price, quantity, catalogId },
   onQuantityChange = () => {},
   onDelete = () => {},
   onEdit = () => {},
 }: BillingItemTableRow) {
   return (
-    <Tr>
+    <Tr data-item-id={catalogId} data-cy="row">
       <Td data-cy="name">{name}</Td>
 
       <Td data-cy="price">{price}</Td>
@@ -35,7 +35,7 @@ export default function BillingItemTableRow({
 
       <Td>
         <Flex gap={3} direction="column">
-          <Button size="xs" onClick={onEdit}>
+          <Button size="xs" onClick={onEdit} data-cy="edit">
             Edit
           </Button>
 

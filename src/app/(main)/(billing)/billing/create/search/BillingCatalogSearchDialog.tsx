@@ -63,10 +63,10 @@ export default function BillingCreateSearchDialog({
   return (
     <Modal isOpen={isOpen} onClose={onClose} scrollBehavior="inside">
       <ModalOverlay />
-      <ModalContent>
+      <ModalContent data-cy="add-items-dialog">
         <ModalHeader as={Flex} direction="column" gap={5}>
           <Text>Add Item</Text>
-          <Flex gap={2} align="center">
+          <Flex gap={2} align="center" data-cy="search">
             <SearchBarContent
               triggerSearch={startSearch}
               isLoading={isLoading}
@@ -100,7 +100,7 @@ export default function BillingCreateSearchDialog({
         </ModalBody>
 
         <ModalFooter>
-          <Button colorScheme="blue" mr={3} onClick={onClose}>
+          <Button colorScheme="blue" mr={3} onClick={onClose} data-cy="close">
             Close
           </Button>
         </ModalFooter>

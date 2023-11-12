@@ -71,6 +71,7 @@ export default function BillingItemsSection({
               aria-label="Add item"
               onClick={onOpen}
               colorScheme="blue"
+              data-cy="add-items"
             >
               <MdAdd />
             </IconButton>
@@ -80,7 +81,7 @@ export default function BillingItemsSection({
             <Text fontSize="sm" fontWeight="bold">
               Total
             </Text>
-            <Text fontSize="sm">
+            <Text fontSize="sm" data-cy="total-amount">
               {billing.items.reduce(
                 (acc, val) => acc + val.price * val.quantity,
                 0
