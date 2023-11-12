@@ -1,11 +1,11 @@
-import BillingDetailsItemTable from '@/app/(main)/(billing)/billing/[id]/BillingDetailsItemsTable'
+import BillingDetailsItemsTable from '@/app/(main)/(billing)/billing/[id]/BillingDetailsItemsTable'
 import { ChakraProvider } from '@chakra-ui/react'
 
-describe('BillingDetailsItemTable', () => {
+describe('BillingDetailsItemsTable', () => {
   it('it should show the correct data', () => {
     cy.mount(
       <ChakraProvider>
-        <BillingDetailsItemTable
+        <BillingDetailsItemsTable
           items={[
             {
               catalogItem: {
