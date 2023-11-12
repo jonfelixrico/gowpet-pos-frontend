@@ -1,9 +1,9 @@
 import If from '@/components/common/If'
 import { Flex, Text } from '@chakra-ui/react'
-import BillingDetailsItemTable from './BillingDetailsItemTable'
+import BillingDetailsItemTable from './BillingDetailsItemsTable'
 import { BillingDetailsItemData } from './BillingDetailsData'
 
-export default function BillingDetailsItemSection({
+export default function BillingDetailsItemsSection({
   items,
 }: {
   items: BillingDetailsItemData[]

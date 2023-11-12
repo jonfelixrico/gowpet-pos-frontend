@@ -30,7 +30,7 @@ function Row({
   )
 }
 
-export default function BillingDetailsItemTable({
+export default function BillingDetailsItemsTable({
   items,
 }: {
   items: BillingDetailsItemData[]

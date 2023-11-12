@@ -10,7 +10,7 @@ import {
   Textarea,
 } from '@chakra-ui/react'
 import { notFound } from 'next/navigation'
-import BillingDetailsItemSection from './BillingDetailsItemSection'
+import BillingDetailsItemSection from './BillingDetailsItemsSection'
 import Link from 'next/link'
 import { IoIosArrowBack } from 'react-icons/io'
 import { BillingDetailsData } from './BillingDetailsData'
