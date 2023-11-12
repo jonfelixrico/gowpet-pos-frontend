@@ -1,6 +1,6 @@
 import If from '@/components/common/If'
 import { BillingItem } from '@/types/Billing'
-import { Box, Card, CardBody, Flex, Text } from '@chakra-ui/react'
+import { Box, Flex, Text } from '@chakra-ui/react'
 import BillingDetailsItemTable from './BillingDetailsItemTable'
 
 export default function BillingDetailsItemSection({
@@ -15,25 +15,23 @@ export default function BillingDetailsItemSection({
   )
 
   return (
-    <Card>
-      <CardBody>
-        <If condition={hasItems}>
-          <BillingDetailsItemTable items={items} />
-        </If>
+    <>
+      <If condition={hasItems}>
+        <BillingDetailsItemTable items={items} />
+      </If>
 
-        <If condition={!hasItems}>
-          <Flex justify="center" align="center" height="50dvh">
-            <Text>There are no items</Text>
-          </Flex>
-        </If>
+      <If condition={!hasItems}>
+        <Flex justify="center" align="center" height="50dvh">
+          <Text>There are no items</Text>
+        </Flex>
+      </If>
 
-        <Box>
-          <Flex justify="space-between">
-            <Text>Total</Text>
-            <Text>{total}</Text>
-          </Flex>
-        </Box>
-      </CardBody>
-    </Card>
+      <Box>
+        <Flex justify="space-between">
+          <Text>Total</Text>
+          <Text>{total}</Text>
+        </Flex>
+      </Box>
+    </>
   )
 }
