@@ -39,6 +39,9 @@ export default function BillingListItem({
             </Text>
           </Flex>
 
+          {/* Prefetch needs to be false or else we'll end up preloading all of the
+          items in the list, which is going to probably request a lot of stuff from the
+          servers */}
           <Link href={`/billing/${billing.id}`} prefetch={false}>
             <Button variant="ghost">Open</Button>
           </Link>
