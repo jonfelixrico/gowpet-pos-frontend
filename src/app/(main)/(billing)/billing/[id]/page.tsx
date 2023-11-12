@@ -40,15 +40,21 @@ export default async function Billing({
   return (
     <Flex direction="column" gap="2" width="full" height="full">
       <Card>
-        <CardBody as={Flex} gap={2}>
-          <Flex gap={2}>
+        <CardBody as={Flex} gap={2} direction="column">
+          <Flex gap={2} align="center">
             <Link href="/billing">
-              <IconButton aria-label="go back to billings list">
+              <IconButton
+                aria-label="go back to billings list"
+                variant="ghost"
+                isRound
+              >
                 <IoIosArrowBack />
               </IconButton>
             </Link>
 
-            <Text>Billing Information</Text>
+            <Text fontWeight="bold" fontSize="xl">
+              Billing Information
+            </Text>
           </Flex>
 
           <Divider />
