@@ -1,6 +1,6 @@
 import If from '@/components/common/If'
 import { BillingItem } from '@/types/Billing'
-import { Box, Flex, Text } from '@chakra-ui/react'
+import { Flex, Text } from '@chakra-ui/react'
 import BillingDetailsItemTable from './BillingDetailsItemTable'
 
 export default function BillingDetailsItemSection({
@@ -26,12 +26,10 @@ export default function BillingDetailsItemSection({
         </Flex>
       </If>
 
-      <Box>
-        <Flex justify="space-between">
-          <Text>Total</Text>
-          <Text>{total}</Text>
-        </Flex>
-      </Box>
+      <Flex justify="space-between">
+        <Text fontWeight="bold">Total</Text>
+        <Text>{total}</Text>
+      </Flex>
     </>
   )
 }
