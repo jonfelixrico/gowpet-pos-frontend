@@ -60,8 +60,8 @@ export default async function Billing({
           <Divider />
 
           <Flex direction="column" gap={2}>
-            <Text>Notes</Text>
-            <Textarea isReadOnly value={notes} />
+            <Text fontWeight="bold">Notes</Text>
+            <Textarea isReadOnly resize="none" value={notes} />
           </Flex>
         </CardBody>
       </Card>
