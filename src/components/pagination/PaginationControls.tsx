@@ -1,5 +1,4 @@
 import { Box, Flex, IconButton, Spacer, Text } from '@chakra-ui/react'
-import { Url } from 'next/dist/shared/lib/router/router'
 import Link from 'next/link'
 import {
   PiCaretDoubleLeftBold,
@@ -7,6 +6,7 @@ import {
   PiCaretLeftBold,
   PiCaretRightBold,
 } from 'react-icons/pi'
+import { UrlObject } from 'url'
 
 export function PaginationControls({
   pageCount,
@@ -15,7 +15,7 @@ export function PaginationControls({
 }: {
   pageNo: number
   pageCount: number
-  hrefBuilder: (pageNo: number) => Url
+  hrefBuilder: (pageNo: number) => UrlObject | string
 }) {
   const isOnFirstPage = pageNo === 1
   const isOnLastPage = pageNo === pageCount
