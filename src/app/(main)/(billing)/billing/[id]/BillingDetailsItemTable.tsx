@@ -1,4 +1,3 @@
-import { BillingItem } from '@/types/Billing'
 import {
   Table,
   TableContainer,
@@ -8,11 +7,16 @@ import {
   Thead,
   Tr,
 } from '@chakra-ui/react'
+import { BillingDetailsItemData } from './BillingDetailsData'
 
-function Row({ item: { name, price, quantity } }: { item: BillingItem }) {
+function Row({
+  item: { catalogItem, price, quantity },
+}: {
+  item: BillingDetailsItemData
+}) {
   return (
     <Tr>
-      <Td>{name}</Td>
+      <Td>{catalogItem.name}</Td>
       <Td isNumeric>{price}</Td>
       <Td>{quantity}</Td>
       <Td isNumeric>{price * quantity}</Td>
@@ -23,7 +27,7 @@ function Row({ item: { name, price, quantity } }: { item: BillingItem }) {
 export default function BillingDetailsItemTable({
   items,
 }: {
-  items: BillingItem[]
+  items: BillingDetailsItemData[]
 }) {
   return (
     <TableContainer>
@@ -37,7 +41,7 @@ export default function BillingDetailsItemTable({
 
         <Tbody>
           {items.map((item) => (
-            <Row item={item} key={item.catalogId} />
+            <Row item={item} key={item.catalogItem.id} />
           ))}
         </Tbody>
       </Table>

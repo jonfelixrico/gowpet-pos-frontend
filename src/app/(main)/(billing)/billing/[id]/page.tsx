@@ -1,8 +1,6 @@
 import { apiFetchData } from '@/server-utils/resource-api-util'
-import { Billing } from '@/types/Billing'
 import { FetchError } from '@/utils/fetch-utils'
 import {
-  Box,
   Card,
   CardBody,
   Divider,
@@ -15,6 +13,7 @@ import { notFound } from 'next/navigation'
 import BillingDetailsItemSection from './BillingDetailsItemSection'
 import Link from 'next/link'
 import { IoIosArrowBack } from 'react-icons/io'
+import { BillingDetailsData } from './BillingDetailsData'
 
 export default async function Billing({
   params,
@@ -23,7 +22,7 @@ export default async function Billing({
     id: string
   }
 }) {
-  let data: Billing
+  let data: BillingDetailsData
   try {
     const response = await apiFetchData(`/billing/${params.id}`)
     data = response.data
