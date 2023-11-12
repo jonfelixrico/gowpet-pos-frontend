@@ -16,10 +16,14 @@ export function BillingDetailsItemTableRow({
 }) {
   return (
     <Tr>
-      <Td>{catalogItem.name}</Td>
-      <Td isNumeric>{price}</Td>
-      <Td>{quantity}</Td>
-      <Td isNumeric>{price * quantity}</Td>
+      <Td data-cy="name">{catalogItem.name}</Td>
+      <Td data-cy="price" isNumeric>
+        {price}
+      </Td>
+      <Td data-cy="quantity">{quantity}</Td>
+      <Td data-cy="amount" isNumeric>
+        {price * quantity}
+      </Td>
     </Tr>
   )
 }
