@@ -23,6 +23,7 @@ export default async function BillingListPage({
 
   const queryParams = stringify({
     pageNo: parsedPageNo - 1, // we're doing -1 because the BE is base 0
+    itemCount: 10,
   })
   const { data, headers } = await apiFetchData<SavedBilling[]>(
     `/billing?${queryParams}`
