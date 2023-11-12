@@ -28,6 +28,7 @@ export function PaginationControls({
         <Link href={hrefBuilder(1)} prefetch={false}>
           <IconButton
             variant="ghost"
+            isRound
             aria-label="First page"
             isDisabled={isOnFirstPage}
           >
@@ -40,6 +41,7 @@ export function PaginationControls({
         <Link href={hrefBuilder(pageNo - 1)} prefetch={!isOnFirstPage}>
           <IconButton
             variant="ghost"
+            isRound
             aria-label="Prev page"
             isDisabled={isOnFirstPage}
           >
@@ -58,6 +60,7 @@ export function PaginationControls({
         <Link href={hrefBuilder(pageNo + 1)} prefetch={!isOnLastPage}>
           <IconButton
             variant="ghost"
+            isRound
             aria-label="Next page"
             isDisabled={isOnLastPage}
           >
@@ -70,6 +73,7 @@ export function PaginationControls({
         <Link href={hrefBuilder(pageCount)} prefetch={false}>
           <IconButton
             variant="ghost"
+            isRound
             aria-label="Last page"
             isDisabled={isOnLastPage}
           >
