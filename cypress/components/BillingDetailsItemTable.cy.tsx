@@ -1,8 +1,7 @@
 import BillingDetailsItemTable from '@/app/(main)/(billing)/billing/[id]/BillingDetailsItemTable'
 import { ChakraProvider } from '@chakra-ui/react'
 
-// We're including the row tests here since they're in the same file anyway
-describe('BillingDetailsItemTableRow', () => {
+describe('BillingDetailsItemTable', () => {
   it('it should show the correct data', () => {
     cy.mount(
       <ChakraProvider>
