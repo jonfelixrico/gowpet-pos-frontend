@@ -1,7 +1,8 @@
 import { apiFetchData } from '@/server-utils/resource-api-util'
-import { Billing } from '@/types/Billing'
-import { Box, Text } from '@chakra-ui/react'
+import { Box, Flex } from '@chakra-ui/react'
 import { stringify } from 'querystring'
+import BillingListItem from './BillingListItem'
+import { SavedBilling } from '../../BillingDetailsData'
 
 export default async function BillingListPage({
   searchParams,
@@ -13,7 +14,7 @@ export default async function BillingListPage({
   const queryParams = stringify({
     pageNo: searchParams.pageNo ?? '0',
   })
-  const { data, headers } = await apiFetchData<Billing[]>(
+  const { data, headers } = await apiFetchData<SavedBilling[]>(
     `/billing?${queryParams}`
   )
 
@@ -24,11 +25,11 @@ export default async function BillingListPage({
   const pageCount = parseInt(xTotalCount)
 
   return (
-    <Box>
+    <Flex direction="column" gap={2}>
       {/* TODO implement listing */}
-      {data.map((billing, index) => (
-        <Text key={index}>{JSON.stringify(billing)}</Text>
+      {data.map((billing) => (
+        <BillingListItem billing={billing} key={billing.id} />
       ))}
-    </Box>
+    </Flex>
   )
 }
