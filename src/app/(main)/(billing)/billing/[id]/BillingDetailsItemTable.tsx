@@ -9,7 +9,7 @@ import {
 } from '@chakra-ui/react'
 import { BillingDetailsItemData } from './BillingDetailsData'
 
-export function BillingDetailsItemTableRow({
+function Row({
   item: { catalogItem, price, quantity },
 }: {
   item: BillingDetailsItemData
@@ -45,7 +45,7 @@ export default function BillingDetailsItemTable({
 
         <Tbody>
           {items.map((item, index) => (
-            <BillingDetailsItemTableRow item={item} key={index} />
+            <Row item={item} key={index} />
           ))}
         </Tbody>
       </Table>
