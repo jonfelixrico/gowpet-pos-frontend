@@ -1,7 +1,16 @@
 import { apiFetchData } from '@/server-utils/resource-api-util'
 import { Billing } from '@/types/Billing'
 import { FetchError } from '@/utils/fetch-utils'
-import { Box, Card, CardBody, Flex, IconButton, Text } from '@chakra-ui/react'
+import {
+  Box,
+  Card,
+  CardBody,
+  Divider,
+  Flex,
+  IconButton,
+  Text,
+  Textarea,
+} from '@chakra-ui/react'
 import { notFound } from 'next/navigation'
 import BillingDetailsItemSection from './BillingDetailsItemSection'
 import Link from 'next/link'
@@ -26,7 +35,7 @@ export default async function Billing({
     throw e
   }
 
-  const { items } = data
+  const { items, notes } = data
 
   return (
     <Flex direction="column" gap="2">
@@ -41,11 +50,23 @@ export default async function Billing({
 
             <Text>Billing Information</Text>
           </Flex>
-        </CardBody>
 
-        {/* TODO add notes */}
+          <Divider />
+
+          <Flex direction="column" gap={2}>
+            <Text>Notes</Text>
+            <Textarea isReadOnly value={notes} />
+          </Flex>
+        </CardBody>
       </Card>
-      <BillingDetailsItemSection items={items} />
+
+      <Card>
+        <CardBody as={Flex} gap={2}>
+          <Text>Items</Text>
+          <Divider />
+          <BillingDetailsItemSection items={items} />
+        </CardBody>
+      </Card>
     </Flex>
   )
 }
