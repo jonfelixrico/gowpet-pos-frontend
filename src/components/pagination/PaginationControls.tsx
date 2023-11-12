@@ -8,6 +8,8 @@ import {
 } from 'react-icons/pi'
 import { UrlObject } from 'url'
 
+export type Url = UrlObject | string
+
 export function PaginationControls({
   pageCount,
   pageNo,
@@ -15,7 +17,7 @@ export function PaginationControls({
 }: {
   pageNo: number
   pageCount: number
-  hrefBuilder: (pageNo: number) => UrlObject | string
+  hrefBuilder: (pageNo: number) => Url
 }) {
   const isOnFirstPage = pageNo === 1
   const isOnLastPage = pageNo === pageCount
