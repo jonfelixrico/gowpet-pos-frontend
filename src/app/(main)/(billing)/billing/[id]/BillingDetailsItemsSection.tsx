@@ -17,18 +17,18 @@ export default function BillingDetailsItemsSection({
   return (
     <>
       <If condition={hasItems}>
-        <BillingDetailsItemsTable items={items} />
+        <BillingDetailsItemsTable items={items} data-cy="items-table" />
       </If>
 
       <If condition={!hasItems}>
-        <Flex justify="center" align="center" height="50dvh">
+        <Flex justify="center" align="center" height="50dvh" data-cy="no-items">
           <Text>There are no items</Text>
         </Flex>
       </If>
 
       <Flex justify="space-between">
         <Text fontWeight="bold">Total</Text>
-        <Text>{total}</Text>
+        <Text data-cy="total-amount">{total}</Text>
       </Flex>
     </>
   )

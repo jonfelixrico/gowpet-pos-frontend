@@ -1,6 +1,7 @@
 import {
   Table,
   TableContainer,
+  TableContainerProps,
   TableRowProps,
   Tbody,
   Td,
@@ -12,12 +13,12 @@ import { BillingDetailsItemData } from './BillingDetailsData'
 
 function Row({
   item: { catalogItem, price, quantity },
-  ...otherProps
+  ...rowProps
 }: {
   item: BillingDetailsItemData
 } & TableRowProps) {
   return (
-    <Tr {...otherProps}>
+    <Tr {...rowProps}>
       <Td data-cy="name">{catalogItem.name}</Td>
       <Td data-cy="price" isNumeric>
         {price}
@@ -32,11 +33,12 @@ function Row({
 
 export default function BillingDetailsItemsTable({
   items,
+  ...tableProps
 }: {
   items: BillingDetailsItemData[]
-}) {
+} & TableContainerProps) {
   return (
-    <TableContainer>
+    <TableContainer {...tableProps}>
       <Table>
         <Thead>
           <Th>Name</Th>
