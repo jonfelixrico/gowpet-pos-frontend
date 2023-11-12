@@ -1,20 +1,23 @@
 import BillingDetailsItemsSection from '@/app/(main)/(billing)/billing/[id]/BillingDetailsItemsSection'
+import { ChakraProvider } from '@chakra-ui/react'
 
 describe('BillingDetailsItemsSection', () => {
   it('should show the table', () => {
     cy.mount(
-      <BillingDetailsItemsSection
-        items={[
-          {
-            catalogItem: {
-              id: 'dummy',
-              name: 'test name',
+      <ChakraProvider>
+        <BillingDetailsItemsSection
+          items={[
+            {
+              catalogItem: {
+                id: 'dummy',
+                name: 'test name',
+              },
+              price: 150.5,
+              quantity: 3,
             },
-            price: 150.5,
-            quantity: 3,
-          },
-        ]}
-      />
+          ]}
+        />
+      </ChakraProvider>
     )
 
     cy.get('[data-cy="items-table"]').should('exist')
@@ -22,7 +25,11 @@ describe('BillingDetailsItemsSection', () => {
   })
 
   it('should show the "no items" message', () => {
-    cy.mount(<BillingDetailsItemsSection items={[]} />)
+    cy.mount(
+      <ChakraProvider>
+        <BillingDetailsItemsSection items={[]} />
+      </ChakraProvider>
+    )
 
     cy.get('[data-cy="items-table"]').should('not.exist')
     cy.get('[data-cy="no-items"]').should('exist')
@@ -30,29 +37,31 @@ describe('BillingDetailsItemsSection', () => {
 
   it('should show the table', () => {
     cy.mount(
-      <BillingDetailsItemsSection
-        items={[
-          {
-            catalogItem: {
-              id: 'dummy',
-              name: 'test name',
+      <ChakraProvider>
+        <BillingDetailsItemsSection
+          items={[
+            {
+              catalogItem: {
+                id: 'dummy',
+                name: 'test name',
+              },
+              price: 150.5,
+              quantity: 3,
             },
-            price: 150.5,
-            quantity: 3,
-          },
 
-          {
-            catalogItem: {
-              id: 'dummy 2',
-              name: 'test name 2',
+            {
+              catalogItem: {
+                id: 'dummy 2',
+                name: 'test name 2',
+              },
+              price: 33.3,
+              quantity: 1,
             },
-            price: 33.3,
-            quantity: 1,
-          },
-        ]}
-      />
+          ]}
+        />
+      </ChakraProvider>
     )
 
-    cy.get('[data-cy="amount"]').should('have.text', 484.8)
+    cy.get('[data-cy="total-amount"]').should('have.text', 484.8)
   })
 })
