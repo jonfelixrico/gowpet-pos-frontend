@@ -25,7 +25,7 @@ export default async function BillingListPage({
   const pageCount = parseInt(xTotalCount)
 
   return (
-    <Flex direction="column" gap={2}>
+    <Flex direction="column" gap={2} width="full">
       {/* TODO implement listing */}
       {data.map((billing) => (
         <BillingListItem billing={billing} key={billing.id} />
