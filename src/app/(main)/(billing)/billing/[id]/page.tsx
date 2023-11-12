@@ -67,8 +67,10 @@ export default async function Billing({
       </Card>
 
       <Card>
-        <CardBody as={Flex} gap={2}>
-          <Text>Items</Text>
+        <CardBody as={Flex} gap={2} direction="column">
+          <Text fontSize="lg" fontWeight="bold">
+            Items
+          </Text>
           <Divider />
           <BillingDetailsItemSection items={items} />
         </CardBody>
