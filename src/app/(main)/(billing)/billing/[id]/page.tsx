@@ -38,7 +38,7 @@ export default async function Billing({
   const { items, notes } = data
 
   return (
-    <Flex direction="column" gap="2">
+    <Flex direction="column" gap="2" width="full" height="full">
       <Card>
         <CardBody as={Flex} gap={2}>
           <Flex gap={2}>
