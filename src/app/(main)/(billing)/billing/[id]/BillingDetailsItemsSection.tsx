@@ -1,6 +1,6 @@
 import If from '@/components/common/If'
 import { Flex, Text } from '@chakra-ui/react'
-import BillingDetailsItemTable from './BillingDetailsItemsTable'
+import BillingDetailsItemsTable from './BillingDetailsItemsTable'
 import { BillingDetailsItemData } from './BillingDetailsData'
 
 export default function BillingDetailsItemsSection({
@@ -17,7 +17,7 @@ export default function BillingDetailsItemsSection({
   return (
     <>
       <If condition={hasItems}>
-        <BillingDetailsItemTable items={items} />
+        <BillingDetailsItemsTable items={items} />
       </If>
 
       <If condition={!hasItems}>

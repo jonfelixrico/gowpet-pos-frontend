@@ -10,7 +10,7 @@ import {
   Textarea,
 } from '@chakra-ui/react'
 import { notFound } from 'next/navigation'
-import BillingDetailsItemSection from './BillingDetailsItemsSection'
+import BillingDetailsItemsSection from './BillingDetailsItemsSection'
 import Link from 'next/link'
 import { IoIosArrowBack } from 'react-icons/io'
 import { BillingDetailsData } from './BillingDetailsData'
@@ -71,7 +71,7 @@ export default async function Billing({
             Items
           </Text>
           <Divider />
-          <BillingDetailsItemSection items={items} />
+          <BillingDetailsItemsSection items={items} />
         </CardBody>
       </Card>
     </Flex>
