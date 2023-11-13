@@ -13,7 +13,7 @@ import { notFound } from 'next/navigation'
 import BillingDetailsItemsSection from './BillingDetailsItemsSection'
 import Link from 'next/link'
 import { IoIosArrowBack } from 'react-icons/io'
-import { BillingDetailsData } from './BillingDetailsData'
+import { SavedBilling } from '../../BillingDetailsData'
 
 export default async function Billing({
   params,
@@ -22,7 +22,7 @@ export default async function Billing({
     id: string
   }
 }) {
-  let data: BillingDetailsData
+  let data: SavedBilling
   try {
     const response = await apiFetchData(`/billing/${params.id}`)
     data = response.data

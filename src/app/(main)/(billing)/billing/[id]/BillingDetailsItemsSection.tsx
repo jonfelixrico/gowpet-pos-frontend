@@ -1,12 +1,12 @@
 import If from '@/components/common/If'
 import { Flex, Text } from '@chakra-ui/react'
 import BillingDetailsItemsTable from './BillingDetailsItemsTable'
-import { BillingDetailsItemData } from './BillingDetailsData'
+import { SavedBillingItem } from '../../BillingDetailsData'
 
 export default function BillingDetailsItemsSection({
   items,
 }: {
-  items: BillingDetailsItemData[]
+  items: SavedBillingItem[]
 }) {
   const hasItems = !!items.length
   const total = items.reduce(

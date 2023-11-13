@@ -9,13 +9,13 @@ import {
   Thead,
   Tr,
 } from '@chakra-ui/react'
-import { BillingDetailsItemData } from './BillingDetailsData'
+import { SavedBillingItem } from '../../BillingDetailsData'
 
 function Row({
   item: { catalogItem, price, quantity },
   ...rowProps
 }: {
-  item: BillingDetailsItemData
+  item: SavedBillingItem
 } & TableRowProps) {
   return (
     <Tr {...rowProps}>
@@ -35,7 +35,7 @@ export default function BillingDetailsItemsTable({
   items,
   ...tableProps
 }: {
-  items: BillingDetailsItemData[]
+  items: SavedBillingItem[]
 } & TableContainerProps) {
   return (
     <TableContainer {...tableProps}>
