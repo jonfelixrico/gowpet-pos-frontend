@@ -26,7 +26,11 @@ export default function BillingListContent({
   return (
     <Flex {...flexProps} direction="column" gap={2} data-cy="content">
       {billings.map((billing) => (
-        <BillingListItem billing={billing} key={billing.id} />
+        <BillingListItem
+          billing={billing}
+          key={billing.id}
+          data-cy="billing-item"
+        />
       ))}
     </Flex>
   )
