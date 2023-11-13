@@ -1,31 +1,34 @@
 import BillingListItem from '@/app/(main)/(billing)/(billing-list)/billing/BillingListItem'
+import { ChakraProvider } from '@chakra-ui/react'
 
 describe('BillingListItem', () => {
   it('should show essential fields', () => {
     cy.mount(
-      <BillingListItem
-        billing={{
-          id: 'test',
-          items: [
-            {
-              catalogItem: {
-                id: 'item 1',
-                name: 'item 1 name',
+      <ChakraProvider>
+        <BillingListItem
+          billing={{
+            id: 'test',
+            items: [
+              {
+                catalogItem: {
+                  id: 'item 1',
+                  name: 'item 1 name',
+                },
+                price: 150,
+                quantity: 1,
               },
-              price: 150,
-              quantity: 1,
-            },
-            {
-              catalogItem: {
-                id: 'item 2',
-                name: 'item 2 name',
+              {
+                catalogItem: {
+                  id: 'item 2',
+                  name: 'item 2 name',
+                },
+                price: 25,
+                quantity: 2,
               },
-              price: 25,
-              quantity: 2,
-            },
-          ],
-        }}
-      />
+            ],
+          }}
+        />
+      </ChakraProvider>
     )
 
     cy.get('[data-cy="total-quantity"]').should('contain.text', 3)
@@ -40,30 +43,32 @@ describe('BillingListItem', () => {
 
   it('should show notes', () => {
     cy.mount(
-      <BillingListItem
-        billing={{
-          id: 'test',
-          items: [
-            {
-              catalogItem: {
-                id: 'item 1',
-                name: 'item 1 name',
+      <ChakraProvider>
+        <BillingListItem
+          billing={{
+            id: 'test',
+            items: [
+              {
+                catalogItem: {
+                  id: 'item 1',
+                  name: 'item 1 name',
+                },
+                price: 150,
+                quantity: 1,
               },
-              price: 150,
-              quantity: 1,
-            },
-            {
-              catalogItem: {
-                id: 'item 2',
-                name: 'item 2 name',
+              {
+                catalogItem: {
+                  id: 'item 2',
+                  name: 'item 2 name',
+                },
+                price: 25,
+                quantity: 2,
               },
-              price: 25,
-              quantity: 2,
-            },
-          ],
-          notes: 'test notes',
-        }}
-      />
+            ],
+            notes: 'test notes',
+          }}
+        />
+      </ChakraProvider>
     )
 
     cy.get('[data-cy="notes"]').should('have.text', 'test notes')
