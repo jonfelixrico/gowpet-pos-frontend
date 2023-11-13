@@ -1,52 +1,20 @@
 import { apiFetchData } from '@/server-utils/resource-api-util'
-import { Box, Flex, FlexProps } from '@chakra-ui/react'
+import { Flex } from '@chakra-ui/react'
 import { stringify } from 'querystring'
-import BillingListItem from './BillingListItem'
 import { SavedBilling } from '../../BillingDetailsData'
 import {
   PaginationControls,
   Url,
 } from '@/components/pagination/PaginationControls'
-import { ReactNode } from 'react'
+import BillingListContent from './BillingListContent'
 
-function PaginationLayout({
-  pageCount,
-  pageNo,
-  children,
-  ...flexProps
-}: {
-  pageCount: number
-  pageNo: number
-  children: ReactNode
-} & FlexProps) {
-  function hrefBuilder(pageNo: number): Url {
-    return {
-      pathname: '/billing',
-      query: {
-        pageNo,
-      },
-    }
+function hrefBuilder(pageNo: number): Url {
+  return {
+    pathname: '/billing',
+    query: {
+      pageNo,
+    },
   }
-
-  return (
-    <Flex {...flexProps} direction="column" gap={2}>
-      <PaginationControls
-        hrefBuilder={hrefBuilder}
-        pageCount={pageCount}
-        pageNo={pageNo}
-      />
-
-      <Flex direction="column" flex={1} gap={2}>
-        {children}
-      </Flex>
-
-      <PaginationControls
-        hrefBuilder={hrefBuilder}
-        pageCount={pageCount}
-        pageNo={pageNo}
-      />
-    </Flex>
-  )
 }
 
 export default async function BillingListPage({
@@ -75,15 +43,19 @@ export default async function BillingListPage({
     throw new Error('X-Total-Count was not found in the backend response')
   }
 
+  const paginationControlsProps = {
+    hrefBuilder,
+    pageCount: parseInt(xTotalCount),
+    pageNo: parseInt(pageNo),
+  }
+
   return (
-    <PaginationLayout
-      pageCount={parseInt(xTotalCount)}
-      pageNo={parsedPageNo}
-      width="full"
-    >
-      {data.map((billing) => (
-        <BillingListItem billing={billing} key={billing.id} />
-      ))}
-    </PaginationLayout>
+    <Flex width="full" height="full" direction="column" gap={2}>
+      <PaginationControls {...paginationControlsProps} />
+
+      <BillingListContent billings={data} flex={1} />
+
+      <PaginationControls {...paginationControlsProps} />
+    </Flex>
   )
 }
