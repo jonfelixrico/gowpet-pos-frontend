@@ -31,7 +31,7 @@ describe('BillingListItem', () => {
     cy.get('[data-cy="total-quantity"]').should('contain.text', 3)
     cy.get('[data-cy="total-amount"]').should('contain.text', 200)
 
-    cy.get('[data-cy="open"]')
+    cy.get('[data-cy="open-details"]')
       .should('exist')
       .should('have.attr', 'href', '/billing/test')
   })
