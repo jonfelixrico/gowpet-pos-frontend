@@ -1,22 +1,15 @@
-import {
-  Box,
-  Button,
-  Card,
-  CardBody,
-  Divider,
-  Flex,
-  Spacer,
-  Text,
-} from '@chakra-ui/react'
+import { Box, Button, Card, CardBody, Flex, Text } from '@chakra-ui/react'
 import { SavedBilling } from '../../BillingDetailsData'
 import Link from 'next/link'
 import If from '@/components/common/If'
+import { DataAttributes } from '@/types/DataAttributes'
 
 export default function BillingListItem({
   billing,
+  ...dataProps
 }: {
   billing: SavedBilling
-}) {
+} & DataAttributes) {
   const totalAmount = billing.items.reduce(
     (total, billing) => total + billing.price * billing.quantity,
     0
@@ -28,7 +21,7 @@ export default function BillingListItem({
   )
 
   return (
-    <Card>
+    <Card {...dataProps}>
       <CardBody as={Flex} gap={2} direction="column">
         <Flex gap={2} align="center">
           <Flex flex={1} direction="column" gap={2}>
