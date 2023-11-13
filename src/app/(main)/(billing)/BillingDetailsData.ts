@@ -1,4 +1,4 @@
-export interface BillingDetailsItemData {
+export interface SavedBillingItem {
   catalogItem: {
     id: string
     name: string
@@ -8,8 +8,8 @@ export interface BillingDetailsItemData {
   quantity: number
 }
 
-export interface BillingDetailsData {
+export interface SavedBilling {
   id: string
   notes?: string
-  items: BillingDetailsItemData[]
+  items: SavedBillingItem[]
 }
