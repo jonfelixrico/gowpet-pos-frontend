@@ -16,7 +16,7 @@ export default function BillingListContent({
         justify="center"
         align="center"
         gap={2}
-        data-cy="empty"
+        data-cy="empty-message"
       >
         <Text>No items to show</Text>
       </Flex>
@@ -24,7 +24,7 @@ export default function BillingListContent({
   }
 
   return (
-    <Flex {...flexProps} direction="column" gap={2} data-cy="list">
+    <Flex {...flexProps} direction="column" gap={2} data-cy="content">
       {billings.map((billing) => (
         <BillingListItem billing={billing} key={billing.id} />
       ))}
