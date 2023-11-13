@@ -1,6 +1,7 @@
 import { Flex, FlexProps, Text } from '@chakra-ui/react'
 import { SavedBilling } from '../../BillingDetailsData'
 import BillingListItem from './BillingListItem'
+import RefreshButton from '@/components/RefreshButton'
 
 export default function BillingListContent({
   billings,
@@ -19,6 +20,7 @@ export default function BillingListContent({
         data-cy="empty-message"
       >
         <Text>No items to show</Text>
+        <RefreshButton>Try again</RefreshButton>
       </Flex>
     )
   }
