@@ -34,5 +34,38 @@ describe('BillingListItem', () => {
     cy.get('[data-cy="open-details"]')
       .should('exist')
       .should('have.attr', 'href', '/billing/test')
+
+    cy.get('[data-cy="notes"]').should('not.exist')
+  })
+
+  it('should show notes', () => {
+    cy.mount(
+      <BillingListItem
+        billing={{
+          id: 'test',
+          items: [
+            {
+              catalogItem: {
+                id: 'item 1',
+                name: 'item 1 name',
+              },
+              price: 150,
+              quantity: 1,
+            },
+            {
+              catalogItem: {
+                id: 'item 2',
+                name: 'item 2 name',
+              },
+              price: 25,
+              quantity: 2,
+            },
+          ],
+          notes: 'test notes',
+        }}
+      />
+    )
+
+    cy.get('[data-cy="notes"]').should('have.text', 'test notes')
   })
 })

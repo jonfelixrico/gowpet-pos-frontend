@@ -56,7 +56,9 @@ export default function BillingListItem({
             <Text fontWeight="bold" fontSize="xs">
               Notes
             </Text>
-            <Text noOfLines={2}>{billing.notes}</Text>
+            <Text noOfLines={2} data-cy="notes">
+              {billing.notes}
+            </Text>
           </Box>
         </If>
       </CardBody>
