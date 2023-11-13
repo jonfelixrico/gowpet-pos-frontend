@@ -2,7 +2,7 @@ import { PaginationControls } from '@/components/pagination/PaginationControls'
 import { ChakraProvider } from '@chakra-ui/react'
 
 describe('PaginationControls', () => {
-  it('should render the controls', () => {
+  it('renders the controls', () => {
     cy.mount(
       <ChakraProvider>
         <PaginationControls
@@ -73,7 +73,7 @@ describe('PaginationControls', () => {
     cy.get('[data-cy="last"] button').should('not.be.disabled')
   })
 
-  it('links to the correct urls - without additional params', () => {
+  it('links to the correct urls', () => {
     cy.mount(
       <ChakraProvider>
         <PaginationControls
