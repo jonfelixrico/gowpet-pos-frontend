@@ -64,5 +64,6 @@ describe('BillingListContent', () => {
 
     cy.get('[data-cy="empty-message"]').should('not.exist')
     cy.get('[data-cy="content"]').should('exist')
+    cy.get('[data-cy="billing-record"]').should('have.length', 3)
   })
 })

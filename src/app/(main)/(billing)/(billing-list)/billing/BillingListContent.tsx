@@ -29,7 +29,7 @@ export default function BillingListContent({
         <BillingListItem
           billing={billing}
           key={billing.id}
-          data-cy="billing-item"
+          data-cy="billing-record"
         />
       ))}
     </Flex>
