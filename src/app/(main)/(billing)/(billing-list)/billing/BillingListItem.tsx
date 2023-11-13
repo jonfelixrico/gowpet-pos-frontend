@@ -32,9 +32,9 @@ export default function BillingListItem({
       <CardBody as={Flex} gap={2} direction="column">
         <Flex gap={2} align="center">
           <Flex flex={1} direction="column" gap={2}>
-            <Text>{totalAmount}</Text>
+            <Text data-cy="total-amount">{totalAmount}</Text>
 
-            <Text>
+            <Text data-cy="total-quantity">
               {totalQuantity} {totalQuantity === 1 ? 'item' : 'items'}
             </Text>
           </Flex>
@@ -42,7 +42,11 @@ export default function BillingListItem({
           {/* Prefetch needs to be false or else we'll end up preloading all of the
           items in the list, which is going to probably request a lot of stuff from the
           servers */}
-          <Link href={`/billing/${billing.id}`} prefetch={false}>
+          <Link
+            href={`/billing/${billing.id}`}
+            prefetch={false}
+            data-cy="open-details"
+          >
             <Button variant="ghost">Open</Button>
           </Link>
         </Flex>
