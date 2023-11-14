@@ -66,7 +66,6 @@ export default function BillingCreateSearchDialog({
           />
         </Flex>
       </ModalHeader>
-      <ModalCloseButton />
 
       <ModalBody>
         <Flex direction="column" gap={3}>
