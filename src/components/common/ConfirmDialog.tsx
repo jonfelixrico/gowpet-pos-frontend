@@ -52,7 +52,7 @@ export default function ConfirmDialog({
       isOpen={!!isOpen}
     >
       <AlertDialogOverlay>
-        <AlertDialogContent {...dataAttrs} data-dialog-open={isOpen}>
+        <AlertDialogContent {...dataAttrs} data-dialog-opened={isOpen}>
           <AlertDialogHeader fontSize="lg" fontWeight="bold" data-cy="header">
             {header}
           </AlertDialogHeader>

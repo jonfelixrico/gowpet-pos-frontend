@@ -120,7 +120,7 @@ describe('billing', () => {
       ).click()
 
       cy.get(
-        `[data-cy="delete-confirm"][data-dialog-open="true"] [data-cy="ok"]`
+        `[data-cy="delete-confirm"][data-dialog-opened="true"] [data-cy="ok"]`
       ).click()
 
       cy.get(`[data-cy="items-table"] [data-billing-item-id="${id}"]`).should(
