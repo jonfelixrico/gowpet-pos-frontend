@@ -1,6 +1,6 @@
 'use client'
 
-import { Flex, Table, TableContainer, Tbody, Th, Thead } from '@chakra-ui/react'
+import { Table, TableContainer, Tbody, Th, Thead } from '@chakra-ui/react'
 import BillingItemTableRow from './BillingItemTableRow'
 import { produce } from 'immer'
 import { Billing, BillingItem } from '@/types/Billing'
