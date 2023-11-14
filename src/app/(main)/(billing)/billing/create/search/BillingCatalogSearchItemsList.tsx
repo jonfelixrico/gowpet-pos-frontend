@@ -20,8 +20,10 @@ function BillingCatalogSearchItem({
   return (
     <Flex {...dataAttrs} justify="space-between" gap={2}>
       <Box>
-        <Text>{name}</Text>
-        <Text fontSize="xs">{price}</Text>
+        <Text data-cy="name">{name}</Text>
+        <Text data-cy="price" fontSize="xs">
+          {price}
+        </Text>
       </Box>
 
       <Button isDisabled={!canAdd} onClick={onAdd} data-cy="add">
