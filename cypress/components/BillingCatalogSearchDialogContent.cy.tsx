@@ -89,4 +89,42 @@ describe('BillingCatalogSearchDialogContent', () => {
     // should be at the final page at this point
     cy.get('[data-cy="show-more"]').should('not.exist')
   })
+
+  it('can perform a search', () => {
+    cy.mount(
+      <Wrapper>
+        <BillingCatalogSearchDialogContent
+          initialState={{
+            items: generateDummyItems(50),
+            pageCount: 10,
+            pageNo: 8,
+            searchTerm: '',
+          }}
+        />
+      </Wrapper>
+    )
+
+    cy.get('[data-cy="catalog-item"]').should('have.length', 50)
+
+    cy.intercept(
+      {
+        pathname: '/billing/catalog-search',
+        query: {
+          pageNo: '0',
+          searchTerm: 'some-keyword',
+        },
+      },
+      {
+        body: generateDummyItems(10, 500),
+        headers: {
+          'X-Total-Count': '10',
+        },
+      }
+    )
+
+    cy.get('[data-cy="search"] input').clear().type('some-keyword')
+    cy.get('[data-cy="search"] button').click()
+
+    cy.get('[data-cy="catalog-item"]').should('have.length', 10)
+  })
 })
