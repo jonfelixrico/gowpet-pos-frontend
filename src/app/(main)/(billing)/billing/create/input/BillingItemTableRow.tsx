@@ -3,6 +3,7 @@
 import { BillingItem } from '@/types/Billing'
 import { Button, Flex, Td, Tr } from '@chakra-ui/react'
 import BillingItemQuantity from './BillingItemQuantity'
+import { DataAttributes } from '@/types/DataAttributes'
 
 interface BillingItemTableRow {
   item: BillingItem
@@ -12,13 +13,13 @@ interface BillingItemTableRow {
 }
 
 export default function BillingItemTableRow({
-  item: { name, price, quantity, catalogId },
+  item: { name, price, quantity },
   onQuantityChange = () => {},
   onDelete = () => {},
   onEdit = () => {},
-}: BillingItemTableRow) {
+}: BillingItemTableRow & DataAttributes) {
   return (
-    <Tr data-item-id={catalogId} data-cy="row">
+    <Tr>
       <Td data-cy="name">{name}</Td>
 
       <Td data-cy="price">{price}</Td>

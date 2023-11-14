@@ -99,6 +99,8 @@ export default function BillingItemTable({
                 onEdit={() => {
                   setItemToEdit(item)
                 }}
+                data-cy="billing-item"
+                data-billing-item-id={item.catalogId}
               />
             ))}
           </Tbody>

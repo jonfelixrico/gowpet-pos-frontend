@@ -71,13 +71,13 @@ describe('billing', () => {
       // this makes sure that we're showing the critical information per item
 
       cy.get(
-        `[data-cy="items-table"] [data-item-id="${id}"] [data-cy="price"]`
+        `[data-cy="items-table"] [data-billing-item-id="${id}"] [data-cy="price"]`
       ).should('contain', price)
       cy.get(
-        `[data-cy="items-table"] [data-item-id="${id}"] [data-cy="quantity"]`
+        `[data-cy="items-table"] [data-billing-item-id="${id}"] [data-cy="quantity"]`
       ).should('contain', 1)
       cy.get(
-        `[data-cy="items-table"] [data-item-id="${id}"] [data-cy="amount"]`
+        `[data-cy="items-table"] [data-billing-item-id="${id}"] [data-cy="amount"]`
       ).should('contain', price)
     }
 
@@ -116,14 +116,14 @@ describe('billing', () => {
     const toDelete = items.filter((_, index) => index % 2 === 0)
     for (const { id } of toDelete) {
       cy.get(
-        `[data-cy="items-table"] [data-item-id="${id}"] [data-cy="delete"]`
+        `[data-cy="items-table"] [data-billing-item-id="${id}"] [data-cy="delete"]`
       ).click()
 
       cy.get(
         `[data-cy="delete-confirm"][data-dialog-open="true"] [data-cy="ok"]`
       ).click()
 
-      cy.get(`[data-cy="items-table"] [data-item-id="${id}"]`).should(
+      cy.get(`[data-cy="items-table"] [data-billing-item-id="${id}"]`).should(
         'not.exist'
       )
     }
@@ -131,7 +131,9 @@ describe('billing', () => {
     // make sure that items which aren't supposed to be deleted are not removed somehow
     const toKeep = items.filter((_, index) => index % 2 !== 0)
     for (const { id } of toKeep) {
-      cy.get(`[data-cy="items-table"] [data-item-id="${id}"]`).should('exist')
+      cy.get(`[data-cy="items-table"] [data-billing-item-id="${id}"]`).should(
+        'exist'
+      )
     }
 
     // to make sure that deleted items aren't contributing to the total anymore
@@ -164,7 +166,7 @@ describe('billing', () => {
     toAdd.forEach(({ id }, index) => {
       // do setting
       cy.get(
-        `[data-cy="items-table"] [data-item-id="${id}"] [data-cy="edit"]`
+        `[data-cy="items-table"] [data-billing-item-id="${id}"] [data-cy="edit"]`
       ).click()
       cy.get('[data-cy="dialog"][data-dialog-open="true"] [data-cy="quantity"]')
         .clear()
@@ -175,7 +177,7 @@ describe('billing', () => {
 
       // verify setting
       cy.get(
-        `[data-cy="items-table"] [data-item-id="${id}"] [data-cy="quantity"]`
+        `[data-cy="items-table"] [data-billing-item-id="${id}"] [data-cy="quantity"]`
       ).should('contain', 1 + index)
     })
   })
