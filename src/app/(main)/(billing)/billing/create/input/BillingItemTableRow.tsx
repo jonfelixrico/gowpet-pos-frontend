@@ -17,9 +17,10 @@ export default function BillingItemTableRow({
   onQuantityChange = () => {},
   onDelete = () => {},
   onEdit = () => {},
+  ...dataAttrs
 }: BillingItemTableRow & DataAttributes) {
   return (
-    <Tr>
+    <Tr {...dataAttrs}>
       <Td data-cy="name">{name}</Td>
 
       <Td data-cy="price">{price}</Td>
