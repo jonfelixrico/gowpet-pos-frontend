@@ -71,7 +71,7 @@ export default function BillingItemsSection({
           <Divider />
 
           <If condition={hasItems}>
-            <BillingItemTable billing={billing} onChange={setBilling} />
+            <BillingItemTable billing={billing} setBilling={setBilling} />
           </If>
 
           <If condition={!hasItems}>

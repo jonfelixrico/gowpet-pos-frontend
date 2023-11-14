@@ -10,12 +10,12 @@ import BillingItemEditDialog from './BillingItemEditDialog'
 
 export interface BillingItemTableProps {
   billing: Billing
-  onChange: (value: Billing) => void
+  setBilling: (value: Billing) => void
 }
 
 export default function BillingItemTable({
   billing,
-  onChange,
+  setBilling,
 }: BillingItemTableProps) {
   function onItemDelete(catalogId: string) {
     const updatedBilling = produce(billing, ({ items }) => {
@@ -34,7 +34,7 @@ export default function BillingItemTable({
       items.splice(idx, 1)
     })
 
-    onChange(updatedBilling)
+    setBilling(updatedBilling)
   }
 
   function onItemQuantityChange(catalogId: string, newQuantity: number) {
@@ -52,7 +52,7 @@ export default function BillingItemTable({
       item.quantity = newQuantity
     })
 
-    onChange(updatedBilling)
+    setBilling(updatedBilling)
   }
 
   const [itemToEdit, setItemToEdit] = useState<BillingItem | null>(null)
@@ -65,7 +65,7 @@ export default function BillingItemTable({
       toUpdate.items[idx] = toSave
     })
 
-    onChange(updated)
+    setBilling(updated)
     setItemToEdit(null)
   }
 
