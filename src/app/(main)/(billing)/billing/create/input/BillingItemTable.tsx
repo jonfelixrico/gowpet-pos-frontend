@@ -115,6 +115,7 @@ export default function BillingItemTable({
           content: 'Yes, delete',
         }}
         header="Remove Item"
+        data-cy="delete-confirm"
       >
         Are you sure you want to remove this item?
       </ConfirmDialog>
