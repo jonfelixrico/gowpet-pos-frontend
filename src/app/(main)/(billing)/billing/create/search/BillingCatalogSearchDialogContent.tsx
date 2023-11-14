@@ -11,7 +11,7 @@ import {
   Text,
 } from '@chakra-ui/react'
 import { SearchState, useSearch } from './useSearch'
-import { Dispatch, SetStateAction, useState } from 'react'
+import { Dispatch, useState } from 'react'
 import If from '@/components/common/If'
 import { Billing } from '@/types/Billing'
 import BillingCatalogSearchItemsList from './BillingCatalogSearchItemsList'
