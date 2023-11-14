@@ -84,7 +84,7 @@ export default function BillingCatalogSearchDialogContent({
           </If>
 
           <If condition={!hasItems}>
-            <Center width="full" height="25dvh">
+            <Center width="full" height="25dvh" data-cy="no-items">
               No items to show
             </Center>
           </If>
