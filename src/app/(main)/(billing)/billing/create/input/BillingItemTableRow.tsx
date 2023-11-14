@@ -1,8 +1,8 @@
 'use client'
 
 import { BillingItem } from '@/types/Billing'
-import { Button, Flex, IconButton, Td, Text, Tr } from '@chakra-ui/react'
-import { MdAdd, MdRemove } from 'react-icons/md'
+import { Button, Flex, Td, Tr } from '@chakra-ui/react'
+import BillingItemQuantity from './BillingItemQuantity'
 
 interface BillingItemTableRow {
   item: BillingItem
@@ -24,7 +24,7 @@ export default function BillingItemTableRow({
       <Td data-cy="price">{price}</Td>
 
       <Td>
-        <QuantitySection
+        <BillingItemQuantity
           onDecrement={() => onQuantityChange(quantity - 1)}
           onIncrement={() => onQuantityChange(quantity + 1)}
           quantity={quantity}
@@ -50,48 +50,5 @@ export default function BillingItemTableRow({
         </Flex>
       </Td>
     </Tr>
-  )
-}
-
-function QuantitySection({
-  onDecrement,
-  onIncrement,
-  quantity,
-}: {
-  onIncrement: () => void
-  onDecrement: () => void
-  quantity: number
-}) {
-  return (
-    <Flex direction="column" align="center">
-      <Flex gap={3} align="center">
-        <IconButton
-          data-cy="decrement"
-          isRound
-          size="xs"
-          aria-label="subtract"
-          onClick={onDecrement}
-          isDisabled={quantity === 1}
-        >
-          <MdRemove />
-        </IconButton>
-
-        <Text data-cy="quantity" fontSize="xl" fontWeight="medium">
-          {quantity}
-        </Text>
-
-        <IconButton
-          data-cy="increment"
-          isRound
-          size="xs"
-          aria-label="add"
-          onClick={onIncrement}
-        >
-          <MdAdd />
-        </IconButton>
-      </Flex>
-
-      <Text fontSize="xs">{quantity === 1 ? 'unit' : 'units'}</Text>
-    </Flex>
   )
 }
