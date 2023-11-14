@@ -77,7 +77,11 @@ export default function BillingCatalogSearchDialogContent({
             />
 
             <If condition={canLoadMore}>
-              <Button onClick={loadMore} isLoading={isLoading}>
+              <Button
+                onClick={loadMore}
+                isLoading={isLoading}
+                data-cy="show-more"
+              >
                 Load More
               </Button>
             </If>
