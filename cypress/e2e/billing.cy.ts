@@ -56,7 +56,7 @@ describe('billing', () => {
 
     for (const { id } of toAdd) {
       cy.get(
-        `[data-cy="add-items-dialog"] [data-cy="item"][data-item-id="${id}"] [data-cy="add"]`
+        `[data-cy="add-items-dialog"] [data-cy="catalog-item"][data-catalog-item-id="${id}"] [data-cy="add"]`
       ).click()
     }
     cy.get('[data-cy="add-items-dialog"] [data-cy="close"]').click()
@@ -109,7 +109,7 @@ describe('billing', () => {
 
     for (const { id } of toAdd) {
       cy.get(
-        `[data-cy="add-items-dialog"] [data-cy="item"][data-item-id="${id}"] [data-cy="add"]`
+        `[data-cy="add-items-dialog"] [data-cy="catalog-item"][data-catalog-item-id="${id}"] [data-cy="add"]`
       ).click()
     }
     cy.get('[data-cy="add-items-dialog"] [data-cy="close"]').click()
@@ -159,7 +159,7 @@ describe('billing', () => {
 
     for (const { id } of items) {
       cy.get(
-        `[data-cy="add-items-dialog"] [data-cy="item"][data-item-id="${id}"] [data-cy="add"]`
+        `[data-cy="add-items-dialog"] [data-cy="catalog-item"][data-catalog-item-id="${id}"] [data-cy="add"]`
       ).click()
     }
     cy.get('[data-cy="add-items-dialog"] [data-cy="close"]').click()
@@ -207,7 +207,7 @@ describe('billing', () => {
 
     for (const { id } of toAdd) {
       cy.get(
-        `[data-cy="add-items-dialog"] [data-cy="item"][data-item-id="${id}"] [data-cy="add"]`
+        `[data-cy="add-items-dialog"] [data-cy="catalog-item"][data-catalog-item-id="${id}"] [data-cy="add"]`
       ).click()
     }
     cy.get('[data-cy="add-items-dialog"] [data-cy="close"]').click()
