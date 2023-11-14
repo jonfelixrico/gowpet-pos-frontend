@@ -37,11 +37,11 @@ function BillingCatalogSearchItem({
 export default function BillingCatalogSearchItemsList({
   billing,
   setBilling = EMPTY_FN,
-  itemsToSelectFrom,
+  itemsToSelectFrom = [],
 }: {
   billing?: Billing
   setBilling?: Dispatch<SetStateAction<Billing>>
-  itemsToSelectFrom: CatalogItem[]
+  itemsToSelectFrom?: CatalogItem[]
 }) {
   const alreadyAddedIds = new Set<string>(
     billing?.items.map(({ catalogId }) => catalogId) ?? []
