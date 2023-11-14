@@ -53,6 +53,8 @@ export default function BillingCreateSearchDialog({
   const { items, canLoadMore, startSearch, loadMore, isLoading } =
     useSearch(initialState)
 
+  const hasItems = items.length > 0
+
   return (
     <>
       <ModalHeader as={Flex} direction="column" gap={5}>
@@ -65,7 +67,7 @@ export default function BillingCreateSearchDialog({
 
       <ModalBody>
         <Flex direction="column" gap={3}>
-          <If condition={items.length > 0}>
+          <If condition={hasItems}>
             <BillingCatalogSearchItemsList
               billing={billing}
               setBilling={setBilling}
@@ -79,7 +81,7 @@ export default function BillingCreateSearchDialog({
             </If>
           </If>
 
-          <If condition={items.length === 0}>
+          <If condition={!hasItems}>
             <Center width="full">No items to show</Center>
           </If>
         </Flex>
