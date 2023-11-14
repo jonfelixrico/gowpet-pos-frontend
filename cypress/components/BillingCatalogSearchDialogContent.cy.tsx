@@ -70,12 +70,17 @@ describe('BillingCatalogSearchDialogContent', () => {
 
     cy.get('[data-cy="catalog-item"]').should('have.length', 10)
 
-    cy.intercept('/billing/catalog-search*', {
-      body: generateDummyItems(10, 10),
-      headers: {
-        'X-Total-Count': '10',
+    cy.intercept(
+      {
+        pathname: '/billing/catalog-search',
       },
-    })
+      {
+        body: generateDummyItems(10, 10),
+        headers: {
+          'X-Total-Count': '10',
+        },
+      }
+    )
 
     cy.get('[data-cy="show-more"]').click()
 
