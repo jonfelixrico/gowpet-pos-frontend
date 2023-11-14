@@ -16,7 +16,7 @@ import If from '@/components/common/If'
 import { Billing } from '@/types/Billing'
 import BillingCatalogSearchItemsList from './BillingCatalogSearchItemsList'
 
-function SearchBarContent({
+function SearchBarControls({
   triggerSearch,
   isLoading,
 }: {
@@ -60,7 +60,10 @@ export default function BillingCreateSearchDialog({
       <ModalHeader as={Flex} direction="column" gap={5}>
         <Text>Add Item</Text>
         <Flex gap={2} align="center" data-cy="search">
-          <SearchBarContent triggerSearch={startSearch} isLoading={isLoading} />
+          <SearchBarControls
+            triggerSearch={startSearch}
+            isLoading={isLoading}
+          />
         </Flex>
       </ModalHeader>
       <ModalCloseButton />
