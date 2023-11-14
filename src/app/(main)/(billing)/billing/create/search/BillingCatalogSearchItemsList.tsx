@@ -31,7 +31,7 @@ function BillingCatalogSearchItem({
   )
 }
 
-export default function BillingCatalogSearchItemList({
+export default function BillingCatalogSearchItemsList({
   billing,
   setBilling,
   itemsToSelectFrom,

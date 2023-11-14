@@ -19,7 +19,7 @@ import { SearchState, useSearch } from './useSearch'
 import { Dispatch, SetStateAction, useState } from 'react'
 import If from '@/components/common/If'
 import { Billing } from '@/types/Billing'
-import BillingCatalogSearchItemList from './BillingCatalogSearchItemList'
+import BillingCatalogSearchItemsList from './BillingCatalogSearchItemsList'
 
 function SearchBarContent({
   triggerSearch,
@@ -77,7 +77,7 @@ export default function BillingCreateSearchDialog({
         <ModalBody>
           <Flex direction="column" gap={3}>
             <If condition={items.length > 0}>
-              <BillingCatalogSearchItemList
+              <BillingCatalogSearchItemsList
                 billing={billing}
                 setBilling={setBilling}
                 itemsToSelectFrom={items}
