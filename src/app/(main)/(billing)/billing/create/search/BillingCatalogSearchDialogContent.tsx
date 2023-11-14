@@ -45,7 +45,7 @@ export type BillingCatalogSearchDialogContentProps = {
   setBilling?: Dispatch<Billing>
 }
 
-export default function BillingCreateSearchDialogContent({
+export default function BillingCatalogSearchDialogContent({
   initialState,
   billing,
   setBilling,
