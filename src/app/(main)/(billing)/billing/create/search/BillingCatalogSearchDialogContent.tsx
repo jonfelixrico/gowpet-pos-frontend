@@ -82,7 +82,9 @@ export default function BillingCreateSearchDialog({
           </If>
 
           <If condition={!hasItems}>
-            <Center width="full">No items to show</Center>
+            <Center width="full" height="25dvh">
+              No items to show
+            </Center>
           </If>
         </Flex>
       </ModalBody>
