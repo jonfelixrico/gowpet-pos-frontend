@@ -31,4 +31,14 @@ describe('BillinItemQuantity', () => {
     cy.get('@increment').should('have.been.calledOnce')
     cy.get('@decrement').should('have.been.calledOnce')
   })
+
+  it('does not allow decrementing if the quantity is already one', () => {
+    cy.mount(
+      <ChakraProvider>
+        <BillingItemQuantity quantity={1} />
+      </ChakraProvider>
+    )
+
+    cy.get('[data-cy="decrement"]').should('be.disabled')
+  })
 })
