@@ -1,6 +1,7 @@
 import { Billing } from '@/types/Billing'
 import { CatalogItem } from '@/types/CatalogItem'
 import { DataAttributes } from '@/types/DataAttributes'
+import { EMPTY_FN } from '@/utils/misc-utills'
 import { Box, Button, Flex, Text } from '@chakra-ui/react'
 import { produce } from 'immer'
 import { Dispatch, SetStateAction } from 'react'
@@ -35,15 +36,15 @@ function BillingCatalogSearchItem({
 
 export default function BillingCatalogSearchItemsList({
   billing,
-  setBilling,
+  setBilling = EMPTY_FN,
   itemsToSelectFrom,
 }: {
-  billing: Billing
-  setBilling: Dispatch<SetStateAction<Billing>>
+  billing?: Billing
+  setBilling?: Dispatch<SetStateAction<Billing>>
   itemsToSelectFrom: CatalogItem[]
 }) {
   const alreadyAddedIds = new Set<string>(
-    billing.items.map(({ catalogId }) => catalogId)
+    billing?.items.map(({ catalogId }) => catalogId) ?? []
   )
 
   function addCatalogItemToBilling({ id, name, price }: CatalogItem) {
