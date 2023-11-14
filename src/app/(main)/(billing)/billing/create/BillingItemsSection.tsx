@@ -3,7 +3,6 @@
 import BillingItemTable from '@/app/(main)/(billing)/billing/create/input/BillingItemTable'
 import { Billing } from '@/types/Billing'
 import {
-  Box,
   Button,
   Card,
   CardBody,
@@ -14,10 +13,8 @@ import {
   Text,
   useDisclosure,
 } from '@chakra-ui/react'
-import { Dispatch, SetStateAction, useMemo } from 'react'
+import { Dispatch, SetStateAction } from 'react'
 import BillingCreateSearchDialog from './search/BillingCatalogSearchDialog'
-import { produce } from 'immer'
-import { CatalogItem } from '@/types/CatalogItem'
 import { SearchState } from './search/useSearch'
 import If from '@/components/common/If'
 import { MdAdd } from 'react-icons/md'
@@ -36,24 +33,6 @@ export default function BillingItemsSection({
   initialState: SearchState
 } & CardProps &
   BillingStateProps) {
-  const alreadyAdded = useMemo(
-    () => new Set(billing.items.map(({ catalogId }) => catalogId)),
-    [billing]
-  )
-
-  function addItemToBilling({ id, name, price }: CatalogItem) {
-    setBilling((billing) =>
-      produce(billing, ({ items }) => {
-        items.push({
-          catalogId: id,
-          name,
-          price,
-          quantity: 1,
-        })
-      })
-    )
-  }
-
   const hasItems = billing.items.length > 0
 
   const { isOpen, onOpen, onClose } = useDisclosure()
@@ -116,8 +95,8 @@ export default function BillingItemsSection({
         isOpen={isOpen}
         onClose={onClose}
         initialState={initialState}
-        cannotAdd={alreadyAdded}
-        onAdd={addItemToBilling}
+        billing={billing}
+        setBilling={setBilling}
       />
     </>
   )

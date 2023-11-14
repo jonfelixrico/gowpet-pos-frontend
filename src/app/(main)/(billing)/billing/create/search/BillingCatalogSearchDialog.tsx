@@ -16,10 +16,10 @@ import {
   Text,
 } from '@chakra-ui/react'
 import { SearchState, useSearch } from './useSearch'
-import BillingCatalogSearchItem from './BillingCatalogSearchItem'
-import { CatalogItem } from '@/types/CatalogItem'
-import { useState } from 'react'
+import { Dispatch, SetStateAction, useState } from 'react'
 import If from '@/components/common/If'
+import { Billing } from '@/types/Billing'
+import BillingCatalogSearchItemList from './BillingCatalogSearchItemList'
 
 function SearchBarContent({
   triggerSearch,
@@ -46,16 +46,16 @@ function SearchBarContent({
 
 type BillingCatalogSearchDialogProps = {
   initialState: SearchState
-  onAdd: (item: CatalogItem) => void
-  cannotAdd: Set<string>
+  billing: Billing
+  setBilling: Dispatch<SetStateAction<Billing>>
 } & Pick<ModalProps, 'isOpen' | 'onClose'>
 
 export default function BillingCreateSearchDialog({
   isOpen,
   onClose,
   initialState,
-  onAdd,
-  cannotAdd,
+  billing,
+  setBilling,
 }: BillingCatalogSearchDialogProps) {
   const { items, canLoadMore, startSearch, loadMore, isLoading } =
     useSearch(initialState)
@@ -77,14 +77,11 @@ export default function BillingCreateSearchDialog({
         <ModalBody>
           <Flex direction="column" gap={3}>
             <If condition={items.length > 0}>
-              {items.map((item) => (
-                <BillingCatalogSearchItem
-                  catalogItem={item}
-                  onAdd={() => onAdd(item)}
-                  key={item.id}
-                  canAdd={!cannotAdd.has(item.id)}
-                />
-              ))}
+              <BillingCatalogSearchItemList
+                billing={billing}
+                setBilling={setBilling}
+                itemsToSelectFrom={items}
+              />
 
               <If condition={canLoadMore}>
                 <Button onClick={loadMore} isLoading={isLoading}>
