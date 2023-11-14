@@ -67,6 +67,8 @@ export default function BillingCatalogSearchItemsList({
         onAdd={() => addCatalogItemToBilling(catalogItem)}
         key={id}
         canAdd={!alreadyAddedIds.has(id)}
+        data-cy="catalog-item"
+        data-catalog-item-id={id}
       />
     )
   })
