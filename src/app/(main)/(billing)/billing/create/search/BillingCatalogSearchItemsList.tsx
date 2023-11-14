@@ -4,7 +4,7 @@ import { DataAttributes } from '@/types/DataAttributes'
 import { EMPTY_FN } from '@/utils/misc-utills'
 import { Box, Button, Flex, Text } from '@chakra-ui/react'
 import { produce } from 'immer'
-import { Dispatch, SetStateAction } from 'react'
+import { Dispatch } from 'react'
 
 function BillingCatalogSearchItem({
   canAdd,
@@ -40,7 +40,7 @@ export default function BillingCatalogSearchItemsList({
   itemsToSelectFrom = [],
 }: {
   billing?: Billing
-  setBilling?: Dispatch<SetStateAction<Billing>>
+  setBilling?: Dispatch<Billing>
   itemsToSelectFrom?: CatalogItem[]
 }) {
   const alreadyAddedIds = new Set<string>(
@@ -48,7 +48,11 @@ export default function BillingCatalogSearchItemsList({
   )
 
   function addCatalogItemToBilling({ id, name, price }: CatalogItem) {
-    setBilling((billing) =>
+    if (!billing) {
+      throw new Error('data error: falsy billing')
+    }
+
+    setBilling(
       produce(billing, (billing) => {
         billing.items.push({
           catalogId: id,
