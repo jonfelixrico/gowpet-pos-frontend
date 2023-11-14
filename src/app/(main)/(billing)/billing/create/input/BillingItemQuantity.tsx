@@ -2,7 +2,7 @@ import { EMPTY_FN } from '@/utils/misc-utills'
 import { Flex, IconButton, Text } from '@chakra-ui/react'
 import { MdAdd, MdRemove } from 'react-icons/md'
 
-export default function BilingItemQuantity({
+export default function BillingItemQuantity({
   onDecrement = EMPTY_FN,
   onIncrement = EMPTY_FN,
   quantity = 0,
