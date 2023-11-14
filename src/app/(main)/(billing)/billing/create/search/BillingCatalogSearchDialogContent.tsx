@@ -39,7 +39,7 @@ function SearchBarControls({
   )
 }
 
-export type BillingCatalogContentProps = {
+export type BillingCatalogSearchDialogContentProps = {
   initialState?: SearchState
   billing?: Billing
   setBilling?: Dispatch<Billing>
@@ -49,7 +49,7 @@ export default function BillingCreateSearchDialogContent({
   initialState,
   billing,
   setBilling,
-}: BillingCatalogContentProps) {
+}: BillingCatalogSearchDialogContentProps) {
   const { items, canLoadMore, startSearch, loadMore, isLoading } =
     useSearch(initialState)
 
