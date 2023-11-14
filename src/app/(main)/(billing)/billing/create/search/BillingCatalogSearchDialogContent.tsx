@@ -39,17 +39,17 @@ function SearchBarContent({
   )
 }
 
-export type BillingCatalogSearchDialogProps = {
-  initialState: SearchState
-  billing: Billing
-  setBilling: Dispatch<SetStateAction<Billing>>
+export type BillingCatalogContentProps = {
+  initialState?: SearchState
+  billing?: Billing
+  setBilling?: Dispatch<Billing>
 }
 
 export default function BillingCreateSearchDialog({
   initialState,
   billing,
   setBilling,
-}: BillingCatalogSearchDialogProps) {
+}: BillingCatalogContentProps) {
   const { items, canLoadMore, startSearch, loadMore, isLoading } =
     useSearch(initialState)
 
