@@ -1,6 +1,7 @@
 import BillingItemTable from '@/app/(main)/(billing)/billing/create/input/BillingItemTable'
 import { BillingItem } from '@/types/Billing'
 import { ChakraProvider } from '@chakra-ui/react'
+import { cloneDeep } from 'lodash'
 
 function generateDummyItems(count: number, startId = 0): BillingItem[] {
   return Array.from({ length: count })
@@ -75,5 +76,32 @@ describe('BillingItemTable', () => {
       notes: '',
       items: clone,
     })
+  })
+
+  it('supports edit', () => {
+    const setBilling = cy.spy().as('setBilling')
+    const billing = {
+      notes: '',
+      items: generateDummyItems(10),
+    }
+    cy.mount(
+      <ChakraProvider>
+        <BillingItemTable billing={billing} setBilling={setBilling} />
+      </ChakraProvider>
+    )
+
+    cy.get('[data-cy="billing-item"]:nth-child(6) [data-cy="edit"]').click()
+    cy.get(
+      '[data-cy="edit-dialog"][data-dialog-opened="true"] [data-cy="quantity"]'
+    )
+      .clear()
+      .type('500')
+    cy.get(
+      '[data-cy="edit-dialog"][data-dialog-opened="true"] [data-cy="ok"]'
+    ).click()
+
+    const clone = cloneDeep(billing)
+    clone.items[5].quantity = 500
+    cy.get('@setBilling').should('have.been.calledWith', clone)
   })
 })
