@@ -24,6 +24,7 @@ describe('BillingListContent', () => {
             billings={[
               {
                 id: 'test billing 1',
+                serialNo: 1,
                 items: [
                   {
                     catalogItem: {
@@ -37,6 +38,7 @@ describe('BillingListContent', () => {
               },
               {
                 id: 'test billing 2',
+                serialNo: 2,
                 items: [
                   {
                     catalogItem: {
@@ -50,6 +52,7 @@ describe('BillingListContent', () => {
               },
               {
                 id: 'test billing 3',
+                serialNo: 3,
                 items: [
                   {
                     catalogItem: {
