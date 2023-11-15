@@ -1,3 +1,4 @@
+import { SavedBillingItem } from '@/types/SavedBilling'
 import {
   Table,
   TableContainer,
@@ -9,7 +10,6 @@ import {
   Thead,
   Tr,
 } from '@chakra-ui/react'
-import { SavedBillingItem } from '../../BillingDetailsData'
 
 function Row({
   item: { catalogItem, price, quantity },

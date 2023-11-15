@@ -1,7 +1,7 @@
 import If from '@/components/common/If'
 import { Flex, Text } from '@chakra-ui/react'
 import BillingDetailsItemsTable from './BillingDetailsItemsTable'
-import { SavedBillingItem } from '../../BillingDetailsData'
+import { SavedBillingItem } from '@/types/SavedBilling'
 
 export default function BillingDetailsItemsSection({
   items,

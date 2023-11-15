@@ -1,8 +1,8 @@
 import { Box, Button, Card, CardBody, Flex, Text } from '@chakra-ui/react'
-import { SavedBilling } from '../../BillingDetailsData'
 import Link from 'next/link'
 import If from '@/components/common/If'
 import { DataAttributes } from '@/types/DataAttributes'
+import { SavedBilling } from '@/types/SavedBilling'
 
 export default function BillingListItem({
   billing,
@@ -24,13 +24,24 @@ export default function BillingListItem({
     <Card {...dataProps}>
       <CardBody as={Flex} gap={2} direction="column">
         <Flex gap={2} align="center">
-          <Flex flex={1} direction="column" gap={2}>
-            <Text data-cy="total-amount">{totalAmount}</Text>
+          <Box flex={1}>
+            <Flex align="center" gap={1}>
+              <Text fontSize="lg" fontWeight="medium">
+                No.
+              </Text>
+              <Text fontSize="2xl" fontWeight="medium" data-cy="serial-no">
+                {String(billing.serialNo).padStart(4, '0')}
+              </Text>
+            </Flex>
 
-            <Text data-cy="total-quantity">
-              {totalQuantity} {totalQuantity === 1 ? 'item' : 'items'}
+            <Text fontSize="sm">
+              <span data-cy="total-amount">{totalAmount}</span>,{' '}
+              <span>
+                <span data-cy="total-quantity">{totalQuantity}</span>{' '}
+                {totalQuantity === 1 ? 'item' : 'items'}
+              </span>
             </Text>
-          </Flex>
+          </Box>
 
           {/* Prefetch needs to be false or else we'll end up preloading all of the
           items in the list, which is going to probably request a lot of stuff from the

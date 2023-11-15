@@ -10,6 +10,7 @@ export interface SavedBillingItem {
 
 export interface SavedBilling {
   id: string
+  serialNo: number
   notes?: string
   items: SavedBillingItem[]
 }

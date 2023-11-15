@@ -7,6 +7,7 @@ describe('BillingListItem', () => {
       <ChakraProvider>
         <BillingListItem
           billing={{
+            serialNo: 999,
             id: 'test',
             items: [
               {
@@ -33,6 +34,7 @@ describe('BillingListItem', () => {
 
     cy.get('[data-cy="total-quantity"]').should('contain.text', 3)
     cy.get('[data-cy="total-amount"]').should('contain.text', 200)
+    cy.get('[data-cy="serial-no"]').should('contain.text', 999)
 
     cy.get('[data-cy="open-details"]')
       .should('exist')
@@ -47,6 +49,7 @@ describe('BillingListItem', () => {
         <BillingListItem
           billing={{
             id: 'test',
+            serialNo: 999,
             items: [
               {
                 catalogItem: {
