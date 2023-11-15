@@ -1,3 +1,4 @@
+import { DataAttributes } from '@/types/DataAttributes'
 import { EMPTY_FN } from '@/utils/misc-utills'
 import {
   Button,
@@ -26,6 +27,7 @@ export default function Dialog({
   children,
   cancel,
   ok,
+  ...dataAttrs
 }: {
   onCancel?: () => void
   onOk?: () => void
@@ -35,14 +37,14 @@ export default function Dialog({
   children?: ReactNode
   ok?: DialogButtonProps
   cancel?: DialogButtonProps
-}) {
+} & DataAttributes) {
   const { content: cancelContent, ...cancelProps } = cancel ?? {}
   const { content: okContent, ...okProps } = ok ?? {}
 
   return (
     <Modal isOpen={!!isOpen} onClose={onDismiss}>
       <ModalOverlay />
-      <ModalContent data-cy="dialog" data-dialog-open={isOpen}>
+      <ModalContent data-dialog-opened={isOpen} {...dataAttrs}>
         <ModalHeader data-cy="header">{header}</ModalHeader>
         <ModalCloseButton />
 

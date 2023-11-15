@@ -31,9 +31,16 @@ async function fetchResults(searchTerm: string, pageNo: number) {
   }
 }
 
-export function useSearch(initialState: SearchState) {
+export function useSearch(initialState?: SearchState) {
   const [{ items, pageCount, pageNo, searchTerm }, setSearchState] =
-    useState<SearchState>(initialState)
+    useState<SearchState>(
+      initialState ?? {
+        items: [],
+        pageCount: 0,
+        pageNo: 0,
+        searchTerm: '',
+      }
+    )
 
   const [isLoading, setIsLoading] = useState(false)
 

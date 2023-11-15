@@ -1,4 +1,5 @@
 /* eslint-disable react/no-unescaped-entities */
+import { DataAttributes } from '@/types/DataAttributes'
 import { EMPTY_FN } from '@/utils/misc-utills'
 import {
   AlertDialog,
@@ -37,7 +38,8 @@ export default function ConfirmDialog({
   children,
   cancel,
   ok,
-}: ConfirmDialogProps) {
+  ...dataAttrs
+}: ConfirmDialogProps & DataAttributes) {
   const cancelRef = useRef<HTMLButtonElement>(null)
 
   const { content: cancelContent, ...cancelProps } = cancel ?? {}
@@ -50,10 +52,7 @@ export default function ConfirmDialog({
       isOpen={!!isOpen}
     >
       <AlertDialogOverlay>
-        <AlertDialogContent
-          data-cy="confirmation-dialog"
-          data-dialog-open={isOpen}
-        >
+        <AlertDialogContent {...dataAttrs} data-dialog-opened={isOpen}>
           <AlertDialogHeader fontSize="lg" fontWeight="bold" data-cy="header">
             {header}
           </AlertDialogHeader>
