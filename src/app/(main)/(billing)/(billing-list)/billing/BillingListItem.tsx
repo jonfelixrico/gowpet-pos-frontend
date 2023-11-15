@@ -1,5 +1,5 @@
 import { Box, Button, Card, CardBody, Flex, Text } from '@chakra-ui/react'
-import { SavedBilling } from '../../BillingDetailsData'
+import { SavedBilling } from '../../SavedBilling'
 import Link from 'next/link'
 import If from '@/components/common/If'
 import { DataAttributes } from '@/types/DataAttributes'

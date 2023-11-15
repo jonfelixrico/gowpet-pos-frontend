@@ -9,7 +9,7 @@ import {
   Thead,
   Tr,
 } from '@chakra-ui/react'
-import { SavedBillingItem } from '../../BillingDetailsData'
+import { SavedBillingItem } from '../../SavedBilling'
 
 function Row({
   item: { catalogItem, price, quantity },
