@@ -13,7 +13,7 @@ import { notFound } from 'next/navigation'
 import BillingDetailsItemsSection from './BillingDetailsItemsSection'
 import Link from 'next/link'
 import { IoIosArrowBack } from 'react-icons/io'
-import { SavedBilling } from '../../SavedBilling'
+import { SavedBilling } from '@/types/SavedBilling'
 
 export default async function Billing({
   params,

@@ -1,7 +1,7 @@
 import { Flex, FlexProps, Text } from '@chakra-ui/react'
-import { SavedBilling } from '../../SavedBilling'
 import BillingListItem from './BillingListItem'
 import RefreshButton from '@/components/RefreshButton'
+import { SavedBilling } from '@/types/SavedBilling'
 
 export default function BillingListContent({
   billings,

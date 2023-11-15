@@ -1,12 +1,12 @@
 import { apiFetchData } from '@/server-utils/resource-api-util'
 import { Flex } from '@chakra-ui/react'
 import { stringify } from 'querystring'
-import { SavedBilling } from '../../SavedBilling'
 import {
   PaginationControls,
   Url,
 } from '@/components/pagination/PaginationControls'
 import BillingListContent from './BillingListContent'
+import { SavedBilling } from '@/types/SavedBilling'
 
 function hrefBuilder(pageNo: number): Url {
   return {
