@@ -8,7 +8,7 @@ export default function BillingListLayout({
   children: ReactNode
 }) {
   return (
-    <Flex direction="column" gap={2}>
+    <Flex direction="column" gap={2} width="full" height="full">
       <Flex justify="end">
         <Link href="/billing/create">
           <Button colorScheme="blue">Create</Button>
