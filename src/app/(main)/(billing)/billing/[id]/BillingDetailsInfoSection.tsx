@@ -1,3 +1,4 @@
+import If from '@/components/common/If'
 import { SavedBilling } from '@/types/SavedBilling'
 import { Box, Flex, Text, Textarea } from '@chakra-ui/react'
 
@@ -19,7 +20,19 @@ export default function BillingDetailsInfoSection({
 
       <Flex direction="column" gap={2}>
         <Text fontWeight="bold">Notes</Text>
-        <Textarea isReadOnly resize="none" value={billing.notes} />
+
+        <If condition={!!billing.notes}>
+          <Textarea isReadOnly resize="none" value={billing.notes} />
+        </If>
+
+        <If condition={!billing.notes}>
+          <Textarea
+            isReadOnly
+            resize="none"
+            placeholder="No notes provided"
+            value=""
+          />
+        </If>
       </Flex>
     </>
   )
