@@ -94,6 +94,37 @@ describe('billing', () => {
     cy.get(
       '[data-cy="save-confirmation-dialog"][data-dialog-open="true"] [data-cy="ok"]'
     ).click()
+
+    cy.location('pathname').should('not.equal', '/billing/create')
     cy.location('pathname').should('match', /\/billing\/\S+$/)
+
+    /*
+     * We're only checking user-inputted fields here.
+     * We'll assume that the other UI elements are correct since they should have their own
+     * tests.
+     */
+
+    cy.get('[data-cy="notes"]').should('have.value', 'test notes')
+    cy.get('[data-cy="items-table"] [data-cy="row"]').should('have.length', 5)
+
+    toAdd.forEach(({ name, price }, index) => {
+      cy.get(
+        `[data-cy="items-table"] [data-cy="row"]:nth-child(${
+          index + 1
+        }) [data-cy="name"]`
+      ).should('have.text', name)
+
+      cy.get(
+        `[data-cy="items-table"] [data-cy="row"]:nth-child(${
+          index + 1
+        }) [data-cy="price"]`
+      ).should('have.text', price)
+
+      cy.get(
+        `[data-cy="items-table"] [data-cy="row"]:nth-child(${
+          index + 1
+        }) [data-cy="quantity"]`
+      ).should('have.text', 1)
+    })
   })
 })
