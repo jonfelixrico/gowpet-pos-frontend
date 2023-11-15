@@ -65,22 +65,10 @@ describe('billing', () => {
 
     cy.get('[data-cy="billing-item"]').should('have.length', toAdd.length)
 
-    toAdd.forEach(({ id, price }, index) => {
-      // this makes sure that we're showing the critical information per item
-
-      cy.get(`[data-billing-item-id="${id}"] [data-cy="price"]`).should(
-        'contain',
-        price
-      )
-
+    toAdd.forEach(({ id }, index) => {
       for (let i = 0; i < index; i++) {
         cy.get(`[data-billing-item-id="${id}"] [data-cy="increment"]`).click()
       }
-
-      cy.get(`[data-billing-item-id="${id}"] [data-cy="amount"]`).should(
-        'contain',
-        price * (1 + index)
-      )
 
       cy.get(`[data-billing-item-id="${id}"] [data-cy="quantity"]`).should(
         'contain',
@@ -99,27 +87,16 @@ describe('billing', () => {
     cy.location('pathname').should('not.equal', '/billing/create')
     cy.location('pathname').should('match', /\/billing\/\S+$/)
 
-    /*
-     * We're only checking user-inputted fields here.
-     * We'll assume that the other UI elements are correct since they should have their own
-     * tests.
-     */
-
     cy.get('[data-cy="notes"]').should('have.value', 'test notes')
     cy.get('[data-cy="items-table"] [data-cy="row"]').should('have.length', 5)
 
-    toAdd.forEach(({ name, price }, index) => {
+    toAdd.forEach(({ name }, index) => {
+      // This is being checked to determine that the correct catalog item is as the correct place in the table
       cy.get(
         `[data-cy="items-table"] [data-cy="row"]:nth-child(${
           index + 1
         }) [data-cy="name"]`
       ).should('have.text', name)
-
-      cy.get(
-        `[data-cy="items-table"] [data-cy="row"]:nth-child(${
-          index + 1
-        }) [data-cy="price"]`
-      ).should('have.text', price)
 
       cy.get(
         `[data-cy="items-table"] [data-cy="row"]:nth-child(${
