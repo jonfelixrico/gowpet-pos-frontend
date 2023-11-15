@@ -128,6 +128,7 @@ export default function BillingItemTable({
         onDismiss={() => setItemToEdit(null)}
         onOk={saveChanges}
         item={itemToEdit as BillingItem}
+        data-cy="edit-dialog"
       />
     </>
   )

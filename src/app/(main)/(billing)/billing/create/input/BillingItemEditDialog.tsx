@@ -1,5 +1,6 @@
 import Dialog from '@/components/common/Dialog'
 import { BillingItem } from '@/types/Billing'
+import { DataAttributes } from '@/types/DataAttributes'
 import {
   Flex,
   NumberDecrementStepper,
@@ -16,12 +17,13 @@ export default function BillingItemEditDialog({
   onOk,
   onDismiss,
   item,
+  ...dataAttrs
 }: {
   isOpen: boolean
   onOk: (item: BillingItem) => void
   onDismiss: () => void
   item?: BillingItem
-}) {
+} & DataAttributes) {
   const [quantity, setQuantity] = useState(item?.quantity ?? 0)
   function emitValue() {
     if (!item) {
@@ -48,6 +50,7 @@ export default function BillingItemEditDialog({
         variant: 'ghost',
       }}
       header="Edit Item"
+      {...dataAttrs}
     >
       <Flex direction="column" gap="2">
         <Text fontWeight="bold">Quantity</Text>
