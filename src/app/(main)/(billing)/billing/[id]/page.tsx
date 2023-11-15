@@ -14,6 +14,7 @@ import BillingDetailsItemsSection from './BillingDetailsItemsSection'
 import Link from 'next/link'
 import { IoIosArrowBack } from 'react-icons/io'
 import { SavedBilling } from '@/types/SavedBilling'
+import BillingDetailsInfoSection from './BillingDetailsInfoSection'
 
 export default async function Billing({
   params,
@@ -33,8 +34,6 @@ export default async function Billing({
 
     throw e
   }
-
-  const { items, notes } = data
 
   return (
     <Flex direction="column" gap="2" width="full" height="full">
@@ -58,10 +57,7 @@ export default async function Billing({
 
           <Divider />
 
-          <Flex direction="column" gap={2}>
-            <Text fontWeight="bold">Notes</Text>
-            <Textarea isReadOnly resize="none" value={notes} />
-          </Flex>
+          <BillingDetailsInfoSection billing={data} />
         </CardBody>
       </Card>
 
@@ -71,7 +67,7 @@ export default async function Billing({
             Items
           </Text>
           <Divider />
-          <BillingDetailsItemsSection items={items} />
+          <BillingDetailsItemsSection items={data.items} />
         </CardBody>
       </Card>
     </Flex>
