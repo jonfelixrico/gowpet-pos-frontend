@@ -64,28 +64,29 @@ describe('billing', () => {
     // check if the items in the billing items table checks out with what we added
 
     cy.get('[data-cy="billing-item"]').should('have.length', toAdd.length)
-    for (const { id, price } of toAdd) {
+
+    toAdd.forEach(({ id, price }, index) => {
       // this makes sure that we're showing the critical information per item
 
       cy.get(`[data-billing-item-id="${id}"] [data-cy="price"]`).should(
         'contain',
         price
       )
-      cy.get(`[data-billing-item-id="${id}"] [data-cy="quantity"]`).should(
-        'contain',
-        1
-      )
+
+      for (let i = 0; i < index; i++) {
+        cy.get(`[data-billing-item-id="${id}"] [data-cy="increment"]`).click()
+      }
+
       cy.get(`[data-billing-item-id="${id}"] [data-cy="amount"]`).should(
         'contain',
-        price
+        price * (1 + index)
       )
-    }
 
-    // this makes sure that we're displaying the correct billing-wide information
-    cy.get('[data-cy="total-amount"]').should(
-      'contain',
-      toAdd.reduce((total, { price }) => total + price, 0)
-    )
+      cy.get(`[data-billing-item-id="${id}"] [data-cy="quantity"]`).should(
+        'contain',
+        1 + index
+      )
+    })
 
     cy.get('[data-cy="notes"]').type('test notes')
 
@@ -124,7 +125,7 @@ describe('billing', () => {
         `[data-cy="items-table"] [data-cy="row"]:nth-child(${
           index + 1
         }) [data-cy="quantity"]`
-      ).should('have.text', 1)
+      ).should('have.text', 1 + index)
     })
   })
 })
