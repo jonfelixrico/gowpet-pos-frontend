@@ -92,6 +92,6 @@ describe('billing', () => {
     cy.get(
       '[data-cy="save-confirmation-dialog"][data-dialog-open="true"] [data-cy="ok"]'
     ).click()
-    cy.location('pathname').should('match', /\/billing\/.+$/)
+    cy.location('pathname').should('match', /\/billing\/\S+$/)
   })
 })
