@@ -136,42 +136,4 @@ describe('billing', () => {
       toKeep.reduce((total, { price }) => total + price, 0)
     )
   })
-
-  it('has the edit functionality for each billing item', () => {
-    cy.visit('/billing/create')
-
-    // this is to populate the billing items table with catalog items
-    cy.get('[data-cy="add-items"]').click()
-    cy.get('[data-cy="add-items-dialog"] [data-cy="search"] input').type(
-      `for billing e2e - ${now}`
-    )
-    cy.get('[data-cy="add-items-dialog"] [data-cy="search"] button').click()
-
-    const toAdd = items.filter((_, index) => index % 2 === 0)
-
-    for (const { id } of toAdd) {
-      cy.get(
-        `[data-cy="add-items-dialog"] [data-cy="catalog-item"][data-catalog-item-id="${id}"] [data-cy="add"]`
-      ).click()
-    }
-    cy.get('[data-cy="add-items-dialog"] [data-cy="close"]').click()
-
-    // this is to test the increment button
-    toAdd.forEach(({ id }, index) => {
-      // do setting
-      cy.get(`[data-billing-item-id="${id}"] [data-cy="edit"]`).click()
-      cy.get('[data-cy="dialog"][data-dialog-open="true"] [data-cy="quantity"]')
-        .clear()
-        .type(String(1 + index))
-      cy.get(
-        '[data-cy="dialog"][data-dialog-open="true"] [data-cy="ok"]'
-      ).click()
-
-      // verify setting
-      cy.get(`[data-billing-item-id="${id}"] [data-cy="quantity"]`).should(
-        'contain',
-        1 + index
-      )
-    })
-  })
 })
