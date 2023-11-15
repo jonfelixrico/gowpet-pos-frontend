@@ -75,6 +75,7 @@ export default function BillingCreateContent({
               resize="none"
               value={billing.notes}
               onChange={(event) => setNotes(event.target.value)}
+              data-cy="notes"
             />
           </Flex>
         </CardBody>
