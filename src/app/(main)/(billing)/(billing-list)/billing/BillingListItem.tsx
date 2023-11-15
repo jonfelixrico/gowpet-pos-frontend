@@ -25,12 +25,15 @@ export default function BillingListItem({
       <CardBody as={Flex} gap={2} direction="column">
         <Flex gap={2} align="center">
           <Box flex={1}>
-            <Text fontSize="xl" fontWeight="bold">
-              No.{' '}
-              <span data-cy="serial-no">
+            <Flex align="center" gap={1}>
+              <Text fontSize="lg" fontWeight="medium">
+                No.
+              </Text>
+              <Text fontSize="2xl" fontWeight="medium" data-cy="serial-no">
                 {String(billing.serialNo).padStart(4, '0')}
-              </span>
-            </Text>
+              </Text>
+            </Flex>
+
             <Text fontSize="sm">
               <span data-cy="total-amount">{totalAmount}</span>,{' '}
               <span>
