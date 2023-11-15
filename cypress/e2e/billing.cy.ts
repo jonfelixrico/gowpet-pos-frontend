@@ -52,7 +52,7 @@ describe('billing', () => {
     )
     cy.get('[data-cy="add-items-dialog"] [data-cy="search"] button').click()
 
-    const toAdd = items.filter((_, index) => index % 2 === 0)
+    const toAdd = items.slice(0, 5)
 
     for (const { id } of toAdd) {
       cy.get(
@@ -86,6 +86,8 @@ describe('billing', () => {
       'contain',
       toAdd.reduce((total, { price }) => total + price, 0)
     )
+
+    cy.get('[data-cy="notes"]').type('test notes')
 
     // test that saving works
     cy.get('[data-cy="save"]').click()
