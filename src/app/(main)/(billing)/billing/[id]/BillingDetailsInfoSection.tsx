@@ -22,7 +22,12 @@ export default function BillingDetailsInfoSection({
         <Text fontWeight="bold">Notes</Text>
 
         <If condition={!!billing.notes}>
-          <Textarea isReadOnly resize="none" value={billing.notes} />
+          <Textarea
+            isReadOnly
+            resize="none"
+            value={billing.notes}
+            data-cy="notes"
+          />
         </If>
 
         <If condition={!billing.notes}>
@@ -31,6 +36,7 @@ export default function BillingDetailsInfoSection({
             resize="none"
             placeholder="No notes provided"
             value=""
+            data-cy="empty-notes"
           />
         </If>
       </Flex>
