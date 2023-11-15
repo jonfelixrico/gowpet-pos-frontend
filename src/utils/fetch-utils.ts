@@ -52,12 +52,12 @@ export interface ApiResponse<T> extends Response {
   data: T
 }
 
-export async function fetchJson(
+export async function fetchData<T>(
   input: string,
   init?: RequestInit,
   options?: FetchWrapperOptions
 ) {
-  return fetchWrapper(input, init, {
+  return fetchWrapper<T>(input, init, {
     ...(options ?? {}),
     dataTransformer: (response) => response.json(),
   })
