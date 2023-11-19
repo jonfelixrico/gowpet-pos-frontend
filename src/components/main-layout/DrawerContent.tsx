@@ -1,10 +1,10 @@
 import { Button, Flex, FlexProps, Spacer } from '@chakra-ui/react'
-import DrawerRoutes from './DrawerRoutes'
+import RouteLinks from './RouteLinks'
 
 export default function DrawerContent(flexProps: FlexProps) {
   return (
     <Flex {...flexProps} direction="column">
-      <DrawerRoutes />
+      <RouteLinks />
       <Spacer />
       <Button>Log Out</Button>
     </Flex>

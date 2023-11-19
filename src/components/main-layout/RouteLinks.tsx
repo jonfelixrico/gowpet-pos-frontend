@@ -63,7 +63,7 @@ const ROUTES: RouteData[] = [
   },
 ]
 
-export default function DrawerRoutes() {
+export default function RouteLinks() {
   const pathname = usePathname()
 
   return (
