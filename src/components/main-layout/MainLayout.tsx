@@ -11,7 +11,7 @@ export default function MainLayout({
 }) {
   return (
     <Flex {...flexProps}>
-      <Flex width="20dvw">{drawer}</Flex>
+      <Flex width="15dvw">{drawer}</Flex>
       <Flex flex={1}>{children}</Flex>
     </Flex>
   )
