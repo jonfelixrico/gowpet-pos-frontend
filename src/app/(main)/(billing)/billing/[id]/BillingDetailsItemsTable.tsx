@@ -41,10 +41,12 @@ export default function BillingDetailsItemsTable({
     <TableContainer {...tableProps}>
       <Table>
         <Thead>
-          <Th>Name</Th>
-          <Th>Price</Th>
-          <Th>Quantity</Th>
-          <Th>Amount</Th>
+          <Tr>
+            <Th>Name</Th>
+            <Th>Price</Th>
+            <Th>Quantity</Th>
+            <Th>Amount</Th>
+          </Tr>
         </Thead>
 
         <Tbody>

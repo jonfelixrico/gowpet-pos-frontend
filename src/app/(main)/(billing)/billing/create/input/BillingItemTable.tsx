@@ -1,6 +1,6 @@
 'use client'
 
-import { Table, TableContainer, Tbody, Th, Thead } from '@chakra-ui/react'
+import { Table, TableContainer, Tbody, Th, Thead, Tr } from '@chakra-ui/react'
 import BillingItemTableRow from './BillingItemTableRow'
 import { produce } from 'immer'
 import { Billing, BillingItem } from '@/types/Billing'
@@ -80,11 +80,13 @@ export default function BillingItemTable({
       <TableContainer>
         <Table data-cy="items-table">
           <Thead>
-            <Th>Name</Th>
-            <Th>Price</Th>
-            <Th>Quantity</Th>
-            <Th>Amount</Th>
-            <Th />
+            <Tr>
+              <Th>Name</Th>
+              <Th>Price</Th>
+              <Th>Quantity</Th>
+              <Th>Amount</Th>
+              <Th />
+            </Tr>
           </Thead>
 
           <Tbody>
