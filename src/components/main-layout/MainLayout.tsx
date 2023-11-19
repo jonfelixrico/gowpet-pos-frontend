@@ -1,5 +1,9 @@
-import { Box, Flex, FlexProps } from '@chakra-ui/react'
-import { ReactNode } from 'react'
+'use client'
+
+import { Flex, FlexProps, IconButton } from '@chakra-ui/react'
+import { ReactNode, useState } from 'react'
+import { GiHamburgerMenu } from 'react-icons/gi'
+import If from '../common/If'
 
 export default function MainLayout({
   drawer,
@@ -11,11 +15,31 @@ export default function MainLayout({
   children?: ReactNode
   header?: ReactNode
 }) {
+  const [showDrawer, setShowDrawer] = useState(true)
+  function toggleDrawer() {
+    setShowDrawer((val) => !val)
+  }
+
   return (
     <Flex {...flexProps} direction="column">
-      <Box as="header">{header}</Box>
+      <Flex as="header" padding={2}>
+        <IconButton
+          aria-label="Open menu"
+          variant="ghost"
+          isRound
+          onClick={toggleDrawer}
+        >
+          <GiHamburgerMenu />
+        </IconButton>
+
+        <Flex flex={1}>{header}</Flex>
+      </Flex>
+
       <Flex flex={1}>
-        <Flex width="15dvw">{drawer}</Flex>
+        <If condition={showDrawer}>
+          <Flex width="15dvw">{drawer}</Flex>
+        </If>
+
         <Flex flex={1} as="main">
           {children}
         </Flex>
