@@ -1,9 +1,21 @@
 'use client'
 
-import { Flex, FlexProps, IconButton } from '@chakra-ui/react'
-import { ReactNode, useState } from 'react'
+import {
+  Divider,
+  Drawer,
+  DrawerBody,
+  DrawerContent,
+  DrawerHeader,
+  DrawerOverlay,
+  Flex,
+  FlexProps,
+  IconButton,
+  Text,
+  useDisclosure,
+} from '@chakra-ui/react'
+import { ReactNode } from 'react'
 import { GiHamburgerMenu } from 'react-icons/gi'
-import If from '../common/If'
+import { IoMdClose } from 'react-icons/io'
 
 export default function MainLayout({
   drawer,
@@ -15,35 +27,50 @@ export default function MainLayout({
   children?: ReactNode
   header?: ReactNode
 }) {
-  const [showDrawer, setShowDrawer] = useState(true)
-  function toggleDrawer() {
-    setShowDrawer((val) => !val)
-  }
+  const { isOpen, onOpen, onClose } = useDisclosure()
 
   return (
-    <Flex {...flexProps} direction="column">
-      <Flex as="header" padding={2} backgroundColor="blue.500">
-        {/* TODO change color to white */}
-        <IconButton
-          aria-label="Open menu"
-          isRound
-          onClick={toggleDrawer}
-          variant="ghost"
-          icon={<GiHamburgerMenu />}
-        />
+    <>
+      <Flex {...flexProps} direction="column">
+        <Flex as="header" padding={2} backgroundColor="blue.500">
+          {/* TODO change color to white */}
+          <IconButton
+            aria-label="Open menu"
+            isRound
+            onClick={onOpen}
+            variant="ghost"
+            icon={<GiHamburgerMenu />}
+          />
 
-        <Flex flex={1}>{header}</Flex>
-      </Flex>
-
-      <Flex flex={1}>
-        <If condition={showDrawer}>
-          <Flex width="15dvw">{drawer}</Flex>
-        </If>
+          <Flex flex={1}>{header}</Flex>
+        </Flex>
 
         <Flex flex={1} as="main" background="gray.100">
           {children}
         </Flex>
       </Flex>
-    </Flex>
+
+      <Drawer placement="left" onClose={onClose} isOpen={isOpen}>
+        <DrawerOverlay />
+        <DrawerContent>
+          <DrawerHeader as={Flex} justify="space-between" align="center">
+            <Text>Menu</Text>
+
+            <IconButton
+              aria-label="Close drawer"
+              onClick={onClose}
+              icon={<IoMdClose />}
+              variant="ghost"
+              isRound
+              size="sm"
+            />
+          </DrawerHeader>
+
+          <Divider />
+
+          <DrawerBody>{drawer}</DrawerBody>
+        </DrawerContent>
+      </Drawer>
+    </>
   )
 }
