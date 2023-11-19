@@ -22,15 +22,15 @@ export default function MainLayout({
 
   return (
     <Flex {...flexProps} direction="column">
-      <Flex as="header" padding={2}>
+      <Flex as="header" padding={2} backgroundColor="blue.500">
+        {/* TODO change color to white */}
         <IconButton
           aria-label="Open menu"
-          variant="ghost"
           isRound
           onClick={toggleDrawer}
-        >
-          <GiHamburgerMenu />
-        </IconButton>
+          variant="ghost"
+          icon={<GiHamburgerMenu />}
+        />
 
         <Flex flex={1}>{header}</Flex>
       </Flex>
