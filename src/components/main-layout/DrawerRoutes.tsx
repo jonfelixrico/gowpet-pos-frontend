@@ -1,11 +1,11 @@
 'use client'
 
 import { Url } from '@/types/Url'
-import { Text } from '@chakra-ui/react'
+import { Button, Flex, Text } from '@chakra-ui/react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { ReactNode, useMemo } from 'react'
-import UrlPattern from 'url-pattern'
+import If from '../common/If'
 
 function RouteLink({
   href,
@@ -24,8 +24,18 @@ function RouteLink({
   )
 
   return (
-    <Link href={href}>
-      <Text fontWeight={isActive ? 'normal' : 'bold'}>{children}</Text>
+    <Link href={href} prefetch={false}>
+      <If condition={isActive}>
+        <Button width="full" colorScheme="blue">
+          {children}
+        </Button>
+      </If>
+
+      <If condition={!isActive}>
+        <Button width="full" variant="ghost">
+          {children}
+        </Button>
+      </If>
     </Link>
   )
 }
@@ -56,9 +66,18 @@ const ROUTES: RouteData[] = [
 export default function DrawerRoutes() {
   const pathname = usePathname()
 
-  return ROUTES.map(({ href, label, pattern }, index) => (
-    <RouteLink key={index} href={href} pattern={pattern} currentPath={pathname}>
-      {label}
-    </RouteLink>
-  ))
+  return (
+    <Flex direction="column" gap={2}>
+      {ROUTES.map(({ href, label, pattern }, index) => (
+        <RouteLink
+          key={index}
+          href={href}
+          pattern={pattern}
+          currentPath={pathname}
+        >
+          {label}
+        </RouteLink>
+      ))}
+    </Flex>
+  )
 }
