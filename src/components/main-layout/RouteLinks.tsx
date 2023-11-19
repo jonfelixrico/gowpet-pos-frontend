@@ -25,17 +25,15 @@ function RouteLink({
 
   return (
     <Link href={href} prefetch={false}>
-      <If condition={isActive}>
-        <Button width="full" colorScheme="blue">
+      <Button
+        width="full"
+        variant="ghost"
+        colorScheme={isActive ? 'blue' : undefined}
+      >
+        <Text textAlign="left" width="full">
           {children}
-        </Button>
-      </If>
-
-      <If condition={!isActive}>
-        <Button width="full" variant="ghost">
-          {children}
-        </Button>
-      </If>
+        </Text>
+      </Button>
     </Link>
   )
 }
