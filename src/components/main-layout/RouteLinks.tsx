@@ -5,7 +5,6 @@ import { Button, Flex, Text } from '@chakra-ui/react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { ReactNode, useMemo } from 'react'
-import If from '../common/If'
 
 function RouteLink({
   href,
@@ -38,44 +37,26 @@ function RouteLink({
   )
 }
 
-interface RouteData {
-  href: Url
-  pattern: RegExp
-  label: string
-}
-
-const ROUTES: RouteData[] = [
-  {
-    href: {
-      pathname: '/billing',
-    },
-    label: 'Billing',
-    pattern: /^\/billing.*/,
-  },
-  {
-    href: {
-      pathname: '/catalog',
-    },
-    label: 'Catalog',
-    pattern: /^\/catalog.*/,
-  },
-]
-
 export default function RouteLinks() {
   const pathname = usePathname()
 
   return (
     <Flex direction="column" gap={2}>
-      {ROUTES.map(({ href, label, pattern }, index) => (
-        <RouteLink
-          key={index}
-          href={href}
-          pattern={pattern}
-          currentPath={pathname}
-        >
-          {label}
-        </RouteLink>
-      ))}
+      <RouteLink
+        href="/catalog"
+        pattern={/^\/catalog.*/}
+        currentPath={pathname}
+      >
+        Catalog
+      </RouteLink>
+
+      <RouteLink
+        href="/billing"
+        pattern={/^\/billing.*/}
+        currentPath={pathname}
+      >
+        Billing
+      </RouteLink>
     </Flex>
   )
 }
