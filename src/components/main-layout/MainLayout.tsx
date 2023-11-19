@@ -13,7 +13,8 @@ import {
   Text,
   useDisclosure,
 } from '@chakra-ui/react'
-import { ReactNode } from 'react'
+import { usePathname } from 'next/navigation'
+import { ReactNode, useEffect } from 'react'
 import { GiHamburgerMenu } from 'react-icons/gi'
 import { IoMdClose } from 'react-icons/io'
 
@@ -28,6 +29,11 @@ export default function MainLayout({
   header?: ReactNode
 }) {
   const { isOpen, onOpen, onClose } = useDisclosure()
+
+  const path = usePathname()
+  useEffect(() => {
+    onClose()
+  }, [path, onClose])
 
   return (
     <>
