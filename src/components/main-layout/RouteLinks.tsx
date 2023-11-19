@@ -1,5 +1,6 @@
 'use client'
 
+import { DataAttributes } from '@/types/DataAttributes'
 import { Url } from '@/types/Url'
 import { Button, Flex, Text } from '@chakra-ui/react'
 import Link from 'next/link'
@@ -11,19 +12,20 @@ function RouteLink({
   children,
   pattern,
   currentPath,
+  ...dataAttrs
 }: {
   href: Url
   children?: ReactNode
   pattern: RegExp
   currentPath: string
-}) {
+} & DataAttributes) {
   const isActive = useMemo(
     () => pattern.test(currentPath),
     [currentPath, pattern]
   )
 
   return (
-    <Link href={href} prefetch={false}>
+    <Link href={href} prefetch={false} {...dataAttrs}>
       <Button
         width="full"
         variant="ghost"
@@ -46,6 +48,7 @@ export default function RouteLinks() {
         href="/catalog"
         pattern={/^\/catalog.*/}
         currentPath={pathname}
+        data-route-link="catalog"
       >
         Catalog
       </RouteLink>
@@ -54,6 +57,7 @@ export default function RouteLinks() {
         href="/billing"
         pattern={/^\/billing.*/}
         currentPath={pathname}
+        data-route-link="billing"
       >
         Billing
       </RouteLink>

@@ -47,6 +47,7 @@ export default function MainLayout({
             variant="ghost"
             icon={<GiHamburgerMenu />}
             size="sm"
+            data-cy="drawer-btn"
           />
 
           <Flex flex={1}>{header}</Flex>
@@ -59,7 +60,7 @@ export default function MainLayout({
 
       <Drawer placement="left" onClose={onClose} isOpen={isOpen}>
         <DrawerOverlay />
-        <DrawerContent>
+        <DrawerContent data-cy="drawer" data-opened={isOpen}>
           <DrawerHeader as={Flex} justify="space-between" align="center">
             <Text>Menu</Text>
 
