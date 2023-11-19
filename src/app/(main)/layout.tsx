@@ -7,9 +7,9 @@ import { redirect } from 'next/navigation'
 import { ReactNode } from 'react'
 
 export default function PanelLayout({ children }: { children: ReactNode }) {
-  function logOut() {
+  async function logOut() {
     'use server'
-    cookies().delete('auth')
+    cookies().delete('token')
     redirect('/login')
   }
 
