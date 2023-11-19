@@ -21,7 +21,6 @@ export default async function Login() {
       gap="2"
       justify="center"
       height="100dvh"
-      data-cy="login-page"
     >
       <Card>
         <CardBody>
