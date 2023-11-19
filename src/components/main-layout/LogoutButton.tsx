@@ -1,11 +1,38 @@
 'use client'
 
-import { Button } from '@chakra-ui/react'
+import { Button, useDisclosure } from '@chakra-ui/react'
+import ConfirmDialog from '../common/ConfirmDialog'
+import Cookies from 'js-cookie'
+import { useRouter } from 'next/navigation'
 
 export default function LogoutButton() {
+  const { isOpen, onOpen, onClose } = useDisclosure()
+  const { push } = useRouter()
+
+  function logOut() {
+    Cookies.remove('token')
+    push('/login')
+  }
+
   return (
     <>
-      <Button variant="ghost" colorScheme="red">
+      <ConfirmDialog
+        isOpen={isOpen}
+        onCancel={onClose}
+        onDismiss={onClose}
+        onOk={logOut}
+        header="Log Out"
+        ok={{
+          colorScheme: 'red',
+        }}
+        cancel={{
+          variant: 'ghost',
+        }}
+      >
+        Are you sure that you want to log out?
+      </ConfirmDialog>
+
+      <Button variant="ghost" colorScheme="red" onClick={onOpen}>
         Log out
       </Button>
     </>
