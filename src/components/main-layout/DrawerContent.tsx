@@ -6,7 +6,9 @@ export default function DrawerContent(flexProps: FlexProps) {
     <Flex {...flexProps} direction="column">
       <RouteLinks />
       <Spacer />
-      <Button>Log Out</Button>
+      <Button variant="ghost" colorScheme="red">
+        Log out
+      </Button>
     </Flex>
   )
 }
