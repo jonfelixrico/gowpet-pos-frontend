@@ -40,7 +40,7 @@ export default function MainLayout({
           <Flex width="15dvw">{drawer}</Flex>
         </If>
 
-        <Flex flex={1} as="main">
+        <Flex flex={1} as="main" background="gray.100">
           {children}
         </Flex>
       </Flex>
