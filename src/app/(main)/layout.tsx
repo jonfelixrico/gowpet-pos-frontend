@@ -4,8 +4,8 @@ import { ReactNode } from 'react'
 
 export default function PanelLayout({ children }: { children: ReactNode }) {
   return (
-    <MainLayout>
-      <Container maxW="container.md" height="100dvh">
+    <MainLayout height="100dvh">
+      <Container maxW="container.md" height="100%">
         {children}
       </Container>
     </MainLayout>
