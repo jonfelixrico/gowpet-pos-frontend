@@ -28,11 +28,17 @@ export default function LogoutButton() {
         cancel={{
           variant: 'ghost',
         }}
+        data-cy="logout-confirmation"
       >
         Are you sure that you want to log out?
       </ConfirmDialog>
 
-      <Button variant="ghost" colorScheme="red" onClick={onOpen}>
+      <Button
+        variant="ghost"
+        colorScheme="red"
+        onClick={onOpen}
+        data-cy="logout"
+      >
         Log out
       </Button>
     </>
