@@ -46,6 +46,7 @@ export default function MainLayout({
             onClick={onOpen}
             variant="ghost"
             icon={<GiHamburgerMenu />}
+            size="sm"
           />
 
           <Flex flex={1}>{header}</Flex>
