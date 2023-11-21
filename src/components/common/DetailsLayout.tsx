@@ -18,9 +18,9 @@ export default function DetailsLayout({
 }: DetailsLayoutProps) {
   return (
     <Flex {...flexProps} direction="column" gap={2}>
-      <Flex gap={2}>
+      <Flex gap={2} align="center">
         <Link href={href}>
-          <IconButton isRound variant="ghost" aria-label="Back">
+          <IconButton isRound aria-label="Back">
             <IoIosArrowBack />
           </IconButton>
         </Link>
