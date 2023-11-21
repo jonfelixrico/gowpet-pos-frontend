@@ -50,8 +50,13 @@ export async function sendToThermalPrinter(toSend: Uint8Array) {
     throw new Error('No printer found!')
   }
 
-  const batches = chunk(toSend, 215) as unknown as Uint8Array[]
-  for (const batch of batches) {
-    await printer.writeValue(batch)
+  let index = 0
+  while (index + 512 < toSend.length) {
+    await printer.writeValue(toSend.slice(index, index + 512))
+    index += 512
+  }
+
+  if (index < toSend.length) {
+    await printer.writeValue(toSend.slice(index, toSend.length))
   }
 }
