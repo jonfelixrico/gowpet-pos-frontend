@@ -33,7 +33,7 @@ async function requestForBluetoothPrinter() {
 }
 
 let printerPromise: Promise<BluetoothRemoteGATTCharacteristic> | null = null
-async function getThermalPrinterViaBluetooth() {
+export async function getThermalPrinterViaBluetooth() {
   if (!printerPromise) {
     console.log('No printers found yet. Requesting...')
     return await requestForBluetoothPrinter()
