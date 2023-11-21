@@ -1,7 +1,5 @@
 'use client'
 
-import { chunk } from 'lodash'
-
 async function requestPrinter() {
   // from https://github.com/WebBluetoothCG/demos/blob/gh-pages/bluetooth-printer/index.html
 
@@ -16,8 +14,7 @@ async function requestPrinter() {
   console.log('Found %s', device.name)
 
   if (!device.gatt) {
-    console.warn('No GATT server found. Aborting.')
-    return
+    throw new Error('No GATT server found')
   }
 
   console.log('Connecting to GATT server...')
@@ -38,7 +35,7 @@ let printerPromise: Promise<BluetoothRemoteGATTCharacteristic> | null = null
 async function getPrinter() {
   if (!printerPromise) {
     console.log('No printers found yet. Requesting...')
-    return await requestPrinter()
+    printerPromise = requestPrinter()
   }
 
   return await printerPromise
