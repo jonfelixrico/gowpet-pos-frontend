@@ -1,4 +1,11 @@
-import { Button, Container, Divider, Flex } from '@chakra-ui/react'
+import {
+  Button,
+  Card,
+  CardBody,
+  Container,
+  Divider,
+  Flex,
+} from '@chakra-ui/react'
 import Link from 'next/link'
 import { ReactNode } from 'react'
 
@@ -22,9 +29,9 @@ export default function BillingListLayout({
         </Link>
       </Flex>
 
-      <Divider />
-
-      <Flex flex={1}>{children}</Flex>
+      <Card as={Flex} flex={1}>
+        <CardBody>{children}</CardBody>
+      </Card>
     </Container>
   )
 }

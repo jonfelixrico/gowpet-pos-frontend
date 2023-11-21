@@ -27,7 +27,7 @@ export default function BillingListContent({
   }
 
   return (
-    <Flex {...flexProps} direction="column" gap={2} data-cy="content">
+    <Flex {...flexProps} direction="column" gap={3} data-cy="content">
       {billings.map((billing, index) => (
         <>
           <BillingListItem
