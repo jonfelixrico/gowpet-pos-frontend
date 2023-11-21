@@ -1,21 +1,23 @@
 'use client'
+import { SavedBilling } from '@/types/SavedBilling'
+import { encodeForThermalReceipt } from '@/utils/billing-utils'
 import { sendToThermalPrinter } from '@/utils/thermal-printer-bt-utils'
 import { Button, ButtonProps } from '@chakra-ui/react'
 import { useState } from 'react'
 
 export default function BillingPrintReceiptButton({
-  encodedReceipt,
+  billing,
   ...buttonProps
 }: {
-  encodedReceipt: string
+  billing: SavedBilling
 } & ButtonProps) {
   const [isLoading, setIsLoading] = useState(false)
 
   async function printReceipt() {
     try {
       setIsLoading(true)
-      const encoder = new TextEncoder()
-      await sendToThermalPrinter(encoder.encode(encodedReceipt))
+      const encoded = encodeForThermalReceipt(billing)
+      await sendToThermalPrinter(encoded)
     } finally {
       setIsLoading(false)
     }

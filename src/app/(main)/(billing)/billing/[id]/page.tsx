@@ -8,7 +8,6 @@ import {
   IconButton,
   Spacer,
   Text,
-  Textarea,
 } from '@chakra-ui/react'
 import { notFound } from 'next/navigation'
 import BillingDetailsItemsSection from './BillingDetailsItemsSection'
@@ -17,7 +16,6 @@ import { IoIosArrowBack } from 'react-icons/io'
 import { SavedBilling } from '@/types/SavedBilling'
 import BillingDetailsInfoSection from './BillingDetailsInfoSection'
 import BillingPrintReceiptButton from './BillingPrintReceiptButton'
-import { encodeForThermalReceipt } from '@/utils/billing-utils'
 
 export default async function Billing({
   params,
@@ -37,9 +35,6 @@ export default async function Billing({
 
     throw e
   }
-
-  const decoder = new TextDecoder('utf8')
-  const serialized = decoder.decode(encodeForThermalReceipt(data))
 
   return (
     <Flex direction="column" gap="2" width="full" height="full">
@@ -62,7 +57,7 @@ export default async function Billing({
 
             <Spacer />
 
-            <BillingPrintReceiptButton encodedReceipt={serialized} />
+            <BillingPrintReceiptButton billing={data} />
           </Flex>
 
           <Divider />
