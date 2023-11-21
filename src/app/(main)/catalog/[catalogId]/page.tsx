@@ -53,7 +53,7 @@ export default async function CatalogDetails({ params }: { params: Params }) {
         </Flex>
       }
     >
-      <Card height="full" width="full">
+      <Card>
         <CardBody>
           <Flex direction="column" gap={2}>
             <Flex gap={2}>
