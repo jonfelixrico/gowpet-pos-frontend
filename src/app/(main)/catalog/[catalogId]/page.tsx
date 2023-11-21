@@ -1,19 +1,11 @@
 import { CatalogItem } from '@/types/CatalogItem'
 import { apiFetch, apiFetchData } from '@/server-utils/resource-api-util'
-import {
-  Button,
-  Card,
-  CardBody,
-  Flex,
-  Heading,
-  Spacer,
-  Text,
-} from '@chakra-ui/react'
-import BackIconButton from '@/components/catalog/BackIconButton'
+import { Button, Card, CardBody, Flex, Heading, Text } from '@chakra-ui/react'
 import Link from 'next/link'
 import { notFound, redirect } from 'next/navigation'
 import CatalogDeleteButton from './CatalogDeleteButton'
 import { FetchError } from '@/utils/fetch-utils'
+import DetailsLayoutWithTitle from '@/components/common/DetailsLayoutWithTitle'
 
 interface Params {
   catalogId: string
@@ -46,24 +38,22 @@ export default async function CatalogDetails({ params }: { params: Params }) {
   }
 
   return (
-    <Flex height="full" gap={5} direction="column">
-      <Flex align="center" gap={5}>
-        <Link href="/catalog" data-cy="back">
-          <BackIconButton />
-        </Link>
-        <Heading>Item Details</Heading>
+    <DetailsLayoutWithTitle
+      href="/catalog"
+      title="Item Details"
+      actions={
+        <Flex gap={2}>
+          <Link href={`/catalog/${params.catalogId}/edit`}>
+            <Button colorScheme="blue" data-cy="edit">
+              Edit
+            </Button>
+          </Link>
 
-        <Spacer />
-
-        <Link href={`/catalog/${params.catalogId}/edit`}>
-          <Button colorScheme="blue" data-cy="edit">
-            Edit
-          </Button>
-        </Link>
-
-        <CatalogDeleteButton onDelete={submitDelete} />
-      </Flex>
-      <Card>
+          <CatalogDeleteButton onDelete={submitDelete} />
+        </Flex>
+      }
+    >
+      <Card height="full" width="full">
         <CardBody>
           <Flex direction="column" gap={2}>
             <Flex gap={2}>
@@ -80,6 +70,6 @@ export default async function CatalogDetails({ params }: { params: Params }) {
           </Flex>
         </CardBody>
       </Card>
-    </Flex>
+    </DetailsLayoutWithTitle>
   )
 }
