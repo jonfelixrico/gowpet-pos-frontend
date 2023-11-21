@@ -12,7 +12,7 @@ describe('main-layout', () => {
   })
 
   it('can log out', () => {
-    cy.visit('/')
+    cy.visit('/catalog')
 
     cy.dataCy('drawer-btn').click()
     cy.get('[data-cy="drawer"][data-opened="true"] [data-cy="logout"]').click()
