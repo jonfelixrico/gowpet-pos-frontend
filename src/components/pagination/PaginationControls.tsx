@@ -1,3 +1,4 @@
+import { Url } from '@/types/Url'
 import { Box, Flex, IconButton, Spacer, Text } from '@chakra-ui/react'
 import Link from 'next/link'
 import {
@@ -6,9 +7,6 @@ import {
   PiCaretLeftBold,
   PiCaretRightBold,
 } from 'react-icons/pi'
-import { UrlObject } from 'url'
-
-export type Url = UrlObject | string
 
 export function PaginationControls({
   pageCount,
