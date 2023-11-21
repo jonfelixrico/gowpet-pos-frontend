@@ -1,10 +1,9 @@
-import { Card, CardBody, Flex, Heading } from '@chakra-ui/react'
+import { Card, CardBody } from '@chakra-ui/react'
 import CatalogCreateForm from './CatalogCreateForm'
-import Link from 'next/link'
-import BackIconButton from '@/components/catalog/BackIconButton'
 import { CatalogFormFields } from '@/components/catalog/CatalogForm'
 import { apiFetchData } from '@/server-utils/resource-api-util'
 import { redirect } from 'next/navigation'
+import DetailsLayoutWithTitle from '@/components/common/DetailsLayoutWithTitle'
 
 export default function CatalogCreate() {
   async function create(values: CatalogFormFields) {
@@ -23,18 +22,17 @@ export default function CatalogCreate() {
   }
 
   return (
-    <Flex height="full" width="full" direction="column" gap="5">
-      <Flex gap="5" align="center">
-        <Link href="/catalog" data-cy="back">
-          <BackIconButton />
-        </Link>
-        <Heading>Create Item</Heading>
-      </Flex>
+    <DetailsLayoutWithTitle
+      height="full"
+      width="full"
+      href="/catalog"
+      title="Create Item"
+    >
       <Card>
         <CardBody>
           <CatalogCreateForm onSubmit={create} />
         </CardBody>
       </Card>
-    </Flex>
+    </DetailsLayoutWithTitle>
   )
 }
