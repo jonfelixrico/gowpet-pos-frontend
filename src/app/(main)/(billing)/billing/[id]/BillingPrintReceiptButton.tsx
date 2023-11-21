@@ -18,6 +18,8 @@ export default function BillingPrintReceiptButton({
       setIsLoading(true)
       const encoded = encodeForThermalReceipt(billing)
       await sendToThermalPrinter(encoded)
+    } catch (e) {
+      console.error('Error encountered while printing the receipt', e)
     } finally {
       setIsLoading(false)
     }
