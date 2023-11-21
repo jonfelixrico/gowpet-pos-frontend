@@ -1,7 +1,8 @@
-import { Flex, FlexProps, Text } from '@chakra-ui/react'
+import { Divider, Flex, FlexProps, Text } from '@chakra-ui/react'
 import BillingListItem from './BillingListItem'
 import RefreshButton from '@/components/RefreshButton'
 import { SavedBilling } from '@/types/SavedBilling'
+import If from '@/components/common/If'
 
 export default function BillingListContent({
   billings,
@@ -27,12 +28,18 @@ export default function BillingListContent({
 
   return (
     <Flex {...flexProps} direction="column" gap={2} data-cy="content">
-      {billings.map((billing) => (
-        <BillingListItem
-          billing={billing}
-          key={billing.id}
-          data-cy="billing-record"
-        />
+      {billings.map((billing, index) => (
+        <>
+          <BillingListItem
+            billing={billing}
+            key={billing.id}
+            data-cy="billing-record"
+          />
+
+          <If condition={index < billings.length - 1}>
+            <Divider />
+          </If>
+        </>
       ))}
     </Flex>
   )
