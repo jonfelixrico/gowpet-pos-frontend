@@ -25,7 +25,6 @@ describe('main-layout', () => {
 
     // verify if we've really been logged out by checking if we're getting redirected to the login page
     cy.visit('/')
-    cy.location('pathname').should('equal', '/') // this to just make sure that a navigation actually happened
-    cy.location('pathname').should('equal', '/login') // then this makes sure that we got redirected
+    cy.location('pathname').should('equal', '/login')
   })
 })

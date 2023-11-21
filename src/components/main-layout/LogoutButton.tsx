@@ -2,16 +2,20 @@
 
 import { Button, useDisclosure } from '@chakra-ui/react'
 import ConfirmDialog from '../common/ConfirmDialog'
-import Cookies from 'js-cookie'
-import { useRouter } from 'next/navigation'
+import { startTransition } from 'react'
 
-export default function LogoutButton() {
+export default function LogoutButton({
+  onLogOutConfirm,
+}: {
+  onLogOutConfirm: () => void
+}) {
   const { isOpen, onOpen, onClose } = useDisclosure()
-  const { push } = useRouter()
 
   function logOut() {
-    Cookies.remove('token')
-    push('/login')
+    // TODO use the form approach to support porgressive enhancement
+    startTransition(() => {
+      onLogOutConfirm()
+    })
   }
 
   return (
