@@ -4,12 +4,18 @@ import Link from 'next/link'
 import { ReactNode } from 'react'
 import { IoIosArrowBack } from 'react-icons/io'
 
+export type DetailsLayoutProps = {
+  children: ReactNode
+  href: Url
+  header?: ReactNode
+} & FlexProps
+
 export default function DetailsLayout({
   children,
   href,
   header,
   ...flexProps
-}: { children: ReactNode; href: Url; header?: ReactNode } & FlexProps) {
+}: DetailsLayoutProps) {
   return (
     <Flex {...flexProps} direction="column" gap={2}>
       <Flex gap={2}>
