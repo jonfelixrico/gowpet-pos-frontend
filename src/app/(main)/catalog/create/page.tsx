@@ -22,12 +22,7 @@ export default function CatalogCreate() {
   }
 
   return (
-    <DetailsLayoutWithTitle
-      height="full"
-      width="full"
-      href="/catalog"
-      title="Create Item"
-    >
+    <DetailsLayoutWithTitle href="/catalog" title="Create Item">
       <Card>
         <CardBody>
           <CatalogCreateForm onSubmit={create} />
