@@ -6,6 +6,7 @@ import {
   Divider,
   Flex,
   IconButton,
+  Spacer,
   Text,
   Textarea,
 } from '@chakra-ui/react'
@@ -15,6 +16,7 @@ import Link from 'next/link'
 import { IoIosArrowBack } from 'react-icons/io'
 import { SavedBilling } from '@/types/SavedBilling'
 import BillingDetailsInfoSection from './BillingDetailsInfoSection'
+import BillingPrintReceiptButton from './BillingPrintReceiptButton'
 
 export default async function Billing({
   params,
@@ -53,6 +55,10 @@ export default async function Billing({
             <Text fontWeight="bold" fontSize="xl">
               Billing Information
             </Text>
+
+            <Spacer />
+
+            <BillingPrintReceiptButton billing={data} />
           </Flex>
 
           <Divider />
