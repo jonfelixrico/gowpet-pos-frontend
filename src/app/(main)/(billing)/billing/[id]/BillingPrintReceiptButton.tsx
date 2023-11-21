@@ -1,6 +1,6 @@
 'use client'
 import { SavedBilling } from '@/types/SavedBilling'
-import { encodeForThermalReceipt } from '@/utils/billing-utils'
+import { encodeForThermalReceipt } from '@/utils/billing-receipt-utils'
 import { sendToThermalPrinter } from '@/utils/thermal-printer-bt-utils'
 import { Button, ButtonProps } from '@chakra-ui/react'
 import { useState } from 'react'
