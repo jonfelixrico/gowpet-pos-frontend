@@ -3,7 +3,7 @@ import { apiFetchData } from '@/server-utils/resource-api-util'
 import CatalogItemTable from './CatalogItemTable'
 import { Center, Divider, Flex } from '@chakra-ui/react'
 import { CatalogPaginationControls } from './CatalogPaginationControls'
-import { redirect } from 'next/navigation'
+import { notFound, redirect } from 'next/navigation'
 
 export const dynamic = 'force-dynamic'
 
@@ -27,16 +27,12 @@ export default async function Catalog({
   const { data, headers } = await apiFetchData<CatalogItem[]>(
     `/catalog?${qp.toString()}`
   )
-  const pageCount = parseInt(headers.get('X-Total-Count') ?? '1')
 
   if (!data?.length) {
-    return (
-      <Center width="full" height="full" data-cy="empty">
-        No items
-      </Center>
-    )
+    notFound()
   }
 
+  const pageCount = parseInt(headers.get('X-Total-Count') ?? '1')
   return (
     <Flex direction="column" height="full" width="full" gap={2}>
       <CatalogPaginationControls
