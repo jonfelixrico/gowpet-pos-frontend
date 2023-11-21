@@ -1,3 +1,5 @@
+'use client'
+
 import { SavedBilling } from '@/types/SavedBilling'
 import EscPosEncoder from 'esc-pos-encoder'
 import { sendToThermalPrinter } from './thermal-printer-bt-utils'
