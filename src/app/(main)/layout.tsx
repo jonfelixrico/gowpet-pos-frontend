@@ -24,9 +24,7 @@ export default function PanelLayout({ children }: { children: ReactNode }) {
 
   return (
     <MainLayout height="100dvh" drawer={drawer}>
-      <Container maxW="container.md" height="100%">
-        {children}
-      </Container>
+      {children}
     </MainLayout>
   )
 }
