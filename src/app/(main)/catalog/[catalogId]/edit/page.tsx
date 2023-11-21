@@ -1,11 +1,10 @@
 import { CatalogItem } from '@/types/CatalogItem'
 import { apiFetchData } from '@/server-utils/resource-api-util'
 import CatalogEditForm from './CatalogEditForm'
-import { Card, CardBody, Flex, Heading } from '@chakra-ui/react'
-import Link from 'next/link'
-import BackIconButton from '@/components/catalog/BackIconButton'
+import { Card, CardBody } from '@chakra-ui/react'
 import { CatalogFormFields } from '@/components/catalog/CatalogForm'
 import { redirect } from 'next/navigation'
+import DetailsLayoutWithTitle from '@/components/common/DetailsLayoutWithTitle'
 
 interface Params {
   catalogId: string
@@ -33,15 +32,10 @@ export default async function CatalogEdit({ params }: { params: Params }) {
   }
 
   return (
-    <Flex height="full" gap={5} direction="column">
-      <Flex align="center" gap={5}>
-        <Link href={`/catalog/${params.catalogId}`}>
-          <BackIconButton />
-        </Link>
-
-        <Heading>Edit Item</Heading>
-      </Flex>
-
+    <DetailsLayoutWithTitle
+      href={`/catalog/${params.catalogId}`}
+      title="Edit Item"
+    >
       <Card>
         <CardBody>
           <CatalogEditForm
@@ -51,6 +45,6 @@ export default async function CatalogEdit({ params }: { params: Params }) {
           />
         </CardBody>
       </Card>
-    </Flex>
+    </DetailsLayoutWithTitle>
   )
 }
