@@ -13,6 +13,15 @@ const nextConfig = {
     serverActions: true,
   },
   output: 'standalone',
+
+  webpack: (config) => {
+    config.module.rules.push({
+      test: /\.node$/,
+      loader: 'node-loader',
+    })
+
+    return config
+  },
 }
 
 module.exports = nextConfig
