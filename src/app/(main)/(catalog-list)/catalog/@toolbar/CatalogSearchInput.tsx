@@ -22,7 +22,12 @@ export default function CatalogSearchInput({
 
   return (
     <InputGroup data-cy="search-input">
-      <Input value={value} onChange={handleInput} />
+      <Input
+        value={value}
+        onChange={handleInput}
+        background="white"
+        placeholder="Search name..."
+      />
       <InputRightElement padding={5}>
         <Link
           href={{
