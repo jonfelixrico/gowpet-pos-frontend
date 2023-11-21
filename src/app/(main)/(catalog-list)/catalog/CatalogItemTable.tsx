@@ -42,9 +42,9 @@ export default function CatalogItemTable({
   items: CatalogItem[]
 }) {
   return (
-    <TableContainer {...props} overflowY="auto">
+    <TableContainer {...props}>
       <Table>
-        <Thead position="sticky" top={0} backgroundColor="white">
+        <Thead>
           <Tr>
             <Th>Name</Th>
             <Th isNumeric>Price</Th>

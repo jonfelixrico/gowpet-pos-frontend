@@ -1,4 +1,12 @@
-import { Button, Divider, Flex, Spacer } from '@chakra-ui/react'
+import {
+  Button,
+  Card,
+  CardBody,
+  Container,
+  Divider,
+  Flex,
+  Spacer,
+} from '@chakra-ui/react'
 import Link from 'next/link'
 import { ReactNode } from 'react'
 
@@ -10,7 +18,14 @@ export default function CatalogListLayout({
   toolbar: ReactNode
 }) {
   return (
-    <Flex direction="column" gap="2" as="main" height="100%">
+    <Container
+      maxW="container.md"
+      height="full"
+      padding={2}
+      as={Flex}
+      direction="column"
+      gap={2}
+    >
       <Flex gap={2} align="center">
         <Link href="/catalog/create">
           <Button colorScheme="blue" data-cy="create">
@@ -23,7 +38,9 @@ export default function CatalogListLayout({
         {toolbar}
       </Flex>
 
-      <Flex flex={1}>{children}</Flex>
-    </Flex>
+      <Card flex={1}>
+        <CardBody padding={2}>{children}</CardBody>
+      </Card>
+    </Container>
   )
 }
