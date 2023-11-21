@@ -5,7 +5,7 @@ import { ReactNode } from 'react'
 import { IoIosArrowBack } from 'react-icons/io'
 
 export type DetailsLayoutProps = {
-  children: ReactNode
+  children?: ReactNode
   href: Url
   header?: ReactNode
 } & FlexProps
