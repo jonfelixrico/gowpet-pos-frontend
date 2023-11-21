@@ -14,7 +14,7 @@ export default function DetailsLayoutWithTitle({
 }: DetailsLayoutWithTitleProps) {
   const header = (
     <Flex justify="space-between" align="center">
-      <Text fontWeight="bold" fontSize="xl">
+      <Text fontWeight="bold" fontSize="xl" data-cy="title">
         {title}
       </Text>
 
