@@ -1,6 +1,8 @@
 'use client'
 
-async function requestForBluetoothPrinter() {
+import { chunk } from 'lodash'
+
+async function requestPrinter() {
   // from https://github.com/WebBluetoothCG/demos/blob/gh-pages/bluetooth-printer/index.html
 
   const device = await navigator.bluetooth.requestDevice({
@@ -33,11 +35,23 @@ async function requestForBluetoothPrinter() {
 }
 
 let printerPromise: Promise<BluetoothRemoteGATTCharacteristic> | null = null
-export async function getThermalPrinterViaBluetooth() {
+async function getPrinter() {
   if (!printerPromise) {
     console.log('No printers found yet. Requesting...')
-    return await requestForBluetoothPrinter()
+    return await requestPrinter()
   }
 
   return await printerPromise
+}
+
+export async function sendToThermalPrinter(toSend: Uint8Array) {
+  const printer = await getPrinter()
+  if (!printer) {
+    throw new Error('No printer found!')
+  }
+
+  const batches = chunk(toSend, 215) as unknown as Uint8Array[]
+  for (const batch of batches) {
+    await printer.writeValue(batch)
+  }
 }
