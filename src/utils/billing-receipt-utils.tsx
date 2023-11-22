@@ -1,18 +1,33 @@
 'use client'
 
 import { SavedBilling } from '@/types/SavedBilling'
-import EscPosEncoder from 'esc-pos-encoder'
+import { Br, Line, Printer, Text, Row, render } from 'react-thermal-printer'
 
-export function encodeForThermalReceipt({ items, serialNo }: SavedBilling) {
-  const encoder = new EscPosEncoder().initialize()
+function Receipt({ billing: { items, serialNo } }: { billing: SavedBilling }) {
+  return (
+    <Printer type="epson" width={56} characterSet="pc437_usa">
+      <Text>{serialNo}</Text>
+      <Br />
+      <Line />
+      {items.map(({ catalogItem, price, quantity }, index) => (
+        <Row
+          key={index}
+          left={catalogItem.name}
+          right={String(price * quantity)}
+        />
+      ))}
+      <Line />
+      <Br />
+      <Row
+        left="Total"
+        right={String(
+          items.reduce((acc, val) => acc + val.price * val.quantity, 0)
+        )}
+      />
+    </Printer>
+  )
+}
 
-  encoder.line(`Receipt no. ${serialNo}`)
-
-  for (const { catalogItem, price, quantity } of items) {
-    encoder.line(
-      `${catalogItem.name} - ${price} x ${quantity} = ${price * quantity}`
-    )
-  }
-
-  return encoder.encode()
+export function encodeForThermalReceipt(billing: SavedBilling) {
+  return render(<Receipt billing={billing} />)
 }
