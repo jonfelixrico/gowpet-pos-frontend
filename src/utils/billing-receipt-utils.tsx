@@ -1,21 +1,19 @@
 'use client'
 
-import { SavedBilling } from '@/types/SavedBilling'
+import { SavedBilling, SavedBillingItem } from '@/types/SavedBilling'
 import { Br, Line, Printer, Text, Row, render } from 'react-thermal-printer'
 
-function Receipt({ billing: { items, serialNo } }: { billing: SavedBilling }) {
+function ReceiptItem({ catalogItem, price, quantity }: SavedBillingItem) {
+  return <Row left={catalogItem.name} right={String(price * quantity)} />
+}
+
+function Receipt({ serialNo, items }: SavedBilling) {
   return (
-    <Printer type="epson" width={56} characterSet="pc437_usa">
+    <Printer type="epson" width={56} initialize={true}>
       <Text>{serialNo}</Text>
       <Br />
       <Line />
-      {items.map(({ catalogItem, price, quantity }, index) => (
-        <Row
-          key={index}
-          left={catalogItem.name}
-          right={String(price * quantity)}
-        />
-      ))}
+      {items.map(ReceiptItem)}
       <Line />
       <Br />
       <Row
@@ -28,6 +26,10 @@ function Receipt({ billing: { items, serialNo } }: { billing: SavedBilling }) {
   )
 }
 
-export function encodeForThermalReceipt(billing: SavedBilling) {
-  return render(<Receipt billing={billing} />)
+export async function encodeForThermalReceipt(billing: SavedBilling) {
+  /*
+   * If we call receipt as <Receipt ... /> it won't work
+   * I guess that only works for ReactDOM components?
+   */
+  return await render(Receipt(billing))
 }
