@@ -16,6 +16,7 @@ import { IoIosArrowBack } from 'react-icons/io'
 import { SavedBilling } from '@/types/SavedBilling'
 import BillingDetailsInfoSection from './BillingDetailsInfoSection'
 import BillingPrintReceiptButton from './BillingPrintReceiptButton'
+import { MdPrint } from 'react-icons/md'
 
 export default async function Billing({
   params,
@@ -57,7 +58,11 @@ export default async function Billing({
 
             <Spacer />
 
-            <BillingPrintReceiptButton billing={data} />
+            <BillingPrintReceiptButton
+              colorScheme="blue"
+              billing={data}
+              leftIcon={<MdPrint />}
+            />
           </Flex>
 
           <Divider />

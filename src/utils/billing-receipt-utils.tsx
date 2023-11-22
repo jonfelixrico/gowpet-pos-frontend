@@ -1,27 +1,62 @@
 'use client'
 
 import { SavedBilling, SavedBillingItem } from '@/types/SavedBilling'
-import { Br, Line, Printer, Text, Row, render } from 'react-thermal-printer'
+import { Br, Printer, Text, render, Cut, QRCode } from 'react-thermal-printer'
 
 function ReceiptItem({ catalogItem, price, quantity }: SavedBillingItem) {
-  return <Row left={catalogItem.name} right={String(price * quantity)} />
+  return (
+    <>
+      <Text bold>{catalogItem.name}</Text>
+      <Text>{`PHP ${price} x ${quantity} = PHP ${price * quantity}`}</Text>
+    </>
+  )
 }
 
 function Receipt({ serialNo, items }: SavedBilling) {
   return (
     <Printer type="epson" width={56} initialize={true}>
-      <Text>{serialNo}</Text>
+      <Text align="center" size={{ height: 3, width: 2 }}>
+        Business, Inc.
+      </Text>
+
       <Br />
-      <Line />
+
+      <Text align="center">1234 567 891</Text>
+      <Text align="center">
+        Jose P Laurel Sr, San Miguel, Manila, Metro Manila
+      </Text>
+
+      <Br />
+
       {items.map(ReceiptItem)}
-      <Line />
+
       <Br />
-      <Row
-        left="Total"
-        right={String(
-          items.reduce((acc, val) => acc + val.price * val.quantity, 0)
-        )}
-      />
+
+      <Text bold>
+        TOTAL: PHP{' '}
+        {items.reduce((acc, val) => acc + val.price * val.quantity, 0)}
+      </Text>
+      <Text bold>
+        # OF ITEMS PURCHASED:{' '}
+        {items.reduce((acc, { quantity }) => acc + quantity, 0)}
+      </Text>
+
+      <Br />
+
+      <Text>BILLING # {String(serialNo).padStart(4)}</Text>
+
+      <Br />
+
+      <Text align="center">Like us on Facebook! Scan the QR code below</Text>
+      <QRCode align="center" correction="H" content="https://google.com" />
+
+      <Text align="center">Thank you and please come again!</Text>
+
+      <Br />
+
+      <Text align="center">{new Date().toLocaleString()}</Text>
+      <Text align="center">CUSTOMER COPY</Text>
+      <Cut lineFeeds={3} />
     </Printer>
   )
 }
