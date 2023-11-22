@@ -1,6 +1,8 @@
 'use client'
 
-async function requestPrintingDevice() {
+import pMemoize from 'p-memoize'
+
+const getPrintingDevice = pMemoize(async () => {
   // from https://github.com/WebBluetoothCG/demos/blob/gh-pages/bluetooth-printer/index.html
 
   console.debug('Requesting for printer...')
@@ -15,17 +17,7 @@ async function requestPrintingDevice() {
   console.log('Obtained printer %s', device.name)
 
   return device
-}
-
-let printerPromise: Promise<BluetoothDevice> | null = null
-async function getPrintingDevice() {
-  if (!printerPromise) {
-    console.log('No printers found yet. Requesting...')
-    printerPromise = requestPrintingDevice()
-  }
-
-  return await printerPromise
-}
+})
 
 async function preparePrinter(device: BluetoothDevice) {
   if (!device.gatt) {
