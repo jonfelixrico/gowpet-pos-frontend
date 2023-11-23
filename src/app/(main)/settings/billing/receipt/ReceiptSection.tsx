@@ -29,7 +29,7 @@ export default async function ReceiptSection() {
 
   return (
     <Flex gap={2} direction="column">
-      <Text fontWeight="medium" fontSize="lg">
+      <Text fontWeight="medium" fontSize="xl">
         Receipt
       </Text>
 
