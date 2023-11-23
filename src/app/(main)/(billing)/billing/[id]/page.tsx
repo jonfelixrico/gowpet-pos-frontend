@@ -25,10 +25,10 @@ export default async function Billing({
     id: string
   }
 }) {
-  let data: SavedBilling
+  let billing: SavedBilling
   try {
     const response = await apiFetchData(`/billing/${params.id}`)
-    data = response.data
+    billing = response.data
   } catch (e) {
     if (e instanceof FetchError && e.response.status === 404) {
       notFound()
@@ -60,14 +60,14 @@ export default async function Billing({
 
             <BillingPrintReceiptButton
               colorScheme="blue"
-              billing={data}
+              billing={billing}
               leftIcon={<MdPrint />}
             />
           </Flex>
 
           <Divider />
 
-          <BillingDetailsInfoSection billing={data} />
+          <BillingDetailsInfoSection billing={billing} />
         </CardBody>
       </Card>
 
@@ -77,7 +77,7 @@ export default async function Billing({
             Items
           </Text>
           <Divider />
-          <BillingDetailsItemsSection items={data.items} />
+          <BillingDetailsItemsSection items={billing.items} />
         </CardBody>
       </Card>
     </Flex>
