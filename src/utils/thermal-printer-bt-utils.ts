@@ -24,17 +24,18 @@ async function preparePrinter(device: BluetoothDevice) {
     throw new Error('No GATT server found')
   }
 
-  console.log('Connecting to GATT server...')
+  let gattServer = device.gatt
+  if (!gattServer.connected) {
+    console.debug('Connecting to GATT server...')
+    gattServer = await gattServer.connect()
+  }
 
-  const gattServer = await device.gatt.connect()
   const service = await gattServer.getPrimaryService(
     '000018f0-0000-1000-8000-00805f9b34fb'
   )
   const characteristic = await service.getCharacteristic(
     '00002af1-0000-1000-8000-00805f9b34fb'
   )
-
-  console.log('Finished preparing the printer')
 
   return characteristic
 }
@@ -46,13 +47,18 @@ export async function sendToThermalPrinter(toSend: Uint8Array) {
   }
   const printer = await preparePrinter(device)
 
+  /*
+    We have to chunk the data by 512 because that's all the characteristic can send
+    at a time. See https://github.com/WebBluetoothCG/demos/blob/7b7397df596888b51043586a187a5b2e08f14ecd/bluetooth-printer/index.html#L196
+   */
+
   let index = 0
   while (index + 512 < toSend.length) {
-    await printer.writeValue(toSend.slice(index, index + 512))
+    await printer.writeValueWithResponse(toSend.slice(index, index + 512))
     index += 512
   }
 
   if (index < toSend.length) {
-    await printer.writeValue(toSend.slice(index, toSend.length))
+    await printer.writeValueWithResponse(toSend.slice(index, toSend.length))
   }
 }

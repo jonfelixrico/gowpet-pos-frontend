@@ -1,4 +1,4 @@
-import BillingPrintReceiptButton from '@/app/(main)/(billing)/billing/[id]/BillingPrintReceiptButton'
+import BillingPrintReceiptButton from '@/app/(main)/(billing)/billing/[id]/receipt/BillingPrintReceiptButton'
 import { ChakraProvider } from '@chakra-ui/react'
 
 describe('BillingPrintReceiptButton', () => {
