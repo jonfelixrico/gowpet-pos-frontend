@@ -4,6 +4,7 @@ import { ReceiptSettings } from '@/types/ReceiptSetings'
 import { Divider, Flex, Text } from '@chakra-ui/react'
 import ReceiptSettingsUpdate from './ReceiptSettingsUpdate'
 import ReceiptSettingsCreate from './ReceiptSettingsCreate'
+import { RedirectType, redirect } from 'next/navigation'
 
 export default async function ReceiptSection() {
   const { data } = await apiFetchData<ReceiptSettings>('/billing/receipt')
@@ -18,6 +19,7 @@ export default async function ReceiptSection() {
       },
       body: JSON.stringify(settings),
     })
+    redirect('/settings/billing', RedirectType.replace)
   }
 
   async function clear() {
@@ -25,6 +27,7 @@ export default async function ReceiptSection() {
     await apiFetchData('/billing/receipt', {
       method: 'DELETE',
     })
+    redirect('/settings/billing', RedirectType.replace)
   }
 
   return (
