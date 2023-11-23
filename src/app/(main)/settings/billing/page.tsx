@@ -1,14 +1,10 @@
-import { Box, Divider, Flex, Text } from '@chakra-ui/react'
+import { Box } from '@chakra-ui/react'
+import ReceiptSettings from './ReceiptSettings'
 
 export default function BillingSettingsPage() {
   return (
     <Box height="full">
-      <Flex gap={2} direction="column">
-        <Text fontWeight="medium" fontSize="lg">
-          Receipt
-        </Text>
-        <Divider />
-      </Flex>
+      <ReceiptSettings />
     </Box>
   )
 }
