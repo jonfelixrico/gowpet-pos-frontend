@@ -6,9 +6,9 @@ import { useState } from 'react'
 import ReceiptSettingsForm from './ReceiptSettingsForm'
 
 export default function ReceiptSettingsCreate({
-  save,
+  onSave,
 }: {
-  save: (settings: ReceiptSettings) => Promise<void>
+  onSave: (settings: ReceiptSettings) => Promise<void>
 }) {
   const [showForm, setShowForm] = useState(false)
 
@@ -26,7 +26,7 @@ export default function ReceiptSettingsCreate({
           snsLink: '',
           snsMessage: '',
         }}
-        onSubmit={save}
+        onSubmit={onSave}
       />
 
       <Button

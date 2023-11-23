@@ -36,11 +36,11 @@ export default async function ReceiptSection() {
       <Divider />
 
       <If condition={!!data}>
-        <ReceiptSettingsUpdate clear={clear} save={save} settings={data} />
+        <ReceiptSettingsUpdate onClear={clear} onSave={save} settings={data} />
       </If>
 
       <If condition={!data}>
-        <ReceiptSettingsCreate save={save} />
+        <ReceiptSettingsCreate onSave={save} />
       </If>
     </Flex>
   )

@@ -4,23 +4,23 @@ import ReceiptSettingsForm from './ReceiptSettingsForm'
 import { startTransition } from 'react'
 
 export default function ReceiptSettingsUpdate({
-  save,
-  clear,
+  onSave,
+  onClear,
   settings,
 }: {
-  save: (settings: ReceiptSettings) => Promise<void>
-  clear: () => Promise<void>
+  onSave: (settings: ReceiptSettings) => Promise<void>
+  onClear: () => Promise<void>
   settings: ReceiptSettings
 }) {
   function triggerClear() {
     startTransition(() => {
-      clear()
+      onClear()
     })
   }
 
   return (
     <Flex direction="column" gap={2}>
-      <ReceiptSettingsForm initialValues={settings} onSubmit={save} />
+      <ReceiptSettingsForm initialValues={settings} onSubmit={onSave} />
 
       <Button onClick={triggerClear} variant="ghost" colorScheme="red">
         Clear receipt settings
