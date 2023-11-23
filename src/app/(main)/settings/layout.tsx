@@ -11,7 +11,7 @@ export default function SettingsLayout({ children }: { children: ReactNode }) {
       padding={2}
       gap={2}
     >
-      <Text fontSize="xl" fontWeight="bold">
+      <Text fontSize="2xl" fontWeight="bold">
         Settings
       </Text>
       <Card flex={1}>
