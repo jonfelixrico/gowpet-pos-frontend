@@ -12,7 +12,7 @@ export default function SettingsLayout({ children }: { children: ReactNode }) {
       gap={2}
     >
       <Text fontSize="2xl" fontWeight="bold">
-        Settings
+        Billing Settings
       </Text>
       <Card flex={1}>
         <CardBody>{children}</CardBody>
