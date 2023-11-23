@@ -8,6 +8,7 @@ import { useState } from 'react'
 
 export default function BillingPrintReceiptButton({
   billing,
+  receiptSettings,
   ...buttonProps
 }: {
   billing: SavedBilling
@@ -16,9 +17,14 @@ export default function BillingPrintReceiptButton({
   const [isLoading, setIsLoading] = useState(false)
 
   async function printReceipt() {
+    if (!receiptSettings) {
+      // This shouldn't be running if !receiptSettings. The button should've been disabled
+      return
+    }
+
     try {
       setIsLoading(true)
-      const encoded = await encodeForThermalReceipt(billing)
+      const encoded = await encodeForThermalReceipt(billing, receiptSettings)
       await sendToThermalPrinter(encoded)
     } catch (e) {
       console.error('Error encountered while printing the receipt', e)
@@ -28,7 +34,12 @@ export default function BillingPrintReceiptButton({
   }
 
   return (
-    <Button {...buttonProps} onClick={printReceipt} isLoading={isLoading}>
+    <Button
+      {...buttonProps}
+      isDisabled={!receiptSettings}
+      onClick={printReceipt}
+      isLoading={isLoading}
+    >
       Print Receipt
     </Button>
   )

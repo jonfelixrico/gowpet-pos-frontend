@@ -1,5 +1,6 @@
 'use client'
 
+import { ReceiptSettings } from '@/types/ReceiptSetings'
 import { SavedBilling, SavedBillingItem } from '@/types/SavedBilling'
 import { Br, Printer, Text, render, Cut, QRCode } from 'react-thermal-printer'
 
@@ -12,19 +13,17 @@ function ReceiptItem({ catalogItem, price, quantity }: SavedBillingItem) {
   )
 }
 
-function Receipt({ serialNo, items }: SavedBilling) {
+function Receipt({ serialNo, items }: SavedBilling, settings: ReceiptSettings) {
   return (
     <Printer type="epson" width={56} initialize={true}>
       <Text align="center" size={{ height: 3, width: 2 }}>
-        Business, Inc.
+        {settings.header}
       </Text>
 
       <Br />
 
-      <Text align="center">1234 567 891</Text>
-      <Text align="center">
-        Jose P Laurel Sr, San Miguel, Manila, Metro Manila
-      </Text>
+      <Text align="center">{settings.contactNo}</Text>
+      <Text align="center">{settings.address}</Text>
 
       <Br />
 
@@ -47,8 +46,8 @@ function Receipt({ serialNo, items }: SavedBilling) {
 
       <Br />
 
-      <Text align="center">Like us on Facebook! Scan the QR code below</Text>
-      <QRCode align="center" correction="H" content="https://google.com" />
+      <Text align="center">{settings.snsLink}</Text>
+      <QRCode align="center" correction="H" content={settings.snsLink} />
 
       <Text align="center">Thank you and please come again!</Text>
 
@@ -61,10 +60,13 @@ function Receipt({ serialNo, items }: SavedBilling) {
   )
 }
 
-export async function encodeForThermalReceipt(billing: SavedBilling) {
+export async function encodeForThermalReceipt(
+  billing: SavedBilling,
+  settings: ReceiptSettings
+) {
   /*
    * If we call receipt as <Receipt ... /> it won't work
    * I guess that only works for ReactDOM components?
    */
-  return await render(Receipt(billing))
+  return await render(Receipt(billing, settings))
 }

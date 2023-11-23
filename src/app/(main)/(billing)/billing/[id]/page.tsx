@@ -66,7 +66,6 @@ export default async function Billing({
               colorScheme="blue"
               billing={billing}
               leftIcon={<MdPrint />}
-              isDisabled={!receiptSettings}
               receiptSettings={receiptSettings}
             />
           </Flex>
