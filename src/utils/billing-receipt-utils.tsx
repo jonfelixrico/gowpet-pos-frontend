@@ -46,7 +46,7 @@ function Receipt({ serialNo, items }: SavedBilling, settings: ReceiptSettings) {
 
       <Br />
 
-      <Text align="center">{settings.snsLink}</Text>
+      <Text align="center">{settings.snsMessage}</Text>
       <QRCode align="center" correction="H" content={settings.snsLink} />
 
       <Text align="center">Thank you and please come again!</Text>
