@@ -1,4 +1,5 @@
 'use client'
+import { ReceiptSettings } from '@/types/ReceiptSetings'
 import { SavedBilling } from '@/types/SavedBilling'
 import { encodeForThermalReceipt } from '@/utils/billing-receipt-utils'
 import { sendToThermalPrinter } from '@/utils/thermal-printer-bt-utils'
@@ -10,6 +11,7 @@ export default function BillingPrintReceiptButton({
   ...buttonProps
 }: {
   billing: SavedBilling
+  receiptSettings?: ReceiptSettings
 } & ButtonProps) {
   const [isLoading, setIsLoading] = useState(false)
 

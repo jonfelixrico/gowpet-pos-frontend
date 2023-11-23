@@ -17,6 +17,7 @@ import { SavedBilling } from '@/types/SavedBilling'
 import BillingDetailsInfoSection from './BillingDetailsInfoSection'
 import BillingPrintReceiptButton from './BillingPrintReceiptButton'
 import { MdPrint } from 'react-icons/md'
+import { ReceiptSettings } from '@/types/ReceiptSetings'
 
 export default async function Billing({
   params,
@@ -36,6 +37,9 @@ export default async function Billing({
 
     throw e
   }
+
+  const { data: receiptSettings } =
+    await apiFetchData<ReceiptSettings>('/billing/receipt')
 
   return (
     <Flex direction="column" gap="2" width="full" height="full">
@@ -62,6 +66,8 @@ export default async function Billing({
               colorScheme="blue"
               billing={billing}
               leftIcon={<MdPrint />}
+              isDisabled={!receiptSettings}
+              receiptSettings={receiptSettings}
             />
           </Flex>
 
