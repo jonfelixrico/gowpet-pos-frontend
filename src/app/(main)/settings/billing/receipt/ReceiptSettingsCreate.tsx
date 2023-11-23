@@ -12,8 +12,12 @@ export default function ReceiptSettingsCreate({
 }) {
   const [showForm, setShowForm] = useState(false)
 
-  if (showForm) {
-    return <Button onClick={() => setShowForm(true)}>Set-up receipt</Button>
+  if (!showForm) {
+    return (
+      <Button colorScheme="blue" onClick={() => setShowForm(true)}>
+        Set-up receipt
+      </Button>
+    )
   }
 
   return (
