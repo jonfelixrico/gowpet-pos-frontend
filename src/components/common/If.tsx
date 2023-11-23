@@ -5,7 +5,7 @@ export default function If({
   children,
 }: {
   condition?: boolean
-  children: ReactNode
+  children?: ReactNode
 }) {
   if (!condition) {
     return <></>
