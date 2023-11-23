@@ -1,3 +1,5 @@
+'use client'
+
 import { ReceiptSettings } from '@/types/ReceiptSetings'
 import { Button, Flex } from '@chakra-ui/react'
 import ReceiptSettingsForm from './ReceiptSettingsForm'
