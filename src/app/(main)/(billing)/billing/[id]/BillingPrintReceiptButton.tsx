@@ -39,6 +39,7 @@ export default function BillingPrintReceiptButton({
       isDisabled={!receiptSettings}
       onClick={printReceipt}
       isLoading={isLoading}
+      data-cy="print-receipt"
     >
       Print Receipt
     </Button>
