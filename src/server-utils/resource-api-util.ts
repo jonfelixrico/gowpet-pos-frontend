@@ -33,8 +33,10 @@ export async function apiFetchData<T = any>(
 ): Promise<ApiResponse<T>> {
   const response = await apiFetch(input, init, options)
 
+  // We can't use response.json directly because it can't seem to be able to handle null
+  const text = await response.text()
   Object.assign(response, {
-    data: await response.json(),
+    data: text.length === 0 ? null : JSON.parse(text),
   })
 
   return response as ApiResponse<T>

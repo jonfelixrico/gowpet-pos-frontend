@@ -61,6 +61,15 @@ export default function RouteLinks() {
       >
         Billing
       </RouteLink>
+
+      <RouteLink
+        href="/settings"
+        pattern={/^\/settings.*/}
+        currentPath={pathname}
+        data-route-link="settings"
+      >
+        Settings
+      </RouteLink>
     </Flex>
   )
 }
