@@ -1,6 +1,6 @@
 import { OffscreenContainerProvider } from '@/contexts/OffscreenContainerContext'
 
-describe('OffscreenContext', () => {
+describe('OffscreenContainerContext', () => {
   it('renders its children', () => {
     cy.mount(
       <OffscreenContainerProvider>
