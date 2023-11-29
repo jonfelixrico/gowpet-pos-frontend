@@ -1,6 +1,7 @@
 'use client'
 
 import useDetectClient from '@/hooks/detect-client'
+import { DataAttributes } from '@/types/DataAttributes'
 import { Box } from '@chakra-ui/react'
 import { ReactNode, RefObject, createContext, useContext, useRef } from 'react'
 import { createPortal } from 'react-dom'
@@ -10,9 +11,10 @@ const OffscreenContainerContext =
 
 export function OffscreenContainerProvider({
   children,
+  ...dataAttrs
 }: {
   children?: ReactNode
-}) {
+} & DataAttributes) {
   const ref = useRef<HTMLDivElement>(null)
 
   return (
@@ -22,6 +24,7 @@ export function OffscreenContainerProvider({
         left="calc(-100dvw + -9999px)"
         aria-hidden
         ref={ref}
+        {...dataAttrs}
       />
 
       <OffscreenContainerContext.Provider value={ref}>
