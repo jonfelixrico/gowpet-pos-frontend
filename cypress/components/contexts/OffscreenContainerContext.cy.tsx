@@ -1,4 +1,7 @@
-import { OffscreenContainerProvider } from '@/contexts/OffscreenContainerContext'
+import {
+  OffscreenContainerPortal,
+  OffscreenContainerProvider,
+} from '@/contexts/OffscreenContainerContext'
 
 describe('OffscreenContainerContext', () => {
   it('renders its children', () => {
@@ -9,5 +12,17 @@ describe('OffscreenContainerContext', () => {
     )
 
     cy.dataCy('child').should('exist')
+  })
+
+  it('renders via portal', () => {
+    cy.mount(
+      <OffscreenContainerProvider>
+        <OffscreenContainerPortal>
+          <div data-cy="thru-portal" />
+        </OffscreenContainerPortal>
+      </OffscreenContainerProvider>
+    )
+
+    cy.dataCy('thru-portal').should('exist')
   })
 })
