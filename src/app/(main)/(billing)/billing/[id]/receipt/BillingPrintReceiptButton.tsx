@@ -1,7 +1,6 @@
 /* eslint-disable jsx-a11y/alt-text */
 'use client'
-import { useOffscreenContainer } from '@/contexts/OffscreenContainerContext'
-import useDetectClient from '@/hooks/detect-client'
+import { OffscreenContainerPortal } from '@/contexts/OffscreenContainerContext'
 import { ReceiptSettings } from '@/types/ReceiptSetings'
 import { SavedBilling } from '@/types/SavedBilling'
 import { sendToThermalPrinter } from '@/utils/thermal-printer-bt-utils'
@@ -69,8 +68,6 @@ export default function BillingPrintReceiptButton({
   ...buttonProps
 }: BillingPrintReceiptButtonProps) {
   const [isLoading, setIsLoading] = useState(false)
-  const portalTarget = useOffscreenContainer()
-  const isClient = useDetectClient()
   const receiptRef = useRef<HTMLDivElement>(null)
 
   async function printReceipt() {
@@ -101,24 +98,19 @@ export default function BillingPrintReceiptButton({
     </Button>
   )
 
-  /*
-    Ideally, we'd use the If component here to conditionally render the receipt portal.
-    However, Next.js throws "createPortal was called on the server. ..." if that approach
-    was used instead of a normal `if` statement.
-  */
-  if (isClient && !!portalTarget?.current && !!receiptSettings) {
+  if (!!receiptSettings) {
     return (
       <>
         {button}
-        {createPortal(
+        <OffscreenContainerPortal>
           <BillingReceipt
             billing={billing}
             settings={receiptSettings as ReceiptSettings}
             width={48}
             ref={receiptRef}
-          />,
-          portalTarget?.current as HTMLDivElement
-        )}
+          />
+          ,
+        </OffscreenContainerPortal>
       </>
     )
   }

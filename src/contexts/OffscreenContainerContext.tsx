@@ -32,10 +32,6 @@ export function OffscreenContainerProvider({
   )
 }
 
-export function useOffscreenContainer() {
-  return useContext(OffscreenContainerContext)
-}
-
 export function OffscreenContainerPortal({
   children,
 }: {
