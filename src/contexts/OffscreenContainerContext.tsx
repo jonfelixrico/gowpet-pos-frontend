@@ -18,7 +18,6 @@ export function OffscreenContainerProvider({
   return (
     <>
       <Box
-        data-id="offscreen-container"
         position="absolute"
         left="calc(-100dvw + -9999px)"
         aria-hidden
