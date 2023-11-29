@@ -11,6 +11,7 @@ import { createPortal } from 'react-dom'
 import { Cut, Image, Printer, render } from 'react-thermal-printer'
 import { toCanvas } from 'html-to-image'
 import { cropY } from '@/utils/canvas-utils'
+import If from '@/components/common/If'
 
 export type BillingPrintReceiptButtonProps = {
   billing: SavedBilling
@@ -86,22 +87,19 @@ export default function BillingPrintReceiptButton({
     }
   }
 
-  const button = (
-    <Button
-      {...buttonProps}
-      isDisabled={!receiptSettings}
-      onClick={printReceipt}
-      isLoading={isLoading}
-      data-cy="print-receipt"
-    >
-      Print Receipt
-    </Button>
-  )
+  return (
+    <>
+      <Button
+        {...buttonProps}
+        isDisabled={!receiptSettings}
+        onClick={printReceipt}
+        isLoading={isLoading}
+        data-cy="print-receipt"
+      >
+        Print Receipt
+      </Button>
 
-  if (!!receiptSettings) {
-    return (
-      <>
-        {button}
+      <If condition={!!receiptSettings}>
         <OffscreenContainerPortal>
           <BillingReceipt
             billing={billing}
@@ -110,9 +108,7 @@ export default function BillingPrintReceiptButton({
             ref={receiptRef}
           />
         </OffscreenContainerPortal>
-      </>
-    )
-  }
-
-  return button
+      </If>
+    </>
+  )
 }
