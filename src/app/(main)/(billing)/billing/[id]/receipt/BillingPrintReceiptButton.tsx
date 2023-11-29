@@ -5,7 +5,7 @@ import { ReceiptSettings } from '@/types/ReceiptSetings'
 import { SavedBilling } from '@/types/SavedBilling'
 import { sendToThermalPrinter } from '@/utils/thermal-printer-bt-utils'
 import { Button, ButtonProps } from '@chakra-ui/react'
-import { RefObject, useRef, useState } from 'react'
+import { RefObject, useCallback, useRef, useState } from 'react'
 import BillingReceipt from './BillingReceipt'
 import { createPortal } from 'react-dom'
 import { Cut, Image, Printer, render } from 'react-thermal-printer'
@@ -18,15 +18,8 @@ export type BillingPrintReceiptButtonProps = {
   receiptSettings?: ReceiptSettings
 } & ButtonProps
 
-async function encodeForThermalReceipt(
-  ref: RefObject<HTMLElement>,
-  width: number
-) {
-  if (!ref.current) {
-    throw new Error('ref not found')
-  }
-
-  const receiptAsImage = await toCanvas(ref.current, {
+async function encodeForThermalReceipt(el: HTMLElement, width: number) {
+  const receiptAsImage = await toCanvas(el, {
     quality: 0.25,
     pixelRatio: 2,
   })
@@ -69,11 +62,21 @@ export default function BillingPrintReceiptButton({
   ...buttonProps
 }: BillingPrintReceiptButtonProps) {
   const [isLoading, setIsLoading] = useState(false)
-  const receiptRef = useRef<HTMLDivElement>(null)
+
+  /*
+    We're doing all these because aside from getting the ref, we also want to know
+    when the ref changed. The regular ref is non-reactive, so we had to be creative.
+  */
+  const [receiptRef, setReceiptRef] = useState<HTMLDivElement | null>(null)
+  const refCb = useCallback(
+    (node: HTMLDivElement) => {
+      setReceiptRef(node ?? null)
+    },
+    [setReceiptRef]
+  )
 
   async function printReceipt() {
-    if (!receiptSettings) {
-      // This shouldn't be running if !receiptSettings. The button should've been disabled
+    if (!receiptRef) {
       return
     }
 
@@ -87,7 +90,7 @@ export default function BillingPrintReceiptButton({
     }
   }
 
-  const isReceiptRendered = !!receiptRef.current
+  const isReceiptRendered = !!receiptRef
 
   return (
     <>
@@ -107,7 +110,7 @@ export default function BillingPrintReceiptButton({
             billing={billing}
             settings={receiptSettings as ReceiptSettings}
             width={48}
-            ref={receiptRef}
+            ref={refCb}
           />
         </OffscreenContainerPortal>
       </If>
