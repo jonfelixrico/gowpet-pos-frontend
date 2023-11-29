@@ -1,4 +1,4 @@
-import { OffscreenContainerProvider } from '@/contexts/OffscreenContext'
+import { OffscreenContainerProvider } from '@/contexts/OffscreenContainerContext'
 
 describe('OffscreenContext', () => {
   it('renders its children', () => {

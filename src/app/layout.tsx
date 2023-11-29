@@ -3,7 +3,7 @@ import { Inter } from 'next/font/google'
 import './globals.css'
 import { Providers } from './providers'
 import { ReactNode } from 'react'
-import { OffscreenContainerProvider } from '@/contexts/OffscreenContext'
+import { OffscreenContainerProvider } from '@/contexts/OffscreenContainerContext'
 
 const inter = Inter({ subsets: ['latin'] })
 

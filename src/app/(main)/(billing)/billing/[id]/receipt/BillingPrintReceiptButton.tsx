@@ -1,6 +1,6 @@
 /* eslint-disable jsx-a11y/alt-text */
 'use client'
-import { useOffscreenContainer } from '@/contexts/OffscreenContext'
+import { useOffscreenContainer } from '@/contexts/OffscreenContainerContext'
 import useDetectClient from '@/hooks/detect-client'
 import { ReceiptSettings } from '@/types/ReceiptSetings'
 import { SavedBilling } from '@/types/SavedBilling'
