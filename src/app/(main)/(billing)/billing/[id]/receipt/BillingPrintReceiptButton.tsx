@@ -109,7 +109,6 @@ export default function BillingPrintReceiptButton({
             width={48}
             ref={receiptRef}
           />
-          ,
         </OffscreenContainerPortal>
       </>
     )
