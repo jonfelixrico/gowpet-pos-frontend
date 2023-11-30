@@ -1,5 +1,6 @@
 'use client'
 
+import { DataAttributes } from '@/types/DataAttributes'
 import { ReceiptSettings } from '@/types/ReceiptSetings'
 import { FormikSubmit } from '@/types/formik'
 import { Button, Flex, FormControl, FormLabel, Input } from '@chakra-ui/react'
@@ -18,10 +19,11 @@ export default function ReceiptSettingsForm({
     snsMessage: '',
   },
   onSubmit,
+  ...dataAttrs
 }: {
   onSubmit: OnSubmitFunction
   initialValues?: ReceiptSettings
-}) {
+} & DataAttributes) {
   const handleSubmit: FormikSubmit<ReceiptSettings> = async (
     values,
     actions
@@ -39,7 +41,7 @@ export default function ReceiptSettingsForm({
   return (
     <Formik initialValues={initialValues} onSubmit={handleSubmit}>
       {(props) => (
-        <Form>
+        <Form {...dataAttrs}>
           <Flex direction="column" gap={3}>
             <Field name="header">
               {({ field }: FieldProps) => (
