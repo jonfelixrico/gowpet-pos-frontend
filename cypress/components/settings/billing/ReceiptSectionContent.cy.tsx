@@ -1,10 +1,45 @@
-import {
+import ReceiptSectionContent, {
   ReceiptSettingsCreate,
   ReceiptSettingsUpdate,
 } from '@/app/(main)/settings/billing/receipt/ReceiptSectionContent'
 import { ChakraProvider } from '@chakra-ui/react'
 
-describe('ReceiptSectionContent', () => {})
+describe('ReceiptSectionContent', () => {
+  it('shows the update section', () => {
+    cy.mount(
+      <ChakraProvider>
+        <ReceiptSectionContent
+          onClear={() => Promise.resolve()}
+          onSave={() => {}}
+          settings={{
+            address: 'test',
+            contactNo: 'test',
+            header: 'test',
+            snsLink: 'test',
+            snsMessage: 'test',
+          }}
+        />
+      </ChakraProvider>
+    )
+
+    cy.dataCy('update').should('exist')
+    cy.dataCy('create').should('not.exist')
+  })
+
+  it('shows the create section', () => {
+    cy.mount(
+      <ChakraProvider>
+        <ReceiptSectionContent
+          onClear={() => Promise.resolve()}
+          onSave={() => {}}
+        />
+      </ChakraProvider>
+    )
+
+    cy.dataCy('update').should('not.exist')
+    cy.dataCy('create').should('exist')
+  })
+})
 
 describe('ReceiptSettingsUpdate', () => {
   it('clears the content', () => {

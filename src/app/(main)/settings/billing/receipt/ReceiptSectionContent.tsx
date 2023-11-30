@@ -15,7 +15,7 @@ export function ReceiptSettingsCreate({
   const [showForm, setShowForm] = useState(false)
 
   return (
-    <Flex direction="column" gap={2}>
+    <Flex direction="column" gap={2} data-cy="create">
       <If condition={!showForm}>
         <Button
           colorScheme="blue"
@@ -59,7 +59,7 @@ export function ReceiptSettingsUpdate({
   }
 
   return (
-    <Flex direction="column" gap={2}>
+    <Flex direction="column" gap={2} data-cy="update">
       <ReceiptSettingsForm
         initialValues={settings}
         onSubmit={onSave}
@@ -85,7 +85,7 @@ export default function ReceiptSectionContent({
 }: {
   onSave: OnSubmitFunction
   onClear: () => Promise<void>
-  settings: ReceiptSettings
+  settings?: ReceiptSettings
 }) {
   if (!settings) {
     return <ReceiptSettingsCreate onSave={onSave} />
