@@ -1,4 +1,7 @@
-import { ReceiptSettingsUpdate } from '@/app/(main)/settings/billing/receipt/ReceiptSectionContent'
+import {
+  ReceiptSettingsCreate,
+  ReceiptSettingsUpdate,
+} from '@/app/(main)/settings/billing/receipt/ReceiptSectionContent'
 import { EMPTY_FN } from '@/utils/misc-utills'
 import { ChakraProvider } from '@chakra-ui/react'
 
@@ -49,4 +52,28 @@ describe('ReceiptSettingsUpdate', () => {
   })
 })
 
-describe('ReceiptSettingsCreate', () => {})
+describe('ReceiptSettingsCreate', () => {
+  it('has a set-up flow', () => {
+    cy.mount(
+      <ChakraProvider>
+        <ReceiptSettingsCreate onSave={() => {}} />
+      </ChakraProvider>
+    )
+
+    cy.dataCy('set-up')
+      .click()
+      .then(() => {
+        cy.dataCy('set-up').should('not.exist')
+        cy.dataCy('abort').should('exist')
+        cy.dataCy('form').should('exist')
+      })
+
+    cy.dataCy('abort')
+      .click()
+      .then(() => {
+        cy.dataCy('set-up').should('exist')
+        cy.dataCy('abort').should('not.exist')
+        cy.dataCy('form').should('not.exist')
+      })
+  })
+})

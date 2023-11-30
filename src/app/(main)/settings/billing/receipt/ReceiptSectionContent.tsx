@@ -15,7 +15,11 @@ export function ReceiptSettingsCreate({
 
   if (!showForm) {
     return (
-      <Button colorScheme="blue" onClick={() => setShowForm(true)}>
+      <Button
+        colorScheme="blue"
+        onClick={() => setShowForm(true)}
+        data-cy="set-up"
+      >
         Set-up receipt
       </Button>
     )
@@ -23,12 +27,13 @@ export function ReceiptSettingsCreate({
 
   return (
     <Flex direction="column" gap={2}>
-      <ReceiptSettingsForm onSubmit={onSave} />
+      <ReceiptSettingsForm onSubmit={onSave} data-cy="form" />
 
       <Button
         onClick={() => setShowForm(false)}
         variant="ghost"
         colorScheme="red"
+        data-cy="abort"
       >
         Abort receipt set-up
       </Button>
