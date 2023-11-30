@@ -23,16 +23,7 @@ export function ReceiptSettingsCreate({
 
   return (
     <Flex direction="column" gap={2}>
-      <ReceiptSettingsForm
-        initialValues={{
-          address: '',
-          contactNo: '',
-          header: '',
-          snsLink: '',
-          snsMessage: '',
-        }}
-        onSubmit={onSave}
-      />
+      <ReceiptSettingsForm onSubmit={onSave} />
 
       <Button
         onClick={() => setShowForm(false)}
