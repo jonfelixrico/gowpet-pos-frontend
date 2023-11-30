@@ -4,6 +4,7 @@ import { Button, Flex } from '@chakra-ui/react'
 import { startTransition, useState } from 'react'
 import ReceiptSettingsForm, { OnSubmitFunction } from './ReceiptSettingsForm'
 import { ReceiptSettings } from '@/types/ReceiptSetings'
+import If from '@/components/common/If'
 
 // Exported for testing
 export function ReceiptSettingsCreate({
@@ -13,30 +14,30 @@ export function ReceiptSettingsCreate({
 }) {
   const [showForm, setShowForm] = useState(false)
 
-  if (!showForm) {
-    return (
-      <Button
-        colorScheme="blue"
-        onClick={() => setShowForm(true)}
-        data-cy="set-up"
-      >
-        Set-up receipt
-      </Button>
-    )
-  }
-
   return (
     <Flex direction="column" gap={2}>
-      <ReceiptSettingsForm onSubmit={onSave} data-cy="form" />
+      <If condition={!showForm}>
+        <Button
+          colorScheme="blue"
+          onClick={() => setShowForm(true)}
+          data-cy="set-up"
+        >
+          Set-up receipt
+        </Button>
+      </If>
 
-      <Button
-        onClick={() => setShowForm(false)}
-        variant="ghost"
-        colorScheme="red"
-        data-cy="abort"
-      >
-        Abort receipt set-up
-      </Button>
+      <If condition={showForm}>
+        <ReceiptSettingsForm onSubmit={onSave} data-cy="form" />
+
+        <Button
+          onClick={() => setShowForm(false)}
+          variant="ghost"
+          colorScheme="red"
+          data-cy="abort"
+        >
+          Abort receipt set-up
+        </Button>
+      </If>
     </Flex>
   )
 }
