@@ -1,10 +1,8 @@
-import If from '@/components/common/If'
 import { apiFetchData } from '@/server-utils/resource-api-util'
 import { ReceiptSettings } from '@/types/ReceiptSetings'
 import { Divider, Flex, Text } from '@chakra-ui/react'
-import ReceiptSettingsUpdate from './ReceiptSettingsUpdate'
-import ReceiptSettingsCreate from './ReceiptSettingsCreate'
 import { RedirectType, redirect } from 'next/navigation'
+import ReceiptSectionContent from './ReceiptSectionContent'
 
 export default async function ReceiptSection() {
   const { data } = await apiFetchData<ReceiptSettings>('/billing/receipt')
@@ -38,13 +36,7 @@ export default async function ReceiptSection() {
 
       <Divider />
 
-      <If condition={!!data}>
-        <ReceiptSettingsUpdate onClear={clear} onSave={save} settings={data} />
-      </If>
-
-      <If condition={!data}>
-        <ReceiptSettingsCreate onSave={save} />
-      </If>
+      <ReceiptSectionContent onClear={clear} onSave={save} settings={data} />
     </Flex>
   )
 }
