@@ -6,6 +6,10 @@ import { EMPTY_FN } from '@/utils/misc-utills'
 import { Button, Flex, FormControl, FormLabel, Input } from '@chakra-ui/react'
 import { Field, FieldProps, Form, Formik } from 'formik'
 
+export type OnSubmitFunction = (
+  settings: ReceiptSettings
+) => Promise<void> | void
+
 export default function ReceiptSettingsForm({
   initialValues = {
     address: '',
@@ -16,7 +20,7 @@ export default function ReceiptSettingsForm({
   },
   onSubmit = EMPTY_FN,
 }: {
-  onSubmit?: (settings: ReceiptSettings) => Promise<void> | void
+  onSubmit?: OnSubmitFunction
   initialValues?: ReceiptSettings
 }) {
   const handleSubmit: FormikSubmit<ReceiptSettings> = async (
