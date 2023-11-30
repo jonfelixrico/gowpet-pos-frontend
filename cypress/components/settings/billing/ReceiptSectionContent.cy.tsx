@@ -10,7 +10,7 @@ describe('ReceiptSectionContent', () => {
       <ChakraProvider>
         <ReceiptSectionContent
           onClear={() => Promise.resolve()}
-          onSave={() => {}}
+          onSave={() => Promise.resolve()}
           settings={{
             address: 'test',
             contactNo: 'test',
@@ -31,7 +31,7 @@ describe('ReceiptSectionContent', () => {
       <ChakraProvider>
         <ReceiptSectionContent
           onClear={() => Promise.resolve()}
-          onSave={() => {}}
+          onSave={() => Promise.resolve()}
         />
       </ChakraProvider>
     )
@@ -55,7 +55,7 @@ describe('ReceiptSettingsUpdate', () => {
             snsLink: 'test',
             snsMessage: 'test',
           }}
-          onSave={() => {}}
+          onSave={() => Promise.resolve()}
           onClear={clearFn}
         />
       </ChakraProvider>
@@ -76,7 +76,7 @@ describe('ReceiptSettingsUpdate', () => {
             snsLink: 'test',
             snsMessage: 'test',
           }}
-          onSave={() => {}}
+          onSave={() => Promise.resolve()}
           onClear={() => Promise.resolve()}
         />
       </ChakraProvider>
@@ -90,7 +90,7 @@ describe('ReceiptSettingsCreate', () => {
   it('has a set-up flow', () => {
     cy.mount(
       <ChakraProvider>
-        <ReceiptSettingsCreate onSave={() => {}} />
+        <ReceiptSettingsCreate onSave={() => Promise.resolve()} />
       </ChakraProvider>
     )
 

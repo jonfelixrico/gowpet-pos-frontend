@@ -6,9 +6,7 @@ import { FormikSubmit } from '@/types/formik'
 import { Button, Flex, FormControl, FormLabel, Input } from '@chakra-ui/react'
 import { Field, FieldProps, Form, Formik } from 'formik'
 
-export type OnSubmitFunction = (
-  settings: ReceiptSettings
-) => Promise<void> | void
+export type OnSubmitFunction = (settings: ReceiptSettings) => Promise<void>
 
 export default function ReceiptSettingsForm({
   initialValues = {

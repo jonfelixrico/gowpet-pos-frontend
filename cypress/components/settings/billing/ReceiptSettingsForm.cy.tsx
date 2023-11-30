@@ -1,6 +1,5 @@
 import ReceiptSettingsForm from '@/app/(main)/settings/billing/receipt/ReceiptSettingsForm'
 import { ReceiptSettings } from '@/types/ReceiptSetings'
-import { EMPTY_FN } from '@/utils/misc-utills'
 import { ChakraProvider } from '@chakra-ui/react'
 
 describe('ReceiptSettingsForm', () => {
@@ -36,7 +35,7 @@ describe('ReceiptSettingsForm', () => {
     cy.mount(
       <ChakraProvider>
         <ReceiptSettingsForm
-          onSubmit={EMPTY_FN}
+          onSubmit={() => Promise.resolve()}
           initialValues={{
             address:
               'Malacañang Complex. J.P. Laurel Street, San Miguel,. 1005 Manila City',
