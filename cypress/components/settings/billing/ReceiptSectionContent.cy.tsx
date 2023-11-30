@@ -2,7 +2,6 @@ import {
   ReceiptSettingsCreate,
   ReceiptSettingsUpdate,
 } from '@/app/(main)/settings/billing/receipt/ReceiptSectionContent'
-import { EMPTY_FN } from '@/utils/misc-utills'
 import { ChakraProvider } from '@chakra-ui/react'
 
 describe('ReceiptSectionContent', () => {})
@@ -21,7 +20,7 @@ describe('ReceiptSettingsUpdate', () => {
             snsLink: 'test',
             snsMessage: 'test',
           }}
-          onSave={EMPTY_FN}
+          onSave={() => {}}
           onClear={clearFn}
         />
       </ChakraProvider>
@@ -42,7 +41,7 @@ describe('ReceiptSettingsUpdate', () => {
             snsLink: 'test',
             snsMessage: 'test',
           }}
-          onSave={EMPTY_FN}
+          onSave={() => {}}
           onClear={() => Promise.resolve()}
         />
       </ChakraProvider>
