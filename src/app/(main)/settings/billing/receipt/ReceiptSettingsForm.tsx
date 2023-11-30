@@ -1,17 +1,27 @@
 'use client'
 
+import { DataAttributes } from '@/types/DataAttributes'
 import { ReceiptSettings } from '@/types/ReceiptSetings'
 import { FormikSubmit } from '@/types/formik'
 import { Button, Flex, FormControl, FormLabel, Input } from '@chakra-ui/react'
 import { Field, FieldProps, Form, Formik } from 'formik'
 
+export type OnSubmitFunction = (settings: ReceiptSettings) => Promise<void>
+
 export default function ReceiptSettingsForm({
-  initialValues,
+  initialValues = {
+    address: '',
+    contactNo: '',
+    header: '',
+    snsLink: '',
+    snsMessage: '',
+  },
   onSubmit,
+  ...dataAttrs
 }: {
-  onSubmit: (settings: ReceiptSettings) => Promise<void>
-  initialValues: ReceiptSettings
-}) {
+  onSubmit: OnSubmitFunction
+  initialValues?: ReceiptSettings
+} & DataAttributes) {
   const handleSubmit: FormikSubmit<ReceiptSettings> = async (
     values,
     actions
@@ -29,11 +39,11 @@ export default function ReceiptSettingsForm({
   return (
     <Formik initialValues={initialValues} onSubmit={handleSubmit}>
       {(props) => (
-        <Form>
+        <Form {...dataAttrs}>
           <Flex direction="column" gap={3}>
             <Field name="header">
               {({ field }: FieldProps) => (
-                <FormControl>
+                <FormControl data-cy="header">
                   <FormLabel>Header</FormLabel>
                   <Input {...field} />
                 </FormControl>
@@ -42,7 +52,7 @@ export default function ReceiptSettingsForm({
 
             <Field name="address">
               {({ field }: FieldProps) => (
-                <FormControl>
+                <FormControl data-cy="address">
                   <FormLabel>Address</FormLabel>
                   <Input {...field} />
                 </FormControl>
@@ -51,7 +61,7 @@ export default function ReceiptSettingsForm({
 
             <Field name="contactNo">
               {({ field }: FieldProps) => (
-                <FormControl>
+                <FormControl data-cy="contact-no">
                   <FormLabel>Contact information</FormLabel>
                   <Input {...field} />
                 </FormControl>
@@ -60,7 +70,7 @@ export default function ReceiptSettingsForm({
 
             <Field name="snsLink">
               {({ field }: FieldProps) => (
-                <FormControl>
+                <FormControl data-cy="sns-link">
                   <FormLabel>Social media URL</FormLabel>
                   <Input {...field} />
                 </FormControl>
@@ -69,7 +79,7 @@ export default function ReceiptSettingsForm({
 
             <Field name="snsMessage">
               {({ field }: FieldProps) => (
-                <FormControl>
+                <FormControl data-cy="sns-message">
                   <FormLabel>Social media message</FormLabel>
                   <Input {...field} />
                 </FormControl>
@@ -81,6 +91,7 @@ export default function ReceiptSettingsForm({
               colorScheme="blue"
               isLoading={props.isSubmitting}
               type="submit"
+              data-cy="submit"
             >
               Save settings
             </Button>
