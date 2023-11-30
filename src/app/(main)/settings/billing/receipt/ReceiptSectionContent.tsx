@@ -54,7 +54,11 @@ export function ReceiptSettingsUpdate({
 
   return (
     <Flex direction="column" gap={2}>
-      <ReceiptSettingsForm initialValues={settings} onSubmit={onSave} />
+      <ReceiptSettingsForm
+        initialValues={settings}
+        onSubmit={onSave}
+        data-cy="form"
+      />
 
       <Button
         onClick={triggerClear}

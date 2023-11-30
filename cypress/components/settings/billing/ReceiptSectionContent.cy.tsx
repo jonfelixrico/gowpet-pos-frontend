@@ -12,11 +12,11 @@ describe('ReceiptSettingsUpdate', () => {
       <ChakraProvider>
         <ReceiptSettingsUpdate
           settings={{
-            address: '',
-            contactNo: '',
-            header: '',
-            snsLink: '',
-            snsMessage: '',
+            address: 'test',
+            contactNo: 'test',
+            header: 'test',
+            snsLink: 'test',
+            snsMessage: 'test',
           }}
           onSave={EMPTY_FN}
           onClear={clearFn}
@@ -26,6 +26,26 @@ describe('ReceiptSettingsUpdate', () => {
 
     cy.dataCy('clear').click()
     cy.get('@clearFn').should('have.been.called')
+  })
+
+  it('shows the form', () => {
+    cy.mount(
+      <ChakraProvider>
+        <ReceiptSettingsUpdate
+          settings={{
+            address: 'test',
+            contactNo: 'test',
+            header: 'test',
+            snsLink: 'test',
+            snsMessage: 'test',
+          }}
+          onSave={EMPTY_FN}
+          onClear={() => Promise.resolve()}
+        />
+      </ChakraProvider>
+    )
+
+    cy.dataCy('form').should('exist')
   })
 })
 
