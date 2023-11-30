@@ -3,12 +3,12 @@
 import { ReceiptSettings } from '@/types/ReceiptSetings'
 import { Button, Flex } from '@chakra-ui/react'
 import { useState } from 'react'
-import ReceiptSettingsForm from './ReceiptSettingsForm'
+import ReceiptSettingsForm, { OnSubmitFunction } from './ReceiptSettingsForm'
 
 export default function ReceiptSettingsCreate({
   onSave,
 }: {
-  onSave: (settings: ReceiptSettings) => Promise<void>
+  onSave: OnSubmitFunction
 }) {
   const [showForm, setShowForm] = useState(false)
 

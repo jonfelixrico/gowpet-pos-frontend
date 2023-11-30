@@ -2,7 +2,7 @@
 
 import { ReceiptSettings } from '@/types/ReceiptSetings'
 import { Button, Flex } from '@chakra-ui/react'
-import ReceiptSettingsForm from './ReceiptSettingsForm'
+import ReceiptSettingsForm, { OnSubmitFunction } from './ReceiptSettingsForm'
 import { startTransition } from 'react'
 
 export default function ReceiptSettingsUpdate({
@@ -10,7 +10,7 @@ export default function ReceiptSettingsUpdate({
   onClear,
   settings,
 }: {
-  onSave: (settings: ReceiptSettings) => Promise<void>
+  onSave: OnSubmitFunction
   onClear: () => Promise<void>
   settings: ReceiptSettings
 }) {
