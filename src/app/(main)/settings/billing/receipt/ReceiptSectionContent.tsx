@@ -5,7 +5,12 @@ import { startTransition, useState } from 'react'
 import ReceiptSettingsForm, { OnSubmitFunction } from './ReceiptSettingsForm'
 import { ReceiptSettings } from '@/types/ReceiptSetings'
 
-function ReceiptSettingsCreate({ onSave }: { onSave: OnSubmitFunction }) {
+// Exported for testing
+export function ReceiptSettingsCreate({
+  onSave,
+}: {
+  onSave: OnSubmitFunction
+}) {
   const [showForm, setShowForm] = useState(false)
 
   if (!showForm) {
@@ -40,7 +45,8 @@ function ReceiptSettingsCreate({ onSave }: { onSave: OnSubmitFunction }) {
   )
 }
 
-function ReceiptSettingsUpdate({
+// Exported for testing
+export function ReceiptSettingsUpdate({
   onSave,
   onClear,
   settings,
