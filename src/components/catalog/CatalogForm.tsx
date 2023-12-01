@@ -51,13 +51,13 @@ export default function CatalogForm({
               {({ field, form }: FieldProps) => (
                 <FormControl
                   isInvalid={!!form.errors.name && !!form.touched.name}
+                  data-cy="name"
                 >
                   <FormLabel>Name</FormLabel>
                   <Input
                     {...field}
                     type="text"
                     placeholder="Type your product name here"
-                    data-cy="name"
                   />
                 </FormControl>
               )}
@@ -67,6 +67,7 @@ export default function CatalogForm({
               {({ field, form }: FieldProps) => (
                 <FormControl
                   isInvalid={!!form.errors.price && !!form.touched.price}
+                  data-cy="price"
                 >
                   <FormLabel>Unit Price</FormLabel>
                   <NumberInput
@@ -74,7 +75,6 @@ export default function CatalogForm({
                     min={0}
                     precision={2}
                     onChange={(val) => form.setFieldValue(field.name, val)}
-                    data-cy="price"
                   >
                     <NumberInputField />
                     <NumberInputStepper>
