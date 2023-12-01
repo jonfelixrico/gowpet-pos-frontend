@@ -1,3 +1,5 @@
+'use client'
+
 import { FormikSubmit } from '@/types/formik'
 import {
   Button,
