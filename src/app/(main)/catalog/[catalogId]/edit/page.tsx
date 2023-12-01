@@ -17,7 +17,7 @@ export const dynamic = 'force-dynamic'
 export default async function CatalogEdit({ params }: { params: Params }) {
   const url = `/catalog/product/${params.catalogId}`
 
-  let catalogItem: CatalogItem | null = null
+  let catalogItem: CatalogItem
   try {
     const { data } = await apiFetchData<CatalogItem>(url)
     catalogItem = data
@@ -25,6 +25,8 @@ export default async function CatalogEdit({ params }: { params: Params }) {
     if (e instanceof FetchError && e.response.status === 404) {
       notFound()
     }
+
+    throw e
   }
 
   async function uploadChanges(value: CatalogFormFields) {
@@ -48,10 +50,7 @@ export default async function CatalogEdit({ params }: { params: Params }) {
     >
       <Card>
         <CardBody>
-          <CatalogForm
-            onSubmit={uploadChanges}
-            initialValues={catalogItem as CatalogItem}
-          />
+          <CatalogForm onSubmit={uploadChanges} initialValues={catalogItem} />
         </CardBody>
       </Card>
     </DetailsLayoutWithTitle>
