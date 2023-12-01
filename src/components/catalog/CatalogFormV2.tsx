@@ -1,5 +1,6 @@
 import { FormikSubmit } from '@/types/formik'
 import {
+  Button,
   Flex,
   FormControl,
   FormLabel,
@@ -26,7 +27,6 @@ export interface CatalogFormFields {
 
 export default function CatalogForm({
   handleSubmit,
-  children,
   initialValues = {
     name: '',
     price: 0,
@@ -76,7 +76,14 @@ export default function CatalogForm({
               )}
             </Field>
 
-            {children}
+            <Button
+              type="submit"
+              colorScheme="blue"
+              data-cy="submit"
+              isLoading={props.isSubmitting}
+            >
+              Save
+            </Button>
           </Flex>
         </Form>
       )}
