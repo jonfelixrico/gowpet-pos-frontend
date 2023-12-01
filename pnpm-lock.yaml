@@ -17,9 +17,6 @@ dependencies:
   '@emotion/styled':
     specifier: ^11.11.0
     version: 11.11.0(@emotion/react@11.11.1)(@types/react@18.2.33)(react@18.2.0)
-  '@yudiel/react-qr-scanner':
-    specifier: ^1.2.3
-    version: 1.2.3(react-dom@18.2.0)(react@18.2.0)
   formik:
     specifier: ^2.4.5
     version: 2.4.5(react@18.2.0)
@@ -62,6 +59,9 @@ dependencies:
   react-icons:
     specifier: ^4.11.0
     version: 4.11.0(react@18.2.0)
+  react-qr-barcode-scanner:
+    specifier: ^1.0.6
+    version: 1.0.6(react-dom@18.2.0)(react@18.2.0)
   react-thermal-printer:
     specifier: ^0.16.0
     version: 0.16.0(react-dom@18.2.0)(react@18.2.0)
@@ -1713,6 +1713,14 @@ packages:
       '@types/react': 18.2.33
     dev: true
 
+  /@types/react@16.14.52:
+    resolution: {integrity: sha512-4+ZN73hgRW3Gang3QMqWjrqPPkf+lWZYiyG4uXtUbpd+7eiBDw6Gemila6rXDd8DorADupTiIERL6Mb5BQTF2w==}
+    dependencies:
+      '@types/prop-types': 15.7.9
+      '@types/scheduler': 0.16.5
+      csstype: 3.1.2
+    dev: false
+
   /@types/react@18.2.33:
     resolution: {integrity: sha512-v+I7S+hu3PIBoVkKGpSYYpiBT1ijqEzWpzQD62/jm4K74hPpSP7FF9BnKG6+fg2+62weJYkkBWDJlZt5JO/9hg==}
     dependencies:
@@ -1814,17 +1822,6 @@ packages:
     resolution: {integrity: sha512-zuVdFrMJiuCDQUMCzQaD6KL28MjnqqN8XnAqiEq9PNm/hCPTSGfrXCOfwj1ow4LFb/tNymJPwsNbVePc1xFqrQ==}
     dev: true
 
-  /@yudiel/react-qr-scanner@1.2.3(react-dom@18.2.0)(react@18.2.0):
-    resolution: {integrity: sha512-DxM0wMibWcqlvp+Zrws4qjl5a87pVfhHOg0HXO+kewci1iX4Xj68ZH6Cx8SDH2CJMy6AY0GYp9oYJDkEq/5inA==}
-    peerDependencies:
-      react: ^18.0.0
-      react-dom: ^18.0.0
-    dependencies:
-      '@zxing/library': 0.20.0
-      react: 18.2.0
-      react-dom: 18.2.0(react@18.2.0)
-    dev: false
-
   /@zag-js/dom-query@0.16.0:
     resolution: {integrity: sha512-Oqhd6+biWyKnhKwFFuZrrf6lxBz2tX2pRQe6grUnYwO6HJ8BcbqZomy2lpOdr+3itlaUqx+Ywj5E5ZZDr/LBfQ==}
     dev: false
@@ -1839,8 +1836,8 @@ packages:
       '@zag-js/dom-query': 0.16.0
     dev: false
 
-  /@zxing/library@0.20.0:
-    resolution: {integrity: sha512-6Ev6rcqVjMakZFIDvbUf0dtpPGeZMTfyxYg4HkVWioWeN7cRcnUWT3bU6sdohc82O1nPXcjq6WiGfXX2Pnit6A==}
+  /@zxing/library@0.17.1:
+    resolution: {integrity: sha512-RuiBZuteGaFXCle/b0X+g3peN8UpDc3pGe/J7hZBzKWaMZLbjensR7ja3vy47xWhXU4e8MICGqegPMxc2V2sow==}
     engines: {node: '>= 10.4.0'}
     dependencies:
       ts-custom-error: 3.3.1
@@ -4371,6 +4368,19 @@ packages:
   /react-is@16.13.1:
     resolution: {integrity: sha512-24e6ynE2H+OKt4kqsOvNd8kBpV65zoxbA4BVsEOB3ARVWQki/DHzaUoC5KuON/BiccDaCCTZBuOcfZs70kR8bQ==}
 
+  /react-qr-barcode-scanner@1.0.6(react-dom@18.2.0)(react@18.2.0):
+    resolution: {integrity: sha512-DdalO4oqHyxWPa4cIjiHeMS19HbIvKq+oo/PAglAsxmfhAUGC8sM1mJnzo0zPQM1yw9ZNpjrtqHz+rs86Mu7Ww==}
+    peerDependencies:
+      react: ^16.13.1
+      react-dom: ^16.13.1
+    dependencies:
+      '@types/react': 16.14.52
+      '@zxing/library': 0.17.1
+      react: 18.2.0
+      react-dom: 18.2.0(react@18.2.0)
+      react-webcam: 5.2.4(react-dom@18.2.0)(react@18.2.0)
+    dev: false
+
   /react-remove-scroll-bar@2.3.4(@types/react@18.2.33)(react@18.2.0):
     resolution: {integrity: sha512-63C4YQBUt0m6ALadE9XV56hV8BgJWDmmTPY758iIJjfQKt2nYwoUrPk0LXRXcB/yIj82T1/Ixfdpdk68LwIB0A==}
     engines: {node: '>=10'}
@@ -4432,6 +4442,16 @@ packages:
       '@react-thermal-printer/image': 0.11.1
       '@react-thermal-printer/printer': 0.13.0
       classnames: 2.3.2
+      react: 18.2.0
+      react-dom: 18.2.0(react@18.2.0)
+    dev: false
+
+  /react-webcam@5.2.4(react-dom@18.2.0)(react@18.2.0):
+    resolution: {integrity: sha512-Qqj14t68Ke1eoEYjFde+N48HtuIJg0ePIQRpFww9eZt5oBcDpe/l60h+m3VRFJAR5/E3dOhSU5R8EJEcdCq/Eg==}
+    peerDependencies:
+      react: '>=15.3.0'
+      react-dom: '>=15.3.0'
+    dependencies:
       react: 18.2.0
       react-dom: 18.2.0(react@18.2.0)
     dev: false
