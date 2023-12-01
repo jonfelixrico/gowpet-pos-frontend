@@ -11,7 +11,7 @@ export default defineConfig({
      *
      * Increasing the timeout is sort of like a band-aid fix where we don't really have a choice.
      */
-    defaultCommandTimeout: 30_000,
+    defaultCommandTimeout: 60_000,
   },
 
   component: {

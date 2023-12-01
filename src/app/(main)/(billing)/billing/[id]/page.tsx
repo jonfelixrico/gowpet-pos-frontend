@@ -6,8 +6,8 @@ import {
   Divider,
   Flex,
   IconButton,
+  Spacer,
   Text,
-  Textarea,
 } from '@chakra-ui/react'
 import { notFound } from 'next/navigation'
 import BillingDetailsItemsSection from './BillingDetailsItemsSection'
@@ -15,6 +15,9 @@ import Link from 'next/link'
 import { IoIosArrowBack } from 'react-icons/io'
 import { SavedBilling } from '@/types/SavedBilling'
 import BillingDetailsInfoSection from './BillingDetailsInfoSection'
+import { MdPrint } from 'react-icons/md'
+import { ReceiptSettings } from '@/types/ReceiptSetings'
+import BillingPrintReceiptButton from './receipt/BillingPrintReceiptButton'
 
 export default async function Billing({
   params,
@@ -23,10 +26,10 @@ export default async function Billing({
     id: string
   }
 }) {
-  let data: SavedBilling
+  let billing: SavedBilling
   try {
     const response = await apiFetchData(`/billing/${params.id}`)
-    data = response.data
+    billing = response.data
   } catch (e) {
     if (e instanceof FetchError && e.response.status === 404) {
       notFound()
@@ -34,6 +37,9 @@ export default async function Billing({
 
     throw e
   }
+
+  const { data: receiptSettings } =
+    await apiFetchData<ReceiptSettings>('/billing/receipt')
 
   return (
     <Flex direction="column" gap="2" width="full" height="full">
@@ -53,11 +59,20 @@ export default async function Billing({
             <Text fontWeight="bold" fontSize="xl">
               Billing Information
             </Text>
+
+            <Spacer />
+
+            <BillingPrintReceiptButton
+              colorScheme="blue"
+              billing={billing}
+              leftIcon={<MdPrint />}
+              receiptSettings={receiptSettings}
+            />
           </Flex>
 
           <Divider />
 
-          <BillingDetailsInfoSection billing={data} />
+          <BillingDetailsInfoSection billing={billing} />
         </CardBody>
       </Card>
 
@@ -67,7 +82,7 @@ export default async function Billing({
             Items
           </Text>
           <Divider />
-          <BillingDetailsItemsSection items={data.items} />
+          <BillingDetailsItemsSection items={billing.items} />
         </CardBody>
       </Card>
     </Flex>
