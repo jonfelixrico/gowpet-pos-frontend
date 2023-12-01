@@ -1,10 +1,11 @@
 import { CatalogItem } from '@/types/CatalogItem'
 import { apiFetchData } from '@/server-utils/resource-api-util'
 import { Card, CardBody } from '@chakra-ui/react'
-import { CatalogFormFields } from '@/components/catalog/CatalogForm'
 import { redirect } from 'next/navigation'
 import DetailsLayoutWithTitle from '@/components/common/DetailsLayoutWithTitle'
-import CatalogForm from '@/components/catalog/CatalogFormV2'
+import CatalogForm, {
+  CatalogFormFields,
+} from '@/components/catalog/CatalogFormV2'
 
 interface Params {
   catalogId: string
