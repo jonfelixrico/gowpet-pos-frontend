@@ -18,6 +18,7 @@
     "@chakra-ui/react": "^2.8.1",
     "@emotion/react": "^11.11.1",
     "@emotion/styled": "^11.11.0",
+    "@yudiel/react-qr-scanner": "^1.2.3",
     "formik": "^2.4.5",
     "framer-motion": "^10.16.4",
     "html-to-image": "^1.11.11",
