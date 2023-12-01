@@ -5,7 +5,7 @@ import { redirect } from 'next/navigation'
 import DetailsLayoutWithTitle from '@/components/common/DetailsLayoutWithTitle'
 import CatalogForm, {
   CatalogFormFields,
-} from '@/components/catalog/CatalogFormV2'
+} from '@/components/catalog/CatalogForm'
 
 interface Params {
   catalogId: string
