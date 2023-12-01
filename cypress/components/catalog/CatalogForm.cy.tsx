@@ -24,4 +24,19 @@ describe('CatalogForm', () => {
       price: '12345.00',
     })
   })
+
+  it('shows initial values', () => {
+    cy.mount(
+      <CatalogForm
+        onSubmit={() => Promise.resolve()}
+        initialValues={{
+          name: 'test name',
+          price: 1234,
+        }}
+      />
+    )
+
+    cy.dataCy('name').find('input').should('have.value', 'test name')
+    cy.dataCy('price').find('input').should('have.value', 1234.0)
+  })
 })
