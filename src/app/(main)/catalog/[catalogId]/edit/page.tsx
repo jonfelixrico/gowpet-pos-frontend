@@ -1,10 +1,10 @@
 import { CatalogItem } from '@/types/CatalogItem'
 import { apiFetchData } from '@/server-utils/resource-api-util'
-import CatalogEditForm from './CatalogEditForm'
 import { Card, CardBody } from '@chakra-ui/react'
 import { CatalogFormFields } from '@/components/catalog/CatalogForm'
 import { redirect } from 'next/navigation'
 import DetailsLayoutWithTitle from '@/components/common/DetailsLayoutWithTitle'
+import CatalogForm from '@/components/catalog/CatalogFormV2'
 
 interface Params {
   catalogId: string
@@ -38,11 +38,7 @@ export default async function CatalogEdit({ params }: { params: Params }) {
     >
       <Card>
         <CardBody>
-          <CatalogEditForm
-            id={data.id}
-            initialValues={data}
-            onSubmit={uploadChanges}
-          />
+          <CatalogForm onSubmit={uploadChanges} initialValues={data} />
         </CardBody>
       </Card>
     </DetailsLayoutWithTitle>
