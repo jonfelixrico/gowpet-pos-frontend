@@ -20,25 +20,28 @@ export interface CatalogFormFields {
 export type CatalogFormSubmitFn = (value: CatalogFormFields) => Promise<void>
 
 export default function CatalogForm({
-  handleSubmit,
+  onSubmit,
   initialValues = {
     name: '',
     price: 0,
   },
 }: {
-  handleSubmit: CatalogFormSubmitFn
+  onSubmit: CatalogFormSubmitFn
   initialValues?: CatalogFormFields
 }) {
-  const onSubmit: FormikSubmit<CatalogFormFields> = async (values, actions) => {
+  const handleSubmit: FormikSubmit<CatalogFormFields> = async (
+    values,
+    actions
+  ) => {
     try {
-      await handleSubmit(values)
+      await onSubmit(values)
     } finally {
       actions.setSubmitting(false)
     }
   }
 
   return (
-    <Formik initialValues={initialValues} onSubmit={onSubmit}>
+    <Formik initialValues={initialValues} onSubmit={handleSubmit}>
       {(props) => (
         <Form data-cy="form">
           <Flex direction="column" alignItems="stretch" gap={2}>
