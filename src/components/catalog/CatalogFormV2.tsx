@@ -12,13 +12,6 @@ import {
   NumberInputStepper,
 } from '@chakra-ui/react'
 import { Field, FieldProps, Form, Formik } from 'formik'
-import { ReactNode } from 'react'
-
-interface Props {
-  handleSubmit: FormikSubmit<CatalogFormFields>
-  initialValues?: CatalogFormFields
-  children?: ReactNode
-}
 
 export interface CatalogFormFields {
   name: string
@@ -31,7 +24,10 @@ export default function CatalogForm({
     name: '',
     price: 0,
   },
-}: Props) {
+}: {
+  handleSubmit: FormikSubmit<CatalogFormFields>
+  initialValues?: CatalogFormFields
+}) {
   return (
     <Formik initialValues={initialValues} onSubmit={handleSubmit}>
       {(props) => (
