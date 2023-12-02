@@ -27,6 +27,31 @@ type Detected = Omit<DetectionResults, 'barcodes'> & {
   barcode: DetectedBarcode
 }
 
+function ResultPreview(result: Detected) {
+  const { barcode, image, ...dimensions } = result
+
+  return (
+    <Flex direction="column" gap={2}>
+      <Box>
+        <Box width="fit-content" height="fit-content" position="relative">
+          <Box width="fit-content" height="fit-content" position="absolute">
+            <BarcodeBoundingBox {...result} color="green" />
+          </Box>
+
+          <Image src={image} alt="Detected barcode" {...dimensions} />
+        </Box>
+      </Box>
+
+      <Center>
+        <Box>
+          <Text fontWeight="bold">Scanned:</Text>{' '}
+          <Code>{result.barcode.rawValue}</Code>
+        </Box>
+      </Center>
+    </Flex>
+  )
+}
+
 function Content({ onSubmit }: { onSubmit: (value: string) => void }) {
   const [result, setResult] = useState<Detected>()
 
@@ -53,25 +78,9 @@ function Content({ onSubmit }: { onSubmit: (value: string) => void }) {
     return <BarcodeScanner onDetect={processDetected} height="50dvh" />
   }
 
-  const { barcode, image, ...dimensions } = result
   return (
     <Flex direction="column" gap={2}>
-      <Box>
-        <Box width="fit-content" height="fit-content" position="relative">
-          <Box width="fit-content" height="fit-content" position="absolute">
-            <BarcodeBoundingBox {...result} color="green" />
-          </Box>
-
-          <Image src={image} alt="Detected barcode" {...dimensions} />
-        </Box>
-      </Box>
-
-      <Center>
-        <Box>
-          <Text fontWeight="bold">Scanned:</Text>{' '}
-          <Code>{result.barcode.rawValue}</Code>
-        </Box>
-      </Center>
+      <ResultPreview {...result} />
 
       <Button colorScheme="blue" onClick={handleSubmit}>
         Submit
