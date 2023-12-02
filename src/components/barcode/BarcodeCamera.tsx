@@ -4,6 +4,54 @@ import { useInterval } from 'react-use'
 import { BarcodeDetector } from 'barcode-detector'
 import { Box } from '@chakra-ui/react'
 
+function BaseBarcodeCamera({
+  onDetect,
+  onError = () => {},
+  ...webcamProps
+}: WebcamProps & {
+  onDetect: (value: DetectedBarcode[]) => void
+  onError: (e: unknown) => void
+}) {
+  const webcamRef = useRef<Webcam | null>(null)
+
+  const barcodeDetector = useMemo(
+    () =>
+      new BarcodeDetector({
+        formats: ['qr_code', 'upc_a', 'upc_e'],
+      }),
+    []
+  )
+
+  useInterval(async () => {
+    if (!webcamRef.current) {
+      return
+    }
+
+    const imageUrl = webcamRef.current.getScreenshot()
+    if (!imageUrl) {
+      return
+    }
+
+    const image = new Image()
+    image.src = imageUrl
+
+    try {
+      const results = await barcodeDetector.detect(image)
+      if (results.length === 0) {
+        return
+      }
+
+      onDetect(results)
+    } catch (e) {
+      onError(e)
+    }
+  }, 1000 / 3)
+
+  return (
+    <Webcam {...webcamProps} ref={webcamRef} screenshotFormat="image/jpeg" />
+  )
+}
+
 export type BarcodeCameraProps = {
   onDetect: (value: string) => void
   onError?: (err: unknown) => void
