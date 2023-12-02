@@ -4,6 +4,7 @@ import { useInterval, useMeasure } from 'react-use'
 import { BarcodeDetector } from 'barcode-detector'
 import { Box, Button, Flex } from '@chakra-ui/react'
 import { uniqBy } from 'lodash'
+import BarcodeBoundingBox from './BarcodeBoundingBox'
 
 interface BaseDetectionResults {
   barcodes: DetectedBarcode[]
@@ -69,38 +70,6 @@ function BaseBarcodeCamera({
   )
 }
 
-function BarcodeBoundingBox({
-  barcodeData: { cornerPoints },
-  width,
-  height,
-  color,
-}: {
-  barcodeData: DetectedBarcode
-  width: number
-  height: number
-  color: string
-}) {
-  const points = useMemo(
-    () =>
-      cornerPoints
-        .concat(cornerPoints[0]) // this is to complete the rect
-        .map(({ x, y }) => `${x}, ${y}`)
-        .join(' '),
-    [cornerPoints]
-  )
-  return (
-    <svg width={width} height={height}>
-      <polyline
-        points={points}
-        fill={color}
-        fillOpacity={0.38}
-        strokeWidth={1}
-        stroke={color}
-      />
-    </svg>
-  )
-}
-
 export type DetectionResults = BaseDetectionResults & {
   width: number
   height: number
@@ -159,16 +128,16 @@ export default function BarcodeCamera({
         </Button>
       </Flex>
 
-      {detectedBarcodes.map((detected, index) => {
+      {detectedBarcodes.map((barcode, index) => {
         return (
           <Box
-            key={detected.rawValue}
+            key={barcode.rawValue}
             position="absolute"
             width={`${width}px`}
             height={`${height}px`}
           >
             <BarcodeBoundingBox
-              barcodeData={detected}
+              barcode={barcode}
               height={height}
               width={width}
               color={index === 0 ? 'red' : 'gray'}
