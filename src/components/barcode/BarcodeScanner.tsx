@@ -120,11 +120,17 @@ function useDevices() {
   }
 }
 
+export type BarcodeScannerProps = Pick<
+  BarcodeCameraProps,
+  'onDetect' | 'onError'
+> &
+  FlexProps
+
 export default function BarcodeScanner({
   onDetect,
   onError = () => {},
   ...flexProps
-}: Pick<BarcodeCameraProps, 'onDetect' | 'onError'> & FlexProps) {
+}: BarcodeScannerProps) {
   const { devices, loading, selectedDeviceId, setSelectedDeviceId } =
     useDevices()
 
