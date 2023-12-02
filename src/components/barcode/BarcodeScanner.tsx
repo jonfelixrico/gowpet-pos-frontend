@@ -73,7 +73,12 @@ export default function BarcodeScanner({
   ...flexProps
 }: Pick<BarcodeCameraProps, 'onDetect' | 'onError'> & FlexProps) {
   const [deviceId, setDeviceId] = useState<undefined | string>(undefined)
-  const { devices } = useMediaDevices()
+  const { devices } = useMediaDevices({
+    constraints: {
+      video: true,
+      audio: false,
+    },
+  })
 
   return (
     <Flex {...flexProps} direction="column" gap={2}>
