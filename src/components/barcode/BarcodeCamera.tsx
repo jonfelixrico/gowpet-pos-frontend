@@ -15,7 +15,13 @@ export default function BarcodeCamera({
 }: BarcodeCameraProps) {
   const webcamRef = useRef<Webcam | null>(null)
 
-  const barcodeDetector = useMemo(() => new BarcodeDetector(), [])
+  const barcodeDetector = useMemo(
+    () =>
+      new BarcodeDetector({
+        formats: ['qr_code', 'upc_a', 'upc_e'],
+      }),
+    []
+  )
 
   useInterval(async () => {
     if (!webcamRef.current) {
