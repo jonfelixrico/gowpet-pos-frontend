@@ -34,7 +34,7 @@ function BarcodeScannerModal({
   }
 
   return (
-    <Modal {...props} isOpen={isOpen} onClose={onClose}>
+    <Modal {...props} isOpen={isOpen} onClose={onClose} scrollBehavior="inside">
       <ModalOverlay />
       <ModalContent>
         <ModalHeader>Barcode/QR Scanner</ModalHeader>
