@@ -3,6 +3,8 @@
 import {
   Box,
   Button,
+  Center,
+  Code,
   Flex,
   Modal,
   ModalBody,
@@ -12,6 +14,7 @@ import {
   ModalHeader,
   ModalOverlay,
   ModalProps,
+  Text,
 } from '@chakra-ui/react'
 import { useState } from 'react'
 import BarcodeScanner from './BarcodeScanner'
@@ -52,7 +55,7 @@ function Content({ onSubmit }: { onSubmit: (value: string) => void }) {
 
   const { barcode, image, ...dimensions } = result
   return (
-    <Flex direction="column">
+    <Flex direction="column" gap={2}>
       <Box>
         <Box width="fit-content" height="fit-content" position="relative">
           <Box width="fit-content" height="fit-content" position="absolute">
@@ -62,6 +65,13 @@ function Content({ onSubmit }: { onSubmit: (value: string) => void }) {
           <Image src={image} alt="Detected barcode" {...dimensions} />
         </Box>
       </Box>
+
+      <Center>
+        <Box>
+          <Text fontWeight="bold">Scanned:</Text>{' '}
+          <Code>{result.barcode.rawValue}</Code>
+        </Box>
+      </Center>
 
       <Button colorScheme="blue" onClick={handleSubmit}>
         Submit
