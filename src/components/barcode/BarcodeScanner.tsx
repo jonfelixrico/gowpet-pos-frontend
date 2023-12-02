@@ -2,6 +2,7 @@ import { Center, Flex, FlexProps, Select, Text } from '@chakra-ui/react'
 import BarcodeCamera, { BarcodeCameraProps } from './BarcodeCamera'
 import { useMemo, useState } from 'react'
 import { useMediaDevices } from 'react-media-devices'
+import { useLocalStorage } from 'react-use'
 
 function BarcodeCameraView({
   deviceId,
@@ -40,11 +41,17 @@ function DeviceSelector({
   deviceId,
   setDeviceId,
   devices,
+  isLoading,
 }: {
   deviceId?: string
   setDeviceId: (deviceId: string) => void
   devices: MediaDeviceInfo[]
+  isLoading?: boolean
 }) {
+  if (isLoading) {
+    return <Select isDisabled={true} placeholder="Detecting cameras..." />
+  }
+
   if (!devices?.length) {
     return <Select isDisabled={true} placeholder="No cameras detected" />
   }
@@ -66,13 +73,28 @@ function DeviceSelector({
   )
 }
 
+function useDeviceId(): [string | undefined, (value: string) => void] {
+  const [persistedValue, setPersistedValue] = useLocalStorage<string>(
+    'barcodeScannerDeviceId'
+  )
+  const [value, setValue] = useState<string | undefined>(persistedValue)
+
+  return [
+    value,
+    (value: string) => {
+      setValue(value)
+      setPersistedValue(value)
+    },
+  ]
+}
+
 export default function BarcodeScanner({
   onDetect,
   onError = () => {},
   ...flexProps
 }: Pick<BarcodeCameraProps, 'onDetect' | 'onError'> & FlexProps) {
-  const [deviceId, setDeviceId] = useState<undefined | string>(undefined)
-  const { devices } = useMediaDevices({
+  const [deviceId, setDeviceId] = useDeviceId()
+  const { devices, loading } = useMediaDevices({
     constraints: {
       video: true,
       audio: false,
@@ -99,6 +121,7 @@ export default function BarcodeScanner({
         deviceId={deviceId}
         setDeviceId={setDeviceId}
         devices={filteredDevices}
+        isLoading={loading}
       />
     </Flex>
   )
