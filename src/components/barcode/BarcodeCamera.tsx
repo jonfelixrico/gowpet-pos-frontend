@@ -2,6 +2,7 @@ import { useMemo, useRef } from 'react'
 import Webcam, { WebcamProps } from 'react-webcam'
 import { useInterval } from 'react-use'
 import { BarcodeDetector } from 'barcode-detector'
+import { Box } from '@chakra-ui/react'
 
 export type BarcodeCameraProps = {
   onDetect: (value: string) => void
@@ -50,5 +51,9 @@ export default function BarcodeCamera({
     }
   }, 1000 / 3)
 
-  return <Webcam {...props} ref={webcamRef} screenshotFormat="image/jpeg" />
+  return (
+    <Box height="fit-content" width="fit-content">
+      <Webcam {...props} ref={webcamRef} screenshotFormat="image/jpeg" />
+    </Box>
+  )
 }
