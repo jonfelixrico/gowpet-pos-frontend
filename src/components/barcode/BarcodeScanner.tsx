@@ -1,6 +1,5 @@
 import { Center, Flex, FlexProps, Select, Text } from '@chakra-ui/react'
 import BarcodeCamera, { BarcodeCameraProps } from './BarcodeCamera'
-import If from '../common/If'
 import { useState } from 'react'
 import { useMediaDevices } from 'react-media-devices'
 
