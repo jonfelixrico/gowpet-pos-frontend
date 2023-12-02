@@ -1,15 +1,18 @@
 import { useMemo, useRef } from 'react'
-import Webcam from 'react-webcam'
+import Webcam, { WebcamProps } from 'react-webcam'
 import { useInterval } from 'react-use'
 import { BarcodeDetector } from 'barcode-detector'
 
 export default function BarcodeScanner({
   onDetect,
   onError = () => {},
+  deviceId,
+  ...props
 }: {
   onDetect: (value: string) => void
   onError?: (err: unknown) => void
-}) {
+  deviceId?: string
+} & Pick<WebcamProps, 'videoConstraints' | 'style' | 'className'>) {
   const webcamRef = useRef<Webcam | null>(null)
 
   const barcodeDetector = useMemo(() => new BarcodeDetector(), [])
@@ -37,14 +40,5 @@ export default function BarcodeScanner({
     }
   }, 1000 / 3)
 
-  return (
-    <Webcam
-      ref={webcamRef}
-      screenshotFormat="image/jpeg"
-      style={{
-        width: '100%',
-        height: '50dvh',
-      }}
-    />
-  )
+  return <Webcam {...props} ref={webcamRef} screenshotFormat="image/jpeg" />
 }
