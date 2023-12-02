@@ -1,12 +1,12 @@
-import { useMemo, useRef } from 'react'
+import { useMemo, useRef, useState } from 'react'
 import Webcam, { WebcamProps } from 'react-webcam'
-import { useInterval } from 'react-use'
+import { useInterval, useMeasure } from 'react-use'
 import { BarcodeDetector } from 'barcode-detector'
 import { Box } from '@chakra-ui/react'
 
-type BaseBarcodeCameraProps = WebcamProps & {
+type BaseBarcodeCameraProps = Partial<WebcamProps> & {
   onDetect: (value: DetectedBarcode[]) => void
-  onError: (e: unknown) => void
+  onError?: (err: unknown) => void
 }
 
 function BaseBarcodeCamera({
@@ -39,10 +39,6 @@ function BaseBarcodeCamera({
 
     try {
       const results = await barcodeDetector.detect(image)
-      if (results.length === 0) {
-        return
-      }
-
       onDetect(results)
     } catch (e) {
       onError(e)
@@ -61,49 +57,31 @@ export type BarcodeCameraProps = {
 
 export default function BarcodeCamera({
   onDetect,
-  onError = () => {},
   ...props
 }: BarcodeCameraProps) {
-  const webcamRef = useRef<Webcam | null>(null)
-
-  const barcodeDetector = useMemo(
-    () =>
-      new BarcodeDetector({
-        formats: ['qr_code', 'upc_a', 'upc_e'],
-      }),
+  const [boxRef, { width, height }] = useMeasure<HTMLDivElement>()
+  const [detectedBarcodes, setDetectedBarcodes] = useState<DetectedBarcode[]>(
     []
   )
 
-  useInterval(async () => {
-    if (!webcamRef.current) {
-      return
+  function handleDetect(barcodes: DetectedBarcode[]) {
+    setDetectedBarcodes(barcodes)
+    if (barcodes.length) {
+      onDetect(barcodes[0].rawValue)
     }
-
-    const imageUrl = webcamRef.current.getScreenshot()
-    if (!imageUrl) {
-      return
-    }
-
-    const image = new Image()
-    image.src = imageUrl
-
-    try {
-      const results = await barcodeDetector.detect(image)
-      if (results.length === 0) {
-        return
-      }
-
-      const { rawValue } = results[0]
-      onDetect(rawValue)
-    } catch (e) {
-      console.warn('Error detected while trying to get barcode', e)
-      onError(e)
-    }
-  }, 1000 / 3)
+  }
 
   return (
-    <Box height="fit-content" width="fit-content">
-      <Webcam {...props} ref={webcamRef} screenshotFormat="image/jpeg" />
+    <Box
+      ref={boxRef}
+      width="fit-content"
+      height="fit-content"
+      position="relative"
+    >
+      <Box position="absolute" height="full" width="full">
+        Test
+      </Box>
+      <BaseBarcodeCamera {...props} onDetect={handleDetect} />
     </Box>
   )
 }
