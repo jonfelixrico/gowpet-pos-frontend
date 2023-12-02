@@ -21,6 +21,7 @@ import { DetectionResults } from './BarcodeCamera'
 import If from '@/components/common/If'
 import Image from 'next/image'
 import BarcodeBoundingBox from './BarcodeBoundingBox'
+import { Howl } from 'howler'
 
 type Detected = Omit<DetectionResults, 'barcodes'> & {
   barcode: DetectedBarcode
@@ -51,10 +52,15 @@ function ResultPreview(result: Detected) {
   )
 }
 
+const BEEP = new Howl({
+  src: '/barcode.wav',
+})
+
 function Content({ onSubmit }: { onSubmit: (value: string) => void }) {
   const [result, setResult] = useState<Detected>()
 
   function processDetected({ barcodes, ...others }: DetectionResults) {
+    BEEP.play()
     setResult({
       ...others,
       barcode: barcodes[0],
