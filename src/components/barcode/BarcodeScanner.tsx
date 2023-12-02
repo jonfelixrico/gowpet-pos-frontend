@@ -1,44 +1,93 @@
-import { useMemo, useRef } from 'react'
-import Webcam, { WebcamProps } from 'react-webcam'
-import { useInterval } from 'react-use'
-import { BarcodeDetector } from 'barcode-detector'
+import { Center, Flex, FlexProps, Select, Text } from '@chakra-ui/react'
+import BarcodeCamera, { BarcodeCameraProps } from './BarcodeCamera'
+import If from '../common/If'
+import { useState } from 'react'
+import { useMediaDevices } from 'react-media-devices'
+
+function BarcodeCameraView({
+  deviceId,
+  onDetect,
+  onError,
+  ...flexProps
+}: Pick<BarcodeCameraProps, 'onDetect' | 'onError'> & {
+  deviceId?: string
+} & FlexProps) {
+  if (!deviceId) {
+    return (
+      <Center as={Flex} {...flexProps}>
+        Please select a device
+      </Center>
+    )
+  }
+
+  return (
+    <Flex {...flexProps}>
+      <BarcodeCamera
+        onDetect={onDetect}
+        onError={onError}
+        videoConstraints={{
+          deviceId: deviceId as string,
+        }}
+        style={{
+          height: '100%',
+          width: '100%',
+        }}
+      />
+    </Flex>
+  )
+}
+
+function DeviceSelector({
+  deviceId,
+  setDeviceId,
+  devices,
+}: {
+  deviceId?: string
+  setDeviceId: (deviceId: string) => void
+  devices: MediaDeviceInfo[]
+}) {
+  if (!devices?.length) {
+    return <Text align="center">No cameras detected</Text>
+  }
+
+  return (
+    <Select
+      placeholder="Select Camera"
+      onChange={(event) => {
+        setDeviceId(event.currentTarget.value)
+      }}
+      value={deviceId}
+    >
+      {devices.map(({ deviceId, label }) => (
+        <option value={deviceId} key={deviceId}>
+          {label}
+        </option>
+      ))}
+    </Select>
+  )
+}
 
 export default function BarcodeScanner({
   onDetect,
   onError = () => {},
-  deviceId,
-  ...props
-}: {
-  onDetect: (value: string) => void
-  onError?: (err: unknown) => void
-  deviceId?: string
-} & Pick<WebcamProps, 'videoConstraints' | 'style' | 'className'>) {
-  const webcamRef = useRef<Webcam | null>(null)
+  ...flexProps
+}: Pick<BarcodeCameraProps, 'onDetect' | 'onError'> & FlexProps) {
+  const [deviceId, setDeviceId] = useState<undefined | string>(undefined)
+  const { devices } = useMediaDevices()
 
-  const barcodeDetector = useMemo(() => new BarcodeDetector(), [])
+  return (
+    <Flex {...flexProps} direction="column" gap={2}>
+      <BarcodeCameraView
+        onDetect={onDetect}
+        onError={onError}
+        deviceId={deviceId}
+      />
 
-  useInterval(async () => {
-    if (!webcamRef.current) {
-      return
-    }
-
-    const imageBase64 = webcamRef.current.getScreenshot()
-    const image = new Image()
-    image.src = `data:image/jpeg;base64,${imageBase64}`
-
-    try {
-      const results = await barcodeDetector.detect(image)
-      if (results.length === 0) {
-        return
-      }
-
-      const { rawValue } = results[0]
-      onDetect(rawValue)
-    } catch (e) {
-      console.warn('Error detected while trying to get barcode', e)
-      onError(e)
-    }
-  }, 1000 / 3)
-
-  return <Webcam {...props} ref={webcamRef} screenshotFormat="image/jpeg" />
+      <DeviceSelector
+        deviceId={deviceId}
+        setDeviceId={setDeviceId}
+        devices={devices ?? []}
+      />
+    </Flex>
+  )
 }
