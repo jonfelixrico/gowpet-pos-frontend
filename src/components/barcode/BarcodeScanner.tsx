@@ -88,12 +88,7 @@ function useDeviceId(): [string | undefined, (value: string) => void] {
   ]
 }
 
-export default function BarcodeScanner({
-  onDetect,
-  onError = () => {},
-  ...flexProps
-}: Pick<BarcodeCameraProps, 'onDetect' | 'onError'> & FlexProps) {
-  const [deviceId, setDeviceId] = useDeviceId()
+function useDevices() {
   const { devices, loading } = useMediaDevices({
     constraints: {
       video: true,
@@ -108,6 +103,7 @@ export default function BarcodeScanner({
     return devices.filter(({ deviceId }) => !!deviceId)
   }, [devices])
 
+  const [deviceId, setDeviceId] = useDeviceId()
   const safeDeviceId = useMemo(() => {
     if (devices && devices.some((val) => deviceId === val.deviceId)) {
       return deviceId
@@ -116,19 +112,35 @@ export default function BarcodeScanner({
     return undefined
   }, [deviceId, devices])
 
+  return {
+    devices: filteredDevices,
+    selectedDeviceId: safeDeviceId,
+    setSelectedDeviceId: setDeviceId,
+    loading,
+  }
+}
+
+export default function BarcodeScanner({
+  onDetect,
+  onError = () => {},
+  ...flexProps
+}: Pick<BarcodeCameraProps, 'onDetect' | 'onError'> & FlexProps) {
+  const { devices, loading, selectedDeviceId, setSelectedDeviceId } =
+    useDevices()
+
   return (
     <Flex {...flexProps} direction="column" gap={2}>
       <BarcodeCameraView
         onDetect={onDetect}
         onError={onError}
-        deviceId={safeDeviceId}
+        deviceId={selectedDeviceId}
         flex={1}
       />
 
       <DeviceSelector
-        deviceId={safeDeviceId}
-        setDeviceId={setDeviceId}
-        devices={filteredDevices}
+        deviceId={selectedDeviceId}
+        setDeviceId={setSelectedDeviceId}
+        devices={devices}
         isLoading={loading}
       />
     </Flex>
