@@ -16,8 +16,6 @@ import {
   ModalProps,
   useDisclosure,
 } from '@chakra-ui/react'
-import If from '../common/If'
-import { useZxing } from 'react-zxing'
 import { useRef, useState } from 'react'
 
 function BarcodeScannerModal({
@@ -30,23 +28,13 @@ function BarcodeScannerModal({
 }) {
   const [result, setResult] = useState('')
 
-  const { ref } = useZxing({
-    onDecodeResult(result) {
-      setResult(result.getText())
-    },
-  })
-
   return (
     <Modal {...props} isOpen={isOpen} onClose={onClose}>
       <ModalOverlay />
       <ModalContent>
         <ModalHeader>Barcode/QR Scanner</ModalHeader>
         <ModalCloseButton />
-        <ModalBody>
-          <If condition={isOpen}>
-            <video ref={ref} />
-          </If>
-        </ModalBody>
+        <ModalBody></ModalBody>
 
         <ModalFooter>
           <Button variant="ghost" mr={3} onClick={onClose}>
@@ -56,7 +44,7 @@ function BarcodeScannerModal({
           <Button
             colorScheme="blue"
             onClick={() => onScan(result)}
-            isDisabled={!!result}
+            isDisabled={!result}
           >
             Submit
           </Button>
