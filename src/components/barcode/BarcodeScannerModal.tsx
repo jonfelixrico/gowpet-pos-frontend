@@ -10,7 +10,6 @@ import {
   ModalBody,
   ModalCloseButton,
   ModalContent,
-  ModalFooter,
   ModalHeader,
   ModalOverlay,
   ModalProps,
@@ -116,12 +115,6 @@ export default function BarcodeScannerModal({
             <Content onSubmit={handleSubmit} />
           </If>
         </ModalBody>
-
-        <ModalFooter>
-          <Button variant="ghost" mr={3} onClick={onClose}>
-            Close
-          </Button>
-        </ModalFooter>
       </ModalContent>
     </Modal>
   )
