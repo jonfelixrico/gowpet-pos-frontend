@@ -40,7 +40,7 @@ function BarcodeScannerModal({
         <ModalHeader>Barcode/QR Scanner</ModalHeader>
         <ModalCloseButton />
         <ModalBody>
-          <BarcodeScanner onDetect={onBarcodeDetect} />
+          <BarcodeScanner onDetect={onBarcodeDetect} height="50dvh" />
         </ModalBody>
 
         <ModalFooter>
