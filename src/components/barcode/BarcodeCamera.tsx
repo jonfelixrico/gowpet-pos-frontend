@@ -54,13 +54,13 @@ function BarcodeBoundingBox({
   barcodeData: { cornerPoints },
   width,
   height,
-  strokeWidth = 1,
-  stroke = 'green',
+  color,
 }: {
   barcodeData: DetectedBarcode
   width: number
   height: number
-} & Pick<SVGAttributes<SVGPolylineElement>, 'stroke' | 'strokeWidth'>) {
+  color: string
+}) {
   const points = useMemo(
     () =>
       cornerPoints
@@ -73,9 +73,10 @@ function BarcodeBoundingBox({
     <svg width={width} height={height}>
       <polyline
         points={points}
-        fill="transparent"
-        stroke={stroke}
-        strokeWidth={strokeWidth}
+        fill={color}
+        fillOpacity={0.38}
+        strokeWidth={1}
+        stroke={color}
       />
     </svg>
   )
@@ -121,7 +122,7 @@ export default function BarcodeCamera({
               barcodeData={detected}
               height={height}
               width={width}
-              stroke={index === 0 ? 'red' : 'green'}
+              color={index === 0 ? 'red' : 'gray'}
             />
           </Box>
         )
