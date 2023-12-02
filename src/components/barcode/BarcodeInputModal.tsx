@@ -1,7 +1,9 @@
 'use client'
 
 import {
+  Box,
   Button,
+  Flex,
   Modal,
   ModalBody,
   ModalCloseButton,
@@ -11,35 +13,78 @@ import {
   ModalOverlay,
   ModalProps,
 } from '@chakra-ui/react'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import BarcodeScanner from './BarcodeScanner'
 import { DetectionResults } from './BarcodeCamera'
 import If from '@/components/common/If'
+import Image from 'next/image'
+import BarcodeBoundingBox from './BarcodeBoundingBox'
 
 type Detected = Omit<DetectionResults, 'barcodes'> & {
   barcode: DetectedBarcode
 }
 
-export default function BarcodeInputModal({
-  isOpen,
-  onClose,
-  onScan,
-  ...props
-}: Omit<ModalProps, 'children'> & {
-  onScan: (code: string) => void
-}) {
+function Content({ onSubmit }: { onSubmit: (value: string) => void }) {
   const [result, setResult] = useState<Detected>()
 
-  function onBarcodeDetect({ barcodes, ...others }: DetectionResults) {
+  function processDetected({ barcodes, ...others }: DetectionResults) {
     setResult({
       ...others,
       barcode: barcodes[0],
     })
   }
 
-  useEffect(() => {
+  function handleSubmit() {
+    if (!result) {
+      return
+    }
+
+    onSubmit(result.barcode.rawValue)
+  }
+
+  function handleDiscard() {
     setResult(undefined)
-  }, [isOpen])
+  }
+
+  if (!result) {
+    return <BarcodeScanner onDetect={processDetected} height="50dvh" />
+  }
+
+  const { barcode, image, ...dimensions } = result
+  return (
+    <Flex direction="column">
+      <Box>
+        <Box width="fit-content" height="fit-content" position="relative">
+          <Box width="fit-content" height="fit-content" position="absolute">
+            <BarcodeBoundingBox {...result} color="green" />
+          </Box>
+
+          <Image src={image} alt="Detected barcode" {...dimensions} />
+        </Box>
+      </Box>
+
+      <Button colorScheme="blue" onClick={handleSubmit}>
+        Submit
+      </Button>
+      <Button colorScheme="red" onClick={handleDiscard}>
+        Discard
+      </Button>
+    </Flex>
+  )
+}
+
+export default function BarcodeInputModal({
+  isOpen,
+  onClose,
+  onSubmit,
+  ...props
+}: Omit<ModalProps, 'children'> & {
+  onSubmit: (code: string) => void
+}) {
+  function handleSubmit(code: string) {
+    onSubmit(code)
+    onClose()
+  }
 
   return (
     <Modal {...props} isOpen={isOpen} onClose={onClose} scrollBehavior="inside">
@@ -49,21 +94,13 @@ export default function BarcodeInputModal({
         <ModalCloseButton />
         <ModalBody>
           <If condition={isOpen}>
-            <BarcodeScanner onDetect={onBarcodeDetect} height="50dvh" />
+            <Content onSubmit={handleSubmit} />
           </If>
         </ModalBody>
 
         <ModalFooter>
           <Button variant="ghost" mr={3} onClick={onClose}>
             Close
-          </Button>
-
-          <Button
-            colorScheme="blue"
-            onClick={() => onScan(result?.barcode.rawValue as string)}
-            isDisabled={!result}
-          >
-            Submit
           </Button>
         </ModalFooter>
       </ModalContent>
