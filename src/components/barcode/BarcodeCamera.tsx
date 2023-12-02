@@ -1,4 +1,4 @@
-import { useMemo, useRef, useState } from 'react'
+import { SVGAttributes, useMemo, useRef, useState } from 'react'
 import Webcam, { WebcamProps } from 'react-webcam'
 import { useInterval, useMeasure } from 'react-use'
 import { BarcodeDetector } from 'barcode-detector'
@@ -43,10 +43,41 @@ function BaseBarcodeCamera({
     } catch (e) {
       onError(e)
     }
-  }, 1000 / 3)
+  }, 1000 / 5)
 
   return (
     <Webcam {...webcamProps} ref={webcamRef} screenshotFormat="image/jpeg" />
+  )
+}
+
+function BarcodeBoundingBox({
+  barcodeData: { cornerPoints },
+  width,
+  height,
+  strokeWidth = 1,
+  stroke = 'green',
+}: {
+  barcodeData: DetectedBarcode
+  width: number
+  height: number
+} & Pick<SVGAttributes<SVGPolylineElement>, 'stroke' | 'strokeWidth'>) {
+  const points = useMemo(
+    () =>
+      cornerPoints
+        .concat(cornerPoints[0]) // this is to complete the rect
+        .map(({ x, y }) => `${x}, ${y}`)
+        .join(' '),
+    [cornerPoints]
+  )
+  return (
+    <svg width={width} height={height}>
+      <polyline
+        points={points}
+        fill="transparent"
+        stroke={stroke}
+        strokeWidth={strokeWidth}
+      />
+    </svg>
   )
 }
 
@@ -78,9 +109,23 @@ export default function BarcodeCamera({
       height="fit-content"
       position="relative"
     >
-      <Box position="absolute" height="full" width="full">
-        Test
-      </Box>
+      {detectedBarcodes.map((detected, index) => {
+        return (
+          <Box
+            key={detected.rawValue}
+            position="absolute"
+            width={`${width}px`}
+            height={`${height}px`}
+          >
+            <BarcodeBoundingBox
+              barcodeData={detected}
+              height={height}
+              width={width}
+              stroke={index === 0 ? 'red' : 'green'}
+            />
+          </Box>
+        )
+      })}
       <BaseBarcodeCamera {...props} onDetect={handleDetect} />
     </Box>
   )
