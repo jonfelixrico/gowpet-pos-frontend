@@ -78,10 +78,13 @@ export default function BarcodeScanner({
       audio: false,
     },
   })
-  const filteredDevices = useMemo(
-    () => devices?.filter(({ deviceId }) => !!deviceId) ?? [],
-    [devices]
-  )
+  const filteredDevices = useMemo(() => {
+    if (!devices) {
+      return []
+    }
+
+    return devices.filter(({ deviceId }) => !!deviceId)
+  }, [devices])
 
   return (
     <Flex {...flexProps} direction="column" gap={2}>
