@@ -37,5 +37,14 @@ export default function BarcodeScanner({
     }
   }, 1000 / 3)
 
-  return <Webcam ref={webcamRef} screenshotFormat="image/jpeg" />
+  return (
+    <Webcam
+      ref={webcamRef}
+      screenshotFormat="image/jpeg"
+      style={{
+        width: '100%',
+        height: '50dvh',
+      }}
+    />
+  )
 }
