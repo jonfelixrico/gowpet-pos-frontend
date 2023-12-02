@@ -5,13 +5,13 @@ import { BarcodeDetector } from 'barcode-detector'
 import { Box, Button, Flex } from '@chakra-ui/react'
 import { uniqBy } from 'lodash'
 
-export interface DetectionResults {
+interface BaseDetectionResults {
   barcodes: DetectedBarcode[]
   image: string
 }
 
 type BaseBarcodeCameraProps = Partial<WebcamProps> & {
-  onDetect: (value: DetectionResults | null) => void
+  onDetect: (value: BaseDetectionResults | null) => void
   onError?: (err: unknown) => void
 }
 
@@ -101,6 +101,11 @@ function BarcodeBoundingBox({
   )
 }
 
+export type DetectionResults = BaseDetectionResults & {
+  width: number
+  height: number
+}
+
 export type BarcodeCameraProps = Pick<
   WebcamProps,
   'videoConstraints' | 'style' | 'className'
@@ -119,14 +124,18 @@ export default function BarcodeCamera({
   )
   const [mirrored, setMirorred] = useState(false)
 
-  function handleDetect(result: DetectionResults | null) {
+  function handleDetect(result: BaseDetectionResults | null) {
     if (!result) {
       setDetectedBarcodes([])
       return
     }
 
     setDetectedBarcodes(result.barcodes)
-    onDetect(result)
+    onDetect({
+      ...result,
+      width,
+      height,
+    })
   }
 
   return (
