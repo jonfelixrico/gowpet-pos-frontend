@@ -28,9 +28,13 @@ export default function BarcodeCamera({
       return
     }
 
-    const imageBase64 = webcamRef.current.getScreenshot()
+    const imageUrl = webcamRef.current.getScreenshot()
+    if (!imageUrl) {
+      return
+    }
+
     const image = new Image()
-    image.src = `data:image/jpeg;base64,${imageBase64}`
+    image.src = imageUrl
 
     try {
       const results = await barcodeDetector.detect(image)
