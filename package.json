@@ -18,7 +18,7 @@
     "@chakra-ui/react": "^2.8.1",
     "@emotion/react": "^11.11.1",
     "@emotion/styled": "^11.11.0",
-    "@zxing/library": "^0.20.0",
+    "barcode-detector": "^2.1.4",
     "formik": "^2.4.5",
     "framer-motion": "^10.16.4",
     "html-to-image": "^1.11.11",
