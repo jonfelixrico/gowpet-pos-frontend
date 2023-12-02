@@ -91,7 +91,7 @@ export default function BarcodeScanner({
       <DeviceSelector
         deviceId={deviceId}
         setDeviceId={setDeviceId}
-        devices={devices ?? []}
+        devices={devices?.filter(({ deviceId }) => !!deviceId) ?? []}
       />
     </Flex>
   )
