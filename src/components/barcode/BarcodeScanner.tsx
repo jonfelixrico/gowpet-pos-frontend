@@ -1,6 +1,6 @@
 import { Center, Flex, FlexProps, Select, Text } from '@chakra-ui/react'
 import BarcodeCamera, { BarcodeCameraProps } from './BarcodeCamera'
-import { useState } from 'react'
+import { useMemo, useState } from 'react'
 import { useMediaDevices } from 'react-media-devices'
 
 function BarcodeCameraView({
@@ -78,6 +78,10 @@ export default function BarcodeScanner({
       audio: false,
     },
   })
+  const filteredDevices = useMemo(
+    () => devices?.filter(({ deviceId }) => !!deviceId) ?? [],
+    [devices]
+  )
 
   return (
     <Flex {...flexProps} direction="column" gap={2}>
@@ -91,7 +95,7 @@ export default function BarcodeScanner({
       <DeviceSelector
         deviceId={deviceId}
         setDeviceId={setDeviceId}
-        devices={devices?.filter(({ deviceId }) => !!deviceId) ?? []}
+        devices={filteredDevices}
       />
     </Flex>
   )
