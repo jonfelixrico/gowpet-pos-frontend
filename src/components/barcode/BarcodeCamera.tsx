@@ -16,20 +16,16 @@ type BaseBarcodeCameraProps = Partial<WebcamProps> & {
   onError?: (err: unknown) => void
 }
 
+const BARCODE_DETECTOR = new BarcodeDetector({
+  formats: ['qr_code', 'upc_a', 'upc_e', 'ean_13', 'ean_8'],
+})
+
 function BaseBarcodeCamera({
   onDetect,
   onError = () => {},
   ...webcamProps
 }: BaseBarcodeCameraProps) {
   const webcamRef = useRef<Webcam | null>(null)
-
-  const barcodeDetector = useMemo(
-    () =>
-      new BarcodeDetector({
-        formats: ['qr_code', 'upc_a', 'upc_e', 'ean_13', 'ean_8'],
-      }),
-    []
-  )
 
   useInterval(async () => {
     if (!webcamRef.current) {
@@ -45,7 +41,7 @@ function BaseBarcodeCamera({
     image.src = imageUrl
 
     try {
-      const results = await barcodeDetector.detect(image)
+      const results = await BARCODE_DETECTOR.detect(image)
       onDetect(
         results.length
           ? {
