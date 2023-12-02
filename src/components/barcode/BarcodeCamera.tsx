@@ -2,7 +2,8 @@ import { SVGAttributes, useMemo, useRef, useState } from 'react'
 import Webcam, { WebcamProps } from 'react-webcam'
 import { useInterval, useMeasure } from 'react-use'
 import { BarcodeDetector } from 'barcode-detector'
-import { Box } from '@chakra-ui/react'
+import { Box, Button, Flex } from '@chakra-ui/react'
+import { uniqBy } from 'lodash'
 
 type BaseBarcodeCameraProps = Partial<WebcamProps> & {
   onDetect: (value: DetectedBarcode[]) => void
@@ -95,11 +96,13 @@ export default function BarcodeCamera({
   const [detectedBarcodes, setDetectedBarcodes] = useState<DetectedBarcode[]>(
     []
   )
+  const [mirrored, setMirorred] = useState(false)
 
   function handleDetect(barcodes: DetectedBarcode[]) {
-    setDetectedBarcodes(barcodes)
-    if (barcodes.length) {
-      onDetect(barcodes[0].rawValue)
+    const postProcessed = uniqBy(barcodes, ({ rawValue }) => rawValue)
+    setDetectedBarcodes(postProcessed)
+    if (postProcessed.length) {
+      onDetect(postProcessed[0].rawValue)
     }
   }
 
@@ -110,6 +113,20 @@ export default function BarcodeCamera({
       height="fit-content"
       position="relative"
     >
+      <Flex
+        width="full"
+        height="full"
+        justify="end"
+        align="start"
+        position="absolute"
+        padding={1}
+        zIndex={detectedBarcodes.length + 1}
+      >
+        <Button size="xs" onClick={() => setMirorred((mirrored) => !mirrored)}>
+          Flip Camera
+        </Button>
+      </Flex>
+
       {detectedBarcodes.map((detected, index) => {
         return (
           <Box
@@ -127,7 +144,11 @@ export default function BarcodeCamera({
           </Box>
         )
       })}
-      <BaseBarcodeCamera {...props} onDetect={handleDetect} />
+      <BaseBarcodeCamera
+        {...props}
+        onDetect={handleDetect}
+        mirrored={mirrored}
+      />
     </Box>
   )
 }
