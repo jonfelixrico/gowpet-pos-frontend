@@ -17,6 +17,7 @@ import {
   useDisclosure,
 } from '@chakra-ui/react'
 import { useRef, useState } from 'react'
+import BarcodeScanner from './BarcodeScanner'
 
 function BarcodeScannerModal({
   isOpen,
@@ -28,13 +29,19 @@ function BarcodeScannerModal({
 }) {
   const [result, setResult] = useState('')
 
+  function onBarcodeDetect(value: string) {
+    console.log(value)
+  }
+
   return (
     <Modal {...props} isOpen={isOpen} onClose={onClose}>
       <ModalOverlay />
       <ModalContent>
         <ModalHeader>Barcode/QR Scanner</ModalHeader>
         <ModalCloseButton />
-        <ModalBody></ModalBody>
+        <ModalBody>
+          <BarcodeScanner onDetect={onBarcodeDetect} />
+        </ModalBody>
 
         <ModalFooter>
           <Button variant="ghost" mr={3} onClick={onClose}>

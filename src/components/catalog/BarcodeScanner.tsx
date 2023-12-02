@@ -5,10 +5,10 @@ import { BarcodeDetector } from 'barcode-detector'
 
 export default function BarcodeScanner({
   onDetect,
-  onError,
+  onError = () => {},
 }: {
   onDetect: (value: string) => void
-  onError: (err: unknown) => void
+  onError?: (err: unknown) => void
 }) {
   const webcamRef = useRef<Webcam | null>(null)
 
