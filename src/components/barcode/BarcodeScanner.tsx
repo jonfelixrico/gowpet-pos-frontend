@@ -86,6 +86,7 @@ export default function BarcodeScanner({
         onDetect={onDetect}
         onError={onError}
         deviceId={deviceId}
+        flex={1}
       />
 
       <DeviceSelector
