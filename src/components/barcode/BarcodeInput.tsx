@@ -19,6 +19,7 @@ import {
 import { useRef, useState } from 'react'
 import BarcodeScanner from './BarcodeScanner'
 import { DetectionResults } from './BarcodeCamera'
+import If from '@/components/common/If'
 
 function BarcodeScannerModal({
   isOpen,
@@ -42,7 +43,9 @@ function BarcodeScannerModal({
         <ModalHeader>Barcode/QR Scanner</ModalHeader>
         <ModalCloseButton />
         <ModalBody>
-          <BarcodeScanner onDetect={onBarcodeDetect} height="50dvh" />
+          <If condition={isOpen}>
+            <BarcodeScanner onDetect={onBarcodeDetect} height="50dvh" />
+          </If>
         </ModalBody>
 
         <ModalFooter>
