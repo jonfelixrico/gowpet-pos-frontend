@@ -1,12 +1,17 @@
-import { SVGAttributes, useMemo, useRef, useState } from 'react'
+import { useMemo, useRef, useState } from 'react'
 import Webcam, { WebcamProps } from 'react-webcam'
 import { useInterval, useMeasure } from 'react-use'
 import { BarcodeDetector } from 'barcode-detector'
 import { Box, Button, Flex } from '@chakra-ui/react'
 import { uniqBy } from 'lodash'
 
+export interface DetectionResults {
+  barcodes: DetectedBarcode[]
+  image: string
+}
+
 type BaseBarcodeCameraProps = Partial<WebcamProps> & {
-  onDetect: (value: DetectedBarcode[]) => void
+  onDetect: (value: DetectionResults | null) => void
   onError?: (err: unknown) => void
 }
 
@@ -40,7 +45,14 @@ function BaseBarcodeCamera({
 
     try {
       const results = await barcodeDetector.detect(image)
-      onDetect(results)
+      onDetect(
+        results.length
+          ? {
+              barcodes: uniqBy(results, ({ rawValue }) => rawValue),
+              image: imageUrl,
+            }
+          : null
+      )
     } catch (e) {
       onError(e)
     }
@@ -89,10 +101,13 @@ function BarcodeBoundingBox({
   )
 }
 
-export type BarcodeCameraProps = {
-  onDetect: (value: string) => void
+export type BarcodeCameraProps = Pick<
+  WebcamProps,
+  'videoConstraints' | 'style' | 'className'
+> & {
+  onDetect: (value: DetectionResults) => void
   onError?: (err: unknown) => void
-} & Pick<WebcamProps, 'videoConstraints' | 'style' | 'className'>
+}
 
 export default function BarcodeCamera({
   onDetect,
@@ -104,12 +119,14 @@ export default function BarcodeCamera({
   )
   const [mirrored, setMirorred] = useState(false)
 
-  function handleDetect(barcodes: DetectedBarcode[]) {
-    const postProcessed = uniqBy(barcodes, ({ rawValue }) => rawValue)
-    setDetectedBarcodes(postProcessed)
-    if (postProcessed.length) {
-      onDetect(postProcessed[0].rawValue)
+  function handleDetect(result: DetectionResults | null) {
+    if (!result) {
+      setDetectedBarcodes([])
+      return
     }
+
+    setDetectedBarcodes(result.barcodes)
+    onDetect(result)
   }
 
   return (

@@ -18,6 +18,7 @@ import {
 } from '@chakra-ui/react'
 import { useRef, useState } from 'react'
 import BarcodeScanner from './BarcodeScanner'
+import { DetectionResults } from './BarcodeCamera'
 
 function BarcodeScannerModal({
   isOpen,
@@ -29,8 +30,9 @@ function BarcodeScannerModal({
 }) {
   const [result, setResult] = useState('')
 
-  function onBarcodeDetect(value: string) {
-    setResult(value)
+  function onBarcodeDetect({ barcodes, image }: DetectionResults) {
+    const { rawValue } = barcodes[0]
+    setResult(rawValue)
   }
 
   return (
