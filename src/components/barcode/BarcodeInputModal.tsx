@@ -11,7 +11,7 @@ import {
   ModalOverlay,
   ModalProps,
 } from '@chakra-ui/react'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import BarcodeScanner from './BarcodeScanner'
 import { DetectionResults } from './BarcodeCamera'
 import If from '@/components/common/If'
@@ -36,6 +36,10 @@ export default function BarcodeInputModal({
       barcode: barcodes[0],
     })
   }
+
+  useEffect(() => {
+    setResult(undefined)
+  }, [isOpen])
 
   return (
     <Modal {...props} isOpen={isOpen} onClose={onClose} scrollBehavior="inside">
