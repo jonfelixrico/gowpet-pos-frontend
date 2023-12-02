@@ -30,7 +30,7 @@ function BarcodeScannerModal({
   const [result, setResult] = useState('')
 
   function onBarcodeDetect(value: string) {
-    console.log(value)
+    setResult(value)
   }
 
   return (
