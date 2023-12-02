@@ -108,17 +108,25 @@ export default function BarcodeScanner({
     return devices.filter(({ deviceId }) => !!deviceId)
   }, [devices])
 
+  const safeDeviceId = useMemo(() => {
+    if (devices && devices.some((val) => deviceId === val.deviceId)) {
+      return deviceId
+    }
+
+    return undefined
+  }, [deviceId, devices])
+
   return (
     <Flex {...flexProps} direction="column" gap={2}>
       <BarcodeCameraView
         onDetect={onDetect}
         onError={onError}
-        deviceId={deviceId}
+        deviceId={safeDeviceId}
         flex={1}
       />
 
       <DeviceSelector
-        deviceId={deviceId}
+        deviceId={safeDeviceId}
         setDeviceId={setDeviceId}
         devices={filteredDevices}
         isLoading={loading}
