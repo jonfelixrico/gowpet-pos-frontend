@@ -33,6 +33,7 @@
     "react": "^18",
     "react-dom": "^18",
     "react-icons": "^4.11.0",
+    "react-media-devices": "^1.1.1",
     "react-thermal-printer": "^0.16.0",
     "react-use": "^17.4.2",
     "react-webcam": "^7.2.0",
