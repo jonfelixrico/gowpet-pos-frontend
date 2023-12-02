@@ -46,7 +46,7 @@ function DeviceSelector({
   devices: MediaDeviceInfo[]
 }) {
   if (!devices?.length) {
-    return <Text align="center">No cameras detected</Text>
+    return <Select isDisabled={true} placeholder="No cameras detected" />
   }
 
   return (
