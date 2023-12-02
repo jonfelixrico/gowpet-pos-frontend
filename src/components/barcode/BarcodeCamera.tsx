@@ -3,16 +3,16 @@ import Webcam, { WebcamProps } from 'react-webcam'
 import { useInterval } from 'react-use'
 import { BarcodeDetector } from 'barcode-detector'
 
+export type BarcodeCameraProps = {
+  onDetect: (value: string) => void
+  onError?: (err: unknown) => void
+} & Pick<WebcamProps, 'videoConstraints' | 'style' | 'className'>
+
 export default function BarcodeCamera({
   onDetect,
   onError = () => {},
-  deviceId,
   ...props
-}: {
-  onDetect: (value: string) => void
-  onError?: (err: unknown) => void
-  deviceId?: string
-} & Pick<WebcamProps, 'videoConstraints' | 'style' | 'className'>) {
+}: BarcodeCameraProps) {
   const webcamRef = useRef<Webcam | null>(null)
 
   const barcodeDetector = useMemo(() => new BarcodeDetector(), [])
