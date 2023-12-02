@@ -20,7 +20,7 @@ function BaseBarcodeCamera({
   const barcodeDetector = useMemo(
     () =>
       new BarcodeDetector({
-        formats: ['qr_code', 'upc_a', 'upc_e'],
+        formats: ['qr_code', 'upc_a', 'upc_e', 'ean_13', 'ean_8'],
       }),
     []
   )
@@ -47,7 +47,13 @@ function BaseBarcodeCamera({
   }, 1000 / 5)
 
   return (
-    <Webcam {...webcamProps} ref={webcamRef} screenshotFormat="image/jpeg" />
+    <Webcam
+      {...webcamProps}
+      ref={webcamRef}
+      screenshotFormat="image/jpeg"
+      screenshotQuality={1}
+      imageSmoothing
+    />
   )
 }
 
