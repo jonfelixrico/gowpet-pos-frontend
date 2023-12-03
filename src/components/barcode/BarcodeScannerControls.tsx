@@ -1,41 +1,11 @@
-import { Center, Flex, FlexProps, Select, Text } from '@chakra-ui/react'
+'use client'
+
+import { Center, Flex, FlexProps, Select } from '@chakra-ui/react'
 import BarcodeCamera, { BarcodeCameraProps } from './BarcodeCamera'
-import { useMemo, useState } from 'react'
+import { useMemo } from 'react'
 import { useMediaDevices } from 'react-media-devices'
 import { useLocalStorage } from 'react-use'
-
-function CameraSection({
-  deviceId,
-  onDetect,
-  onError,
-  ...flexProps
-}: Pick<BarcodeCameraProps, 'onDetect' | 'onError'> & {
-  deviceId?: string
-} & FlexProps) {
-  if (!deviceId) {
-    return (
-      <Center as={Flex} {...flexProps}>
-        Please select a device
-      </Center>
-    )
-  }
-
-  return (
-    <Flex {...flexProps}>
-      <BarcodeCamera
-        onDetect={onDetect}
-        onError={onError}
-        videoConstraints={{
-          deviceId: deviceId as string,
-        }}
-        style={{
-          height: '100%',
-          width: '100%',
-        }}
-      />
-    </Flex>
-  )
-}
+import { If, Then, Else } from 'react-if'
 
 function DeviceSelect({
   deviceId,
@@ -114,6 +84,8 @@ export type BarcodeScannerProps = BarcodeCameraProps &
 export default function BarcodeScannerControls({
   onDetect,
   onError = () => {},
+  formats,
+  frequency,
   ...flexProps
 }: BarcodeScannerProps) {
   const { devices, loading, selectedDeviceId, setSelectedDeviceId } =
@@ -121,12 +93,27 @@ export default function BarcodeScannerControls({
 
   return (
     <Flex {...flexProps} direction="column" gap={2}>
-      <CameraSection
-        onDetect={onDetect}
-        onError={onError}
-        deviceId={selectedDeviceId}
-        flex={1}
-      />
+      <If condition={selectedDeviceId}>
+        <Then>
+          <BarcodeCamera
+            onDetect={onDetect}
+            onError={onError}
+            videoConstraints={{
+              deviceId: selectedDeviceId,
+            }}
+            style={{
+              height: '100%',
+              width: '100%',
+            }}
+            formats={formats}
+            frequency={frequency}
+          />
+        </Then>
+
+        <Else>
+          <Center flex={1}>Please select a device</Center>
+        </Else>
+      </If>
 
       <DeviceSelect
         deviceId={selectedDeviceId}
