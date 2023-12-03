@@ -2,10 +2,8 @@
 
 import { Center, Flex, FlexProps, Select } from '@chakra-ui/react'
 import BarcodeCamera, { BarcodeCameraProps } from './BarcodeCamera'
-import { useMemo } from 'react'
-import { useMediaDevices } from 'react-media-devices'
-import { useLocalStorage } from 'react-use'
 import { If, Then, Else } from 'react-if'
+import { useDeviceSelect } from './use-device-select'
 
 function DeviceSelect({
   deviceId,
@@ -43,41 +41,6 @@ function DeviceSelect({
   )
 }
 
-function useDevices() {
-  const { devices, loading } = useMediaDevices({
-    constraints: {
-      video: true,
-      audio: false,
-    },
-  })
-  const filteredDevices = useMemo(() => {
-    if (!devices) {
-      return []
-    }
-
-    return devices.filter(({ deviceId }) => !!deviceId)
-  }, [devices])
-
-  const [deviceId, setDeviceId] = useLocalStorage<string>(
-    'barcodeScannerDeviceId'
-  )
-
-  const safeDeviceId = useMemo(() => {
-    if (devices && devices.some((val) => deviceId === val.deviceId)) {
-      return deviceId
-    }
-
-    return undefined
-  }, [deviceId, devices])
-
-  return {
-    devices: filteredDevices,
-    selectedDeviceId: safeDeviceId,
-    setSelectedDeviceId: setDeviceId,
-    loading,
-  }
-}
-
 export type BarcodeScannerProps = BarcodeCameraProps &
   Omit<FlexProps, 'children'>
 
@@ -88,18 +51,17 @@ export default function BarcodeScannerControls({
   frequency,
   ...flexProps
 }: BarcodeScannerProps) {
-  const { devices, loading, selectedDeviceId, setSelectedDeviceId } =
-    useDevices()
+  const { devices, loading, selectedId, setSelectedId } = useDeviceSelect()
 
   return (
     <Flex {...flexProps} direction="column" gap={2}>
-      <If condition={selectedDeviceId}>
+      <If condition={selectedId}>
         <Then>
           <BarcodeCamera
             onDetect={onDetect}
             onError={onError}
             videoConstraints={{
-              deviceId: selectedDeviceId,
+              deviceId: selectedId,
             }}
             style={{
               height: '100%',
@@ -116,8 +78,8 @@ export default function BarcodeScannerControls({
       </If>
 
       <DeviceSelect
-        deviceId={selectedDeviceId}
-        setDeviceId={setSelectedDeviceId}
+        deviceId={selectedId}
+        setDeviceId={setSelectedId}
         devices={devices}
         isLoading={loading}
       />
