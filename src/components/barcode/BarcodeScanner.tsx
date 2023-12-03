@@ -52,33 +52,36 @@ function BaseBarcodeCamera({
     [formats]
   )
 
-  useInterval(async () => {
-    if (!webcamRef.current || isPaused) {
-      return
-    }
+  useInterval(
+    async () => {
+      if (!webcamRef.current || isPaused) {
+        return
+      }
 
-    const imageUrl = webcamRef.current.getScreenshot()
-    if (!imageUrl) {
-      return
-    }
+      const imageUrl = webcamRef.current.getScreenshot()
+      if (!imageUrl) {
+        return
+      }
 
-    const image = new Image()
-    image.src = imageUrl
+      const image = new Image()
+      image.src = imageUrl
 
-    try {
-      const results = await barcodeDetector.detect(image)
-      onDetect(
-        results.length
-          ? {
-              barcodes: uniqBy(results, ({ rawValue }) => rawValue),
-              image: imageUrl,
-            }
-          : null
-      )
-    } catch (e) {
-      onError(e)
-    }
-  }, frequency)
+      try {
+        const results = await barcodeDetector.detect(image)
+        onDetect(
+          results.length
+            ? {
+                barcodes: uniqBy(results, ({ rawValue }) => rawValue),
+                image: imageUrl,
+              }
+            : null
+        )
+      } catch (e) {
+        onError(e)
+      }
+    },
+    isPaused ? null : frequency
+  )
 
   return (
     <Webcam
