@@ -9,7 +9,7 @@ import {
   InputRightElement,
   useDisclosure,
 } from '@chakra-ui/react'
-import { useEffect, useRef, useState } from 'react'
+import { useRef } from 'react'
 import BarcodeScannerModal from './BarcodeScannerModal'
 import { BsUpcScan } from 'react-icons/bs'
 import { Else, If, Then } from 'react-if'
