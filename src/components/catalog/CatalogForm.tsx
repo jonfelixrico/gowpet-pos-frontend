@@ -19,8 +19,8 @@ import CatalogUpcInput from './CatalogUpcInput'
 import { Else, If, Then } from 'react-if'
 import { ChangeEventHandler, useMemo } from 'react'
 import { BaseCatalogItem } from '@/types/catalog/CatalogItem'
-import { CatalogFormFields } from '@/types/catalog/CatalogFormFields'
 
+export type CatalogFormFields = Omit<BaseCatalogItem, 'type'>
 export type CatalogFormSubmitFn = (value: CatalogFormFields) => Promise<void>
 
 function BarcodeTypeField({
