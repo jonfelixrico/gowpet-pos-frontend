@@ -23,28 +23,20 @@ export default function BarcodeScannerControls({
     <Flex {...flexProps} direction="column" gap={2}>
       <If condition={selectedId}>
         <Then>
-          <If condition={!isPaused}>
-            <Then>
-              <BarcodeScanner
-                onDetect={onDetect}
-                onError={onError}
-                videoConstraints={{
-                  deviceId: selectedId,
-                }}
-                style={{
-                  height: '100%',
-                  width: '100%',
-                }}
-                formats={formats}
-                frequency={frequency}
-                isPaused={isPaused}
-              />
-            </Then>
-
-            <Else>
-              <Center flex={1}>Camera paused</Center>
-            </Else>
-          </If>
+          <BarcodeScanner
+            onDetect={onDetect}
+            onError={onError}
+            videoConstraints={{
+              deviceId: selectedId,
+            }}
+            style={{
+              height: '100%',
+              width: '100%',
+            }}
+            formats={formats}
+            frequency={frequency}
+            isPaused={isPaused}
+          />
         </Then>
 
         <Else>
