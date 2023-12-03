@@ -3,7 +3,6 @@
 import {
   Box,
   Button,
-  Center,
   Code,
   Flex,
   Modal,
@@ -13,7 +12,6 @@ import {
   ModalHeader,
   ModalOverlay,
   ModalProps,
-  Text,
 } from '@chakra-ui/react'
 import { useState } from 'react'
 import BarcodeScannerControls from '../barcode/BarcodeScannerControls'
