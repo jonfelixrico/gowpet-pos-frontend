@@ -3,8 +3,8 @@
 import { Center, Flex, FlexProps } from '@chakra-ui/react'
 import BarcodeScanner, { BarcodeCameraProps } from './BarcodeScanner'
 import { If, Then, Else } from 'react-if'
-import { useCameraSelect } from '../camera/use-camera-select'
-import CameraSelect from '../camera/CameraSelect'
+import { useCameraSelect } from '@/components/camera/use-camera-select'
+import CameraSelect from '@/components/camera/CameraSelect'
 
 export type BarcodeScannerProps = BarcodeCameraProps &
   Omit<FlexProps, 'children'>
