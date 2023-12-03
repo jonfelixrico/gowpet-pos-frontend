@@ -81,6 +81,13 @@ function Content({ onSubmit }: { onSubmit: (value: string) => void }) {
 
   return (
     <>
+      {/*
+        The camera only shows if there are no scanned results yet.
+
+        We only want to visually hide, not unrender. If we unrendered and need to show
+        the camera again, there is a sort of a gap before the camera gets shown again
+        because of the overhead. This is a bad UX.
+      */}
       <Box aria-hidden={!!result} display={result ? 'none' : undefined}>
         <BarcodeScannerControls
           onDetect={processDetected}
