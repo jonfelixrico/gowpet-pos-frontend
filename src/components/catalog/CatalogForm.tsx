@@ -17,20 +17,46 @@ import {
 import { Field, FieldProps, Form, Formik } from 'formik'
 import CatalogUpcInput from './CatalogUpcInput'
 import { Else, If, Then } from 'react-if'
+import { ChangeEventHandler } from 'react'
 
 export interface CatalogFormFields {
   name: string
   price: number
   code?: string
+  codeType?: 'UPC' | 'CUSTOM'
 }
 export type CatalogFormSubmitFn = (value: CatalogFormFields) => Promise<void>
+
+function BarcodeTypeField({
+  fieldProps: { field, form },
+}: {
+  fieldProps: FieldProps
+}) {
+  const { onChange, ...otherField } = field
+
+  const handleChange: ChangeEventHandler<HTMLSelectElement> = (evt) => {
+    onChange(evt)
+    form.setFieldValue('code', '')
+  }
+
+  return (
+    <FormControl data-cy="code-type" flex={0.5}>
+      <FormLabel>Barcode type</FormLabel>
+      <Select {...otherField} onChange={handleChange}>
+        <option value="UPC">Scan Product (UPC)</option>
+        <option value="CUSTOM">Customized</option>
+      </Select>
+    </FormControl>
+  )
+}
 
 export default function CatalogForm({
   onSubmit,
   initialValues = {
     name: '',
     price: 0,
-    code: 'UPC',
+    code: '',
+    codeType: 'UPC',
   },
 }: {
   onSubmit: CatalogFormSubmitFn
@@ -116,14 +142,8 @@ export default function CatalogForm({
               </Field>
 
               <Field name="codeType">
-                {({ field, form }: FieldProps) => (
-                  <FormControl data-cy="code-type" flex={0.5}>
-                    <FormLabel>Barcode type</FormLabel>
-                    <Select {...field}>
-                      <option value="UPC">Scan Product (UPC)</option>
-                      <option value="CUSTOM">Customized</option>
-                    </Select>
-                  </FormControl>
+                {(fieldProps: FieldProps) => (
+                  <BarcodeTypeField fieldProps={fieldProps} />
                 )}
               </Field>
             </Flex>
