@@ -124,7 +124,7 @@ export type BarcodeScannerProps = Pick<
   BarcodeCameraProps,
   'onDetect' | 'onError'
 > &
-  FlexProps
+  Omit<FlexProps, 'children'>
 
 export default function BarcodeScanner({
   onDetect,
