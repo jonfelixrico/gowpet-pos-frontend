@@ -37,7 +37,7 @@ function CameraSection({
   )
 }
 
-function DeviceSelectSection({
+function DeviceSelect({
   deviceId,
   setDeviceId,
   devices,
@@ -128,7 +128,7 @@ export default function BarcodeScannerControls({
         flex={1}
       />
 
-      <DeviceSelectSection
+      <DeviceSelect
         deviceId={selectedDeviceId}
         setDeviceId={setSelectedDeviceId}
         devices={devices}
