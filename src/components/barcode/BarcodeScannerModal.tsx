@@ -53,7 +53,7 @@ function ResultPreview(result: Detected) {
 }
 
 const BEEP = new Howl({
-  src: '/barcode.wav',
+  src: '/barcode-scan.wav',
 })
 
 function Content({ onSubmit }: { onSubmit: (value: string) => void }) {
