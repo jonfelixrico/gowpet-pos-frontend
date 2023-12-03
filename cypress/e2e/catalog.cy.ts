@@ -18,7 +18,11 @@ describe('catalog', () => {
     cy.dataCy('code')
       .should('have.attr', 'data-type', 'CUSTOM')
       .find('input')
-      .type('create-test-code')
+      /*
+       * We're adding Date.now for uniqueness since if this step was ran multiple times
+       * with the same DB, we'll get errors because of the unique constraint.
+       */
+      .type(`create-test-code-${Date.now()}`)
 
     cy.get('[data-cy="submit"]').click()
 
@@ -55,7 +59,11 @@ describe('catalog', () => {
         cy.dataCy('code')
           .should('have.attr', 'data-type', 'CUSTOM')
           .find('input')
-          .type('update-test-code')
+          /*
+           * We're adding Date.now for uniqueness since if this step was ran multiple times
+           * with the same DB, we'll get errors because of the unique constraint.
+           */
+          .type(`update-test-code-${Date.now()}`)
 
         cy.get('[data-cy="submit"]').click()
 
