@@ -1,12 +1,15 @@
 import { CatalogItem } from '@/types/CatalogItem'
-import { Card, CardBody, Flex, Heading, Text } from '@chakra-ui/react'
+import { Box, Card, CardBody, Flex, Heading, Text } from '@chakra-ui/react'
+import { QRCodeSVG } from 'qrcode.react'
+import { Else, If, Then } from 'react-if'
+import Barcode from '@/client-wrapped/Barcode'
 
 export default function CatalogDetailsCard({
   catalogItem,
 }: {
   catalogItem: CatalogItem
 }) {
-  const { name, price } = catalogItem
+  const { name, price, code, codeType } = catalogItem
   return (
     <Card>
       <CardBody>
@@ -22,6 +25,22 @@ export default function CatalogDetailsCard({
             </Heading>
             <Text data-cy="price">{price}</Text>
           </Flex>
+
+          <If condition={code}>
+            <Then>
+              <Box>
+                <If condition={codeType === 'CUSTOM'}>
+                  <Then>
+                    <QRCodeSVG value={code as string} />
+                  </Then>
+
+                  <Else>
+                    <Barcode value={code as string} />
+                  </Else>
+                </If>
+              </Box>
+            </Then>
+          </If>
         </Flex>
       </CardBody>
     </Card>
