@@ -7,13 +7,16 @@ import { useCameraSelect } from '../camera/use-camera-select'
 import CameraSelect from '../camera/CameraSelect'
 
 export type BarcodeScannerProps = BarcodeCameraProps &
-  Omit<FlexProps, 'children'>
+  Omit<FlexProps, 'children'> & {
+    isPaused?: boolean
+  }
 
 export default function BarcodeScannerControls({
   onDetect,
   onError = () => {},
   formats,
   frequency,
+  isPaused,
   ...flexProps
 }: BarcodeScannerProps) {
   const { cameras, loading, selectedId, setSelectedId } = useCameraSelect()
@@ -22,19 +25,27 @@ export default function BarcodeScannerControls({
     <Flex {...flexProps} direction="column" gap={2}>
       <If condition={selectedId}>
         <Then>
-          <BarcodeScanner
-            onDetect={onDetect}
-            onError={onError}
-            videoConstraints={{
-              deviceId: selectedId,
-            }}
-            style={{
-              height: '100%',
-              width: '100%',
-            }}
-            formats={formats}
-            frequency={frequency}
-          />
+          <If condition={!isPaused}>
+            <Then>
+              <BarcodeScanner
+                onDetect={onDetect}
+                onError={onError}
+                videoConstraints={{
+                  deviceId: selectedId,
+                }}
+                style={{
+                  height: '100%',
+                  width: '100%',
+                }}
+                formats={formats}
+                frequency={frequency}
+              />
+            </Then>
+
+            <Else>
+              <Center flex={1}>Camera paused</Center>
+            </Else>
+          </If>
         </Then>
 
         <Else>
