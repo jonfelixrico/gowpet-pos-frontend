@@ -17,7 +17,7 @@ import {
 import { Field, FieldProps, Form, Formik } from 'formik'
 import CatalogUpcInput from './CatalogUpcInput'
 import { Else, If, Then } from 'react-if'
-import { ChangeEventHandler } from 'react'
+import { ChangeEventHandler, useMemo } from 'react'
 
 export interface CatalogFormFields {
   name: string
@@ -73,8 +73,17 @@ export default function CatalogForm({
     }
   }
 
+  const processedInitVals: CatalogFormFields = useMemo(() => {
+    const { code, codeType, ...others } = initialValues
+    return {
+      ...others,
+      code,
+      codeType: codeType ?? 'UPC',
+    }
+  }, [initialValues])
+
   return (
-    <Formik initialValues={initialValues} onSubmit={handleSubmit}>
+    <Formik initialValues={processedInitVals} onSubmit={handleSubmit}>
       {(props) => (
         <Form data-cy="form">
           <Flex direction="column" alignItems="stretch" gap={2}>
