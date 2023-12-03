@@ -52,7 +52,7 @@ function ResultPreview(result: Detected) {
   )
 }
 
-const BEEP = new Howl({
+const BARCODE_SCAN_BEEP = new Howl({
   src: '/barcode-scan.wav',
 })
 
@@ -60,7 +60,7 @@ function Content({ onSubmit }: { onSubmit: (value: string) => void }) {
   const [result, setResult] = useState<Detected>()
 
   function processDetected({ barcodes, ...others }: DetectionResults) {
-    BEEP.play()
+    BARCODE_SCAN_BEEP.play()
     setResult({
       ...others,
       barcode: barcodes[0],
