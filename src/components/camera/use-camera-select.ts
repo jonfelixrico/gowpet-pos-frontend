@@ -2,7 +2,7 @@ import { useMemo } from 'react'
 import { useMediaDevices } from 'react-media-devices'
 import { useLocalStorage } from 'react-use'
 
-export function useCameraSelect() {
+export function useCameraSelect(options?: { localStorageKey?: string }) {
   const { devices, loading } = useMediaDevices({
     constraints: {
       video: true,
@@ -18,7 +18,7 @@ export function useCameraSelect() {
   }, [devices])
 
   const [deviceId, setDeviceId] = useLocalStorage<string>(
-    'barcodeScannerDeviceId'
+    options?.localStorageKey ?? 'cameraId'
   )
 
   const safeDeviceId = useMemo(() => {
