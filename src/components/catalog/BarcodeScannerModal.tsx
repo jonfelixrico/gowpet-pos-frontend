@@ -83,6 +83,7 @@ function Content({ onSubmit }: { onSubmit: (value: string) => void }) {
           onDetect={processDetected}
           height="50dvh"
           isPaused={!!result}
+          formats={['ean_13', 'ean_8', 'itf', 'upc_a', 'upc_e']}
         />
       </Box>
 
