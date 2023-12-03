@@ -1,10 +1,12 @@
 import { CatalogItem } from '@/types/CatalogItem'
 import { apiFetchData } from '@/server-utils/resource-api-util'
-import CatalogEditForm from './CatalogEditForm'
 import { Card, CardBody } from '@chakra-ui/react'
-import { CatalogFormFields } from '@/components/catalog/CatalogForm'
-import { redirect } from 'next/navigation'
+import { notFound, redirect } from 'next/navigation'
 import DetailsLayoutWithTitle from '@/components/common/DetailsLayoutWithTitle'
+import CatalogForm, {
+  CatalogFormFields,
+} from '@/components/catalog/CatalogForm'
+import { FetchError } from '@/utils/fetch-utils'
 
 interface Params {
   catalogId: string
@@ -15,7 +17,17 @@ export const dynamic = 'force-dynamic'
 export default async function CatalogEdit({ params }: { params: Params }) {
   const url = `/catalog/product/${params.catalogId}`
 
-  const { data } = await apiFetchData<CatalogItem>(url)
+  let catalogItem: CatalogItem
+  try {
+    const { data } = await apiFetchData<CatalogItem>(url)
+    catalogItem = data
+  } catch (e) {
+    if (e instanceof FetchError && e.response.status === 404) {
+      notFound()
+    }
+
+    throw e
+  }
 
   async function uploadChanges(value: CatalogFormFields) {
     'use server'
@@ -38,11 +50,7 @@ export default async function CatalogEdit({ params }: { params: Params }) {
     >
       <Card>
         <CardBody>
-          <CatalogEditForm
-            id={data.id}
-            initialValues={data}
-            onSubmit={uploadChanges}
-          />
+          <CatalogForm onSubmit={uploadChanges} initialValues={catalogItem} />
         </CardBody>
       </Card>
     </DetailsLayoutWithTitle>

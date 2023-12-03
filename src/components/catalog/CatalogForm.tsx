@@ -1,5 +1,8 @@
+'use client'
+
 import { FormikSubmit } from '@/types/formik'
 import {
+  Button,
   Flex,
   FormControl,
   FormLabel,
@@ -11,27 +14,34 @@ import {
   NumberInputStepper,
 } from '@chakra-ui/react'
 import { Field, FieldProps, Form, Formik } from 'formik'
-import { ReactNode } from 'react'
-
-interface Props {
-  handleSubmit: FormikSubmit<CatalogFormFields>
-  initialValues?: CatalogFormFields
-  children?: ReactNode
-}
 
 export interface CatalogFormFields {
   name: string
   price: number
 }
+export type CatalogFormSubmitFn = (value: CatalogFormFields) => Promise<void>
 
 export default function CatalogForm({
-  handleSubmit,
-  children,
+  onSubmit,
   initialValues = {
     name: '',
     price: 0,
   },
-}: Props) {
+}: {
+  onSubmit: CatalogFormSubmitFn
+  initialValues?: CatalogFormFields
+}) {
+  const handleSubmit: FormikSubmit<CatalogFormFields> = async (
+    values,
+    actions
+  ) => {
+    try {
+      await onSubmit(values)
+    } finally {
+      actions.setSubmitting(false)
+    }
+  }
+
   return (
     <Formik initialValues={initialValues} onSubmit={handleSubmit}>
       {(props) => (
@@ -41,13 +51,13 @@ export default function CatalogForm({
               {({ field, form }: FieldProps) => (
                 <FormControl
                   isInvalid={!!form.errors.name && !!form.touched.name}
+                  data-cy="name"
                 >
                   <FormLabel>Name</FormLabel>
                   <Input
                     {...field}
                     type="text"
                     placeholder="Type your product name here"
-                    data-cy="name"
                   />
                 </FormControl>
               )}
@@ -57,6 +67,7 @@ export default function CatalogForm({
               {({ field, form }: FieldProps) => (
                 <FormControl
                   isInvalid={!!form.errors.price && !!form.touched.price}
+                  data-cy="price"
                 >
                   <FormLabel>Unit Price</FormLabel>
                   <NumberInput
@@ -64,7 +75,6 @@ export default function CatalogForm({
                     min={0}
                     precision={2}
                     onChange={(val) => form.setFieldValue(field.name, val)}
-                    data-cy="price"
                   >
                     <NumberInputField />
                     <NumberInputStepper>
@@ -76,7 +86,14 @@ export default function CatalogForm({
               )}
             </Field>
 
-            {children}
+            <Button
+              type="submit"
+              colorScheme="blue"
+              data-cy="submit"
+              isLoading={props.isSubmitting}
+            >
+              Save
+            </Button>
           </Flex>
         </Form>
       )}
