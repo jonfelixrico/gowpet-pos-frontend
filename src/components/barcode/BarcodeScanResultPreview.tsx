@@ -20,6 +20,7 @@ export default function BarcodeScanResultPreview({
       height="fit-content"
       width="fit-content"
       aria-label="Image with detected barcode"
+      position="relative"
     >
       <Box width="fit-content" height="fit-content" position="absolute">
         <BarcodeBoundingBox
