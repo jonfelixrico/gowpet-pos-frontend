@@ -39,12 +39,7 @@ function ResultPreview(result: Detected) {
         />
       </Box>
 
-      <Center>
-        <Box>
-          <Text fontWeight="bold">Scanned:</Text>{' '}
-          <Code>{result.barcode.rawValue}</Code>
-        </Box>
-      </Center>
+      <Code display="inline">{result.barcode.rawValue}</Code>
     </Flex>
   )
 }
