@@ -65,6 +65,9 @@ dependencies:
   react-icons:
     specifier: ^4.11.0
     version: 4.11.0(react@18.2.0)
+  react-if:
+    specifier: ^4.1.5
+    version: 4.1.5(react@18.2.0)
   react-media-devices:
     specifier: ^1.1.1
     version: 1.1.1(react@18.2.0)
@@ -4455,6 +4458,15 @@ packages:
     resolution: {integrity: sha512-V+4khzYcE5EBk/BvcuYRq6V/osf11ODUM2J8hg2FDSswRrGvqiYUYPRy4OdrWaQOBj4NcpJfmHZLNaD+VH0TyA==}
     peerDependencies:
       react: '*'
+    dependencies:
+      react: 18.2.0
+    dev: false
+
+  /react-if@4.1.5(react@18.2.0):
+    resolution: {integrity: sha512-Uk+Ub2gC83PAakuU4+7iLdTEP4LPi2ihNEPCtz/vr8SLGbzkMApbpYbkDZ5z9zYXurd0gg+EK/bpOLFFC1r1eQ==}
+    engines: {node: '>=12'}
+    peerDependencies:
+      react: ^16.x || ^17.x || ^18.x
     dependencies:
       react: 18.2.0
     dev: false
