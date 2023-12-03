@@ -12,12 +12,12 @@ export default function BarcodeScannerDetectionPreview({
   width,
   height,
   barcodes,
-  persistTime = 1000,
+  persistTime = 500,
 }: {
   width: number
   height: number
   barcodes: DetectedBarcode[]
-  persistTime: number
+  persistTime?: number
 }) {
   const [lastDetect, setLastDetect] = useState<LastDetect>()
   const [now, setNow] = useState(Date.now())
