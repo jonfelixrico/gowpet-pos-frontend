@@ -7,12 +7,18 @@ import CatalogForm, {
 } from '@/components/catalog/CatalogForm'
 
 export default function CatalogCreate() {
-  async function create(values: CatalogFormFields) {
+  async function create({ code, codeType, ...others }: CatalogFormFields) {
     'use server'
+
+    const toSave = {
+      ...others,
+      code: code || null,
+      codeType: code ? codeType : null,
+    }
 
     await apiFetchData('/catalog/product', {
       method: 'POST',
-      body: JSON.stringify(values),
+      body: JSON.stringify(toSave),
       headers: {
         'Content-Type': 'application/json',
       },
