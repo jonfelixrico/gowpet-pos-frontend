@@ -127,14 +127,14 @@ export default function CatalogForm({
                 {({ field, form }: FieldProps) => (
                   <If condition={form.values['codeType'] === 'UPC'}>
                     <Then>
-                      <FormControl data-cy="code" flex={1}>
+                      <FormControl data-cy="code" data-type="upc" flex={1}>
                         <FormLabel>Barcode (UPC)</FormLabel>
                         <CatalogUpcInput {...field} />
                       </FormControl>
                     </Then>
 
                     <Else>
-                      <FormControl data-cy="code" flex={1}>
+                      <FormControl data-cy="code" flex={1} data-type="custom">
                         <FormLabel>Barcode (customized)</FormLabel>
                         <Input
                           {...field}
