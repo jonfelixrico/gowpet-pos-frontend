@@ -1,11 +1,12 @@
 import { CatalogItem } from '@/types/CatalogItem'
 import { apiFetch, apiFetchData } from '@/server-utils/resource-api-util'
-import { Button, Card, CardBody, Flex, Heading, Text } from '@chakra-ui/react'
+import { Button, Flex } from '@chakra-ui/react'
 import Link from 'next/link'
 import { notFound, redirect } from 'next/navigation'
 import CatalogDeleteButton from './CatalogDeleteButton'
 import { FetchError } from '@/utils/fetch-utils'
 import DetailsLayoutWithTitle from '@/components/common/DetailsLayoutWithTitle'
+import CatalogDetailsCard from './CatalogDetailsCard'
 
 interface Params {
   catalogId: string
@@ -53,23 +54,7 @@ export default async function CatalogDetails({ params }: { params: Params }) {
         </Flex>
       }
     >
-      <Card>
-        <CardBody>
-          <Flex direction="column" gap={2}>
-            <Flex gap={2}>
-              <Heading size="sx">Name:</Heading>
-              <Text data-cy="name">{data.name}</Text>
-            </Flex>
-
-            <Flex gap={2}>
-              <Heading size="sx" data-cy="price">
-                Price:
-              </Heading>
-              <Text data-cy="price">{data.price}</Text>
-            </Flex>
-          </Flex>
-        </CardBody>
-      </Card>
+      <CatalogDetailsCard catalogItem={data} />
     </DetailsLayoutWithTitle>
   )
 }
