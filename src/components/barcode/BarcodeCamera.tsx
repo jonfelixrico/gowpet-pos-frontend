@@ -15,12 +15,14 @@ type BaseBarcodeCameraProps = {
   onDetect: (value: BaseDetectionResults | null) => void
   onError?: (err: unknown) => void
   formats?: BarcodeDetectorOptions['formats']
+  frequency?: number
 }
 
 function BaseBarcodeCamera({
   onDetect,
   onError = () => {},
   formats = ['qr_code', 'upc_a', 'upc_e', 'ean_13', 'ean_8'],
+  frequency = 1000 / 4,
   ...webcamProps
 }: Partial<WebcamProps> & BaseBarcodeCameraProps) {
   const webcamRef = useRef<Webcam | null>(null)
@@ -59,7 +61,7 @@ function BaseBarcodeCamera({
     } catch (e) {
       onError(e)
     }
-  }, 1000 / 5)
+  }, frequency)
 
   return (
     <Webcam
