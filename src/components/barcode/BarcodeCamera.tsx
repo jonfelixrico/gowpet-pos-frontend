@@ -79,18 +79,15 @@ export type DetectionResults = BaseDetectionResults & {
   height: number
 }
 
-export type BarcodeCameraProps = Pick<
-  WebcamProps,
-  'videoConstraints' | 'style' | 'className'
-> &
-  Omit<BaseBarcodeCameraProps, 'onDetect'> & {
-    onDetect: (results: DetectionResults) => void
-  }
+export type BarcodeCameraProps = Omit<BaseBarcodeCameraProps, 'onDetect'> & {
+  onDetect: (results: DetectionResults) => void
+}
 
 export default function BarcodeCamera({
   onDetect,
   ...props
-}: BarcodeCameraProps) {
+}: Pick<WebcamProps, 'videoConstraints' | 'style' | 'className'> &
+  BarcodeCameraProps) {
   const [boxRef, { width, height }] = useMeasure<HTMLDivElement>()
   const [detectedBarcodes, setDetectedBarcodes] = useState<DetectedBarcode[]>(
     []
