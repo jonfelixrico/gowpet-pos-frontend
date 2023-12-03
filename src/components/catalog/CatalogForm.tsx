@@ -91,10 +91,16 @@ export default function CatalogForm({
 
             <Field name="code">
               {({ field, form }: FieldProps) => (
-                <FormControl
-                  isInvalid={!!form.errors.price && !!form.touched.price}
-                  data-cy="code"
-                >
+                <FormControl data-cy="code">
+                  <FormLabel>Barcode</FormLabel>
+                  <CatalogUpcInput {...field} />
+                </FormControl>
+              )}
+            </Field>
+
+            <Field name="codeType">
+              {({ field, form }: FieldProps) => (
+                <FormControl data-cy="code-type">
                   <FormLabel>Barcode</FormLabel>
                   <CatalogUpcInput {...field} />
                 </FormControl>
