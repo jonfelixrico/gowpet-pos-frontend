@@ -11,14 +11,17 @@ export default function BarcodeBoundingBox({
   height: number
   color: string
 }) {
-  const points = useMemo(
-    () =>
-      cornerPoints
-        .concat(cornerPoints[0]) // this is to complete the rect
-        .map(({ x, y }) => `${x}, ${y}`)
-        .join(' '),
-    [cornerPoints]
-  )
+  const points = useMemo(() => {
+    /*
+      Using just `cornerPoints` will render a rectangle with a missing side since the points
+      just form an "unsealed" rectangle.
+
+      We need to append the first point to "seal" the shape.
+    */
+    const rectPoints = [...cornerPoints, cornerPoints[0]]
+
+    return rectPoints.map(({ x, y }) => `${x}, ${y}`).join(' ')
+  }, [cornerPoints])
 
   return (
     <svg width={width} height={height}>
