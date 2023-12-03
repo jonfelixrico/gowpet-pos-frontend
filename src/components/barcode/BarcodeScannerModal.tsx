@@ -16,7 +16,7 @@ import {
   Text,
 } from '@chakra-ui/react'
 import { useState } from 'react'
-import BarcodeScanner from './BarcodeScanner'
+import BarcodeScannerControls from './BarcodeScannerControls'
 import { DetectionResults } from './BarcodeCamera'
 import If from '@/components/common/If'
 import Image from 'next/image'
@@ -80,7 +80,7 @@ function Content({ onSubmit }: { onSubmit: (value: string) => void }) {
   }
 
   if (!result) {
-    return <BarcodeScanner onDetect={processDetected} height="50dvh" />
+    return <BarcodeScannerControls onDetect={processDetected} height="50dvh" />
   }
 
   return (

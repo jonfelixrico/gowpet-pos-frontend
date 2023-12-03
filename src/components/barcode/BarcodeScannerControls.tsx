@@ -4,7 +4,7 @@ import { useMemo, useState } from 'react'
 import { useMediaDevices } from 'react-media-devices'
 import { useLocalStorage } from 'react-use'
 
-function BarcodeCameraView({
+function CameraSection({
   deviceId,
   onDetect,
   onError,
@@ -37,7 +37,7 @@ function BarcodeCameraView({
   )
 }
 
-function DeviceSelector({
+function DeviceSelectSection({
   deviceId,
   setDeviceId,
   devices,
@@ -126,7 +126,7 @@ export type BarcodeScannerProps = Pick<
 > &
   Omit<FlexProps, 'children'>
 
-export default function BarcodeScanner({
+export default function BarcodeScannerControls({
   onDetect,
   onError = () => {},
   ...flexProps
@@ -136,14 +136,14 @@ export default function BarcodeScanner({
 
   return (
     <Flex {...flexProps} direction="column" gap={2}>
-      <BarcodeCameraView
+      <CameraSection
         onDetect={onDetect}
         onError={onError}
         deviceId={selectedDeviceId}
         flex={1}
       />
 
-      <DeviceSelector
+      <DeviceSelectSection
         deviceId={selectedDeviceId}
         setDeviceId={setSelectedDeviceId}
         devices={devices}
