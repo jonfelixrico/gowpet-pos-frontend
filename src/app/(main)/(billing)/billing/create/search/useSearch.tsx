@@ -1,4 +1,4 @@
-import { CatalogItem } from '@/types/CatalogItem'
+import { CatalogItem } from '@/types/catalog/CatalogItem'
 import { useState } from 'react'
 import { fetchData } from '@/utils/fetch-utils'
 import qs from 'query-string'

@@ -1,5 +1,5 @@
 import CatalogItemTable from '@/app/(main)/(catalog-list)/catalog/CatalogItemTable'
-import { CatalogItem } from '@/types/CatalogItem'
+import { CatalogItem } from '@/types/catalog/CatalogItem'
 import { ChakraProvider } from '@chakra-ui/react'
 
 describe('CatalogItemTable', () => {

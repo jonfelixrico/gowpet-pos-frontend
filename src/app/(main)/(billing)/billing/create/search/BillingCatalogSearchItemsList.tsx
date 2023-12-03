@@ -1,5 +1,5 @@
 import { Billing } from '@/types/Billing'
-import { CatalogItem } from '@/types/CatalogItem'
+import { CatalogItem } from '@/types/catalog/CatalogItem'
 import { DataAttributes } from '@/types/DataAttributes'
 import { EMPTY_FN } from '@/utils/misc-utills'
 import { Box, Button, Flex, Text } from '@chakra-ui/react'
