@@ -5,7 +5,7 @@ import { BarcodeDetector } from 'barcode-detector'
 import { Box, Button, Flex } from '@chakra-ui/react'
 import { uniqBy } from 'lodash'
 import BarcodeBoundingBox from './BarcodeBoundingBox'
-import BarcodeScannerDetectionPreview from './BarcodeScannerDetectionPreview'
+import BarcodeScannerRealTimePreview from './BarcodeScannerRealTimePreview'
 
 interface BaseDetectionResults {
   barcodes: DetectedBarcode[]
@@ -133,7 +133,7 @@ export default function BarcodeScanner({
 
       {/* This part is to show the detected barcodes in the camera */}
       <Box position="absolute" width="full" height="full">
-        <BarcodeScannerDetectionPreview
+        <BarcodeScannerRealTimePreview
           width={width}
           height={height}
           barcodes={detectedBarcodes}

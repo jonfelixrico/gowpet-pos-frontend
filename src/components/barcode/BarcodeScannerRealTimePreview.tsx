@@ -8,7 +8,7 @@ interface LastDetect {
   barcodes: DetectedBarcode[]
 }
 
-export default function BarcodeScannerDetectionPreview({
+export default function BarcodeScannerRealTimePreview({
   width,
   height,
   barcodes,
