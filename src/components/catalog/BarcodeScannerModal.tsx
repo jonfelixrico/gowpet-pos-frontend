@@ -79,21 +79,31 @@ function Content({ onSubmit }: { onSubmit: (value: string) => void }) {
     setResult(undefined)
   }
 
-  if (!result) {
-    return <BarcodeScannerControls onDetect={processDetected} height="50dvh" />
-  }
-
   return (
-    <Flex direction="column" gap={2}>
-      <ResultPreview {...result} />
+    <>
+      <Box aria-hidden={!!result} display={result ? 'none' : undefined}>
+        <BarcodeScannerControls
+          onDetect={processDetected}
+          height="50dvh"
+          isPaused={!!result}
+        />
+      </Box>
 
-      <Button colorScheme="blue" onClick={handleSubmit}>
-        Submit
-      </Button>
-      <Button colorScheme="red" onClick={handleDiscard}>
-        Discard
-      </Button>
-    </Flex>
+      <If condition={!!result}>
+        <Then>
+          <Flex direction="column" gap={2}>
+            <ResultPreview {...(result as Detected)} />
+
+            <Button colorScheme="blue" onClick={handleSubmit}>
+              Submit
+            </Button>
+            <Button colorScheme="red" onClick={handleDiscard}>
+              Discard
+            </Button>
+          </Flex>
+        </Then>
+      </If>
+    </>
   )
 }
 
