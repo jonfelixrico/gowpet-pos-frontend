@@ -31,8 +31,10 @@ export default function BarcodeInput(props: InputProps) {
   return (
     <InputGroup>
       <Input {...props} ref={ref} />
-      <InputRightElement>
-        <Button onClick={onOpen}>Use Scanner</Button>
+      <InputRightElement width="fit-content" padding={1}>
+        <Button onClick={onOpen} size="sm">
+          Use Scanner
+        </Button>
 
         <BarcodeScannerModal
           isOpen={isOpen}
