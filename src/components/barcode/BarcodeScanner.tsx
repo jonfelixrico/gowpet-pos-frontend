@@ -16,6 +16,7 @@ type BaseBarcodeCameraProps = {
   onError?: (err: unknown) => void
   formats?: BarcodeDetectorOptions['formats']
   frequency?: number
+  isPaused?: boolean
 }
 
 function BaseBarcodeCamera({
@@ -23,6 +24,7 @@ function BaseBarcodeCamera({
   onError = () => {},
   formats = ['qr_code', 'upc_a', 'upc_e', 'ean_13', 'ean_8'],
   frequency = 100,
+  isPaused,
   ...webcamProps
 }: Partial<WebcamProps> & BaseBarcodeCameraProps) {
   const webcamRef = useRef<Webcam | null>(null)
@@ -36,7 +38,7 @@ function BaseBarcodeCamera({
   )
 
   useInterval(async () => {
-    if (!webcamRef.current) {
+    if (!webcamRef.current || isPaused) {
       return
     }
 

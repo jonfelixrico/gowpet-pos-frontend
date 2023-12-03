@@ -7,9 +7,7 @@ import { useCameraSelect } from '../camera/use-camera-select'
 import CameraSelect from '../camera/CameraSelect'
 
 export type BarcodeScannerProps = BarcodeCameraProps &
-  Omit<FlexProps, 'children'> & {
-    isPaused?: boolean
-  }
+  Omit<FlexProps, 'children'>
 
 export default function BarcodeScannerControls({
   onDetect,
@@ -39,6 +37,7 @@ export default function BarcodeScannerControls({
                 }}
                 formats={formats}
                 frequency={frequency}
+                isPaused={isPaused}
               />
             </Then>
 
