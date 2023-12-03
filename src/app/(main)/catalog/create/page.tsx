@@ -13,7 +13,7 @@ export default function CatalogCreate() {
     const toSave = {
       ...others,
       code: code || null,
-      codeType: code ? code : null,
+      codeType: code ? codeType : null,
     }
 
     await apiFetchData('/catalog/product', {

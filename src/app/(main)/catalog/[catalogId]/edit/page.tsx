@@ -39,7 +39,7 @@ export default async function CatalogEdit({ params }: { params: Params }) {
     const toSave = {
       ...others,
       code: code || null,
-      codeType: code ? code : null,
+      codeType: code ? codeType : null,
     }
 
     await apiFetchData(url, {
