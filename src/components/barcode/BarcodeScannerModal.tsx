@@ -18,10 +18,10 @@ import {
 import { useState } from 'react'
 import BarcodeScannerControls from './BarcodeScannerControls'
 import { DetectionResults } from './BarcodeCamera'
-import If from '@/components/common/If'
 import Image from 'next/image'
 import BarcodeBoundingBox from './BarcodeBoundingBox'
 import { Howl } from 'howler'
+import { If, Then } from 'react-if'
 
 type Detected = Omit<DetectionResults, 'barcodes'> & {
   barcode: DetectedBarcode
@@ -118,7 +118,9 @@ export default function BarcodeScannerModal({
         <ModalCloseButton />
         <ModalBody>
           <If condition={isOpen}>
-            <Content onSubmit={handleSubmit} />
+            <Then>
+              <Content onSubmit={handleSubmit} />
+            </Then>
           </If>
         </ModalBody>
       </ModalContent>
