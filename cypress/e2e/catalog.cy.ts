@@ -43,6 +43,13 @@ describe('catalog', () => {
 
         cy.get('[data-cy="name"] input').clear().type(newName)
         cy.get('[data-cy="price"] input').clear().type(newPrice)
+
+        cy.dataCy('code-type').find('select').select('CUSTOM')
+        cy.dataCy('code')
+          .should('have.attr', 'data-type', 'CUSTOM')
+          .find('input')
+          .type('test-code')
+
         cy.get('[data-cy="submit"]').click()
 
         cy.location('pathname').should('equal', `/catalog/${id}`)
