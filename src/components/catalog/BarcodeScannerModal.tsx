@@ -17,7 +17,7 @@ import {
 } from '@chakra-ui/react'
 import { useState } from 'react'
 import BarcodeScannerControls from '../barcode/BarcodeScannerControls'
-import { DetectionResults } from '../barcode/BarcodeCamera'
+import { DetectionResults } from '../barcode/BarcodeScanner'
 import Image from 'next/image'
 import BarcodeBoundingBox from '../barcode/BarcodeBoundingBox'
 import { Howl } from 'howler'

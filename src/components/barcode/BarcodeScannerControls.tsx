@@ -1,7 +1,7 @@
 'use client'
 
 import { Center, Flex, FlexProps } from '@chakra-ui/react'
-import BarcodeCamera, { BarcodeCameraProps } from './BarcodeCamera'
+import BarcodeScanner, { BarcodeCameraProps } from './BarcodeScanner'
 import { If, Then, Else } from 'react-if'
 import { useCameraSelect } from '../camera/use-camera-select'
 import CameraSelect from '../camera/CameraSelect'
@@ -22,7 +22,7 @@ export default function BarcodeScannerControls({
     <Flex {...flexProps} direction="column" gap={2}>
       <If condition={selectedId}>
         <Then>
-          <BarcodeCamera
+          <BarcodeScanner
             onDetect={onDetect}
             onError={onError}
             videoConstraints={{

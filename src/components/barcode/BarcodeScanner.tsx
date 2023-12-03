@@ -83,7 +83,7 @@ export type BarcodeCameraProps = Omit<BaseBarcodeCameraProps, 'onDetect'> & {
   onDetect: (results: DetectionResults) => void
 }
 
-export default function BarcodeCamera({
+export default function BarcodeScanner({
   onDetect,
   ...props
 }: Pick<WebcamProps, 'videoConstraints' | 'style' | 'className'> &
@@ -129,6 +129,7 @@ export default function BarcodeCamera({
         </Button>
       </Flex>
 
+      {/* This part is to show the detected barcodes in the camera */}
       {detectedBarcodes.map((barcode, index) => {
         return (
           <Box
