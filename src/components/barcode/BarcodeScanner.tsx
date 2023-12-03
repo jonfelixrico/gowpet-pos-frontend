@@ -4,7 +4,6 @@ import { useInterval, useMeasure } from 'react-use'
 import { BarcodeDetector } from 'barcode-detector'
 import { Box, Button, Flex } from '@chakra-ui/react'
 import { uniqBy } from 'lodash'
-import BarcodeBoundingBox from './BarcodeBoundingBox'
 import BarcodeScannerRealTimePreview from './BarcodeScannerRealTimePreview'
 
 interface BaseDetectionResults {
