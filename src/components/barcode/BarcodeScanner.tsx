@@ -131,23 +131,14 @@ export default function BarcodeScanner({
       </Flex>
 
       {/* This part is to show the detected barcodes in the camera */}
-      {detectedBarcodes.map((barcode, index) => {
-        return (
-          <Box
-            key={barcode.rawValue}
-            position="absolute"
-            width={`${width}px`}
-            height={`${height}px`}
-          >
-            <BarcodeBoundingBox
-              barcode={barcode}
-              height={height}
-              width={width}
-              color={index === 0 ? 'red' : 'gray'}
-            />
-          </Box>
-        )
-      })}
+      <Box position="absolute" width="full" height="full">
+        <BarcodeScannerDetectionPreview
+          width={width}
+          height={height}
+          barcodes={detectedBarcodes}
+        />
+      </Box>
+
       <BaseBarcodeCamera
         {...props}
         onDetect={handleDetect}
