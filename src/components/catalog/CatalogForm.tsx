@@ -19,6 +19,7 @@ import BarcodeInput from './BarcodeInput'
 export interface CatalogFormFields {
   name: string
   price: number
+  code?: string
 }
 export type CatalogFormSubmitFn = (value: CatalogFormFields) => Promise<void>
 
@@ -27,6 +28,7 @@ export default function CatalogForm({
   initialValues = {
     name: '',
     price: 0,
+    code: '',
   },
 }: {
   onSubmit: CatalogFormSubmitFn
@@ -87,7 +89,17 @@ export default function CatalogForm({
               )}
             </Field>
 
-            <BarcodeInput />
+            <Field name="code">
+              {({ field, form }: FieldProps) => (
+                <FormControl
+                  isInvalid={!!form.errors.price && !!form.touched.price}
+                  data-cy="code"
+                >
+                  <FormLabel>Barcode</FormLabel>
+                  <BarcodeInput {...field} />
+                </FormControl>
+              )}
+            </Field>
 
             <Button
               type="submit"
