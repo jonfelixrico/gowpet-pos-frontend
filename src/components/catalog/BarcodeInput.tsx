@@ -2,44 +2,76 @@
 
 import {
   Button,
+  IconButton,
   Input,
   InputGroup,
   InputProps,
   InputRightElement,
   useDisclosure,
 } from '@chakra-ui/react'
-import { useRef } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import BarcodeScannerModal from './BarcodeScannerModal'
+import { BsUpcScan } from 'react-icons/bs'
+import { Else, If, Then } from 'react-if'
 
-export default function BarcodeInput(props: InputProps) {
+export default function BarcodeInput({
+  value: inputValue,
+  ...props
+}: InputProps) {
+  const [innerValue, setInnerValue] = useState(String(inputValue ?? ''))
+  useEffect(() => {
+    setInnerValue(String(inputValue ?? ''))
+  }, [inputValue])
+
   const { isOpen, onOpen, onClose } = useDisclosure()
 
   const ref = useRef<HTMLInputElement | null>(null)
-
-  function propagateAsChangeEvent(code: string) {
+  function setValue(code: string) {
     const el = ref.current
     if (!el) {
-      // TODO remove this
-      console.debug('el not found')
       return
     }
 
     el.value = code
     el.dispatchEvent(new Event('change'))
+    setInnerValue(code)
+  }
+
+  function handleInputClick() {
+    if (!innerValue) {
+      onOpen()
+    }
   }
 
   return (
     <InputGroup>
-      <Input {...props} ref={ref} />
-      <InputRightElement width="fit-content" padding={1}>
-        <Button onClick={onOpen} size="sm">
-          Use Scanner
-        </Button>
+      <Input
+        {...props}
+        value={innerValue}
+        ref={ref}
+        isReadOnly
+        placeholder="Click to scan"
+        onClick={handleInputClick}
+      />
+      <InputRightElement padding={1} width="fit-content">
+        <If condition={!!innerValue}>
+          <Then>
+            <Button size="sm" onClick={() => setValue('')}>
+              Clear
+            </Button>
+          </Then>
+
+          <Else>
+            <IconButton onClick={onOpen} size="sm" aria-label="Scan barcode">
+              <BsUpcScan />
+            </IconButton>
+          </Else>
+        </If>
 
         <BarcodeScannerModal
           isOpen={isOpen}
           onClose={onClose}
-          onSubmit={propagateAsChangeEvent}
+          onSubmit={setValue}
         />
       </InputRightElement>
     </InputGroup>
