@@ -10,12 +10,12 @@ import {
   useDisclosure,
 } from '@chakra-ui/react'
 import { useRef } from 'react'
-import BarcodeScannerModal from './BarcodeScannerModal'
+import CatalogUpcInputScanModal from './CatalogUpcInputScanModal'
 import { BsUpcScan } from 'react-icons/bs'
 import { Else, If, Then } from 'react-if'
 import { makeInputEmitInputEvent } from '@/utils/react-utils'
 
-export default function BarcodeInput(props: InputProps) {
+export default function CatalogUpcInput(props: InputProps) {
   const { value } = props
   const { isOpen, onOpen, onClose } = useDisclosure()
 
@@ -59,7 +59,7 @@ export default function BarcodeInput(props: InputProps) {
           </Else>
         </If>
 
-        <BarcodeScannerModal
+        <CatalogUpcInputScanModal
           isOpen={isOpen}
           onClose={onClose}
           onSubmit={setValue}

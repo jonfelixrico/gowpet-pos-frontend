@@ -105,7 +105,7 @@ function Content({ onSubmit }: { onSubmit: (value: string) => void }) {
   )
 }
 
-export default function BarcodeScannerModal({
+export default function CatalogUpcInputScanModal({
   isOpen,
   onClose,
   onSubmit,
