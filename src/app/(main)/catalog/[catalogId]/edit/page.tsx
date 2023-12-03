@@ -29,15 +29,25 @@ export default async function CatalogEdit({ params }: { params: Params }) {
     throw e
   }
 
-  async function uploadChanges(value: CatalogFormFields) {
+  async function uploadChanges({
+    code,
+    codeType,
+    ...others
+  }: CatalogFormFields) {
     'use server'
+
+    const toSave = {
+      ...others,
+      code: code || null,
+      codeType: code ? code : null,
+    }
 
     await apiFetchData(url, {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify(value),
+      body: JSON.stringify(toSave),
     })
 
     redirect(`/catalog/${params.catalogId}`)
