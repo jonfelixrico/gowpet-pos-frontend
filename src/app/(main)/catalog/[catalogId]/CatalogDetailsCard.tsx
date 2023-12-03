@@ -35,7 +35,7 @@ export default function CatalogDetailsCard({
                   </Then>
 
                   <Else>
-                    <Barcode value={code as string} />
+                    <Barcode displayValue={false} value={code as string} />
                   </Else>
                 </If>
               </Box>
