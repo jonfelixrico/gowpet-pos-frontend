@@ -11,24 +11,26 @@ interface BaseDetectionResults {
   image: string
 }
 
-type BaseBarcodeCameraProps = Partial<WebcamProps> & {
+type BaseBarcodeCameraProps = {
   onDetect: (value: BaseDetectionResults | null) => void
   onError?: (err: unknown) => void
+  formats?: BarcodeDetectorOptions['formats']
 }
 
 function BaseBarcodeCamera({
   onDetect,
   onError = () => {},
+  formats = ['qr_code', 'upc_a', 'upc_e', 'ean_13', 'ean_8'],
   ...webcamProps
-}: BaseBarcodeCameraProps) {
+}: Partial<WebcamProps> & BaseBarcodeCameraProps) {
   const webcamRef = useRef<Webcam | null>(null)
 
   const barcodeDetector = useMemo(
     () =>
       new BarcodeDetector({
-        formats: ['qr_code', 'upc_a', 'upc_e', 'ean_13', 'ean_8'],
+        formats,
       }),
-    []
+    [formats]
   )
 
   useInterval(async () => {
@@ -78,10 +80,10 @@ export type DetectionResults = BaseDetectionResults & {
 export type BarcodeCameraProps = Pick<
   WebcamProps,
   'videoConstraints' | 'style' | 'className'
-> & {
-  onDetect: (value: DetectionResults) => void
-  onError?: (err: unknown) => void
-}
+> &
+  Omit<BaseBarcodeCameraProps, 'onDetect'> & {
+    onDetect: (results: DetectionResults) => void
+  }
 
 export default function BarcodeCamera({
   onDetect,
