@@ -11,8 +11,8 @@ describe('catalog', () => {
 
     cy.location('pathname').should('equal', '/catalog/create')
     const name = `Test item ${Date.now()}`
-    cy.get('[data-cy="form"] [data-cy="name"]').type(name)
-    cy.get('[data-cy="form"] [data-cy="price"]').type('123.45')
+    cy.get('[data-cy="form"] [data-cy="name"] input').type(name)
+    cy.get('[data-cy="form"] [data-cy="price"] input').type('123.45')
     cy.get('[data-cy="submit"]').click()
 
     cy.location('pathname').should('equal', '/catalog')
@@ -41,8 +41,8 @@ describe('catalog', () => {
         const newName = `Test data ${Date.now()}`
         const newPrice = '2023.11'
 
-        cy.get('[data-cy="name"]').clear().type(newName)
-        cy.get('[data-cy="price"]').clear().type(newPrice)
+        cy.get('[data-cy="name"] input').clear().type(newName)
+        cy.get('[data-cy="price"] input').clear().type(newPrice)
         cy.get('[data-cy="submit"]').click()
 
         cy.location('pathname').should('equal', `/catalog/${id}`)
