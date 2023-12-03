@@ -9,7 +9,7 @@ describe('CatalogForm', () => {
     cy.dataCy('code-type').find('select').should('have.value', 'UPC')
 
     cy.dataCy('code').find('input').should('be.empty')
-    cy.dataCy('code').should('have.attr', 'data-type', 'upc')
+    cy.dataCy('code').should('have.attr', 'data-type', 'UPC')
   })
 
   it('supports the happy path', () => {
@@ -46,6 +46,25 @@ describe('CatalogForm', () => {
     cy.dataCy('price').find('input').should('have.value', 1234.0)
     cy.dataCy('code-type').find('select').should('have.value', 'UPC')
     cy.dataCy('code').find('input').should('have.value', '123456789012')
-    cy.dataCy('code').should('have.attr', 'data-type', 'upc')
+    cy.dataCy('code').should('have.attr', 'data-type', 'UPC')
+  })
+
+  it('supports code type changes', () => {
+    cy.mount(<CatalogForm onSubmit={() => Promise.resolve()} />)
+
+    // change from UPC to custom
+    cy.dataCy('code-type').find('select').select('CUSTOM')
+    cy.dataCy('code')
+      .should('have.attr', 'data-type', 'CUSTOM')
+      .find('input')
+      .should('be.empty')
+      .type('custom-code')
+
+    // change from custom to UPC
+    cy.dataCy('code-type').find('select').select('UPC')
+    cy.dataCy('code')
+      .should('have.attr', 'data-type', 'UPC')
+      .find('input')
+      .should('be.empty')
   })
 })
