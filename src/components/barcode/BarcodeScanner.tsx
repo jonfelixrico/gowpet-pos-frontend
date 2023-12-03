@@ -14,15 +14,30 @@ interface BaseDetectionResults {
 type BaseBarcodeCameraProps = {
   onDetect: (value: BaseDetectionResults | null) => void
   onError?: (err: unknown) => void
+
+  /**
+   * A list of formats that the scanner will only look for.
+   * Leaving this undefined will cause the scanner to look for all formats.
+   *
+   * Defining only the formats that you need can give performance benefits.
+   */
   formats?: BarcodeDetectorOptions['formats']
+
+  /**
+   * How frequent the camera will look for barcodes.
+   */
   frequency?: number
+
+  /**
+   * Pauses barcode detection. The camera will still be active, though.
+   */
   isPaused?: boolean
 }
 
 function BaseBarcodeCamera({
   onDetect,
   onError = () => {},
-  formats = ['qr_code', 'upc_a', 'upc_e', 'ean_13', 'ean_8'],
+  formats,
   frequency = 100,
   isPaused,
   ...webcamProps
