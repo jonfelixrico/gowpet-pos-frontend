@@ -48,7 +48,7 @@ describe('catalog', () => {
         cy.dataCy('code')
           .should('have.attr', 'data-type', 'CUSTOM')
           .find('input')
-          .type('test-code')
+          .type('update-test-code')
 
         cy.get('[data-cy="submit"]').click()
 
