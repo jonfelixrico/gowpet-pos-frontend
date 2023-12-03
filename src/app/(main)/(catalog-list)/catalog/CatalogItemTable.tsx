@@ -1,4 +1,4 @@
-import { CatalogItem } from '@/types/catalog/CatalogItem'
+import { CatalogItem } from '@/types/CatalogItem'
 import {
   Button,
   Flex,

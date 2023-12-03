@@ -1,4 +1,4 @@
-import { CatalogItem } from '@/types/catalog/CatalogItem'
+import { CatalogItem } from '@/types/CatalogItem'
 import { apiFetch, apiFetchData } from '@/server-utils/resource-api-util'
 import { Button, Card, CardBody, Flex, Heading, Text } from '@chakra-ui/react'
 import Link from 'next/link'

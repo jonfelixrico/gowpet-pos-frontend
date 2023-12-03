@@ -1,6 +1,6 @@
 import { apiFetchData } from '@/server-utils/resource-api-util'
 import BillingCreateContent from './BillingCreateContent'
-import { CatalogItem } from '@/types/catalog/CatalogItem'
+import { CatalogItem } from '@/types/CatalogItem'
 import { Billing } from '@/types/Billing'
 import { redirect } from 'next/navigation'
 

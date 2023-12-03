@@ -1,5 +1,5 @@
 import { apiFetchData } from '@/server-utils/resource-api-util'
-import { CatalogItem } from '@/types/catalog/CatalogItem'
+import { CatalogItem } from '@/types/CatalogItem'
 import { NextRequest, NextResponse } from 'next/server'
 
 export async function GET(request: NextRequest) {
