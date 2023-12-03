@@ -5,6 +5,7 @@ import { BarcodeDetector } from 'barcode-detector'
 import { Box, Button, Flex } from '@chakra-ui/react'
 import { uniqBy } from 'lodash'
 import BarcodeBoundingBox from './BarcodeBoundingBox'
+import BarcodeScannerDetectionPreview from './BarcodeScannerDetectionPreview'
 
 interface BaseDetectionResults {
   barcodes: DetectedBarcode[]
@@ -22,7 +23,7 @@ function BaseBarcodeCamera({
   onDetect,
   onError = () => {},
   formats = ['qr_code', 'upc_a', 'upc_e', 'ean_13', 'ean_8'],
-  frequency = 1000 / 4,
+  frequency = 100,
   ...webcamProps
 }: Partial<WebcamProps> & BaseBarcodeCameraProps) {
   const webcamRef = useRef<Webcam | null>(null)
