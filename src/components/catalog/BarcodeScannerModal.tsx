@@ -16,10 +16,10 @@ import {
   Text,
 } from '@chakra-ui/react'
 import { useState } from 'react'
-import BarcodeScannerControls from './BarcodeScannerControls'
-import { DetectionResults } from './BarcodeCamera'
+import BarcodeScannerControls from '../barcode/BarcodeScannerControls'
+import { DetectionResults } from '../barcode/BarcodeCamera'
 import Image from 'next/image'
-import BarcodeBoundingBox from './BarcodeBoundingBox'
+import BarcodeBoundingBox from '../barcode/BarcodeBoundingBox'
 import { Howl } from 'howler'
 import { If, Then } from 'react-if'
 

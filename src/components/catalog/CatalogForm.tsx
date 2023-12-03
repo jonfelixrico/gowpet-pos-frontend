@@ -14,7 +14,7 @@ import {
   NumberInputStepper,
 } from '@chakra-ui/react'
 import { Field, FieldProps, Form, Formik } from 'formik'
-import BarcodeInput from '../barcode/BarcodeInput'
+import BarcodeInput from './BarcodeInput'
 
 export interface CatalogFormFields {
   name: string
