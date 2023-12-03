@@ -139,10 +139,10 @@ export default function CatalogForm({
 
                     <Else>
                       <FormControl data-cy="code" flex={1}>
-                        <FormLabel>Barcode (Customized)</FormLabel>
+                        <FormLabel>Barcode (customized)</FormLabel>
                         <Input
                           {...field}
-                          placeContent="Type your custom barcode here"
+                          placeholder="Type your custom barcode here"
                         />
                       </FormControl>
                     </Else>
