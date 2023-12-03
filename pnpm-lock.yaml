@@ -83,9 +83,6 @@ dependencies:
   url-pattern:
     specifier: ^1.0.3
     version: 1.0.3
-  use-sound:
-    specifier: ^4.0.1
-    version: 4.0.1(react@18.2.0)
 
 devDependencies:
   '@types/howler':
@@ -5293,15 +5290,6 @@ packages:
       detect-node-es: 1.1.0
       react: 18.2.0
       tslib: 2.6.2
-    dev: false
-
-  /use-sound@4.0.1(react@18.2.0):
-    resolution: {integrity: sha512-hykJ86kNcu6y/FzlSHcQxhjSGMslZx2WlfLpZNoPbvueakv4OF3xPxEtGV2YmculrIaH0tPp9LtG4jgy17xMWg==}
-    peerDependencies:
-      react: '>=16.8'
-    dependencies:
-      howler: 2.2.4
-      react: 18.2.0
     dev: false
 
   /uuid@8.3.2:
