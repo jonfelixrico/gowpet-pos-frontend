@@ -15,8 +15,7 @@ import { BsUpcScan } from 'react-icons/bs'
 import { Else, If, Then } from 'react-if'
 import { makeInputEmitInputEvent } from '@/utils/react-utils'
 
-export default function CatalogUpcInput(props: InputProps) {
-  const { value } = props
+export default function CatalogUpcInput({ value, ...others }: InputProps) {
   const { isOpen, onOpen, onClose } = useDisclosure()
 
   const ref = useRef<HTMLInputElement | null>(null)
@@ -38,11 +37,13 @@ export default function CatalogUpcInput(props: InputProps) {
   return (
     <InputGroup>
       <Input
-        {...props}
+        {...others}
+        value={value}
         ref={ref}
         placeholder="Click to scan"
         onClick={handleInputClick}
       />
+
       <InputRightElement padding={1} width="fit-content">
         <If condition={!!value}>
           <Then>
@@ -55,14 +56,14 @@ export default function CatalogUpcInput(props: InputProps) {
             <IconButton onClick={onOpen} size="sm" aria-label="Scan barcode">
               <BsUpcScan />
             </IconButton>
+
+            <CatalogUpcInputScanModal
+              isOpen={isOpen}
+              onClose={onClose}
+              onSubmit={setValue}
+            />
           </Else>
         </If>
-
-        <CatalogUpcInputScanModal
-          isOpen={isOpen}
-          onClose={onClose}
-          onSubmit={setValue}
-        />
       </InputRightElement>
     </InputGroup>
   )
