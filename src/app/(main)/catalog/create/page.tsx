@@ -2,9 +2,8 @@ import { Card, CardBody } from '@chakra-ui/react'
 import { apiFetchData } from '@/server-utils/resource-api-util'
 import { redirect } from 'next/navigation'
 import DetailsLayoutWithTitle from '@/components/common/DetailsLayoutWithTitle'
-import CatalogForm, {
-  CatalogFormFields,
-} from '@/components/catalog/CatalogForm'
+import CatalogForm from '@/components/catalog/CatalogForm'
+import { CatalogFormFields } from '@/types/catalog/CatalogFormFields'
 
 export default function CatalogCreate() {
   async function create(values: CatalogFormFields) {

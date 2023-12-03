@@ -3,10 +3,9 @@ import { apiFetchData } from '@/server-utils/resource-api-util'
 import { Card, CardBody } from '@chakra-ui/react'
 import { notFound, redirect } from 'next/navigation'
 import DetailsLayoutWithTitle from '@/components/common/DetailsLayoutWithTitle'
-import CatalogForm, {
-  CatalogFormFields,
-} from '@/components/catalog/CatalogForm'
+import CatalogForm from '@/components/catalog/CatalogForm'
 import { FetchError } from '@/utils/fetch-utils'
+import { CatalogFormFields } from '@/types/catalog/CatalogFormFields'
 
 interface Params {
   catalogId: string
