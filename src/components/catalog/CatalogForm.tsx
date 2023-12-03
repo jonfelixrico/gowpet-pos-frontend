@@ -12,9 +12,11 @@ import {
   NumberInput,
   NumberInputField,
   NumberInputStepper,
+  Select,
 } from '@chakra-ui/react'
 import { Field, FieldProps, Form, Formik } from 'formik'
 import CatalogUpcInput from './CatalogUpcInput'
+import { Else, If, Then } from 'react-if'
 
 export interface CatalogFormFields {
   name: string
@@ -28,7 +30,7 @@ export default function CatalogForm({
   initialValues = {
     name: '',
     price: 0,
-    code: '',
+    code: 'UPC',
   },
 }: {
   onSubmit: CatalogFormSubmitFn
@@ -89,23 +91,42 @@ export default function CatalogForm({
               )}
             </Field>
 
-            <Field name="code">
-              {({ field, form }: FieldProps) => (
-                <FormControl data-cy="code">
-                  <FormLabel>Barcode</FormLabel>
-                  <CatalogUpcInput {...field} />
-                </FormControl>
-              )}
-            </Field>
+            <Flex gap={2} align="end">
+              <Field name="code">
+                {({ field, form }: FieldProps) => (
+                  <If condition={form.values['codeType'] === 'UPC'}>
+                    <Then>
+                      <FormControl data-cy="code" flex={1}>
+                        <FormLabel>Barcode (UPC)</FormLabel>
+                        <CatalogUpcInput {...field} />
+                      </FormControl>
+                    </Then>
 
-            <Field name="codeType">
-              {({ field, form }: FieldProps) => (
-                <FormControl data-cy="code-type">
-                  <FormLabel>Barcode</FormLabel>
-                  <CatalogUpcInput {...field} />
-                </FormControl>
-              )}
-            </Field>
+                    <Else>
+                      <FormControl data-cy="code" flex={1}>
+                        <FormLabel>Barcode (Customized)</FormLabel>
+                        <Input
+                          {...field}
+                          placeContent="Type your custom barcode here"
+                        />
+                      </FormControl>
+                    </Else>
+                  </If>
+                )}
+              </Field>
+
+              <Field name="codeType">
+                {({ field, form }: FieldProps) => (
+                  <FormControl data-cy="code-type" flex={0.5}>
+                    <FormLabel>Barcode type</FormLabel>
+                    <Select {...field}>
+                      <option value="UPC">Scan Product (UPC)</option>
+                      <option value="CUSTOM">Customized</option>
+                    </Select>
+                  </FormControl>
+                )}
+              </Field>
+            </Flex>
 
             <Button
               type="submit"
