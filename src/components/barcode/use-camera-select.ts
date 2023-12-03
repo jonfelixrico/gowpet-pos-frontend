@@ -2,7 +2,7 @@ import { useMemo } from 'react'
 import { useMediaDevices } from 'react-media-devices'
 import { useLocalStorage } from 'react-use'
 
-export function useDeviceSelect() {
+export function useCameraSelect() {
   const { devices, loading } = useMediaDevices({
     constraints: {
       video: true,
@@ -30,7 +30,7 @@ export function useDeviceSelect() {
   }, [deviceId, devices])
 
   return {
-    devices: filteredDevices,
+    cameras: filteredDevices,
     selectedId: safeDeviceId,
     setSelectedId: setDeviceId,
     loading,

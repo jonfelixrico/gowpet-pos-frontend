@@ -1,45 +1,10 @@
 'use client'
 
-import { Center, Flex, FlexProps, Select } from '@chakra-ui/react'
+import { Center, Flex, FlexProps } from '@chakra-ui/react'
 import BarcodeCamera, { BarcodeCameraProps } from './BarcodeCamera'
 import { If, Then, Else } from 'react-if'
-import { useDeviceSelect } from './use-device-select'
-
-function DeviceSelect({
-  deviceId,
-  setDeviceId,
-  devices,
-  isLoading,
-}: {
-  deviceId?: string
-  setDeviceId: (deviceId: string) => void
-  devices: MediaDeviceInfo[]
-  isLoading?: boolean
-}) {
-  if (isLoading) {
-    return <Select isDisabled={true} placeholder="Detecting cameras..." />
-  }
-
-  if (!devices?.length) {
-    return <Select isDisabled={true} placeholder="No cameras detected" />
-  }
-
-  return (
-    <Select
-      placeholder="Select Camera"
-      onChange={(event) => {
-        setDeviceId(event.currentTarget.value)
-      }}
-      value={deviceId}
-    >
-      {devices.map(({ deviceId, label }) => (
-        <option value={deviceId} key={deviceId}>
-          {label}
-        </option>
-      ))}
-    </Select>
-  )
-}
+import { useCameraSelect } from './use-camera-select'
+import CameraSelect from './CameraSelect'
 
 export type BarcodeScannerProps = BarcodeCameraProps &
   Omit<FlexProps, 'children'>
@@ -51,7 +16,7 @@ export default function BarcodeScannerControls({
   frequency,
   ...flexProps
 }: BarcodeScannerProps) {
-  const { devices, loading, selectedId, setSelectedId } = useDeviceSelect()
+  const { cameras, loading, selectedId, setSelectedId } = useCameraSelect()
 
   return (
     <Flex {...flexProps} direction="column" gap={2}>
@@ -77,10 +42,10 @@ export default function BarcodeScannerControls({
         </Else>
       </If>
 
-      <DeviceSelect
-        deviceId={selectedId}
-        setDeviceId={setSelectedId}
-        devices={devices}
+      <CameraSelect
+        selectedId={selectedId}
+        setSelectedId={setSelectedId}
+        cameras={cameras}
         isLoading={loading}
       />
     </Flex>
