@@ -73,21 +73,6 @@ function DeviceSelectSection({
   )
 }
 
-function useDeviceId(): [string | undefined, (value: string) => void] {
-  const [persistedValue, setPersistedValue] = useLocalStorage<string>(
-    'barcodeScannerDeviceId'
-  )
-  const [value, setValue] = useState<string | undefined>(persistedValue)
-
-  return [
-    value,
-    (value: string) => {
-      setValue(value)
-      setPersistedValue(value)
-    },
-  ]
-}
-
 function useDevices() {
   const { devices, loading } = useMediaDevices({
     constraints: {
@@ -103,7 +88,10 @@ function useDevices() {
     return devices.filter(({ deviceId }) => !!deviceId)
   }, [devices])
 
-  const [deviceId, setDeviceId] = useDeviceId()
+  const [deviceId, setDeviceId] = useLocalStorage<string>(
+    'barcodeScannerDeviceId'
+  )
+
   const safeDeviceId = useMemo(() => {
     if (devices && devices.some((val) => deviceId === val.deviceId)) {
       return deviceId
