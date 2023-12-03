@@ -18,10 +18,9 @@ import {
 import { useState } from 'react'
 import BarcodeScannerControls from '../barcode/BarcodeScannerControls'
 import { DetectionResults } from '../barcode/BarcodeScanner'
-import Image from 'next/image'
-import BarcodeBoundingBox from '../barcode/BarcodeBoundingBox'
 import { Howl } from 'howler'
 import { If, Then } from 'react-if'
+import BarcodeScanResultPreview from '@/components/barcode/BarcodeScanResultPreview'
 
 type Detected = Omit<DetectionResults, 'barcodes'> & {
   barcode: DetectedBarcode
@@ -33,13 +32,11 @@ function ResultPreview(result: Detected) {
   return (
     <Flex direction="column" gap={2}>
       <Box>
-        <Box width="fit-content" height="fit-content" position="relative">
-          <Box width="fit-content" height="fit-content" position="absolute">
-            <BarcodeBoundingBox {...result} color="green" />
-          </Box>
-
-          <Image src={image} alt="Detected barcode" {...dimensions} />
-        </Box>
+        <BarcodeScanResultPreview
+          barcode={barcode}
+          imageUrl={image}
+          {...dimensions}
+        />
       </Box>
 
       <Center>
