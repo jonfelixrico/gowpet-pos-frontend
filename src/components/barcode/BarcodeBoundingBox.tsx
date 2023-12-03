@@ -1,5 +1,10 @@
 import { useMemo } from 'react'
 
+/**
+ * This is meant to be overlayed on top of an image or a video.
+ * The purpose of this is to give users an idea of which part of an image/video
+ * the barcode was found.
+ */
 export default function BarcodeBoundingBox({
   barcode: { cornerPoints },
   width,
