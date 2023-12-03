@@ -108,10 +108,7 @@ function useDevices() {
   }
 }
 
-export type BarcodeScannerProps = Pick<
-  BarcodeCameraProps,
-  'onDetect' | 'onError'
-> &
+export type BarcodeScannerProps = BarcodeCameraProps &
   Omit<FlexProps, 'children'>
 
 export default function BarcodeScannerControls({
