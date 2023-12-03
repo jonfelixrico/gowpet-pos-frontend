@@ -115,6 +115,7 @@ export default function BarcodeScanner({
       height="fit-content"
       position="relative"
     >
+      {/* This will appear as a small button on the top-right */}
       <Flex
         width="full"
         height="full"
