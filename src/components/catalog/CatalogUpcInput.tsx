@@ -39,7 +39,6 @@ export default function CatalogUpcInput(props: InputProps) {
     <InputGroup>
       <Input
         {...props}
-        value={value}
         ref={ref}
         placeholder="Click to scan"
         onClick={handleInputClick}
