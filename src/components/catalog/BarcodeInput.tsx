@@ -13,16 +13,10 @@ import { useEffect, useRef, useState } from 'react'
 import BarcodeScannerModal from './BarcodeScannerModal'
 import { BsUpcScan } from 'react-icons/bs'
 import { Else, If, Then } from 'react-if'
+import { makeInputEmitInputEvent } from '@/utils/react-utils'
 
-export default function BarcodeInput({
-  value: inputValue,
-  ...props
-}: InputProps) {
-  const [innerValue, setInnerValue] = useState(String(inputValue ?? ''))
-  useEffect(() => {
-    setInnerValue(String(inputValue ?? ''))
-  }, [inputValue])
-
+export default function BarcodeInput(props: InputProps) {
+  const { value } = props
   const { isOpen, onOpen, onClose } = useDisclosure()
 
   const ref = useRef<HTMLInputElement | null>(null)
@@ -32,13 +26,11 @@ export default function BarcodeInput({
       return
     }
 
-    el.value = code
-    el.dispatchEvent(new Event('change'))
-    setInnerValue(code)
+    makeInputEmitInputEvent(el, code)
   }
 
   function handleInputClick() {
-    if (!innerValue) {
+    if (!value) {
       onOpen()
     }
   }
@@ -47,14 +39,13 @@ export default function BarcodeInput({
     <InputGroup>
       <Input
         {...props}
-        value={innerValue}
+        value={value}
         ref={ref}
-        isReadOnly
         placeholder="Click to scan"
         onClick={handleInputClick}
       />
       <InputRightElement padding={1} width="fit-content">
-        <If condition={!!innerValue}>
+        <If condition={!!value}>
           <Then>
             <Button size="sm" onClick={() => setValue('')}>
               Clear
