@@ -42,6 +42,7 @@ export default function CatalogUpcInput({ value, ...others }: InputProps) {
         ref={ref}
         placeholder="Click to scan"
         onClick={handleInputClick}
+        readOnly
       />
 
       <InputRightElement padding={1} width="fit-content">
