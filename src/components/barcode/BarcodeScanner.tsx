@@ -4,7 +4,9 @@ import { useInterval, useMeasure } from 'react-use'
 import { BarcodeDetector } from 'barcode-detector'
 import { Box, Button, Flex } from '@chakra-ui/react'
 import { uniqBy } from 'lodash'
-import BarcodeScannerRealTimePreview from './BarcodeScannerRealTimePreview'
+import BarcodeScannerRealTimePreview, {
+  BarcodeScannerRealTimePreviewProps,
+} from './BarcodeScannerRealTimePreview'
 
 interface BaseDetectionResults {
   barcodes: DetectedBarcode[]
@@ -105,9 +107,12 @@ export type BarcodeCameraProps = Omit<BaseBarcodeCameraProps, 'onDetect'> & {
 
 export default function BarcodeScanner({
   onDetect,
+  color,
+  barcodeColors,
   ...props
 }: Pick<WebcamProps, 'videoConstraints' | 'style' | 'className'> &
-  BarcodeCameraProps) {
+  BarcodeCameraProps &
+  Pick<BarcodeScannerRealTimePreviewProps, 'color' | 'barcodeColors'>) {
   const [boxRef, { width, height }] = useMeasure<HTMLDivElement>()
   const [detectedBarcodes, setDetectedBarcodes] = useState<DetectedBarcode[]>(
     []
@@ -156,6 +161,8 @@ export default function BarcodeScanner({
           width={width}
           height={height}
           barcodes={detectedBarcodes}
+          color={color}
+          barcodeColors={barcodeColors}
         />
       </Box>
 
