@@ -4,6 +4,9 @@ import { Image, ImageProps } from '@chakra-ui/react'
 import { useEffect, useState } from 'react'
 import JsBarcode, { Options } from 'jsbarcode'
 
+const DEFAULT_WIDTH = 2
+const DEFAULT_HEIGHT = 100
+
 export default function Barcode({
   value,
   options = {},
@@ -18,8 +21,8 @@ export default function Barcode({
     const canvas = document.createElement('canvas')
     JsBarcode(canvas, value, {
       displayValue: false,
-      width: 10 * 2,
-      height: 10 * 100,
+      width: 10 * DEFAULT_WIDTH,
+      height: 10 * DEFAULT_HEIGHT,
       margin: 0,
       ...options,
     })
