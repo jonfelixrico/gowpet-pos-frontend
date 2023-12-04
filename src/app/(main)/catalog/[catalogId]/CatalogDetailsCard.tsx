@@ -1,7 +1,7 @@
 import Barcode from '@/components/barcode/generator/Barcode'
 import QrCode from '@/components/barcode/generator/QrCode'
 import { CatalogItem } from '@/types/CatalogItem'
-import { Card, CardBody, Flex, Heading, Text } from '@chakra-ui/react'
+import { Box, Card, CardBody, Flex, Heading, Text } from '@chakra-ui/react'
 import { Else, If, Then } from 'react-if'
 
 export default function CatalogDetailsCard({
@@ -42,18 +42,23 @@ export default function CatalogDetailsCard({
                 sm: 0.3,
               }}
               gap={1}
+              data-cy="barcode"
             >
               <If condition={codeType === 'CUSTOM'}>
                 <Then>
-                  <QrCode value={code as string} />
+                  <Box display="contents" data-type="CUSTOM">
+                    <QrCode value={code as string} />
+                  </Box>
                 </Then>
 
                 <Else>
-                  <Barcode value={code as string} />
+                  <Box display="contents" data-type="UPC">
+                    <Barcode value={code as string} />
+                  </Box>
                 </Else>
               </If>
 
-              <Text fontSize="xs" textAlign="center">
+              <Text fontSize="xs" textAlign="center" data-cy="code">
                 {code as string}
               </Text>
             </Flex>
