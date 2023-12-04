@@ -22,6 +22,7 @@ export default function QrCode({
       {
         errorCorrectionLevel: 'H',
         margin: 0,
+        scale: 20,
         ...options,
       },
       (err, url) => {
