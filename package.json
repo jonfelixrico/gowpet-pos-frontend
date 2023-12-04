@@ -34,7 +34,6 @@
     "qrcode": "^1.5.3",
     "query-string": "^8.1.0",
     "react": "^18",
-    "react-barcode": "^1.4.6",
     "react-dom": "^18",
     "react-icons": "^4.11.0",
     "react-if": "^4.1.5",
