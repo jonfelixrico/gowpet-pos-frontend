@@ -17,7 +17,7 @@ async function fetchResults(searchTerm: string, pageNo: number) {
   })
 
   const { data, headers } = await fetchData<CatalogItem[]>(
-    `/billing/catalog-search?${qp}`
+    `/billing/catalog?${qp}`
   )
 
   const pageCount = headers.get('X-Total-Count')

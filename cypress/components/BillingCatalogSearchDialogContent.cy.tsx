@@ -72,7 +72,7 @@ describe('BillingCatalogSearchDialogContent', () => {
 
     cy.intercept(
       {
-        pathname: '/billing/catalog-search',
+        pathname: '/billing/catalog',
       },
       {
         body: generateDummyItems(10, 10),
@@ -108,7 +108,7 @@ describe('BillingCatalogSearchDialogContent', () => {
 
     cy.intercept(
       {
-        pathname: '/billing/catalog-search',
+        pathname: '/billing/catalog',
         query: {
           pageNo: '0',
           searchTerm: 'some-keyword',
