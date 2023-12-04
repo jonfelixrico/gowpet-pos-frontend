@@ -1,3 +1,5 @@
+'use client'
+
 import { Image, ImageProps } from '@chakra-ui/react'
 import { useEffect, useState } from 'react'
 import QRCode from 'qrcode'
