@@ -6,7 +6,7 @@ import JsBarcode, { Options } from 'jsbarcode'
 
 export default function Barcode({
   value,
-  options,
+  options = {},
   ...props
 }: ImageProps & {
   value: string
@@ -16,9 +16,13 @@ export default function Barcode({
 
   useEffect(() => {
     const canvas = document.createElement('canvas')
-    JsBarcode(canvas, value, options ?? {})
+    JsBarcode(canvas, value, { displayValue: false, margin: 0, ...options })
     setUrl(canvas.toDataURL())
   }, [value, options])
+
+  if (!url) {
+    return <></>
+  }
 
   return <Image {...props} src={url} alt={`Barcode of ${value}`} />
 }

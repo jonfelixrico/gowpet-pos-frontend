@@ -6,9 +6,9 @@ import QRCode from 'qrcode'
 
 export default function QrCode({
   value,
-  options,
+  options = {},
   ...others
-}: { value: string; options: QRCode.QRCodeToDataURLOptions } & ImageProps) {
+}: { value: string; options?: QRCode.QRCodeToDataURLOptions } & ImageProps) {
   const [url, setUrl] = useState('')
 
   useEffect(() => {
@@ -17,14 +17,26 @@ export default function QrCode({
       return
     }
 
-    QRCode.toDataURL(value, options ?? {}, (err, url) => {
-      if (err) {
-        setUrl('')
-      } else {
-        setUrl(url)
+    QRCode.toDataURL(
+      value,
+      {
+        errorCorrectionLevel: 'H',
+        margin: 0,
+        ...options,
+      },
+      (err, url) => {
+        if (err) {
+          setUrl('')
+        } else {
+          setUrl(url)
+        }
       }
-    })
+    )
   }, [value, options])
 
-  return <Image {...others} href={url} alt={`QR code for ${value}`} />
+  if (!url) {
+    return <></>
+  }
+
+  return <Image {...others} src={url} alt={`QR code for ${value}`} />
 }
