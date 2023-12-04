@@ -7,7 +7,7 @@ import { Else, If, Then } from 'react-if'
 export default function CatalogDetailsCard({
   catalogItem,
 }: {
-  catalogItem: CatalogItem
+  catalogItem: Omit<CatalogItem, 'type' | 'id'>
 }) {
   const { name, price, code, codeType } = catalogItem
 
@@ -28,9 +28,7 @@ export default function CatalogDetailsCard({
           </Flex>
 
           <Flex gap={2}>
-            <Heading size="sx" data-cy="price">
-              Price:
-            </Heading>
+            <Heading size="sx">Price:</Heading>
             <Text data-cy="price">{price}</Text>
           </Flex>
         </Flex>
