@@ -1,9 +1,9 @@
+import QrCode from '@/components/barcode/generator/QrCode'
 import { DataAttributes } from '@/types/DataAttributes'
 import { ReceiptSettings } from '@/types/ReceiptSetings'
 import { SavedBilling, SavedBillingItem } from '@/types/SavedBilling'
 import { Box, Center, Flex, Text } from '@chakra-ui/react'
 import { ForwardedRef, forwardRef } from 'react'
-import { QRCodeSVG } from 'qrcode.react'
 
 function BillingItem({
   item,
@@ -107,7 +107,7 @@ export default forwardRef(function BillingReceipt(
           {settings.snsMessage}
         </Text>
         <Center data-cy="sns-qr">
-          <QRCodeSVG value={settings.snsLink} />
+          <QrCode value={settings.snsLink} />
         </Center>
       </Box>
 
