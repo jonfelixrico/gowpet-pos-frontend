@@ -20,6 +20,7 @@
     "@emotion/react": "^11.11.1",
     "@emotion/styled": "^11.11.0",
     "barcode-detector": "^2.1.4",
+    "bwip-js": "^4.1.2",
     "formik": "^2.4.5",
     "framer-motion": "^10.16.4",
     "howler": "^2.2.4",

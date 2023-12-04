@@ -20,6 +20,9 @@ dependencies:
   barcode-detector:
     specifier: ^2.1.4
     version: 2.1.4
+  bwip-js:
+    specifier: ^4.1.2
+    version: 4.1.2
   formik:
     specifier: ^2.4.5
     version: 2.4.5(react@18.2.0)
@@ -2177,6 +2180,11 @@ packages:
     engines: {node: '>=10.16.0'}
     dependencies:
       streamsearch: 1.1.0
+    dev: false
+
+  /bwip-js@4.1.2:
+    resolution: {integrity: sha512-/w+nIZ//91RQ7W6kHaHq6rDxix08xxp0QFl1hTn5KjW3Gj4NC5IbrNfS23yZx861DeT8YbQ/+vtbSq+5J8QuFA==}
+    hasBin: true
     dev: false
 
   /cachedir@2.4.0:
