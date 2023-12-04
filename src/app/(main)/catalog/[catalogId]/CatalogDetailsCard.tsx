@@ -39,7 +39,8 @@ export default function CatalogDetailsCard({
               direction="column"
               flex={{
                 base: 1,
-                sm: 0.3,
+                sm: 0.5,
+                md: 0.3,
               }}
               gap={1}
               data-cy="barcode"
