@@ -39,5 +39,5 @@ export default function QrCode({
     return <></>
   }
 
-  return <Image {...others} src={url} alt={`QR code for ${value}`} />
+  return <Image {...others} src={url} alt={`QR code of ${value}`} />
 }
