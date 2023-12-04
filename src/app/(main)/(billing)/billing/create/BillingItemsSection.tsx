@@ -53,7 +53,8 @@ export default function BillingItemsSection({
                 </Text>
                 <Text fontSize="sm" data-cy="total-amount">
                   {billing.items.reduce(
-                    (acc, val) => acc + val.price * val.quantity,
+                    (acc, { quantity, catalogItem }) =>
+                      acc + catalogItem.price * quantity,
                     0
                   )}
                 </Text>
