@@ -67,16 +67,16 @@ export default function BillingItemsSection({
                 size="sm"
                 isRound
                 aria-label="Add item"
-                colorScheme="blue"
+                variant="outline"
               />
 
               <IconButton
                 size="sm"
                 isRound
-                aria-label="Search for item"
+                aria-label="Search item"
                 onClick={onOpen}
-                colorScheme="blue"
                 data-cy="add-items"
+                variant="outline"
               >
                 <FaSearch />
               </IconButton>
@@ -99,8 +99,9 @@ export default function BillingItemsSection({
                 gap={2}
               >
                 <Text fontSize="lg">No items yet</Text>
-                <Button size="xs" onClick={onOpen}>
-                  Add Items
+                {/* TODO add button for scan items */}
+                <Button size="xs" onClick={onOpen} variant="outline">
+                  Search item
                 </Button>
               </Flex>
             </Else>
