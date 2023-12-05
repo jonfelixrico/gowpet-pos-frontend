@@ -12,7 +12,6 @@ import {
   ModalOverlay,
   useDisclosure,
 } from '@chakra-ui/react'
-import { If, Then } from 'react-if'
 import useBillingBarcodeScanner from './billing-barcode-scanner-hook'
 import { ReactState } from '@/types/react-types'
 
@@ -45,20 +44,17 @@ export default function BarcodeScannerButton({
           <ModalHeader>Scanner</ModalHeader>
           <ModalCloseButton />
           <ModalBody>
-            <If condition={isOpen}>
-              <Then>
-                <BarcodeScannerControls
-                  onDetect={onDetect}
-                  previewOptions={{
-                    barcodeColors,
-                    color: 'green',
-                  }}
-                  options={{
-                    max: 1,
-                  }}
-                />
-              </Then>
-            </If>
+            <BarcodeScannerControls
+              onDetect={onDetect}
+              previewOptions={{
+                barcodeColors,
+                color: 'green',
+              }}
+              options={{
+                max: 1,
+                isPaused: !isOpen,
+              }}
+            />
           </ModalBody>
 
           <ModalFooter>
