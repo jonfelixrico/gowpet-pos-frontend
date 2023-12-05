@@ -74,7 +74,7 @@ function useScan({ billing, setBilling }: BillingStateProps) {
     Promise.all(barcodes.map(detect))
   }
 
-  const barcodeColors = useMemo(() => {
+  const selectedColors = useMemo(() => {
     return codes.reduce(
       (map, code) => {
         if (code) {
@@ -87,8 +87,23 @@ function useScan({ billing, setBilling }: BillingStateProps) {
     )
   }, [codes])
 
+  const loadingColors = useMemo(() => {
+    const colors: Record<string, string> = {}
+    for (const key in loadingCodes) {
+      if (loadingCodes[key]) {
+        colors[key] = 'orange'
+      }
+    }
+    return colors
+  }, [loadingCodes])
+
   return {
-    barcodeColors,
+    barcodeColors: useMemo(() => {
+      return {
+        ...loadingColors,
+        ...selectedColors,
+      }
+    }, [loadingColors, selectedColors]),
     onDetect,
   }
 }
