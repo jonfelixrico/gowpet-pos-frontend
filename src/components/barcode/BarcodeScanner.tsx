@@ -76,20 +76,20 @@ function BaseBarcodeCamera({
       try {
         const results = await barcodeDetector.detect(image)
 
+        if (!results.length) {
+          onDetect(null)
+        }
+
         const processed = uniqBy(
           results.toSorted((a, b) => a.rawValue.localeCompare(b.rawValue)),
           ({ rawValue }) => rawValue
         )
-
         const sliced = processed.slice(options?.max)
-        onDetect(
-          sliced.length
-            ? {
-                barcodes: sliced,
-                image: imageUrl,
-              }
-            : null
-        )
+
+        onDetect({
+          barcodes: sliced,
+          image: imageUrl,
+        })
       } catch (e) {
         onError(e)
       }
