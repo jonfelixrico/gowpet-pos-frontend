@@ -3,6 +3,7 @@
 import {
   Button,
   Modal,
+  ModalCloseButton,
   ModalContent,
   ModalFooter,
   ModalOverlay,
@@ -27,9 +28,18 @@ export default function BillingCreateSearchDialog({
   setBilling,
 }: BillingCatalogSearchDialogProps) {
   return (
-    <Modal isOpen={isOpen} onClose={onClose} scrollBehavior="inside">
+    <Modal
+      isOpen={isOpen}
+      onClose={onClose}
+      scrollBehavior="inside"
+      size={{
+        base: 'full',
+        sm: 'lg',
+      }}
+    >
       <ModalOverlay />
       <ModalContent data-cy="add-items-dialog">
+        <ModalCloseButton />
         <BillingCatalogSearchDialogContent
           billing={billing}
           setBilling={setBilling}
@@ -37,7 +47,7 @@ export default function BillingCreateSearchDialog({
         />
 
         <ModalFooter>
-          <Button colorScheme="blue" mr={3} onClick={onClose} data-cy="close">
+          <Button mr={3} onClick={onClose} data-cy="close">
             Close
           </Button>
         </ModalFooter>
