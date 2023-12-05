@@ -8,15 +8,7 @@ import BarcodeScannerRealTimePreview, {
   BarcodeScannerRealTimePreviewProps,
 } from './BarcodeScannerRealTimePreview'
 
-interface BaseDetectionResults {
-  barcodes: DetectedBarcode[]
-  image: string
-}
-
-type BaseBarcodeCameraProps = {
-  onDetect: (value: BaseDetectionResults | null) => void
-  onError?: (err: unknown) => void
-
+type CameraOptions = {
   /**
    * A list of formats that the scanner will only look for.
    * Leaving this undefined will cause the scanner to look for all formats.
@@ -34,29 +26,39 @@ type BaseBarcodeCameraProps = {
    * Pauses barcode detection. The camera will still be active, though.
    */
   isPaused?: boolean
+
+  max?: number
+}
+
+interface BaseDetectionResults {
+  barcodes: DetectedBarcode[]
+  image: string
 }
 
 function BaseBarcodeCamera({
   onDetect,
   onError = () => {},
-  formats,
-  frequency = 100,
-  isPaused,
+  options = {},
+  max,
   ...webcamProps
-}: Partial<WebcamProps> & BaseBarcodeCameraProps) {
+}: Partial<WebcamProps> & {
+  onDetect: (value: BaseDetectionResults | null) => void
+  options?: CameraOptions
+  onError?: (err: unknown) => void
+}) {
   const webcamRef = useRef<Webcam | null>(null)
 
   const barcodeDetector = useMemo(
     () =>
       new BarcodeDetector({
-        formats,
+        formats: options?.formats,
       }),
-    [formats]
+    [options?.formats]
   )
 
   useInterval(
     async () => {
-      if (!webcamRef.current || isPaused) {
+      if (!webcamRef.current || options?.isPaused) {
         return
       }
 
@@ -70,10 +72,14 @@ function BaseBarcodeCamera({
 
       try {
         const results = await barcodeDetector.detect(image)
+        const processed = uniqBy(results, ({ rawValue }) => rawValue)
+          .slice(options?.max)
+          .toSorted((a, b) => a.rawValue.localeCompare(b.rawValue))
+
         onDetect(
-          results.length
+          processed.length
             ? {
-                barcodes: uniqBy(results, ({ rawValue }) => rawValue),
+                barcodes: processed,
                 image: imageUrl,
               }
             : null
@@ -82,7 +88,7 @@ function BaseBarcodeCamera({
         onError(e)
       }
     },
-    isPaused ? null : frequency
+    !options?.isPaused ? options?.frequency ?? 100 : null
   )
 
   return (
@@ -101,18 +107,23 @@ export type DetectionResults = BaseDetectionResults & {
   height: number
 }
 
-export type BarcodeCameraProps = Omit<BaseBarcodeCameraProps, 'onDetect'> & {
+export type BarcodeCameraProps = {
   onDetect: (results: DetectionResults) => void
+  onError?: (err: unknown) => void
+  options?: CameraOptions
+  previewOptions?: Pick<
+    BarcodeScannerRealTimePreviewProps,
+    'color' | 'barcodeColors'
+  >
 }
 
 export default function BarcodeScanner({
   onDetect,
-  color,
-  barcodeColors,
+  options = {},
+  previewOptions = {},
   ...props
 }: Pick<WebcamProps, 'videoConstraints' | 'style' | 'className'> &
-  BarcodeCameraProps &
-  Pick<BarcodeScannerRealTimePreviewProps, 'color' | 'barcodeColors'>) {
+  BarcodeCameraProps) {
   const [boxRef, { width, height }] = useMeasure<HTMLDivElement>()
   const [detectedBarcodes, setDetectedBarcodes] = useState<DetectedBarcode[]>(
     []
@@ -161,13 +172,13 @@ export default function BarcodeScanner({
           width={width}
           height={height}
           barcodes={detectedBarcodes}
-          color={color}
-          barcodeColors={barcodeColors}
+          {...previewOptions}
         />
       </Box>
 
       <BaseBarcodeCamera
         {...props}
+        options={options}
         onDetect={handleDetect}
         mirrored={mirrored}
       />
