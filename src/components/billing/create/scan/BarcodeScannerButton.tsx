@@ -127,7 +127,7 @@ function useScan({ billing, setBilling }: BillingStateProps) {
   }, [codes])
 
   const loadingColors = useMemo(
-    () => mapValues(loadingMap, (value) => (value ? 'red' : 'pink')),
+    () => mapValues(loadingMap, (value) => (value ? 'red' : 'lightred')),
     [loadingMap]
   )
 
@@ -163,9 +163,9 @@ export default function BarcodeScannerButton({
               <Then>
                 <BarcodeScannerControls
                   onDetect={onDetect}
-                  color="green"
                   previewOptions={{
                     barcodeColors,
+                    color: 'green',
                   }}
                   options={{
                     max: 1,
