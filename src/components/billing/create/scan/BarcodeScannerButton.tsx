@@ -130,7 +130,9 @@ export default function BarcodeScannerButton({
                 <BarcodeScannerControls
                   onDetect={onDetect}
                   color="green"
-                  barcodeColors={barcodeColors}
+                  previewOptions={{
+                    barcodeColors,
+                  }}
                 />
               </Then>
             </If>

@@ -82,8 +82,11 @@ function Content({ onSubmit }: { onSubmit: (value: string) => void }) {
         <BarcodeScannerControls
           onDetect={processDetected}
           height="50dvh"
-          isPaused={!!result}
-          formats={['ean_13', 'ean_8', 'itf', 'upc_a', 'upc_e']}
+          options={{
+            isPaused: !!result,
+            formats: ['ean_13', 'ean_8', 'itf', 'upc_a', 'upc_e'],
+            max: 1,
+          }}
         />
       </Box>
 

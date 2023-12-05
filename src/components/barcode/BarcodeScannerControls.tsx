@@ -5,7 +5,6 @@ import BarcodeScanner, { BarcodeCameraProps } from './BarcodeScanner'
 import { If, Then, Else } from 'react-if'
 import { useCameraSelect } from '@/components/camera/use-camera-select'
 import CameraSelect from '@/components/camera/CameraSelect'
-import { BarcodeScannerRealTimePreviewProps } from './BarcodeScannerRealTimePreview'
 
 export type BarcodeScannerProps = BarcodeCameraProps &
   Omit<FlexProps, 'children'>
@@ -13,14 +12,10 @@ export type BarcodeScannerProps = BarcodeCameraProps &
 export default function BarcodeScannerControls({
   onDetect,
   onError = () => {},
-  formats,
-  frequency,
-  isPaused,
-  color,
-  barcodeColors,
+  options = {},
+  previewOptions = {},
   ...flexProps
-}: BarcodeScannerProps &
-  Pick<BarcodeScannerRealTimePreviewProps, 'color' | 'barcodeColors'>) {
+}: BarcodeScannerProps) {
   const { cameras, loading, selectedId, setSelectedId } = useCameraSelect()
 
   return (
@@ -37,9 +32,8 @@ export default function BarcodeScannerControls({
               height: '100%',
               width: '100%',
             }}
-            formats={formats}
-            frequency={frequency}
-            isPaused={isPaused}
+            options={options}
+            previewOptions={previewOptions}
           />
         </Then>
 
