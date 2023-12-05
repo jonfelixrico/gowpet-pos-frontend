@@ -13,7 +13,10 @@ interface BillingItemTableRow {
 }
 
 export default function BillingItemTableRow({
-  item: { name, price, quantity },
+  item: {
+    catalogItem: { name, price },
+    quantity,
+  },
   onQuantityChange = () => {},
   onDelete = () => {},
   onEdit = () => {},
