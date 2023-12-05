@@ -1,4 +1,4 @@
-import BillingListContent from '@/app/(main)/(billing)/(billing-list)/billing/BillingListContent'
+import BillingListContent from '@/components/billing/list/BillingListContent'
 import { ChakraProvider } from '@chakra-ui/react'
 import MockNextRouter from '../utils/MockNextRouter'
 
