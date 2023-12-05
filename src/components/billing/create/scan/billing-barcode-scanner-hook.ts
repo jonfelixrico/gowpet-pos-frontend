@@ -51,6 +51,7 @@ export default function useBillingBarcodeScanner({
 
       toast({
         title: `Scanned ${data.name}`,
+        isClosable: true,
       })
 
       setBilling((billing) =>
