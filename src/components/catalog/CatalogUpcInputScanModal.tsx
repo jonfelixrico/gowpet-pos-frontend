@@ -9,6 +9,7 @@ import {
   ModalBody,
   ModalCloseButton,
   ModalContent,
+  ModalFooter,
   ModalHeader,
   ModalOverlay,
   ModalProps,
@@ -129,10 +130,19 @@ export default function CatalogUpcInputScanModal({
   }
 
   return (
-    <Modal {...props} isOpen={isOpen} onClose={onClose} scrollBehavior="inside">
+    <Modal
+      {...props}
+      isOpen={isOpen}
+      onClose={onClose}
+      scrollBehavior="inside"
+      size={{
+        base: 'full',
+        sm: 'lg',
+      }}
+    >
       <ModalOverlay />
       <ModalContent>
-        <ModalHeader>Barcode/QR Scanner</ModalHeader>
+        <ModalHeader>Scan Barcode</ModalHeader>
         <ModalCloseButton />
         <ModalBody>
           <If condition={isOpen}>
@@ -141,6 +151,11 @@ export default function CatalogUpcInputScanModal({
             </Then>
           </If>
         </ModalBody>
+        <ModalFooter>
+          <Button variant="outline" onClick={onClose}>
+            Close
+          </Button>
+        </ModalFooter>
       </ModalContent>
     </Modal>
   )

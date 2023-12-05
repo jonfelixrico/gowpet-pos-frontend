@@ -6,7 +6,6 @@ import {
   Flex,
   Input,
   ModalBody,
-  ModalCloseButton,
   ModalHeader,
   Text,
 } from '@chakra-ui/react'
@@ -32,7 +31,11 @@ function SearchBarControls({
         onChange={(event) => setInput(event.target.value)}
         isReadOnly={isLoading}
       />
-      <Button isLoading={isLoading} onClick={() => triggerSearch(input)}>
+      <Button
+        isLoading={isLoading}
+        onClick={() => triggerSearch(input)}
+        variant="outline"
+      >
         Search
       </Button>
     </>
@@ -58,7 +61,7 @@ export default function BillingCatalogSearchDialogContent({
   return (
     <>
       <ModalHeader as={Flex} direction="column" gap={5}>
-        <Text>Add Item</Text>
+        <Text>Search Item</Text>
         <Flex gap={2} align="center" data-cy="search">
           <SearchBarControls
             triggerSearch={startSearch}
@@ -81,6 +84,7 @@ export default function BillingCatalogSearchDialogContent({
                 onClick={loadMore}
                 isLoading={isLoading}
                 data-cy="show-more"
+                variant="outline"
               >
                 Load More
               </Button>

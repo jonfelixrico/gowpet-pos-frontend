@@ -16,7 +16,7 @@ import {
 import { Dispatch, SetStateAction } from 'react'
 import BillingCreateSearchDialog from './search/BillingCatalogSearchDialog'
 import { SearchState } from './search/useSearch'
-import { MdAdd } from 'react-icons/md'
+import { FaSearch } from 'react-icons/fa'
 import { Else, If, Then } from 'react-if'
 import BillingItemScanButton from '@/components/billing/create/scan/BillingItemScanButton'
 
@@ -62,17 +62,23 @@ export default function BillingItemsSection({
             </Flex>
 
             <Flex gap={2} align="center">
-              <BillingItemScanButton state={[billing, setBilling]} />
+              <BillingItemScanButton
+                state={[billing, setBilling]}
+                size="sm"
+                isRound
+                aria-label="Add item"
+                variant="outline"
+              />
 
               <IconButton
                 size="sm"
                 isRound
-                aria-label="Add item"
+                aria-label="Search item"
                 onClick={onOpen}
-                colorScheme="blue"
                 data-cy="add-items"
+                variant="outline"
               >
-                <MdAdd />
+                <FaSearch />
               </IconButton>
             </Flex>
           </Flex>
@@ -93,8 +99,9 @@ export default function BillingItemsSection({
                 gap={2}
               >
                 <Text fontSize="lg">No items yet</Text>
-                <Button size="xs" onClick={onOpen}>
-                  Add Items
+                {/* TODO add button for scan items */}
+                <Button size="xs" onClick={onOpen} variant="outline">
+                  Search item
                 </Button>
               </Flex>
             </Else>

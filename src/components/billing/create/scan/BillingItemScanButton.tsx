@@ -2,7 +2,8 @@ import BarcodeScannerControls from '@/components/barcode/BarcodeScannerControls'
 import { Billing } from '@/types/Billing'
 import {
   Button,
-  ButtonProps,
+  IconButton,
+  IconButtonProps,
   Modal,
   ModalBody,
   ModalCloseButton,
@@ -14,13 +15,14 @@ import {
 } from '@chakra-ui/react'
 import useBillingBarcodeScanner from './billing-barcode-scanner-hook'
 import { ReactState } from '@/types/react-types'
+import { BsUpcScan } from 'react-icons/bs'
 
 export default function BillingItemScanButton({
   state: [billing, setBilling],
   ...buttonProps
 }: {
   state: ReactState<Billing>
-} & ButtonProps) {
+} & Omit<IconButtonProps, 'children' | 'aria-label'>) {
   const { isOpen, onClose, onOpen } = useDisclosure()
 
   const { onDetect, barcodeColors } = useBillingBarcodeScanner({
@@ -66,16 +68,16 @@ export default function BillingItemScanButton({
           </ModalBody>
 
           <ModalFooter>
-            <Button variant="ghost" mr={3} onClick={onClose}>
+            <Button mr={3} onClick={onClose} variant="outline">
               Close
             </Button>
           </ModalFooter>
         </ModalContent>
       </Modal>
 
-      <Button {...buttonProps} size="sm" onClick={onOpen}>
-        Barcode Scanner
-      </Button>
+      <IconButton {...buttonProps} onClick={onOpen} aria-label="Scan barcode">
+        <BsUpcScan />
+      </IconButton>
     </>
   )
 }
