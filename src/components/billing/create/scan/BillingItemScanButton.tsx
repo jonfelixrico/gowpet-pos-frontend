@@ -53,6 +53,14 @@ export default function BillingItemScanButton({
               options={{
                 max: 1,
                 isPaused: !isOpen,
+                formats: [
+                  'ean_13',
+                  'ean_8',
+                  'itf',
+                  'upc_a',
+                  'upc_e',
+                  'qr_code',
+                ],
               }}
             />
           </ModalBody>
