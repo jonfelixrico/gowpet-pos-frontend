@@ -115,7 +115,7 @@ export default function BarcodeScannerButton({
 }: BillingStateProps & ButtonProps) {
   const { isOpen, onClose, onOpen } = useDisclosure()
 
-  const { onDetect } = useScan({ billing, setBilling })
+  const { onDetect, barcodeColors } = useScan({ billing, setBilling })
 
   return (
     <>
@@ -127,7 +127,11 @@ export default function BarcodeScannerButton({
           <ModalBody>
             <If condition={isOpen}>
               <Then>
-                <BarcodeScannerControls onDetect={onDetect} />
+                <BarcodeScannerControls
+                  onDetect={onDetect}
+                  color="green"
+                  barcodeColors={barcodeColors}
+                />
               </Then>
             </If>
           </ModalBody>
