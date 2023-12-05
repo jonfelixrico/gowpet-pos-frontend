@@ -3,18 +3,22 @@ import { fetchData } from '@/utils/fetch-utils'
 
 import { produce } from 'immer'
 import pMemoize from 'p-memoize'
-import { useCallback, useState } from 'react'
+import { useMemo, useState } from 'react'
 
 export default function useFetchCode() {
   const [loadingMap, setLoadingMap] = useState<Record<string, boolean>>({})
 
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  const doFetch = useCallback(
-    pMemoize((code) =>
-      fetchData<CatalogItem>(`/billing/catalog/code/${code}`)
-        .then(({ data }) => data)
-        .catch(() => null)
-    ),
+  /*
+   * We're using useMemo instead of useCallback here because the react linter is complaining and telling
+   * us to "inline the function". Can't work around that since we want to use pMemoize's method.
+   */
+  const doFetch = useMemo(
+    () =>
+      pMemoize((code) =>
+        fetchData<CatalogItem>(`/billing/catalog/code/${code}`)
+          .then(({ data }) => data)
+          .catch(() => null)
+      ),
     []
   )
 
