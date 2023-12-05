@@ -1,3 +1,3 @@
-import type { useState } from 'react'
+import type { Dispatch, SetStateAction } from 'react'
 
-export type UseStateOutput<T> = ReturnType<typeof useState<T>>
+export type UseStateOutput<T> = [T, Dispatch<SetStateAction<T>>]
