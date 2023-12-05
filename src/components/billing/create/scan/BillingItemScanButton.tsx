@@ -68,7 +68,7 @@ export default function BillingItemScanButton({
           </ModalBody>
 
           <ModalFooter>
-            <Button mr={3} onClick={onClose}>
+            <Button mr={3} onClick={onClose} variant="outline">
               Close
             </Button>
           </ModalFooter>
