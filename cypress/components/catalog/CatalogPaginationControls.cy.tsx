@@ -1,4 +1,4 @@
-import { CatalogPaginationControls } from '@/app/(main)/(catalog-list)/catalog/CatalogPaginationControls'
+import { CatalogPaginationControls } from '@/components/catalog/list/CatalogPaginationControls'
 import { ChakraProvider } from '@chakra-ui/react'
 
 describe('CatalogPaginationControls', () => {

@@ -1,8 +1,8 @@
 import { CatalogItem } from '@/types/CatalogItem'
 import { apiFetchData } from '@/server-utils/resource-api-util'
-import CatalogItemTable from './CatalogItemTable'
+import CatalogItemTable from '@/components/catalog/list/CatalogItemTable'
 import { Center, Divider, Flex } from '@chakra-ui/react'
-import { CatalogPaginationControls } from './CatalogPaginationControls'
+import { CatalogPaginationControls } from '@/components/catalog/list/CatalogPaginationControls'
 import { notFound, redirect } from 'next/navigation'
 
 export const dynamic = 'force-dynamic'
