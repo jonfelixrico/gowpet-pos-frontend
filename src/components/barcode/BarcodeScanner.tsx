@@ -4,17 +4,12 @@ import { useInterval, useMeasure } from 'react-use'
 import { BarcodeDetector } from 'barcode-detector'
 import { Box, Button, Flex } from '@chakra-ui/react'
 import { uniqBy } from 'lodash'
-import BarcodeScannerRealTimePreview from './BarcodeScannerRealTimePreview'
+import BarcodeScannerRealTimePreview, {
+  BarcodeScannerRealTimePreviewProps,
+} from './BarcodeScannerRealTimePreview'
+import { If, Then } from 'react-if'
 
-interface BaseDetectionResults {
-  barcodes: DetectedBarcode[]
-  image: string
-}
-
-type BaseBarcodeCameraProps = {
-  onDetect: (value: BaseDetectionResults | null) => void
-  onError?: (err: unknown) => void
-
+type CameraOptions = {
   /**
    * A list of formats that the scanner will only look for.
    * Leaving this undefined will cause the scanner to look for all formats.
@@ -32,29 +27,41 @@ type BaseBarcodeCameraProps = {
    * Pauses barcode detection. The camera will still be active, though.
    */
   isPaused?: boolean
+
+  max?: number
+
+  disablePreview?: boolean
+}
+
+interface BaseDetectionResults {
+  barcodes: DetectedBarcode[]
+  image: string
 }
 
 function BaseBarcodeCamera({
   onDetect,
   onError = () => {},
-  formats,
-  frequency = 100,
-  isPaused,
+  options = {},
+  max,
   ...webcamProps
-}: Partial<WebcamProps> & BaseBarcodeCameraProps) {
+}: Partial<WebcamProps> & {
+  onDetect: (value: BaseDetectionResults | null) => void
+  options?: CameraOptions
+  onError?: (err: unknown) => void
+}) {
   const webcamRef = useRef<Webcam | null>(null)
 
   const barcodeDetector = useMemo(
     () =>
       new BarcodeDetector({
-        formats,
+        formats: options?.formats,
       }),
-    [formats]
+    [options?.formats]
   )
 
   useInterval(
     async () => {
-      if (!webcamRef.current || isPaused) {
+      if (!webcamRef.current || options?.isPaused) {
         return
       }
 
@@ -68,19 +75,26 @@ function BaseBarcodeCamera({
 
       try {
         const results = await barcodeDetector.detect(image)
-        onDetect(
-          results.length
-            ? {
-                barcodes: uniqBy(results, ({ rawValue }) => rawValue),
-                image: imageUrl,
-              }
-            : null
+
+        if (!results.length) {
+          onDetect(null)
+          return
+        }
+
+        const processed = uniqBy(
+          results.toSorted((a, b) => a.rawValue.localeCompare(b.rawValue)),
+          ({ rawValue }) => rawValue
         )
+        const sliced = processed.slice(0, options.max ?? processed.length)
+        onDetect({
+          barcodes: sliced,
+          image: imageUrl,
+        })
       } catch (e) {
         onError(e)
       }
     },
-    isPaused ? null : frequency
+    !options?.isPaused ? options?.frequency ?? 100 : null
   )
 
   return (
@@ -99,12 +113,20 @@ export type DetectionResults = BaseDetectionResults & {
   height: number
 }
 
-export type BarcodeCameraProps = Omit<BaseBarcodeCameraProps, 'onDetect'> & {
+export type BarcodeCameraProps = {
   onDetect: (results: DetectionResults) => void
+  onError?: (err: unknown) => void
+  options?: CameraOptions
+  previewOptions?: Pick<
+    BarcodeScannerRealTimePreviewProps,
+    'color' | 'barcodeColors'
+  >
 }
 
 export default function BarcodeScanner({
   onDetect,
+  options = {},
+  previewOptions = {},
   ...props
 }: Pick<WebcamProps, 'videoConstraints' | 'style' | 'className'> &
   BarcodeCameraProps) {
@@ -150,17 +172,23 @@ export default function BarcodeScanner({
         </Button>
       </Flex>
 
-      {/* This part is to show the detected barcodes in the camera */}
-      <Box position="absolute" width="full" height="full">
-        <BarcodeScannerRealTimePreview
-          width={width}
-          height={height}
-          barcodes={detectedBarcodes}
-        />
-      </Box>
+      <If condition={!options?.disablePreview}>
+        <Then>
+          {/* This part is to show the detected barcodes in the camera */}
+          <Box position="absolute" width="full" height="full">
+            <BarcodeScannerRealTimePreview
+              width={width}
+              height={height}
+              barcodes={detectedBarcodes}
+              {...previewOptions}
+            />
+          </Box>
+        </Then>
+      </If>
 
       <BaseBarcodeCamera
         {...props}
+        options={options}
         onDetect={handleDetect}
         mirrored={mirrored}
       />

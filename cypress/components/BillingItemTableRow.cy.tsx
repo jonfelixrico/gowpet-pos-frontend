@@ -17,9 +17,12 @@ describe('BillingItemTableRow', () => {
       <Wrapper>
         <BillingItemTableRow
           item={{
-            catalogId: 'id',
-            name: 'foo',
-            price: 125.0,
+            catalogItem: {
+              id: 'id',
+              name: 'foo',
+              price: 125.0,
+              type: 'PRODUCT',
+            },
             quantity: 10,
           }}
         />
@@ -39,9 +42,12 @@ describe('BillingItemTableRow', () => {
         <BillingItemTableRow
           onDelete={onDeleteSpy}
           item={{
-            catalogId: 'id',
-            name: 'foo',
-            price: 125.0,
+            catalogItem: {
+              id: 'id',
+              name: 'foo',
+              price: 125.0,
+              type: 'PRODUCT',
+            },
             quantity: 10,
           }}
         />

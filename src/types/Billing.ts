@@ -1,8 +1,8 @@
+import { CatalogItem } from './CatalogItem'
+
 export interface BillingItem {
-  catalogId: string
-  name: string
-  price: number
   quantity: number
+  catalogItem: CatalogItem
 }
 
 export interface Billing {

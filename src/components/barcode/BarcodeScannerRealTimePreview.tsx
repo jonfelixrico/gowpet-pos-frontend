@@ -8,17 +8,23 @@ interface LastDetect {
   barcodes: DetectedBarcode[]
 }
 
+export interface BarcodeScannerRealTimePreviewProps {
+  width: number
+  height: number
+  barcodes: DetectedBarcode[]
+  persistTime?: number
+  color?: string
+  barcodeColors?: Record<string, string>
+}
+
 export default function BarcodeScannerRealTimePreview({
   width,
   height,
   barcodes,
   persistTime = 500,
-}: {
-  width: number
-  height: number
-  barcodes: DetectedBarcode[]
-  persistTime?: number
-}) {
+  color = 'red',
+  barcodeColors = {},
+}: BarcodeScannerRealTimePreviewProps) {
   const [lastDetect, setLastDetect] = useState<LastDetect>()
   const [now, setNow] = useState(Date.now())
 
@@ -51,7 +57,7 @@ export default function BarcodeScannerRealTimePreview({
           barcode={barcode}
           height={height}
           width={width}
-          color="red"
+          color={barcodeColors[barcode.rawValue] ?? color}
         />
       ))}
     </Box>

@@ -19,7 +19,7 @@ export default function BillingItemTable({
 }: BillingItemTableProps) {
   function onItemDelete(catalogId: string) {
     const updatedBilling = produce(billing, ({ items }) => {
-      const idx = items.findIndex((item) => item.catalogId === catalogId)
+      const idx = items.findIndex((item) => item.catalogItem.id === catalogId)
 
       // -1 means findIndex didn't find a match
       if (idx === -1) {
@@ -39,7 +39,7 @@ export default function BillingItemTable({
 
   function onItemQuantityChange(catalogId: string, newQuantity: number) {
     const updatedBilling = produce(billing, ({ items }) => {
-      const item = items.find((inArr) => inArr.catalogId === catalogId)
+      const item = items.find((inArr) => inArr.catalogItem.id === catalogId)
       if (!item) {
         /*
          * We're throwing an error here because we're expecting an item of `catalogId` to always
@@ -59,7 +59,7 @@ export default function BillingItemTable({
   function saveChanges(toSave: BillingItem) {
     const updated = produce(billing, (toUpdate) => {
       const idx = toUpdate.items.findIndex(
-        (item) => item.catalogId === toSave.catalogId
+        (item) => item.catalogItem.id === toSave.catalogItem.id
       )
 
       toUpdate.items[idx] = toSave
@@ -92,17 +92,17 @@ export default function BillingItemTable({
           <Tbody>
             {billing.items.map((item) => (
               <BillingItemTableRow
-                key={item.catalogId}
+                key={item.catalogItem.id}
                 item={item}
-                onDelete={() => setIdForDeletion(item.catalogId)}
+                onDelete={() => setIdForDeletion(item.catalogItem.id)}
                 onQuantityChange={(val) =>
-                  onItemQuantityChange(item.catalogId, val)
+                  onItemQuantityChange(item.catalogItem.id, val)
                 }
                 onEdit={() => {
                   setItemToEdit(item)
                 }}
                 data-cy="billing-item"
-                data-billing-item-id={item.catalogId}
+                data-billing-item-id={item.catalogItem.id}
               />
             ))}
           </Tbody>
@@ -125,7 +125,7 @@ export default function BillingItemTable({
       </ConfirmDialog>
 
       <BillingItemEditDialog
-        key={itemToEdit?.catalogId ?? 'edit dialog'}
+        key={itemToEdit?.catalogItem.id ?? 'edit dialog'}
         isOpen={!!itemToEdit}
         onDismiss={() => setItemToEdit(null)}
         onOk={saveChanges}

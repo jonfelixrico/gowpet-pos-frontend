@@ -1,4 +1,5 @@
 import BillingCatalogSearchItemsList from '@/app/(main)/(billing)/billing/create/search/BillingCatalogSearchItemsList'
+import { BillingItem } from '@/types/Billing'
 import { ChakraProvider } from '@chakra-ui/react'
 
 describe('BillingCatalogSearchItemsList', () => {
@@ -45,9 +46,12 @@ describe('BillingCatalogSearchItemsList', () => {
           billing={{
             items: [
               {
-                catalogId: 'test 1',
-                name: 'test name 1',
-                price: 123.45,
+                catalogItem: {
+                  id: 'test 1',
+                  name: 'test name 1',
+                  price: 123.45,
+                  type: 'PRODUCT',
+                },
                 quantity: 1,
               },
             ],
@@ -64,18 +68,24 @@ describe('BillingCatalogSearchItemsList', () => {
     cy.get('@setBilling').should('have.been.calledOnceWith', {
       items: [
         {
-          catalogId: 'test 1',
-          name: 'test name 1',
-          price: 123.45,
+          catalogItem: {
+            id: 'test 1',
+            name: 'test name 1',
+            price: 123.45,
+            type: 'PRODUCT',
+          },
           quantity: 1,
         },
         {
-          catalogId: 'test 2',
-          name: 'test name 2',
-          price: 234.56,
+          catalogItem: {
+            id: 'test 2',
+            name: 'test name 2',
+            price: 234.56,
+            type: 'PRODUCT',
+          },
           quantity: 1,
         },
-      ],
+      ] as BillingItem[],
 
       notes: '',
     })
@@ -102,9 +112,12 @@ describe('BillingCatalogSearchItemsList', () => {
           billing={{
             items: [
               {
-                catalogId: 'test 1',
-                name: 'test name 1',
-                price: 123.45,
+                catalogItem: {
+                  id: 'test 1',
+                  name: 'test name 1',
+                  price: 123.45,
+                  type: 'PRODUCT',
+                },
                 quantity: 1,
               },
             ],

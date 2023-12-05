@@ -44,10 +44,10 @@ export default function BillingCatalogSearchItemsList({
   itemsToSelectFrom?: CatalogItem[]
 }) {
   const alreadyAddedIds = new Set<string>(
-    billing?.items.map(({ catalogId }) => catalogId) ?? []
+    billing?.items.map(({ catalogItem }) => catalogItem.id) ?? []
   )
 
-  function addCatalogItemToBilling({ id, name, price }: CatalogItem) {
+  function addCatalogItemToBilling(catalogItem: CatalogItem) {
     if (!billing) {
       throw new Error('data error: falsy billing')
     }
@@ -55,9 +55,7 @@ export default function BillingCatalogSearchItemsList({
     setBilling(
       produce(billing, (billing) => {
         billing.items.push({
-          catalogId: id,
-          name,
-          price,
+          catalogItem,
           quantity: 1,
         })
       })

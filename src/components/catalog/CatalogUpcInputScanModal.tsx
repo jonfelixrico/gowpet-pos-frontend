@@ -49,8 +49,14 @@ const BARCODE_SCAN_BEEP = new Howl({
 function Content({ onSubmit }: { onSubmit: (value: string) => void }) {
   const [result, setResult] = useState<Detected>()
 
-  function processDetected({ barcodes, ...others }: DetectionResults) {
+  function processDetected(result: DetectionResults) {
+    if (!result) {
+      return
+    }
+
     BARCODE_SCAN_BEEP.play()
+
+    const { barcodes, ...others } = result
     setResult({
       ...others,
       barcode: barcodes[0],
@@ -82,8 +88,12 @@ function Content({ onSubmit }: { onSubmit: (value: string) => void }) {
         <BarcodeScannerControls
           onDetect={processDetected}
           height="50dvh"
-          isPaused={!!result}
-          formats={['ean_13', 'ean_8', 'itf', 'upc_a', 'upc_e']}
+          options={{
+            isPaused: !!result,
+            formats: ['ean_13', 'ean_8', 'itf', 'upc_a', 'upc_e'],
+            max: 1,
+            disablePreview: true,
+          }}
         />
       </Box>
 

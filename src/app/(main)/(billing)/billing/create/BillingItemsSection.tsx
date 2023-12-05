@@ -16,8 +16,9 @@ import {
 import { Dispatch, SetStateAction } from 'react'
 import BillingCreateSearchDialog from './search/BillingCatalogSearchDialog'
 import { SearchState } from './search/useSearch'
-import If from '@/components/common/If'
 import { MdAdd } from 'react-icons/md'
+import { Else, If, Then } from 'react-if'
+import BillingItemScanButton from '@/components/billing/create/scan/BillingItemScanButton'
 
 interface BillingStateProps {
   billing: Billing
@@ -40,53 +41,63 @@ export default function BillingItemsSection({
     <>
       <Card {...props}>
         <CardBody as={Flex} direction="column" gap={2}>
-          <Flex justify="space-between" align="center">
-            <Text fontSize="xl" fontWeight="bold">
-              Items
-            </Text>
-            <IconButton
-              size="sm"
-              isRound
-              aria-label="Add item"
-              onClick={onOpen}
-              colorScheme="blue"
-              data-cy="add-items"
-            >
-              <MdAdd />
-            </IconButton>
-          </Flex>
+          <Flex align="center" justify="space-between">
+            <Flex direction="column">
+              <Text fontSize="xl" fontWeight="bold">
+                Items
+              </Text>
 
-          <Flex gap={2}>
-            <Text fontSize="sm" fontWeight="bold">
-              Total
-            </Text>
-            <Text fontSize="sm" data-cy="total-amount">
-              {billing.items.reduce(
-                (acc, val) => acc + val.price * val.quantity,
-                0
-              )}
-            </Text>
+              <Flex gap={2}>
+                <Text fontSize="sm" fontWeight="bold">
+                  Total
+                </Text>
+                <Text fontSize="sm" data-cy="total-amount">
+                  {billing.items.reduce(
+                    (acc, { quantity, catalogItem }) =>
+                      acc + catalogItem.price * quantity,
+                    0
+                  )}
+                </Text>
+              </Flex>
+            </Flex>
+
+            <Flex gap={2} align="center">
+              <BillingItemScanButton state={[billing, setBilling]} />
+
+              <IconButton
+                size="sm"
+                isRound
+                aria-label="Add item"
+                onClick={onOpen}
+                colorScheme="blue"
+                data-cy="add-items"
+              >
+                <MdAdd />
+              </IconButton>
+            </Flex>
           </Flex>
 
           <Divider />
 
           <If condition={hasItems}>
-            <BillingItemTable billing={billing} setBilling={setBilling} />
-          </If>
+            <Then>
+              <BillingItemTable billing={billing} setBilling={setBilling} />
+            </Then>
 
-          <If condition={!hasItems}>
-            <Flex
-              height="40dvh"
-              direction="column"
-              justify="center"
-              align="center"
-              gap={2}
-            >
-              <Text fontSize="lg">No items yet</Text>
-              <Button size="xs" onClick={onOpen}>
-                Add Items
-              </Button>
-            </Flex>
+            <Else>
+              <Flex
+                height="40dvh"
+                direction="column"
+                justify="center"
+                align="center"
+                gap={2}
+              >
+                <Text fontSize="lg">No items yet</Text>
+                <Button size="xs" onClick={onOpen}>
+                  Add Items
+                </Button>
+              </Flex>
+            </Else>
           </If>
         </CardBody>
       </Card>

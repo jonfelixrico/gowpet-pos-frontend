@@ -12,9 +12,8 @@ export type BarcodeScannerProps = BarcodeCameraProps &
 export default function BarcodeScannerControls({
   onDetect,
   onError = () => {},
-  formats,
-  frequency,
-  isPaused,
+  options = {},
+  previewOptions = {},
   ...flexProps
 }: BarcodeScannerProps) {
   const { cameras, loading, selectedId, setSelectedId } = useCameraSelect()
@@ -33,9 +32,8 @@ export default function BarcodeScannerControls({
               height: '100%',
               width: '100%',
             }}
-            formats={formats}
-            frequency={frequency}
-            isPaused={isPaused}
+            options={options}
+            previewOptions={previewOptions}
           />
         </Then>
 

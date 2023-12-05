@@ -9,9 +9,12 @@ function generateDummyItems(count: number, startId = 0): BillingItem[] {
     .map((_, index) => {
       const id = startId + index
       return {
-        catalogId: `item-${id}`,
-        name: `item ${id} name`,
-        price: 150.0,
+        catalogItem: {
+          name: `item ${id} name`,
+          price: 150.0,
+          id: `item-${id}`,
+          type: 'PRODUCT',
+        },
         quantity: 25,
       }
     })
