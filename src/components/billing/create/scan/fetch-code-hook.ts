@@ -5,7 +5,7 @@ import { produce } from 'immer'
 import pMemoize from 'p-memoize'
 import { useCallback, useState } from 'react'
 
-export default function useCodeFetch() {
+export default function useFetchCode() {
   const [loadingMap, setLoadingMap] = useState<Record<string, boolean>>({})
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
