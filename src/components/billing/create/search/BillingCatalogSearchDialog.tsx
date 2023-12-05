@@ -47,7 +47,7 @@ export default function BillingCreateSearchDialog({
         />
 
         <ModalFooter>
-          <Button mr={3} onClick={onClose} data-cy="close">
+          <Button mr={3} onClick={onClose} data-cy="close" variant="outline">
             Close
           </Button>
         </ModalFooter>

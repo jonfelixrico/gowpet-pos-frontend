@@ -27,7 +27,12 @@ function BillingCatalogSearchItem({
         </Text>
       </Box>
 
-      <Button isDisabled={!canAdd} onClick={onAdd} data-cy="add">
+      <Button
+        isDisabled={!canAdd}
+        onClick={onAdd}
+        data-cy="add"
+        colorScheme="blue"
+      >
         Add
       </Button>
     </Flex>
