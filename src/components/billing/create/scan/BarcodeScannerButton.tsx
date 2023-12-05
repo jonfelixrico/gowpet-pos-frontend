@@ -12,20 +12,16 @@ import {
   ModalOverlay,
   useDisclosure,
 } from '@chakra-ui/react'
-import { Dispatch, SetStateAction } from 'react'
 import { If, Then } from 'react-if'
 import useBillingBarcodeScanner from './billing-barcode-scanner-hook'
-
-interface BillingStateProps {
-  billing: Billing
-  setBilling: Dispatch<SetStateAction<Billing>>
-}
+import { UseStateOutput } from '@/types/react-types'
 
 export default function BarcodeScannerButton({
-  billing,
-  setBilling,
+  state: [billing, setBilling],
   ...buttonProps
-}: BillingStateProps & ButtonProps) {
+}: {
+  state: UseStateOutput<Billing>
+} & ButtonProps) {
   const { isOpen, onClose, onOpen } = useDisclosure()
 
   const { onDetect, barcodeColors } = useBillingBarcodeScanner({

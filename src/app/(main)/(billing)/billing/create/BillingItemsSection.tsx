@@ -62,7 +62,7 @@ export default function BillingItemsSection({
             </Flex>
 
             <Flex gap={2} align="center">
-              <BarcodeScannerButton billing={billing} setBilling={setBilling} />
+              <BarcodeScannerButton state={[billing, setBilling]} />
 
               <IconButton
                 size="sm"
