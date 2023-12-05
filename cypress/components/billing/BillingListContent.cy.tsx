@@ -1,6 +1,6 @@
-import BillingListContent from '@/app/(main)/(billing)/(billing-list)/billing/BillingListContent'
+import BillingListContent from '@/components/billing/list/BillingListContent'
 import { ChakraProvider } from '@chakra-ui/react'
-import MockNextRouter from '../utils/MockNextRouter'
+import MockNextRouter from '../../utils/MockNextRouter'
 
 describe('BillingListContent', () => {
   it('shows the empty message if there are no billings', () => {

@@ -1,5 +1,5 @@
 import { Box } from '@chakra-ui/react'
-import ReceiptSection from './receipt/ReceiptSection'
+import ReceiptSection from '@/components/settings/billing/ReceiptSection'
 
 export default function BillingSettingsPage() {
   return (

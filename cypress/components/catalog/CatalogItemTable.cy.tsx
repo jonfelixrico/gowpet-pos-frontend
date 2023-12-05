@@ -1,4 +1,4 @@
-import CatalogItemTable from '@/app/(main)/(catalog-list)/catalog/CatalogItemTable'
+import CatalogItemTable from '@/components/catalog/list/CatalogItemTable'
 import { CatalogItem } from '@/types/CatalogItem'
 import { ChakraProvider } from '@chakra-ui/react'
 

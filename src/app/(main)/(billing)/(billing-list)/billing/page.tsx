@@ -2,7 +2,7 @@ import { apiFetchData } from '@/server-utils/resource-api-util'
 import { Divider, Flex } from '@chakra-ui/react'
 import { stringify } from 'querystring'
 import { PaginationControls } from '@/components/pagination/PaginationControls'
-import BillingListContent from './BillingListContent'
+import BillingListContent from '@/components/billing/list/BillingListContent'
 import { SavedBilling } from '@/types/SavedBilling'
 import { Url } from '@/types/Url'
 

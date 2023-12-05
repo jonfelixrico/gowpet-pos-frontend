@@ -1,4 +1,4 @@
-import BillingCatalogSearchDialogContent from '@/app/(main)/(billing)/billing/create/search/BillingCatalogSearchDialogContent'
+import BillingCatalogSearchDialogContent from '@/components/billing/create/search/BillingCatalogSearchDialogContent'
 import { CatalogItem } from '@/types/CatalogItem'
 import { ChakraProvider, Modal } from '@chakra-ui/react'
 import { ReactNode } from 'react'

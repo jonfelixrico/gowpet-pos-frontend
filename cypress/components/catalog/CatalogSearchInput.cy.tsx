@@ -1,4 +1,4 @@
-import CatalogSearchInput from '@/app/(main)/(catalog-list)/catalog/@toolbar/CatalogSearchInput'
+import CatalogSearchInput from '@/components/catalog/list/CatalogSearchInput'
 import { ChakraProvider } from '@chakra-ui/react'
 
 describe('CatalogSearchInput', () => {

@@ -1,6 +1,6 @@
 'use client'
 
-import BillingItemTable from '@/app/(main)/(billing)/billing/create/input/BillingItemTable'
+import BillingItemTable from '@/components/billing/create/input/BillingItemTable'
 import { Billing } from '@/types/Billing'
 import {
   Button,

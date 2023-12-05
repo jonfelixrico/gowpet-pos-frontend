@@ -1,4 +1,4 @@
-import BillingDetailsItemsTable from '@/app/(main)/(billing)/billing/[id]/BillingDetailsItemsTable'
+import BillingDetailsItemsTable from '@/components/billing/details/BillingDetailsItemsTable'
 import { ChakraProvider } from '@chakra-ui/react'
 
 describe('BillingDetailsItemsTable', () => {
