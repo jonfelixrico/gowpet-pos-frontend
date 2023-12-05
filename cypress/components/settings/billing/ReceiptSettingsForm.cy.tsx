@@ -1,4 +1,4 @@
-import ReceiptSettingsForm from '@/app/(main)/settings/billing/receipt/ReceiptSettingsForm'
+import ReceiptSettingsForm from '@/components/settings/billing/ReceiptSettingsForm'
 import { ReceiptSettings } from '@/types/ReceiptSetings'
 import { ChakraProvider } from '@chakra-ui/react'
 
