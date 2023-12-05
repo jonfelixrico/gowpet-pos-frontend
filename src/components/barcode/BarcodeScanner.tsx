@@ -78,14 +78,14 @@ function BaseBarcodeCamera({
 
         if (!results.length) {
           onDetect(null)
+          return
         }
 
         const processed = uniqBy(
           results.toSorted((a, b) => a.rawValue.localeCompare(b.rawValue)),
           ({ rawValue }) => rawValue
         )
-        const sliced = processed.slice(options?.max)
-
+        const sliced = processed.slice(0, options.max ?? processed.length)
         onDetect({
           barcodes: sliced,
           image: imageUrl,
