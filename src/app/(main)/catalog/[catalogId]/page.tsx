@@ -3,10 +3,10 @@ import { apiFetch, apiFetchData } from '@/server-utils/resource-api-util'
 import { Button, Flex } from '@chakra-ui/react'
 import Link from 'next/link'
 import { notFound, redirect } from 'next/navigation'
-import CatalogDeleteButton from './CatalogDeleteButton'
+import CatalogDeleteButton from '@/components/catalog/details/CatalogDeleteButton'
 import { FetchError } from '@/utils/fetch-utils'
 import DetailsLayoutWithTitle from '@/components/common/DetailsLayoutWithTitle'
-import CatalogDetailsCard from './CatalogDetailsCard'
+import CatalogDetailsCard from '@/components/catalog/details/CatalogDetailsCard'
 
 interface Params {
   catalogId: string

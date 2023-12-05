@@ -1,4 +1,4 @@
-import CatalogDetailsCard from '@/app/(main)/catalog/[catalogId]/CatalogDetailsCard'
+import CatalogDetailsCard from '@/components/catalog/details/CatalogDetailsCard'
 import { ChakraProvider } from '@chakra-ui/react'
 
 describe('CatalogDetailsCard', () => {
