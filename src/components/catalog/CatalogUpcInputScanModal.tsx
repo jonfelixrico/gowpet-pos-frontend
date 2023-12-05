@@ -49,8 +49,14 @@ const BARCODE_SCAN_BEEP = new Howl({
 function Content({ onSubmit }: { onSubmit: (value: string) => void }) {
   const [result, setResult] = useState<Detected>()
 
-  function processDetected({ barcodes, ...others }: DetectionResults) {
+  function processDetected(result: DetectionResults) {
+    if (!result) {
+      return
+    }
+
     BARCODE_SCAN_BEEP.play()
+
+    const { barcodes, ...others } = result
     setResult({
       ...others,
       barcode: barcodes[0],
