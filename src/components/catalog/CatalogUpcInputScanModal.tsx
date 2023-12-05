@@ -86,6 +86,7 @@ function Content({ onSubmit }: { onSubmit: (value: string) => void }) {
             isPaused: !!result,
             formats: ['ean_13', 'ean_8', 'itf', 'upc_a', 'upc_e'],
             max: 1,
+            disablePreview: true,
           }}
         />
       </Box>

@@ -7,6 +7,7 @@ import { uniqBy } from 'lodash'
 import BarcodeScannerRealTimePreview, {
   BarcodeScannerRealTimePreviewProps,
 } from './BarcodeScannerRealTimePreview'
+import { If, Then } from 'react-if'
 
 type CameraOptions = {
   /**
@@ -28,6 +29,8 @@ type CameraOptions = {
   isPaused?: boolean
 
   max?: number
+
+  disablePreview?: boolean
 }
 
 interface BaseDetectionResults {
@@ -169,15 +172,19 @@ export default function BarcodeScanner({
         </Button>
       </Flex>
 
-      {/* This part is to show the detected barcodes in the camera */}
-      <Box position="absolute" width="full" height="full">
-        <BarcodeScannerRealTimePreview
-          width={width}
-          height={height}
-          barcodes={detectedBarcodes}
-          {...previewOptions}
-        />
-      </Box>
+      <If condition={!options?.disablePreview}>
+        <Then>
+          {/* This part is to show the detected barcodes in the camera */}
+          <Box position="absolute" width="full" height="full">
+            <BarcodeScannerRealTimePreview
+              width={width}
+              height={height}
+              barcodes={detectedBarcodes}
+              {...previewOptions}
+            />
+          </Box>
+        </Then>
+      </If>
 
       <BaseBarcodeCamera
         {...props}
