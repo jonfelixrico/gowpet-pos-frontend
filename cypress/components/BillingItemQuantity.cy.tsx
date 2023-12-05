@@ -1,4 +1,4 @@
-import BillingItemQuantity from '@/app/(main)/(billing)/billing/create/input/BillingItemQuantity'
+import BillingItemQuantity from '@/components/billing/create/input/BillingItemQuantity'
 import { ChakraProvider } from '@chakra-ui/react'
 
 describe('BillinItemQuantity', () => {

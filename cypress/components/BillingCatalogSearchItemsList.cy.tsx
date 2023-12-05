@@ -1,4 +1,4 @@
-import BillingCatalogSearchItemsList from '@/app/(main)/(billing)/billing/create/search/BillingCatalogSearchItemsList'
+import BillingCatalogSearchItemsList from '@/components/billing/create/search/BillingCatalogSearchItemsList'
 import { BillingItem } from '@/types/Billing'
 import { ChakraProvider } from '@chakra-ui/react'
 

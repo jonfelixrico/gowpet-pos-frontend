@@ -1,4 +1,4 @@
-import BillingItemTableRow from '@/app/(main)/(billing)/billing/create/input/BillingItemTableRow'
+import BillingItemTableRow from '@/components/billing/create/input/BillingItemTableRow'
 import { ChakraProvider, Table } from '@chakra-ui/react'
 import { ReactNode } from 'react'
 
