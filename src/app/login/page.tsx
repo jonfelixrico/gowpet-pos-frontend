@@ -1,5 +1,5 @@
 import { Card, CardBody, Flex } from '@chakra-ui/react'
-import LoginForm from './LoginForm'
+import LoginForm from '@/components/login/LoginForm'
 import { redirect } from 'next/navigation'
 import { getAuthToken } from '@/utils/auth-util'
 import { verifyToken } from '@/server-utils/jwt-utils'
