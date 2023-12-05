@@ -18,7 +18,7 @@ import BillingCreateSearchDialog from './search/BillingCatalogSearchDialog'
 import { SearchState } from './search/useSearch'
 import { MdAdd } from 'react-icons/md'
 import { Else, If, Then } from 'react-if'
-import BarcodeScannerButton from '@/components/billing/create/scan/BarcodeScannerButton'
+import BillingItemScanButton from '@/components/billing/create/scan/BillingItemScanButton'
 
 interface BillingStateProps {
   billing: Billing
@@ -62,7 +62,7 @@ export default function BillingItemsSection({
             </Flex>
 
             <Flex gap={2} align="center">
-              <BarcodeScannerButton state={[billing, setBilling]} />
+              <BillingItemScanButton state={[billing, setBilling]} />
 
               <IconButton
                 size="sm"

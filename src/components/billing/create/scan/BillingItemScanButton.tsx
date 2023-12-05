@@ -15,7 +15,7 @@ import {
 import useBillingBarcodeScanner from './billing-barcode-scanner-hook'
 import { ReactState } from '@/types/react-types'
 
-export default function BarcodeScannerButton({
+export default function BillingItemScanButton({
   state: [billing, setBilling],
   ...buttonProps
 }: {
