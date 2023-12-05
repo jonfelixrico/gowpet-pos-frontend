@@ -58,7 +58,7 @@ export default function CatalogUpcInput({ value, ...others }: InputProps) {
               onClick={onOpen}
               size="sm"
               aria-label="Scan barcode"
-              variant="outline"
+              isRound
             >
               <BsUpcScan />
             </IconButton>
