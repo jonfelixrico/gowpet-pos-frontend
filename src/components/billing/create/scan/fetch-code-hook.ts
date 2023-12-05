@@ -18,18 +18,10 @@ export default function useFetchCode() {
     []
   )
 
-  function add(code: string) {
+  function setValue(code: string, value: boolean) {
     setLoadingMap((map) =>
       produce(map, (map) => {
-        map[code] = true
-      })
-    )
-  }
-
-  function remove(code: string) {
-    setLoadingMap((map) =>
-      produce(map, (map) => {
-        delete map[code]
+        map[code] = value
       })
     )
   }
@@ -40,10 +32,10 @@ export default function useFetchCode() {
     }
 
     try {
-      add(code)
+      setValue(code, true)
       return await doFetch(code)
     } finally {
-      remove(code)
+      setValue(code, false)
     }
   }
 

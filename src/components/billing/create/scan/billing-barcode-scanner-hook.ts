@@ -7,11 +7,20 @@ import { useMemo } from 'react'
 import useFetchCode from './fetch-code-hook'
 import { UseStateOutput } from '@/types/react-types'
 import { useToast } from '@chakra-ui/react'
+import { Howl } from 'howler'
+
+const BARCODE_SCAN_BEEP = new Howl({
+  src: '/barcode-scan.wav',
+})
 
 export default function useBillingBarcodeScanner({
   state: [billing, setBilling],
+  doneColor,
+  loadingColor,
 }: {
   state: UseStateOutput<Billing>
+  loadingColor: string
+  doneColor: string
 }) {
   const { items } = billing
   const codes = useMemo(
@@ -22,8 +31,15 @@ export default function useBillingBarcodeScanner({
   const toast = useToast()
 
   const { fetchCode, loadingMap } = useFetchCode()
-  async function detect({ rawValue }: DetectedBarcode) {
-    if (codes.has(rawValue) || loadingMap[rawValue]) {
+
+  async function onDetect(results: DetectionResults) {
+    if (!results) {
+      return
+    }
+
+    const [{ rawValue }] = results.barcodes
+
+    if (!rawValue || codes.has(rawValue) || loadingMap[rawValue]) {
       return
     }
 
@@ -45,14 +61,11 @@ export default function useBillingBarcodeScanner({
           })
         })
       )
+
+      BARCODE_SCAN_BEEP.play()
     } catch (e) {
       // TODO add something
     }
-  }
-
-  async function onDetect({ barcodes }: DetectionResults) {
-    const [barcode] = barcodes
-    await detect(barcode)
   }
 
   const selectedColors = useMemo(() => {
@@ -69,8 +82,11 @@ export default function useBillingBarcodeScanner({
   }, [codes])
 
   const loadingColors = useMemo(
-    () => mapValues(loadingMap, (value) => (value ? 'red' : 'lightred')),
-    [loadingMap]
+    () =>
+      mapValues(loadingMap, (isLoading) =>
+        isLoading ? loadingColor : doneColor
+      ),
+    [loadingMap, loadingColor, doneColor]
   )
 
   return {
