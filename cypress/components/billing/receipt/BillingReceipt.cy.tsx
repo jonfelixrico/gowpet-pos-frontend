@@ -1,4 +1,4 @@
-import BillingReceipt from '@/app/(main)/(billing)/billing/[id]/receipt/BillingReceipt'
+import BillingReceipt from '@/components/billing/details/receipt/BillingReceipt'
 import { Box, ChakraProvider } from '@chakra-ui/react'
 
 describe('BillingReceipt', () => {

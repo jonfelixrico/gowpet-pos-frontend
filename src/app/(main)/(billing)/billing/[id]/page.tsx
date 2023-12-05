@@ -10,14 +10,14 @@ import {
   Text,
 } from '@chakra-ui/react'
 import { notFound } from 'next/navigation'
-import BillingDetailsItemsSection from './BillingDetailsItemsSection'
+import BillingDetailsItemsSection from '@/components/billing/details/BillingDetailsItemsSection'
 import Link from 'next/link'
 import { IoIosArrowBack } from 'react-icons/io'
 import { SavedBilling } from '@/types/SavedBilling'
-import BillingDetailsInfoSection from './BillingDetailsInfoSection'
+import BillingDetailsInfoSection from '@/components/billing/details/BillingDetailsInfoSection'
 import { MdPrint } from 'react-icons/md'
 import { ReceiptSettings } from '@/types/ReceiptSetings'
-import BillingPrintReceiptButton from './receipt/BillingPrintReceiptButton'
+import BillingPrintReceiptButton from '@/components/billing/details/receipt/BillingPrintReceiptButton'
 
 export default async function Billing({
   params,
