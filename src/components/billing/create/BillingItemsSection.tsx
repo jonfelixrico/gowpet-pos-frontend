@@ -16,7 +16,6 @@ import {
 import { Dispatch, SetStateAction } from 'react'
 import BillingCreateSearchDialog from './search/BillingCatalogSearchDialog'
 import { SearchState } from './search/useSearch'
-import { MdAdd } from 'react-icons/md'
 import { FaSearch } from 'react-icons/fa'
 import { Else, If, Then } from 'react-if'
 import BillingItemScanButton from '@/components/billing/create/scan/BillingItemScanButton'
