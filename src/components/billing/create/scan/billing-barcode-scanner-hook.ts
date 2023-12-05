@@ -5,7 +5,7 @@ import { produce } from 'immer'
 import { mapValues } from 'lodash'
 import { useMemo } from 'react'
 import useFetchCode from './fetch-code-hook'
-import { UseStateOutput } from '@/types/react-types'
+import { ReactState } from '@/types/react-types'
 import { useToast } from '@chakra-ui/react'
 import { Howl } from 'howler'
 
@@ -18,7 +18,7 @@ export default function useBillingBarcodeScanner({
   doneColor,
   loadingColor,
 }: {
-  state: UseStateOutput<Billing>
+  state: ReactState<Billing>
   loadingColor: string
   doneColor: string
 }) {

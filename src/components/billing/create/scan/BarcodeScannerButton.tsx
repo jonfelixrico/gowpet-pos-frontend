@@ -14,13 +14,13 @@ import {
 } from '@chakra-ui/react'
 import { If, Then } from 'react-if'
 import useBillingBarcodeScanner from './billing-barcode-scanner-hook'
-import { UseStateOutput } from '@/types/react-types'
+import { ReactState } from '@/types/react-types'
 
 export default function BarcodeScannerButton({
   state: [billing, setBilling],
   ...buttonProps
 }: {
-  state: UseStateOutput<Billing>
+  state: ReactState<Billing>
 } & ButtonProps) {
   const { isOpen, onClose, onOpen } = useDisclosure()
 
