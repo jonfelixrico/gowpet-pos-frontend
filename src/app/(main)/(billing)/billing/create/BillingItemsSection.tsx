@@ -18,7 +18,7 @@ import BillingCreateSearchDialog from './search/BillingCatalogSearchDialog'
 import { SearchState } from './search/useSearch'
 import { MdAdd } from 'react-icons/md'
 import { Else, If, Then } from 'react-if'
-import BarcodeScannerButton from './scan/BarcodeScannerButton'
+import BarcodeScannerButton from '@/components/billing/create/scan/BarcodeScannerButton'
 
 interface BillingStateProps {
   billing: Billing
