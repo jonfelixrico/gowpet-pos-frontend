@@ -36,7 +36,14 @@ export default function BarcodeScannerButton({
 
   return (
     <>
-      <Modal isOpen={isOpen} onClose={onClose}>
+      <Modal
+        isOpen={isOpen}
+        onClose={onClose}
+        size={{
+          base: 'full',
+          sm: 'lg',
+        }}
+      >
         <ModalOverlay />
         <ModalContent>
           <ModalHeader>Scanner</ModalHeader>
@@ -59,7 +66,7 @@ export default function BarcodeScannerButton({
           </ModalBody>
 
           <ModalFooter>
-            <Button colorScheme="blue" mr={3} onClick={onClose}>
+            <Button variant="ghost" mr={3} onClick={onClose}>
               Close
             </Button>
           </ModalFooter>
