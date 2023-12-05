@@ -16,7 +16,9 @@ import {
   useDisclosure,
 } from '@chakra-ui/react'
 import { produce } from 'immer'
-import { Dispatch, SetStateAction, useMemo, useState } from 'react'
+import { mapValues } from 'lodash'
+import pMemoize from 'p-memoize'
+import { Dispatch, SetStateAction, useCallback, useMemo, useState } from 'react'
 import { If, Then } from 'react-if'
 
 interface BillingStateProps {
@@ -24,32 +26,74 @@ interface BillingStateProps {
   setBilling: Dispatch<SetStateAction<Billing>>
 }
 
+function useCodeFetch() {
+  const [loadingMap, setLoadingMap] = useState<Record<string, boolean>>({})
+
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  const doFetch = useCallback(
+    pMemoize((code) =>
+      fetchData<CatalogItem>(`/billing/catalog/code/${code}`)
+        .then(({ data }) => data)
+        .catch(() => null)
+    ),
+    []
+  )
+
+  function add(code: string) {
+    setLoadingMap((map) =>
+      produce(map, (map) => {
+        map[code] = true
+      })
+    )
+  }
+
+  function remove(code: string) {
+    setLoadingMap((map) =>
+      produce(map, (map) => {
+        delete map[code]
+      })
+    )
+  }
+
+  async function fetchCode(code: string) {
+    if (loadingMap[code] !== undefined) {
+      return null
+    }
+
+    try {
+      add(code)
+      return await doFetch(code)
+    } finally {
+      remove(code)
+    }
+  }
+
+  return {
+    loadingMap,
+    fetchCode,
+  }
+}
+
 function useScan({ billing, setBilling }: BillingStateProps) {
   const { items } = billing
 
+  const { fetchCode, loadingMap } = useCodeFetch()
+
   const codes = useMemo(
-    () => items.map((item) => item.catalogItem.code).filter(Boolean),
+    () => new Set(items.map((item) => item.catalogItem.code).filter(Boolean)),
     [items]
   )
-  const codesSet = useMemo(() => new Set(codes), [codes])
-
-  const [loadingCodes, setLoadingCodes] = useState<Record<string, boolean>>({})
 
   async function detect({ rawValue }: DetectedBarcode) {
-    if (codesSet.has(rawValue) || loadingCodes[rawValue]) {
+    if (codes.has(rawValue) || loadingMap[rawValue]) {
       return
     }
 
     try {
-      setLoadingCodes((codes) =>
-        produce(codes, (codes) => {
-          codes[rawValue] = true
-        })
-      )
-
-      const { data } = await fetchData<CatalogItem>(
-        `/billing/catalog/code/${rawValue}`
-      )
+      const data = await fetchCode(rawValue)
+      if (!data) {
+        return
+      }
 
       setBilling((billing) =>
         produce(billing, (billing) => {
@@ -61,21 +105,16 @@ function useScan({ billing, setBilling }: BillingStateProps) {
       )
     } catch (e) {
       // TODO add something
-    } finally {
-      setLoadingCodes((codes) =>
-        produce(codes, (codes) => {
-          delete codes[rawValue]
-        })
-      )
     }
   }
 
-  function onDetect({ barcodes }: DetectionResults) {
-    Promise.all(barcodes.map(detect))
+  async function onDetect({ barcodes }: DetectionResults) {
+    const [barcode] = barcodes
+    await detect(barcode)
   }
 
   const selectedColors = useMemo(() => {
-    return codes.reduce(
+    return Array.from(codes).reduce(
       (map, code) => {
         if (code) {
           map[code] = 'gray'
@@ -87,15 +126,10 @@ function useScan({ billing, setBilling }: BillingStateProps) {
     )
   }, [codes])
 
-  const loadingColors = useMemo(() => {
-    const colors: Record<string, string> = {}
-    for (const key in loadingCodes) {
-      if (loadingCodes[key]) {
-        colors[key] = 'orange'
-      }
-    }
-    return colors
-  }, [loadingCodes])
+  const loadingColors = useMemo(
+    () => mapValues(loadingMap, (value) => (value ? 'red' : 'pink')),
+    [loadingMap]
+  )
 
   return {
     barcodeColors: useMemo(() => {
@@ -132,6 +166,9 @@ export default function BarcodeScannerButton({
                   color="green"
                   previewOptions={{
                     barcodeColors,
+                  }}
+                  options={{
+                    max: 1,
                   }}
                 />
               </Then>
