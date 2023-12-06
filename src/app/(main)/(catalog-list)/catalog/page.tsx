@@ -4,6 +4,7 @@ import CatalogItemTable from '@/components/catalog/list/CatalogItemTable'
 import { Divider, Flex } from '@chakra-ui/react'
 import { CatalogPaginationControls } from '@/components/catalog/list/CatalogPaginationControls'
 import { notFound } from 'next/navigation'
+import { CatalogTags } from '@/next/cache-tags'
 
 export default async function Catalog({
   searchParams,
@@ -26,7 +27,7 @@ export default async function Catalog({
     `/catalog?${qp.toString()}`,
     {
       next: {
-        tags: ['catalog-list'],
+        tags: [CatalogTags.LIST],
       },
     }
   )
