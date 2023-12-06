@@ -3,6 +3,7 @@ import LoginForm from '@/components/login/LoginForm'
 import { RedirectType, redirect } from 'next/navigation'
 import { getAuthToken } from '@/utils/auth-util'
 import { verifyToken } from '@/server-utils/jwt-utils'
+import { DEFAULT_ROUTE } from '@/app/default-route'
 
 export default async function Login() {
   const authToken = getAuthToken()
@@ -11,7 +12,7 @@ export default async function Login() {
      * This is to prevent a weird UX of still being able to access the login screen
      * even though the user is already authenticated
      */
-    redirect('/home', RedirectType.replace)
+    redirect(DEFAULT_ROUTE, RedirectType.replace)
   }
 
   return (

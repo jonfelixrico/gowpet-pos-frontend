@@ -1,5 +1,6 @@
 'use client'
 
+import { DEFAULT_ROUTE } from '@/app/default-route'
 import { FetchError, fetchWrapper } from '@/utils/fetch-utils'
 import { Button, Flex, FormControl, FormLabel, Input } from '@chakra-ui/react'
 import { Formik, Form, Field, FieldProps, FormikHelpers } from 'formik'
@@ -29,7 +30,7 @@ export default function LoginForm() {
       })
 
       Cookies.set('token', await response.text())
-      router.push('/home')
+      router.push(DEFAULT_ROUTE)
     } catch (e) {
       // TODO turn these into actual modals
 
