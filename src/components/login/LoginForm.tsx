@@ -3,15 +3,12 @@
 import { Credentials } from '@/types/login-types'
 import { Button, Flex, FormControl, FormLabel, Input } from '@chakra-ui/react'
 import { Formik, Form, Field, FieldProps, FormikHelpers } from 'formik'
-import { useRouter } from 'next/navigation'
 
 export default function LoginForm({
   onSubmit,
 }: {
   onSubmit: (credentials: Credentials) => Promise<void>
 }) {
-  const router = useRouter()
-
   async function handleSubmit(
     values: Credentials,
     actions: FormikHelpers<Credentials>
