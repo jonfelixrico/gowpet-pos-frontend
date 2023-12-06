@@ -16,7 +16,7 @@ export function apiFetch(
 
   const token = getAuthToken()
   if (token) {
-    headers['Authorization'] = token
+    headers['Authorization'] = `Bearer ${token}`
   }
 
   return fetchWrapper(
