@@ -3,11 +3,13 @@ import { NextRequest, NextResponse } from 'next/server'
 import UrlPattern from 'url-pattern'
 
 function redirect(
-  { nextUrl: { protocol, host } }: NextRequest,
+  { nextUrl: { protocol, host, search, pathname } }: NextRequest,
   path: string
 ): NextResponse {
   const base = `${protocol}//${host}`
+
   const url = new URL(path, base)
+  url.searchParams.set('redirect', `${pathname}${search}`)
 
   return NextResponse.redirect(url)
 }
