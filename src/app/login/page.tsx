@@ -1,6 +1,6 @@
 import { Card, CardBody, Flex } from '@chakra-ui/react'
 import LoginForm from '@/components/login/LoginForm'
-import { redirect } from 'next/navigation'
+import { RedirectType, redirect } from 'next/navigation'
 import { getAuthToken } from '@/utils/auth-util'
 import { verifyToken } from '@/server-utils/jwt-utils'
 
@@ -11,7 +11,7 @@ export default async function Login() {
      * This is to prevent a weird UX of still being able to access the login screen
      * even though the user is already authenticated
      */
-    redirect('/home')
+    redirect('/home', RedirectType.replace)
   }
 
   return (
