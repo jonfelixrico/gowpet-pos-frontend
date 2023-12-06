@@ -1,12 +1,12 @@
 describe('session invalidated', () => {
-  it('supports mid-session invalidation flow', () => {
+  it('handles mid-session invalidation when navigating to protected route', () => {
     // test path choice was arbitrary
     cy.visit('/billing/create')
     // just to smoke-test that the user has been logged in
     cy.location('pathname').should('equal', '/billing/create')
 
     cy.setCookie('token', 'now invalidated')
-    cy.reload()
+    cy.reload() // equivalent to navigating to a protected route since you're reloading /billing/create
 
     cy.location('pathname').should('equal', '/login')
 
