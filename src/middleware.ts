@@ -1,6 +1,6 @@
 import { verifyToken } from '@/server-utils/jwt-utils'
 import { NextRequest, NextResponse } from 'next/server'
-import UrlPattern from 'url-pattern'
+import { DEFAULT_ROUTE } from './app/default-route'
 
 function redirect(
   { nextUrl: { protocol, host } }: NextRequest,
@@ -27,14 +27,6 @@ export const config = {
   ],
 }
 
-function buildPatterns(routeStrings: string[]) {
-  return routeStrings.map((route) => new UrlPattern(route))
-}
-const PUBLIC_ROUTES = buildPatterns(['/', '/login'])
-function isRoutePublic({ nextUrl: { pathname } }: NextRequest) {
-  return PUBLIC_ROUTES.some((pattern) => pattern.match(pathname))
-}
-
 /*
  * We're combining middleware matchers with conditionals:
  * - middleware matchers are used to exclude stuff which aren't actual routes of the app
@@ -47,21 +39,29 @@ function isRoutePublic({ nextUrl: { pathname } }: NextRequest) {
  * using only the conditional code is buggy since it'll also end up blocking asset calls.
  */
 
-export default async function middleware(req: NextRequest) {
-  if (isRoutePublic(req)) {
+export default async function middleware(
+  req: NextRequest
+): Promise<NextResponse> {
+  const token = req.cookies.get('token')?.value
+  const isTokenValid = token && (await verifyToken(token))
+
+  const destPath = req.nextUrl.pathname
+  if (isTokenValid) {
+    if (destPath === '/' || destPath === '/login') {
+      return redirect(req, DEFAULT_ROUTE)
+    }
+
     return NextResponse.next()
   }
 
-  const token = req.cookies.get('token')?.value
-  if (!token) {
-    return redirect(req, '/login')
+  if (destPath === '/login') {
+    return NextResponse.next()
   }
 
-  if (!(await verifyToken(token))) {
-    const res = redirect(req, '/login')
+  const res = redirect(req, '/login')
+  if (token && !isTokenValid) {
     res.cookies.delete('token')
-    return res
   }
 
-  return NextResponse.next()
+  return res
 }
