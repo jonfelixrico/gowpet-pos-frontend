@@ -49,7 +49,6 @@ function isRoutePublic({ nextUrl: { pathname } }: NextRequest) {
 
 export default async function middleware(req: NextRequest) {
   if (isRoutePublic(req)) {
-    console.debug('Public route; middleware will proceed')
     return NextResponse.next()
   }
 
