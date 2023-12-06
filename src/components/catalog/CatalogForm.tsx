@@ -1,5 +1,8 @@
+'use client'
+
 import { FormikSubmit } from '@/types/formik'
 import {
+  Button,
   Flex,
   FormControl,
   FormLabel,
@@ -9,31 +12,74 @@ import {
   NumberInput,
   NumberInputField,
   NumberInputStepper,
+  Select,
 } from '@chakra-ui/react'
 import { Field, FieldProps, Form, Formik } from 'formik'
-import { ReactNode } from 'react'
+import CatalogUpcInput from './CatalogUpcInput'
+import { Else, If, Then } from 'react-if'
+import { ChangeEventHandler, useMemo } from 'react'
+import { BaseCatalogItem } from '@/types/CatalogItem'
 
-interface Props {
-  handleSubmit: FormikSubmit<CatalogFormFields>
-  initialValues?: CatalogFormFields
-  children?: ReactNode
-}
+export type CatalogFormFields = Omit<BaseCatalogItem, 'type'>
+export type CatalogFormSubmitFn = (value: CatalogFormFields) => Promise<void>
 
-export interface CatalogFormFields {
-  name: string
-  price: number
+function BarcodeTypeField({
+  fieldProps: { field, form },
+}: {
+  fieldProps: FieldProps
+}) {
+  const { onChange, ...otherField } = field
+
+  const handleChange: ChangeEventHandler<HTMLSelectElement> = (evt) => {
+    onChange(evt)
+    form.setFieldValue('code', '')
+  }
+
+  return (
+    <FormControl data-cy="code-type" flex={0.5}>
+      <FormLabel>Barcode type</FormLabel>
+      <Select {...otherField} onChange={handleChange}>
+        <option value="UPC">Scan Product (UPC)</option>
+        <option value="CUSTOM">Customized</option>
+      </Select>
+    </FormControl>
+  )
 }
 
 export default function CatalogForm({
-  handleSubmit,
-  children,
+  onSubmit,
   initialValues = {
     name: '',
     price: 0,
+    code: '',
+    codeType: 'UPC',
   },
-}: Props) {
+}: {
+  onSubmit: CatalogFormSubmitFn
+  initialValues?: CatalogFormFields
+}) {
+  const handleSubmit: FormikSubmit<CatalogFormFields> = async (
+    values,
+    actions
+  ) => {
+    try {
+      await onSubmit(values)
+    } finally {
+      actions.setSubmitting(false)
+    }
+  }
+
+  const processedInitVals: CatalogFormFields = useMemo(() => {
+    const { code, codeType, ...others } = initialValues
+    return {
+      ...others,
+      code,
+      codeType: codeType ?? 'UPC',
+    }
+  }, [initialValues])
+
   return (
-    <Formik initialValues={initialValues} onSubmit={handleSubmit}>
+    <Formik initialValues={processedInitVals} onSubmit={handleSubmit}>
       {(props) => (
         <Form data-cy="form">
           <Flex direction="column" alignItems="stretch" gap={2}>
@@ -41,13 +87,13 @@ export default function CatalogForm({
               {({ field, form }: FieldProps) => (
                 <FormControl
                   isInvalid={!!form.errors.name && !!form.touched.name}
+                  data-cy="name"
                 >
                   <FormLabel>Name</FormLabel>
                   <Input
                     {...field}
                     type="text"
                     placeholder="Type your product name here"
-                    data-cy="name"
                   />
                 </FormControl>
               )}
@@ -57,6 +103,7 @@ export default function CatalogForm({
               {({ field, form }: FieldProps) => (
                 <FormControl
                   isInvalid={!!form.errors.price && !!form.touched.price}
+                  data-cy="price"
                 >
                   <FormLabel>Unit Price</FormLabel>
                   <NumberInput
@@ -64,7 +111,6 @@ export default function CatalogForm({
                     min={0}
                     precision={2}
                     onChange={(val) => form.setFieldValue(field.name, val)}
-                    data-cy="price"
                   >
                     <NumberInputField />
                     <NumberInputStepper>
@@ -76,7 +122,45 @@ export default function CatalogForm({
               )}
             </Field>
 
-            {children}
+            <Flex gap={2} align="end">
+              <Field name="code">
+                {({ field, form }: FieldProps) => (
+                  <If condition={form.values['codeType'] === 'UPC'}>
+                    <Then>
+                      <FormControl data-cy="code" data-type="UPC" flex={1}>
+                        <FormLabel>Barcode (UPC)</FormLabel>
+                        <CatalogUpcInput {...field} />
+                      </FormControl>
+                    </Then>
+
+                    <Else>
+                      <FormControl data-cy="code" flex={1} data-type="CUSTOM">
+                        <FormLabel>Barcode (customized)</FormLabel>
+                        <Input
+                          {...field}
+                          placeholder="Type your custom barcode here"
+                        />
+                      </FormControl>
+                    </Else>
+                  </If>
+                )}
+              </Field>
+
+              <Field name="codeType">
+                {(fieldProps: FieldProps) => (
+                  <BarcodeTypeField fieldProps={fieldProps} />
+                )}
+              </Field>
+            </Flex>
+
+            <Button
+              type="submit"
+              colorScheme="blue"
+              data-cy="submit"
+              isLoading={props.isSubmitting}
+            >
+              Save
+            </Button>
           </Flex>
         </Form>
       )}

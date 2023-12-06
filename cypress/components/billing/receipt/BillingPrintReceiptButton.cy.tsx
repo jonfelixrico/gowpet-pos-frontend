@@ -1,4 +1,4 @@
-import BillingPrintReceiptButton from '@/app/(main)/(billing)/billing/[id]/receipt/BillingPrintReceiptButton'
+import BillingPrintReceiptButton from '@/components/billing/details/receipt/BillingPrintReceiptButton'
 import { OffscreenContainerProvider } from '@/contexts/OffscreenContainerContext'
 import { ChakraProvider } from '@chakra-ui/react'
 

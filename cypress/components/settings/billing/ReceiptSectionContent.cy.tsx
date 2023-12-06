@@ -1,7 +1,7 @@
 import ReceiptSectionContent, {
   ReceiptSettingsCreate,
   ReceiptSettingsUpdate,
-} from '@/app/(main)/settings/billing/receipt/ReceiptSectionContent'
+} from '@/components/settings/billing/ReceiptSectionContent'
 import { ChakraProvider } from '@chakra-ui/react'
 
 describe('ReceiptSectionContent', () => {

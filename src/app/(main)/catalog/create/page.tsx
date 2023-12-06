@@ -1,17 +1,24 @@
 import { Card, CardBody } from '@chakra-ui/react'
-import CatalogCreateForm from './CatalogCreateForm'
-import { CatalogFormFields } from '@/components/catalog/CatalogForm'
 import { apiFetchData } from '@/server-utils/resource-api-util'
 import { redirect } from 'next/navigation'
 import DetailsLayoutWithTitle from '@/components/common/DetailsLayoutWithTitle'
+import CatalogForm, {
+  CatalogFormFields,
+} from '@/components/catalog/CatalogForm'
 
 export default function CatalogCreate() {
-  async function create(values: CatalogFormFields) {
+  async function create({ code, codeType, ...others }: CatalogFormFields) {
     'use server'
+
+    const toSave = {
+      ...others,
+      code: code || null,
+      codeType: code ? codeType : null,
+    }
 
     await apiFetchData('/catalog/product', {
       method: 'POST',
-      body: JSON.stringify(values),
+      body: JSON.stringify(toSave),
       headers: {
         'Content-Type': 'application/json',
       },
@@ -25,7 +32,7 @@ export default function CatalogCreate() {
     <DetailsLayoutWithTitle href="/catalog" title="Create Item">
       <Card>
         <CardBody>
-          <CatalogCreateForm onSubmit={create} />
+          <CatalogForm onSubmit={create} />
         </CardBody>
       </Card>
     </DetailsLayoutWithTitle>

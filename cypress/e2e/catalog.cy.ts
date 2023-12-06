@@ -11,8 +11,19 @@ describe('catalog', () => {
 
     cy.location('pathname').should('equal', '/catalog/create')
     const name = `Test item ${Date.now()}`
-    cy.get('[data-cy="form"] [data-cy="name"]').type(name)
-    cy.get('[data-cy="form"] [data-cy="price"]').type('123.45')
+    cy.get('[data-cy="form"] [data-cy="name"] input').type(name)
+    cy.get('[data-cy="form"] [data-cy="price"] input').type('123.45')
+
+    cy.dataCy('code-type').find('select').select('CUSTOM')
+    cy.dataCy('code')
+      .should('have.attr', 'data-type', 'CUSTOM')
+      .find('input')
+      /*
+       * We're adding Date.now for uniqueness since if this step was ran multiple times
+       * with the same DB, we'll get errors because of the unique constraint.
+       */
+      .type(`create-test-code-${Date.now()}`)
+
     cy.get('[data-cy="submit"]').click()
 
     cy.location('pathname').should('equal', '/catalog')
@@ -41,8 +52,19 @@ describe('catalog', () => {
         const newName = `Test data ${Date.now()}`
         const newPrice = '2023.11'
 
-        cy.get('[data-cy="name"]').clear().type(newName)
-        cy.get('[data-cy="price"]').clear().type(newPrice)
+        cy.get('[data-cy="name"] input').clear().type(newName)
+        cy.get('[data-cy="price"] input').clear().type(newPrice)
+
+        cy.dataCy('code-type').find('select').select('CUSTOM')
+        cy.dataCy('code')
+          .should('have.attr', 'data-type', 'CUSTOM')
+          .find('input')
+          /*
+           * We're adding Date.now for uniqueness since if this step was ran multiple times
+           * with the same DB, we'll get errors because of the unique constraint.
+           */
+          .type(`update-test-code-${Date.now()}`)
+
         cy.get('[data-cy="submit"]').click()
 
         cy.location('pathname').should('equal', `/catalog/${id}`)
