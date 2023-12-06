@@ -24,13 +24,10 @@ export default async function Login() {
       redirect(DEFAULT_ROUTE)
     } catch (e) {
       if (e instanceof FetchError) {
-        redirect(
-          `/login?redirectError=${e.response.status}`,
-          RedirectType.replace
-        )
+        redirect(`/login?authError=${e.response.status}`, RedirectType.replace)
       }
 
-      redirect('/login?redirectError=500', RedirectType.replace)
+      redirect('/login?authError=500', RedirectType.replace)
     }
   }
 
