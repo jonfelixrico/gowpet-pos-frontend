@@ -2,14 +2,16 @@ import { verifyToken } from '@/server-utils/jwt-utils'
 import { NextRequest, NextResponse } from 'next/server'
 import UrlPattern from 'url-pattern'
 
-function redirect(
+function unauthenticatedRedirect(
   { nextUrl: { protocol, host } }: NextRequest,
   path: string
 ): NextResponse {
   const base = `${protocol}//${host}`
   const url = new URL(path, base)
 
-  return NextResponse.redirect(url)
+  const res = NextResponse.redirect(url)
+  res.cookies.delete('token')
+  return res
 }
 
 export const config = {
@@ -54,11 +56,11 @@ export default async function middleware(req: NextRequest) {
 
   const token = req.cookies.get('token')?.value
   if (!token) {
-    return redirect(req, '/login')
+    return unauthenticatedRedirect(req, '/login')
   }
 
   if (!(await verifyToken(token))) {
-    return redirect(req, '/login')
+    return unauthenticatedRedirect(req, '/login')
   }
 
   return NextResponse.next()
