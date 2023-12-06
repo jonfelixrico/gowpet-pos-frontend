@@ -8,6 +8,7 @@ import CatalogForm, {
 } from '@/components/catalog/CatalogForm'
 import { FetchError } from '@/utils/fetch-utils'
 import { CatalogTags } from '@/next/tags/catalog-tags'
+import { revalidateTag } from 'next/cache'
 
 interface Params {
   catalogId: string
@@ -52,6 +53,9 @@ export default async function CatalogEdit({ params }: { params: Params }) {
       },
       body: JSON.stringify(toSave),
     })
+
+    revalidateTag(CatalogTags.list())
+    revalidateTag(CatalogTags.details(params.catalogId))
 
     redirect(`/catalog/${params.catalogId}`)
   }

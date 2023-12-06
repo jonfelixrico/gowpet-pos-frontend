@@ -8,6 +8,7 @@ import { FetchError } from '@/utils/fetch-utils'
 import DetailsLayoutWithTitle from '@/components/common/DetailsLayoutWithTitle'
 import CatalogDetailsCard from '@/components/catalog/details/CatalogDetailsCard'
 import { CatalogTags } from '@/next/tags/catalog-tags'
+import { revalidateTag } from 'next/cache'
 
 interface Params {
   catalogId: string
@@ -38,6 +39,10 @@ export default async function CatalogDetails({ params }: { params: Params }) {
     await apiFetch(url, {
       method: 'DELETE',
     })
+
+    revalidateTag(CatalogTags.list())
+    revalidateTag(CatalogTags.details(params.catalogId))
+
     redirect('/catalog')
   }
 

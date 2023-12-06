@@ -5,6 +5,8 @@ import DetailsLayoutWithTitle from '@/components/common/DetailsLayoutWithTitle'
 import CatalogForm, {
   CatalogFormFields,
 } from '@/components/catalog/CatalogForm'
+import { revalidateTag } from 'next/cache'
+import { CatalogTags } from '@/next/tags/catalog-tags'
 
 export default function CatalogCreate() {
   async function create({ code, codeType, ...others }: CatalogFormFields) {
@@ -23,6 +25,8 @@ export default function CatalogCreate() {
         'Content-Type': 'application/json',
       },
     })
+
+    revalidateTag(CatalogTags.list())
 
     // TODO implement feature where you can toggle going back to the catalog
     redirect('/catalog')
