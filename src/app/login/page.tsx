@@ -19,6 +19,10 @@ export default async function Login() {
     redirect(DEFAULT_ROUTE, RedirectType.replace)
   }
 
+  if (authToken) {
+    cookies().delete('token')
+  }
+
   async function authenticate(credentials: Credentials) {
     'use server'
 
