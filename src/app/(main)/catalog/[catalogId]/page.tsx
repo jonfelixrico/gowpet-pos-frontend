@@ -7,7 +7,7 @@ import CatalogDeleteButton from '@/components/catalog/details/CatalogDeleteButto
 import { FetchError } from '@/utils/fetch-utils'
 import DetailsLayoutWithTitle from '@/components/common/DetailsLayoutWithTitle'
 import CatalogDetailsCard from '@/components/catalog/details/CatalogDetailsCard'
-import { CatalogTags } from '@/next/cache-tags'
+import { CatalogTags } from '@/next/tags/catalog-tags'
 
 interface Params {
   catalogId: string
@@ -20,7 +20,7 @@ export default async function CatalogDetails({ params }: { params: Params }) {
   try {
     const response = await apiFetchData<CatalogItem>(url, {
       next: {
-        tags: [CatalogTags.DETAILS],
+        tags: [CatalogTags.details(params.catalogId)],
       },
     })
     data = response.data

@@ -7,7 +7,7 @@ import CatalogForm, {
   CatalogFormFields,
 } from '@/components/catalog/CatalogForm'
 import { FetchError } from '@/utils/fetch-utils'
-import { CatalogTags } from '@/next/cache-tags'
+import { CatalogTags } from '@/next/tags/catalog-tags'
 
 interface Params {
   catalogId: string
@@ -20,7 +20,7 @@ export default async function CatalogEdit({ params }: { params: Params }) {
   try {
     const { data } = await apiFetchData<CatalogItem>(url, {
       next: {
-        tags: [CatalogTags.DETAILS],
+        tags: [CatalogTags.details(params.catalogId)],
       },
     })
     catalogItem = data
