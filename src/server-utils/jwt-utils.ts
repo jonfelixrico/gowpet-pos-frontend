@@ -18,8 +18,6 @@ export async function verifyToken(token: string) {
     await jwtVerify(token, key)
     return true
   } catch (e) {
-    // TODO polish this logging
-    console.debug(e)
     return false
   }
 }

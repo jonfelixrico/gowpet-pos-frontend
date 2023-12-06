@@ -3,20 +3,27 @@ import { FetchWrapperOptions, fetchWrapper } from '../utils/fetch-utils'
 
 export function apiFetch(
   input: string,
-  init?: RequestInit,
+  init: RequestInit = {},
   options?: FetchWrapperOptions
 ) {
-  // TODO take this value from env vars
   const url = new URL(input, process.env.BACKEND_URL)
+
+  const headers: HeadersInit & {
+    Authorization?: string
+  } = {
+    ...(init.headers ?? {}),
+  }
+
+  const token = getAuthToken()
+  if (token) {
+    headers['Authorization'] = `Bearer ${token}`
+  }
 
   return fetchWrapper(
     url.toString(),
     {
-      ...(init ?? {}),
-      headers: {
-        ...(init?.headers ?? {}),
-        Authorization: `Bearer ${getAuthToken()}`,
-      },
+      ...init,
+      headers,
     },
     options
   )

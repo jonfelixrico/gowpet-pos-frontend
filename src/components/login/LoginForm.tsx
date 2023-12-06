@@ -1,44 +1,20 @@
 'use client'
 
-import { FetchError, fetchWrapper } from '@/utils/fetch-utils'
+import { Credentials } from '@/types/login-types'
 import { Button, Flex, FormControl, FormLabel, Input } from '@chakra-ui/react'
 import { Formik, Form, Field, FieldProps, FormikHelpers } from 'formik'
-import Cookies from 'js-cookie'
-import { useRouter } from 'next/navigation'
 
-interface Payload {
-  username: string
-  password: string
-}
-
-export default function LoginForm() {
-  const router = useRouter()
-
+export default function LoginForm({
+  onSubmit,
+}: {
+  onSubmit: (credentials: Credentials) => Promise<void>
+}) {
   async function handleSubmit(
-    values: Payload,
-    actions: FormikHelpers<Payload>
+    values: Credentials,
+    actions: FormikHelpers<Credentials>
   ) {
     try {
-      // TODO server actions for this
-      const response = await fetchWrapper('/api/authenticate', {
-        method: 'POST',
-        body: JSON.stringify(values),
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      })
-
-      Cookies.set('token', await response.text())
-      router.push('/home')
-    } catch (e) {
-      // TODO turn these into actual modals
-
-      if (e instanceof FetchError && e.is4XX) {
-        alert('Wrong credentials')
-        return
-      }
-
-      alert('Unexpected error')
+      await onSubmit(values)
     } finally {
       actions.setSubmitting(false)
     }
