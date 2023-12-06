@@ -9,7 +9,7 @@ function redirect(
   const base = `${protocol}//${host}`
   const url = new URL(path, base)
 
-  return NextResponse.redirect(url.toString())
+  return NextResponse.redirect(url)
 }
 
 export const config = {
