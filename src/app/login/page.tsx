@@ -23,7 +23,6 @@ export default async function Login() {
     'use server'
 
     try {
-      // TODO server actions for this
       const response = await apiFetch('/authenticate', {
         method: 'POST',
         body: JSON.stringify(credentials),
