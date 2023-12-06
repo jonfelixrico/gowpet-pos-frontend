@@ -1,11 +1,9 @@
 import { CatalogItem } from '@/types/CatalogItem'
 import { apiFetchData } from '@/server-utils/resource-api-util'
 import CatalogItemTable from '@/components/catalog/list/CatalogItemTable'
-import { Center, Divider, Flex } from '@chakra-ui/react'
+import { Divider, Flex } from '@chakra-ui/react'
 import { CatalogPaginationControls } from '@/components/catalog/list/CatalogPaginationControls'
-import { notFound, redirect } from 'next/navigation'
-
-export const dynamic = 'force-dynamic'
+import { notFound } from 'next/navigation'
 
 export default async function Catalog({
   searchParams,
@@ -25,7 +23,12 @@ export default async function Catalog({
   qp.set('pageNo', String(pageNo - 1))
 
   const { data, headers } = await apiFetchData<CatalogItem[]>(
-    `/catalog?${qp.toString()}`
+    `/catalog?${qp.toString()}`,
+    {
+      next: {
+        tags: ['catalog-list'],
+      },
+    }
   )
 
   if (!data?.length) {

@@ -12,14 +12,16 @@ interface Params {
   catalogId: string
 }
 
-export const dynamic = 'force-dynamic'
-
 export default async function CatalogEdit({ params }: { params: Params }) {
   const url = `/catalog/product/${params.catalogId}`
 
   let catalogItem: CatalogItem
   try {
-    const { data } = await apiFetchData<CatalogItem>(url)
+    const { data } = await apiFetchData<CatalogItem>(url, {
+      next: {
+        tags: ['catalog-details'],
+      },
+    })
     catalogItem = data
   } catch (e) {
     if (e instanceof FetchError && e.response.status === 404) {
