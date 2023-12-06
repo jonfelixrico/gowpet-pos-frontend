@@ -26,7 +26,6 @@
     "html-to-image": "^1.11.11",
     "immer": "^10.0.3",
     "jose": "^5.0.1",
-    "js-cookie": "^3.0.5",
     "jsbarcode": "^3.11.6",
     "lodash": "^4.17.21",
     "next": "13.5.6",
