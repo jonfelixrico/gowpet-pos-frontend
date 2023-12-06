@@ -58,7 +58,9 @@ export default async function middleware(req: NextRequest) {
   }
 
   if (!(await verifyToken(token))) {
-    return redirect(req, '/login')
+    const res = redirect(req, '/login')
+    res.cookies.delete('token')
+    return res
   }
 
   return NextResponse.next()
