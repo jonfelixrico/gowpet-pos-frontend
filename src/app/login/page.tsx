@@ -7,6 +7,7 @@ import { DEFAULT_ROUTE } from '@/app/default-route'
 import { apiFetch } from '@/server-utils/resource-api-util'
 import { cookies } from 'next/headers'
 import { FetchError } from '@/utils/fetch-utils'
+import { Credentials } from '@/types/login-types'
 
 export default async function Login() {
   const authToken = getAuthToken()
@@ -18,10 +19,7 @@ export default async function Login() {
     redirect(DEFAULT_ROUTE, RedirectType.replace)
   }
 
-  async function authenticate(credentials: {
-    username: string
-    password: string
-  }) {
+  async function authenticate(credentials: Credentials) {
     'use server'
 
     try {
