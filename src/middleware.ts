@@ -1,7 +1,16 @@
 import { verifyToken } from '@/server-utils/jwt-utils'
 import { NextRequest, NextResponse } from 'next/server'
 import UrlPattern from 'url-pattern'
-import { redirect } from './server-utils/next-utils'
+
+function redirect(
+  { nextUrl: { protocol, host } }: NextRequest,
+  path: string
+): NextResponse {
+  const base = `${protocol}//${host}`
+  const url = new URL(path, base)
+
+  return NextResponse.rewrite(url.toString())
+}
 
 export const config = {
   matcher: [
@@ -22,8 +31,8 @@ function buildPatterns(routeStrings: string[]) {
   return routeStrings.map((route) => new UrlPattern(route))
 }
 const PUBLIC_ROUTES = buildPatterns(['/', '/login'])
-function isRoutePublic(route: string) {
-  return PUBLIC_ROUTES.some((pattern) => pattern.match(route))
+function isRoutePublic({ nextUrl: { pathname } }: NextRequest) {
+  return PUBLIC_ROUTES.some((pattern) => pattern.match(pathname))
 }
 
 /*
@@ -39,22 +48,18 @@ function isRoutePublic(route: string) {
  */
 
 export default async function middleware(req: NextRequest) {
-  if (isRoutePublic(req.nextUrl.pathname)) {
+  if (isRoutePublic(req)) {
     console.debug('Public route; middleware will proceed')
     return NextResponse.next()
   }
 
   const token = req.cookies.get('token')?.value
   if (!token) {
-    console.debug('No token found; redirecting')
-    // TODO do something to generate a better redirect
-    return redirect(req.nextUrl, '/login')
+    return redirect(req, '/login')
   }
 
   if (!(await verifyToken(token))) {
-    console.debug('Invalid token; redirecting')
-    // TODO do something to generate a better redirect
-    return redirect(req.nextUrl, '/login')
+    return redirect(req, '/login')
   }
 
   return NextResponse.next()
