@@ -56,7 +56,7 @@ export default async function Login() {
     >
       <Card>
         <CardBody>
-          <LoginForm />
+          <LoginForm onSubmit={authenticate} />
         </CardBody>
       </Card>
     </Flex>
