@@ -66,7 +66,7 @@ export default function LoginForm({
               data-cy="submit"
               colorScheme="blue"
             >
-              Submit
+              Log In
             </Button>
           </Flex>
         </Form>
