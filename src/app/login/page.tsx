@@ -13,6 +13,7 @@ export default async function Login({
 }: {
   searchParams: Record<string, string> & {
     loginRedirect: string
+    authError: string
   }
 }) {
   async function authenticate(credentials: Credentials) {
