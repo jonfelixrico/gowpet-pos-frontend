@@ -1,4 +1,14 @@
-import { Card, CardBody, Flex } from '@chakra-ui/react'
+import {
+  Alert,
+  AlertDescription,
+  AlertTitle,
+  Box,
+  Card,
+  CardBody,
+  Container,
+  Flex,
+  Spacer,
+} from '@chakra-ui/react'
 import LoginForm from '@/components/login/LoginForm'
 import { RedirectType, redirect } from 'next/navigation'
 import { DEFAULT_ROUTE } from '@/app/default-route'
@@ -7,12 +17,14 @@ import { cookies } from 'next/headers'
 import { ApiResponse, FetchError } from '@/utils/fetch-utils'
 import { Credentials } from '@/types/login-types'
 import qs from 'query-string'
+import { Case, Default, Else, If, Switch, Then } from 'react-if'
 
 export default async function Login({
   searchParams,
 }: {
   searchParams: Record<string, string> & {
     loginRedirect: string
+    authError: string
   }
 }) {
   async function authenticate(credentials: Credentials) {
@@ -51,18 +63,49 @@ export default async function Login({
   }
 
   return (
-    <Flex
-      direction="column"
-      align="center"
-      gap="2"
-      justify="center"
-      height="100dvh"
-    >
-      <Card>
-        <CardBody>
-          <LoginForm onSubmit={authenticate} />
-        </CardBody>
-      </Card>
-    </Flex>
+    <Box width="100dvw" height="100dvh" background="gray.100">
+      <Container
+        maxW="container.sm"
+        as={Flex}
+        direction="column"
+        gap="2"
+        height="full"
+      >
+        <If condition={searchParams.authError}>
+          <Then>
+            <Flex flex={1} direction="column" justify="end">
+              <Alert status="error" data-cy="login-error">
+                <AlertTitle>Login failed!</AlertTitle>
+                <AlertDescription>
+                  <Switch>
+                    <Case condition={searchParams.authError === '403'}>
+                      <span data-cy="wrong-credentials">
+                        Incorrect username or password.
+                      </span>
+                    </Case>
+
+                    <Default>
+                      An unexpected error ocurred. Please try again later.
+                    </Default>
+                  </Switch>
+                </AlertDescription>
+              </Alert>
+            </Flex>
+          </Then>
+
+          <Else>
+            <Spacer />
+          </Else>
+        </If>
+
+        <Card width="full">
+          <CardBody>
+            <LoginForm onSubmit={authenticate} />
+          </CardBody>
+        </Card>
+
+        <Spacer />
+      </Container>
+    </Box>
   )
 }
