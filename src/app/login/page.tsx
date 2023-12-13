@@ -74,12 +74,14 @@ export default async function Login({
         <If condition={searchParams.authError}>
           <Then>
             <Flex flex={1} direction="column" justify="end">
-              <Alert status="error">
+              <Alert status="error" data-cy="login-error">
                 <AlertTitle>Login failed!</AlertTitle>
                 <AlertDescription>
                   <Switch>
                     <Case condition={searchParams.authError === '403'}>
-                      Incorrect username or password.
+                      <span data-cy="wrong-credentials">
+                        Incorrect username or password.
+                      </span>
                     </Case>
 
                     <Default>
