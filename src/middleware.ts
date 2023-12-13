@@ -4,10 +4,15 @@ import { DEFAULT_ROUTE } from './app/default-route'
 
 function redirect(
   { nextUrl: { protocol, host } }: NextRequest,
-  path: string
+  path: string,
+  searchParams: Record<string, string> = {}
 ): NextResponse {
   const base = `${protocol}//${host}`
   const url = new URL(path, base)
+
+  for (const key in searchParams) {
+    url.searchParams.set(key, searchParams[key])
+  }
 
   return NextResponse.redirect(url)
 }
@@ -66,7 +71,9 @@ export default async function middleware(
   if (destPath === '/login') {
     res = NextResponse.next()
   } else {
-    res = redirect(req, '/login')
+    res = redirect(req, '/login', {
+      loginRedirect: `${destPath}${req.nextUrl.search}`,
+    })
   }
 
   if (token && !isTokenValid) {
