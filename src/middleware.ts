@@ -4,10 +4,15 @@ import { DEFAULT_ROUTE } from './app/default-route'
 
 function redirect(
   { nextUrl: { protocol, host } }: NextRequest,
-  path: string
+  path: string,
+  searchParams: Record<string, string> = {}
 ): NextResponse {
   const base = `${protocol}//${host}`
   const url = new URL(path, base)
+
+  for (const key in searchParams) {
+    url.searchParams.set(key, searchParams[key])
+  }
 
   return NextResponse.redirect(url)
 }
@@ -47,15 +52,29 @@ export default async function middleware(
 
   const destPath = req.nextUrl.pathname
   if (isTokenValid) {
-    if (destPath === '/' || destPath === '/login') {
+    if (
+      destPath === '/' ||
+      /*
+       * If the user is logged in, we don't want them to see the log-in screen again
+       * even if they deliberately tried to go there.
+       */
+      destPath === '/login'
+    ) {
       return redirect(req, DEFAULT_ROUTE)
     }
 
     return NextResponse.next()
   }
 
-  const res =
-    destPath === '/login' ? NextResponse.next() : redirect(req, '/login')
+  let res: NextResponse
+
+  if (destPath === '/login') {
+    res = NextResponse.next()
+  } else {
+    res = redirect(req, '/login', {
+      loginRedirect: `${destPath}${req.nextUrl.search}`,
+    })
+  }
 
   if (token && !isTokenValid) {
     res.cookies.delete('token')

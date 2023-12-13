@@ -6,8 +6,15 @@ import { apiFetch } from '@/server-utils/resource-api-util'
 import { cookies } from 'next/headers'
 import { ApiResponse, FetchError } from '@/utils/fetch-utils'
 import { Credentials } from '@/types/login-types'
+import qs from 'query-string'
 
-export default async function Login() {
+export default async function Login({
+  searchParams,
+}: {
+  searchParams: Record<string, string> & {
+    loginRedirect: string
+  }
+}) {
   async function authenticate(credentials: Credentials) {
     'use server'
 
@@ -29,16 +36,17 @@ export default async function Login() {
       .then((res) => res)
       .catch((err) => err)
 
-    if (result instanceof FetchError) {
-      redirect(
-        `/login?authError=${result.response.status}`,
-        RedirectType.replace
-      )
-    } else if (result instanceof Error) {
-      redirect('/login?authError=500', RedirectType.replace)
+    if (result instanceof Error) {
+      const status = result instanceof FetchError ? result.response.status : 500
+
+      const queryParams = qs.stringify({
+        ...searchParams,
+        authError: status,
+      })
+      redirect(`/login?${queryParams}`, RedirectType.replace)
     } else {
       cookies().set('token', await result.text())
-      redirect(DEFAULT_ROUTE)
+      redirect(searchParams.loginRedirect ?? DEFAULT_ROUTE)
     }
   }
 
