@@ -47,7 +47,14 @@ export default async function middleware(
 
   const destPath = req.nextUrl.pathname
   if (isTokenValid) {
-    if (destPath === '/' || destPath === '/login') {
+    if (
+      destPath === '/' ||
+      /*
+       * If the user is logged in, we don't want them to see the log-in screen again
+       * even if they deliberately tried to go there.
+       */
+      destPath === '/login'
+    ) {
       return redirect(req, DEFAULT_ROUTE)
     }
 
