@@ -31,4 +31,18 @@ describe('login', () => {
     cy.location('search').should('contain', 'pageNo=1')
     cy.location('search').should('contain', 'searchTerm=test')
   })
+
+  it('shows a banner on bad credentials', () => {
+    cy.setCookie('token', '')
+    cy.visit('/login')
+
+    cy.dataCy('username').type('root')
+    cy.dataCy('password').type('wrongpassword')
+    cy.dataCy('submit').click()
+
+    cy.location('pathname').should('equal', '/login')
+    cy.dataCy('login-error')
+      .find('[data-cy="wrong-credentials"]')
+      .should('exist')
+  })
 })
