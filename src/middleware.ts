@@ -61,8 +61,13 @@ export default async function middleware(
     return NextResponse.next()
   }
 
-  const res =
-    destPath === '/login' ? NextResponse.next() : redirect(req, '/login')
+  let res: NextResponse
+
+  if (destPath === '/login') {
+    res = NextResponse.next()
+  } else {
+    res = redirect(req, '/login')
+  }
 
   if (token && !isTokenValid) {
     res.cookies.delete('token')
