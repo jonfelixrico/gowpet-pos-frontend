@@ -64,6 +64,7 @@ export default function LoginForm({
               isLoading={props.isSubmitting}
               type="submit"
               data-cy="submit"
+              colorScheme="blue"
             >
               Submit
             </Button>
