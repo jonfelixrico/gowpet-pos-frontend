@@ -1,4 +1,4 @@
-import { Card, CardBody, Flex } from '@chakra-ui/react'
+import { Card, CardBody, Container, Flex } from '@chakra-ui/react'
 import LoginForm from '@/components/login/LoginForm'
 import { RedirectType, redirect } from 'next/navigation'
 import { DEFAULT_ROUTE } from '@/app/default-route'
@@ -52,18 +52,20 @@ export default async function Login({
   }
 
   return (
-    <Flex
+    <Container
+      maxW="container.sm"
+      as={Flex}
       direction="column"
       align="center"
       gap="2"
       justify="center"
       height="100dvh"
     >
-      <Card>
+      <Card width="full">
         <CardBody>
           <LoginForm onSubmit={authenticate} />
         </CardBody>
       </Card>
-    </Flex>
+    </Container>
   )
 }
