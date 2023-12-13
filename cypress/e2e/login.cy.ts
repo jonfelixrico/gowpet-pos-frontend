@@ -3,9 +3,9 @@ describe('login', () => {
     cy.setCookie('token', '')
     cy.visit('/login')
 
-    cy.get('[data-cy="username"]').type('root')
-    cy.get('[data-cy="password"]').type('password')
-    cy.get('[data-cy="submit"]').click()
+    cy.dataCy('username').type('root')
+    cy.dataCy('password').type('password')
+    cy.dataCy('submit').click()
 
     cy.location('pathname').should('not.equal', '/login')
   })
@@ -21,9 +21,9 @@ describe('login', () => {
     cy.visit('/catalog?pageNo=1&searchTerm=test')
     cy.location('pathname').should('equal', '/login')
 
-    cy.get('[data-cy="username"]').type('root')
-    cy.get('[data-cy="password"]').type('password')
-    cy.get('[data-cy="submit"]').click()
+    cy.dataCy('username').type('root')
+    cy.dataCy('password').type('password')
+    cy.dataCy('submit').click()
 
     cy.location('pathname').should('equal', '/catalog')
 
