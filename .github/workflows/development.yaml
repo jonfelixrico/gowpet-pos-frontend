@@ -109,6 +109,9 @@ jobs:
     needs: [test-e2e, test-component]
     runs-on: ubuntu-latest
     steps:
+      - name: Check out code
+        uses: actions/checkout@v2
+
       - name: Login to GHCR
         uses: docker/login-action@v2
         with:
