@@ -127,4 +127,4 @@ jobs:
         with:
           tags: ${{ steps.meta.outputs.tags }}
           context: .
-          push: ${{ github.event_name == 'push' }}
+          push: ${{ github.event_name == 'push' && github.ref_name == 'develop'  }}
