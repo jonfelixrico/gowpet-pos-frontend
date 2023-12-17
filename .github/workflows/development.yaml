@@ -11,7 +11,7 @@ on:
       - 'feature/*'
 
 jobs:
-  build:
+  build-check:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -32,7 +32,7 @@ jobs:
         run: pnpm build
 
   test-component:
-    needs: [build]
+    needs: [build-check]
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -47,7 +47,7 @@ jobs:
           component: true
 
   test-e2e:
-    needs: [build]
+    needs: [build-check]
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
