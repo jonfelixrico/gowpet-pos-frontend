@@ -47,6 +47,9 @@ dependencies:
   next:
     specifier: 14.0.4
     version: 14.0.4(react-dom@18.2.0)(react@18.2.0)
+  next-runtime-env:
+    specifier: ^3.2.0
+    version: 3.2.0(next@14.0.4)(react@18.2.0)
   p-memoize:
     specifier: ^7.1.1
     version: 7.1.1
@@ -4131,6 +4134,16 @@ packages:
   /natural-compare@1.4.0:
     resolution: {integrity: sha512-OWND8ei3VtNC9h7V60qff3SVobHr996CTwgxubgyQYEpg290h9J0buyECNNJexkFm5sOajh5G116RYA1c8ZMSw==}
     dev: true
+
+  /next-runtime-env@3.2.0(next@14.0.4)(react@18.2.0):
+    resolution: {integrity: sha512-rwe3flUgSRm51hzRN4Vt5MMSYMS4aDMEPJa0r+CMONA3UyUZl8Y5O8zjHSIlaNb3yquTCttZ0ahObPyPprBj9g==}
+    peerDependencies:
+      next: ^14
+      react: ^18
+    dependencies:
+      next: 14.0.4(react-dom@18.2.0)(react@18.2.0)
+      react: 18.2.0
+    dev: false
 
   /next@14.0.4(react-dom@18.2.0)(react@18.2.0):
     resolution: {integrity: sha512-qbwypnM7327SadwFtxXnQdGiKpkuhaRLE2uq62/nRul9cj9KhQ5LhHmlziTNqUidZotw/Q1I9OjirBROdUJNgA==}
