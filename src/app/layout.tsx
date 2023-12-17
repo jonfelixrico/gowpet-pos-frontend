@@ -4,7 +4,8 @@ import './globals.css'
 import { Providers } from './providers'
 import { ReactNode } from 'react'
 import { OffscreenContainerProvider } from '@/contexts/OffscreenContainerContext'
-import { PublicEnvScript } from 'next-runtime-env'
+import { EnvScript } from 'next-runtime-env'
+import { unstable_noStore as noStore } from 'next/cache'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -14,10 +15,16 @@ export const metadata: Metadata = {
 }
 
 export default function RootLayout({ children }: { children: ReactNode }) {
+  noStore() // Opt into dynamic rendering
+
   return (
     <html lang="en">
       <head>
-        <PublicEnvScript />
+        <EnvScript
+          env={{
+            BACKEND_URL: process.env.BACKEND_URL,
+          }}
+        />
       </head>
 
       <body className={inter.className}>
