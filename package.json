@@ -12,7 +12,8 @@
     "test:component:ci": "cypress run --component",
     "test:e2e:ci": "cypress run",
     "clean": "rm -rf node_modules && rm -rf .next",
-    "test:ci": "pnpm test:component:ci && pnpm test:e2e:ci"
+    "test:ci": "pnpm test:component:ci && pnpm test:e2e:ci",
+    "docker:build": "docker build -t local/gowpet-pos-frontend ."
   },
   "dependencies": {
     "@chakra-ui/next-js": "^2.1.5",
