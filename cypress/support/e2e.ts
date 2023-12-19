@@ -34,7 +34,7 @@ before(() => {
   cy.request({
     method: 'POST',
     body: creds,
-    url: '/api/debug/user',
+    url: '/api/user/root',
     // This is to avoid breaking the E2E test if the error above does happen
     failOnStatusCode: false,
   })
