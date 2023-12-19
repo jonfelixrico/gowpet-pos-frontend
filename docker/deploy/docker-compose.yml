@@ -8,7 +8,7 @@ services:
       - POSTGRES_DB=gowpet-pos
 
   backend:
-    image: ghcr.io/jonfelixrico/gowpet-pos-backend:develop
+    image: ghcr.io/jonfelixrico/gowpet-pos-backend
     restart: on-failure
     environment:
       - SPRING_DATASOURCE_URL=jdbc:postgresql://db:5432/gowpet-pos
@@ -17,7 +17,7 @@ services:
       - db
 
   frontend:
-    image: ghcr.io/jonfelixrico/gowpet-pos-frontend:develop
+    image: ghcr.io/jonfelixrico/gowpet-pos-frontend
     restart: on-failure
     depends_on:
       - backend
