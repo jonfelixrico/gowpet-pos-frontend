@@ -104,6 +104,8 @@ jobs:
           start: pnpm start
           wait-on: 'http://localhost:3000, http://localhost:3005/authenticate/publicKey'
           wait-on-timeout: 90
+        env:
+          NODE_ENV: 'test'
 
   docker-build:
     needs: [test-e2e, test-component]
