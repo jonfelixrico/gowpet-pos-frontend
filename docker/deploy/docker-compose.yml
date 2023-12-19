@@ -16,6 +16,8 @@ services:
     depends_on:
       - db
 
+  # The frontend image is expected to use http://backend as its backend URL
+  # as stated in .env.production
   frontend:
     image: ghcr.io/jonfelixrico/gowpet-pos-frontend
     restart: on-failure
