@@ -12,7 +12,6 @@ services:
     restart: on-failure
     environment:
       - SPRING_DATASOURCE_URL=jdbc:postgresql://db:5432/gowpet-pos
-      - APP_DEBUG=true
     depends_on:
       - db
     ports:
