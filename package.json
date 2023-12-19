@@ -13,7 +13,7 @@
     "test:e2e:ci": "cypress run",
     "clean": "rm -rf node_modules && rm -rf .next",
     "test:ci": "pnpm test:component:ci && pnpm test:e2e:ci",
-    "docker:build": "docker build -t local/gowpet-pos-frontend .",
+    "docker:build": "docker build -t ghcr.io/jonfelixrico/gowpet-pos-frontend .",
     "docker:copy-ignore": "cp .gitignore .dockerignore"
   },
   "dependencies": {
