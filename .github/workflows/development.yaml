@@ -11,7 +11,7 @@ on:
       - 'feature/*'
 
 jobs:
-  build:
+  build-check:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -32,7 +32,7 @@ jobs:
         run: pnpm build
 
   test-component:
-    needs: [build]
+    needs: [build-check]
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -47,7 +47,7 @@ jobs:
           component: true
 
   test-e2e:
-    needs: [build]
+    needs: [build-check]
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -104,3 +104,33 @@ jobs:
           start: pnpm start
           wait-on: 'http://localhost:3000, http://localhost:3005/authenticate/publicKey'
           wait-on-timeout: 90
+        env:
+          NODE_ENV: 'test'
+
+  docker-build:
+    needs: [test-e2e, test-component]
+    runs-on: ubuntu-latest
+    permissions: write-all
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v2
+
+      - name: Login to GHCR
+        uses: docker/login-action@v2
+        with:
+          registry: https://ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Build docker metadata
+        id: meta
+        uses: docker/metadata-action@v5
+        with:
+          images: ghcr.io/jonfelixrico/gowpet-pos-frontend
+
+      - name: Build image and push to GHCR
+        uses: docker/build-push-action@v2
+        with:
+          tags: ${{ steps.meta.outputs.tags }}
+          context: .
+          push: ${{ github.event_name == 'push' }}
