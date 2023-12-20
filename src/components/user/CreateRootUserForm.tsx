@@ -73,15 +73,13 @@ export default function CreateRootUserForm({
             <Field name="confirmPassword">
               {({ field, form }: FieldProps) => (
                 <FormControl
-                  isInvalid={!!form.errors.password && !!form.touched.password}
+                  isInvalid={
+                    !!form.errors.confirmPassword &&
+                    !!form.touched.confirmPassword
+                  }
                 >
-                  <FormLabel>Password</FormLabel>
-                  <Input
-                    {...field}
-                    type="password"
-                    autoComplete="current-password"
-                    data-cy="password"
-                  />
+                  <FormLabel>Confirm Password</FormLabel>
+                  <Input {...field} type="password" />
                 </FormControl>
               )}
             </Field>
@@ -92,7 +90,7 @@ export default function CreateRootUserForm({
               data-cy="submit"
               colorScheme="blue"
             >
-              Log In
+              Create Root User
             </Button>
           </Flex>
         </Form>
