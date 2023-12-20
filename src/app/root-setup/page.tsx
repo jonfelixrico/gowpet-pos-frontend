@@ -3,6 +3,9 @@ import { RedirectType, redirect } from 'next/navigation'
 import { apiFetchData } from '@/server-utils/resource-api-util'
 import CreateRootUserForm from '@/components/user/CreateRootUserForm'
 import { Credentials } from '@/types/login-types'
+import { revalidateTag } from 'next/cache'
+
+const ROOT_SETUP_TAG = 'root-setup'
 
 async function shouldProceedWithRootSetup() {
   try {
@@ -10,7 +13,7 @@ async function shouldProceedWithRootSetup() {
       '/user/root',
       {
         next: {
-          tags: ['root-setup'],
+          tags: [ROOT_SETUP_TAG],
         },
       }
     )
@@ -34,6 +37,9 @@ export default async function RootSetup() {
       method: 'POST',
       body: JSON.stringify(credentials),
     })
+
+    revalidateTag(ROOT_SETUP_TAG)
+    redirect('/login', RedirectType.replace)
 
     // TODO do error handling
   }
