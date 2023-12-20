@@ -17,7 +17,7 @@ const ValidationSchema = Yup.object().shape({
     .oneOf([Yup.ref('password')]),
 })
 
-export default function CreateRootUserForm({
+export default function CreateUserForm({
   onSubmit,
 }: {
   onSubmit: (credentials: Credentials) => Promise<void>
