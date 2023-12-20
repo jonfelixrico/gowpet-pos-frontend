@@ -90,7 +90,7 @@ export default function CreateRootUserForm({
               data-cy="submit"
               colorScheme="blue"
             >
-              Create Root User
+              Create User
             </Button>
           </Flex>
         </Form>
