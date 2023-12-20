@@ -9,7 +9,7 @@ const ROOT_SETUP_TAG = 'root-setup'
 
 async function shouldProceedWithRootSetup() {
   try {
-    const { data } = await apiFetchData<{ hasRootBeenSetUp: boolean }>(
+    const { data } = await apiFetchData<{ hasRootUserBeenSetUp: boolean }>(
       '/user/root',
       {
         next: {
@@ -18,7 +18,7 @@ async function shouldProceedWithRootSetup() {
       }
     )
 
-    return !data.hasRootBeenSetUp
+    return !data.hasRootUserBeenSetUp
   } catch (e) {
     console.error('Error encountered while checking if root setup is ready', e)
     return false
