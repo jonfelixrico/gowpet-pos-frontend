@@ -1,27 +1,40 @@
 'use client'
 
 import { Credentials } from '@/types/login-types'
-import { Button, Flex, FormControl, FormLabel, Input } from '@chakra-ui/react'
+import {
+  Button,
+  Flex,
+  FormControl,
+  FormErrorMessage,
+  FormLabel,
+  Input,
+} from '@chakra-ui/react'
 import { Formik, Form, Field, FieldProps, FormikHelpers } from 'formik'
+import { useMemo } from 'react'
 import * as Yup from 'yup'
 
 interface ConfirmCredentials extends Credentials {
   confirmPassword: string
 }
 
-const ValidationSchema = Yup.object().shape({
-  username: Yup.string().required(),
-  password: Yup.string().required().min(8),
-  confirmPassword: Yup.string()
-    .required()
-    .oneOf([Yup.ref('password')]),
-})
-
 export default function CreateUserForm({
   onSubmit,
 }: {
   onSubmit: (credentials: Credentials) => Promise<void>
 }) {
+  const ValidationSchema = useMemo(
+    () =>
+      Yup.object().shape({
+        username: Yup.string().required().label('Username'),
+        password: Yup.string().required().min(8).label('Password'),
+        confirmPassword: Yup.string()
+          .required()
+          .oneOf([Yup.ref('password')], 'Passwords must match')
+          .label('Confirm Password'),
+      }),
+    []
+  )
+
   async function handleSubmit(
     values: ConfirmCredentials,
     actions: FormikHelpers<ConfirmCredentials>
@@ -60,6 +73,9 @@ export default function CreateUserForm({
                     autoComplete="username"
                     data-cy="username"
                   />
+                  <FormErrorMessage>
+                    {String(form.errors.username)}
+                  </FormErrorMessage>
                 </FormControl>
               )}
             </Field>
@@ -76,6 +92,10 @@ export default function CreateUserForm({
                     autoComplete="current-password"
                     data-cy="password"
                   />
+
+                  <FormErrorMessage>
+                    {String(form.errors.password)}
+                  </FormErrorMessage>
                 </FormControl>
               )}
             </Field>
@@ -90,6 +110,10 @@ export default function CreateUserForm({
                 >
                   <FormLabel>Confirm Password</FormLabel>
                   <Input {...field} type="password" />
+
+                  <FormErrorMessage>
+                    {String(form.errors.confirmPassword)}
+                  </FormErrorMessage>
                 </FormControl>
               )}
             </Field>
