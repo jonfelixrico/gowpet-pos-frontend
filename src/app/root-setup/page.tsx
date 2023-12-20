@@ -36,6 +36,9 @@ export default async function RootSetup() {
     await apiFetchData<{ hasRootBeenSetUp: boolean }>('/user/root', {
       method: 'POST',
       body: JSON.stringify(credentials),
+      headers: {
+        'Content-Type': 'application/json',
+      },
     })
 
     revalidateTag(ROOT_SETUP_TAG)
