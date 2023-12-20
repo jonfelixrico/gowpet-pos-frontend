@@ -1,4 +1,4 @@
-import { Box, Card, CardBody, Center, Container } from '@chakra-ui/react'
+import { Box, Card, CardBody, Center, Container, Flex } from '@chakra-ui/react'
 import { RedirectType, redirect } from 'next/navigation'
 import { apiFetchData } from '@/server-utils/resource-api-util'
 import CreateRootUserForm from '@/components/user/CreateRootUserForm'
@@ -46,7 +46,13 @@ export default async function RootSetup() {
 
   return (
     <Box width="100dvw" height="100dvh" background="gray.100">
-      <Container maxW="container.sm" as={Center}>
+      <Container
+        maxW="container.sm"
+        as={Flex}
+        direction="column"
+        justify="center"
+        height="full"
+      >
         <Card width="full">
           <CardBody>
             <CreateRootUserForm onSubmit={createUser} />
