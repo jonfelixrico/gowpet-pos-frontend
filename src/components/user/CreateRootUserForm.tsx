@@ -3,10 +3,19 @@
 import { Credentials } from '@/types/login-types'
 import { Button, Flex, FormControl, FormLabel, Input } from '@chakra-ui/react'
 import { Formik, Form, Field, FieldProps, FormikHelpers } from 'formik'
+import * as Yup from 'yup'
 
 interface ConfirmCredentials extends Credentials {
   confirmPassword: string
 }
+
+const ValidationSchema = Yup.object().shape({
+  username: Yup.string().required(),
+  password: Yup.string().required().min(8),
+  confirmPassword: Yup.string()
+    .required()
+    .oneOf([Yup.ref('password')]),
+})
 
 export default function CreateRootUserForm({
   onSubmit,
@@ -34,6 +43,7 @@ export default function CreateRootUserForm({
         } as ConfirmCredentials
       }
       onSubmit={handleSubmit}
+      validationSchema={ValidationSchema}
     >
       {(props) => (
         <Form>
