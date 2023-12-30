@@ -39,21 +39,24 @@ before(() => {
   //   failOnStatusCode: false,
   // })
 
-  /*
-   * This is to generate an auth token which will be passed before each test is executed. This makes the user
-   * look authenticated to the user.
-   *
-   * This saves us the hassle of having to log the user in via the actual tests.
-   */
-  cy.request<string>({
-    method: 'POST',
-    body: creds,
-    url: '/api/authenticate',
-  }).then((response) => {
-    authToken = response.body
-    cy.log('Generated test user auth token', authToken)
-    Cypress.env('authToken', authToken)
-  })
+  const describeTitle = Cypress.currentTest.titlePath[0]
+  if (describeTitle !== 'root user setup') {
+    /*
+     * This is to generate an auth token which will be passed before each test is executed. This makes the user
+     * look authenticated to the user.
+     *
+     * This saves us the hassle of having to log the user in via the actual tests.
+     */
+    cy.request<string>({
+      method: 'POST',
+      body: creds,
+      url: '/api/authenticate',
+    }).then((response) => {
+      authToken = response.body
+      cy.log('Generated test user auth token', authToken)
+      Cypress.env('authToken', authToken)
+    })
+  }
 })
 
 beforeEach(() => {
