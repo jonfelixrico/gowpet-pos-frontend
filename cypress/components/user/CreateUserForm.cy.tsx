@@ -1,7 +1,7 @@
 import CreateUserForm from '@/components/user/CreateUserForm'
 
 describe('CreateUserForm', () => {
-  it('prevents incomplete input', () => {
+  it('prevents incomplete input from submitting', () => {
     const onSubmit = cy.spy().as('submit')
     cy.mount(<CreateUserForm onSubmit={onSubmit} />)
 
@@ -21,7 +21,19 @@ describe('CreateUserForm', () => {
     cy.dataCy('confirm-password').clear()
   })
 
-  it('block login for unconfirmed password', () => {
+  it('it prevents mismatched passwords from submitting', () => {
+    const onSubmit = cy.spy().as('submit')
+    cy.mount(<CreateUserForm onSubmit={onSubmit} />)
+
+    cy.dataCy('username').type('username')
+    cy.dataCy('password').type('password')
+    cy.dataCy('confirm-password').type('mismatch password')
+    cy.dataCy('submit').click()
+
+    cy.get('@submit').should('not.have.been.called')
+  })
+
+  it('submits if input is correct', () => {
     const onSubmit = cy.spy().as('submit')
     cy.mount(<CreateUserForm onSubmit={onSubmit} />)
 
