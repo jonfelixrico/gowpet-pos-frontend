@@ -4,7 +4,7 @@ import { Flex } from '@chakra-ui/react'
 import { usePathname } from 'next/navigation'
 import RouteLinkButton from '@/components/common/RouteLinkButton'
 
-export default function RouteLinks() {
+export default function RouteLinkButtons() {
   const pathname = usePathname()
 
   return (
