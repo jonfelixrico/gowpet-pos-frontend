@@ -22,23 +22,6 @@ import './commands'
 let authToken: string = ''
 
 before(() => {
-  const creds = {
-    username: 'root',
-    password: 'password',
-  }
-
-  // /*
-  //  * Create test user
-  //  * If this POST call returns an error, we'll assume that the user already exists
-  //  */
-  // cy.request({
-  //   method: 'POST',
-  //   body: creds,
-  //   url: '/api/user/root',
-  //   // This is to avoid breaking the E2E test if the error above does happen
-  //   failOnStatusCode: false,
-  // })
-
   const describeTitle = Cypress.currentTest.titlePath[0]
   if (describeTitle !== 'root user setup') {
     /*
@@ -49,7 +32,10 @@ before(() => {
      */
     cy.request<string>({
       method: 'POST',
-      body: creds,
+      body: {
+        username: 'root',
+        password: 'password',
+      },
       url: '/api/authenticate',
     }).then((response) => {
       authToken = response.body
