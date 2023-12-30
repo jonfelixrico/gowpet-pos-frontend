@@ -22,38 +22,27 @@ import './commands'
 let authToken: string = ''
 
 before(() => {
-  const creds = {
-    username: 'root',
-    password: 'password',
+  const describeTitle = Cypress.currentTest.titlePath[0]
+  if (describeTitle !== 'root user setup') {
+    /*
+     * This is to generate an auth token which will be passed before each test is executed. This makes the user
+     * look authenticated to the user.
+     *
+     * This saves us the hassle of having to log the user in via the actual tests.
+     */
+    cy.request<string>({
+      method: 'POST',
+      body: {
+        username: 'root',
+        password: 'password',
+      },
+      url: '/api/authenticate',
+    }).then((response) => {
+      authToken = response.body
+      cy.log('Generated test user auth token', authToken)
+      Cypress.env('authToken', authToken)
+    })
   }
-
-  /*
-   * Create test user
-   * If this POST call returns an error, we'll assume that the user already exists
-   */
-  cy.request({
-    method: 'POST',
-    body: creds,
-    url: '/api/debug/user',
-    // This is to avoid breaking the E2E test if the error above does happen
-    failOnStatusCode: false,
-  })
-
-  /*
-   * This is to generate an auth token which will be passed before each test is executed. This makes the user
-   * look authenticated to the user.
-   *
-   * This saves us the hassle of having to log the user in via the actual tests.
-   */
-  cy.request<string>({
-    method: 'POST',
-    body: creds,
-    url: '/api/authenticate',
-  }).then((response) => {
-    authToken = response.body
-    cy.log('Generated test user auth token', authToken)
-    Cypress.env('authToken', authToken)
-  })
 })
 
 beforeEach(() => {
