@@ -27,17 +27,17 @@ before(() => {
     password: 'password',
   }
 
-  /*
-   * Create test user
-   * If this POST call returns an error, we'll assume that the user already exists
-   */
-  cy.request({
-    method: 'POST',
-    body: creds,
-    url: '/api/user/root',
-    // This is to avoid breaking the E2E test if the error above does happen
-    failOnStatusCode: false,
-  })
+  // /*
+  //  * Create test user
+  //  * If this POST call returns an error, we'll assume that the user already exists
+  //  */
+  // cy.request({
+  //   method: 'POST',
+  //   body: creds,
+  //   url: '/api/user/root',
+  //   // This is to avoid breaking the E2E test if the error above does happen
+  //   failOnStatusCode: false,
+  // })
 
   /*
    * This is to generate an auth token which will be passed before each test is executed. This makes the user
