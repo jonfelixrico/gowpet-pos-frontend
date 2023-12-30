@@ -1,5 +1,5 @@
 import { Box, Card, CardBody, Center, Container, Flex } from '@chakra-ui/react'
-import { RedirectType, redirect } from 'next/navigation'
+import { RedirectType, permanentRedirect, redirect } from 'next/navigation'
 import { apiFetchData } from '@/server-utils/resource-api-util'
 import CreateUserForm from '@/components/user/CreateUserForm'
 import { Credentials } from '@/types/login-types'
@@ -27,7 +27,13 @@ async function shouldProceedWithRootSetup() {
 
 export default async function RootSetup() {
   if (!(await shouldProceedWithRootSetup())) {
-    redirect('/', RedirectType.replace)
+    /*
+     * We're using permanent redirect since root setup will only be done once per
+     * environment.
+     *
+     * Once the root user has been set up, this page will never be seen again.
+     */
+    permanentRedirect('/', RedirectType.replace)
   }
 
   async function createUser(credentials: Credentials) {
