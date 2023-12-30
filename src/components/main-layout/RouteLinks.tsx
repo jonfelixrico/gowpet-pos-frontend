@@ -1,75 +1,40 @@
 'use client'
 
-import { DataAttributes } from '@/types/DataAttributes'
-import { Url } from '@/types/Url'
-import { Button, Flex, Text } from '@chakra-ui/react'
-import Link from 'next/link'
+import { Flex } from '@chakra-ui/react'
 import { usePathname } from 'next/navigation'
-import { ReactNode, useMemo } from 'react'
+import RouteLinkButton from '@/components/common/RouteLinkButton'
 
-function RouteLink({
-  href,
-  children,
-  pattern,
-  currentPath,
-  ...dataAttrs
-}: {
-  href: Url
-  children?: ReactNode
-  pattern: RegExp
-  currentPath: string
-} & DataAttributes) {
-  const isActive = useMemo(
-    () => pattern.test(currentPath),
-    [currentPath, pattern]
-  )
-
-  return (
-    <Link href={href} prefetch={false} {...dataAttrs}>
-      <Button
-        width="full"
-        variant="ghost"
-        colorScheme={isActive ? 'blue' : undefined}
-      >
-        <Text textAlign="left" width="full">
-          {children}
-        </Text>
-      </Button>
-    </Link>
-  )
-}
-
-export default function RouteLinks() {
+export default function RouteLinkButtons() {
   const pathname = usePathname()
 
   return (
     <Flex direction="column" gap={2}>
-      <RouteLink
+      <RouteLinkButton
         href="/catalog"
         pattern={/^\/catalog.*/}
         currentPath={pathname}
         data-route-link="catalog"
       >
         Catalog
-      </RouteLink>
+      </RouteLinkButton>
 
-      <RouteLink
+      <RouteLinkButton
         href="/billing"
         pattern={/^\/billing.*/}
         currentPath={pathname}
         data-route-link="billing"
       >
         Billing
-      </RouteLink>
+      </RouteLinkButton>
 
-      <RouteLink
+      <RouteLinkButton
         href="/settings"
         pattern={/^\/settings.*/}
         currentPath={pathname}
         data-route-link="settings"
       >
         Settings
-      </RouteLink>
+      </RouteLinkButton>
     </Flex>
   )
 }
