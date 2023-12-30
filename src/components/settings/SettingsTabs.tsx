@@ -1,5 +1,7 @@
+'use client'
+
 import { usePathname } from 'next/navigation'
-import RouteLinkButton from '../common/RouteLinkButton'
+import RouteLinkButton from '@/components/common/RouteLinkButton'
 
 export default function SettingsTabs() {
   const path = usePathname()
