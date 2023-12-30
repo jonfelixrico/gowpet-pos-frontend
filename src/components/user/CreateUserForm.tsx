@@ -109,7 +109,11 @@ export default function CreateUserForm({
                   }
                 >
                   <FormLabel>Confirm Password</FormLabel>
-                  <Input {...field} type="password" />
+                  <Input
+                    {...field}
+                    type="password"
+                    data-cy="confirm-password"
+                  />
 
                   <FormErrorMessage>
                     {String(form.errors.confirmPassword)}
