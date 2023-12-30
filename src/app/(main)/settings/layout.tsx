@@ -4,8 +4,24 @@ import { ReactNode } from 'react'
 
 export default function SettingsLayout({ children }: { children: ReactNode }) {
   return (
-    <Container maxW="container.lg" height="full" as={Flex} gap={2} padding={2}>
-      <Flex direction="column" gap={2}>
+    <Container
+      maxW="container.lg"
+      height="full"
+      as={Flex}
+      gap={2}
+      padding={2}
+      direction={{
+        base: 'column',
+        lg: 'row',
+      }}
+    >
+      <Flex
+        direction={{
+          base: 'row',
+          lg: 'column',
+        }}
+        gap={2}
+      >
         <SettingsTabs />
       </Flex>
 
