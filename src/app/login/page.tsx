@@ -63,7 +63,7 @@ export default async function Login({
   }
 
   return (
-    <Box width="100dvw" height="100dvh" background="gray.100">
+    <Box width="100dvw" height="100dvh" background="gray.100" data-page="login">
       <Container
         maxW="container.sm"
         as={Flex}

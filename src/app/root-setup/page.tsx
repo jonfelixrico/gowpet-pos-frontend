@@ -54,7 +54,12 @@ export default async function RootSetup() {
   }
 
   return (
-    <Box width="100dvw" height="100dvh" background="gray.100">
+    <Box
+      width="100dvw"
+      height="100dvh"
+      background="gray.100"
+      data-page="root-setup"
+    >
       <Container
         maxW="container.sm"
         as={Flex}
