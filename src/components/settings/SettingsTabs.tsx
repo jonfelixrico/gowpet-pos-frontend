@@ -6,7 +6,7 @@ import { usePathname } from 'next/navigation'
 import { ReactNode, useMemo } from 'react'
 import { Else, If, Then } from 'react-if'
 
-function RouteLinkButton({
+function SettingsTab({
   href,
   isActive,
   children,
@@ -49,13 +49,13 @@ export default function SettingsTabs() {
   return (
     <>
       {SUBPATHS.map((subpath) => (
-        <RouteLinkButton
+        <SettingsTab
           key={subpath}
           href={`/settings/${subpath}`}
           isActive={subpath === currentSubpath}
         >
           {SUBPATH_LABELS[subpath]}
-        </RouteLinkButton>
+        </SettingsTab>
       ))}
     </>
   )
