@@ -1,13 +1,16 @@
 import { ReactNode } from 'react'
 
-export default function AccountSettingsLayout(props: {
+export default function AccountSettingsLayout({
+  children,
+  modal,
+}: {
   children: ReactNode
   modal: ReactNode
 }) {
   return (
     <>
-      {props.children}
-      {props.modal}
+      {children}
+      {modal}
     </>
   )
 }
