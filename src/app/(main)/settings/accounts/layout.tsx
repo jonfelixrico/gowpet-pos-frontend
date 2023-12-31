@@ -9,8 +9,8 @@ export default function AccountSettingsLayout({
 }) {
   return (
     <>
-      {children}
       {modal}
+      {children}
     </>
   )
 }
