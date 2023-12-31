@@ -28,10 +28,10 @@ export default function CreateAccountModal() {
         <ModalBody>Test</ModalBody>
 
         <ModalFooter>
-          <Button colorScheme="blue" mr={3} onClick={onClose}>
-            Close
+          <Button variant="ghost" mr={3} onClick={onClose}>
+            Cancel
           </Button>
-          <Button variant="ghost">Secondary Action</Button>
+          <Button colorScheme="blue">Create Account</Button>
         </ModalFooter>
       </ModalContent>
     </Modal>
