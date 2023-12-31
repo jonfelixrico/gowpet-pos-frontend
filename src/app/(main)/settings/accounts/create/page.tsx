@@ -17,10 +17,14 @@ export default function CreateAccountModal() {
   const router = useRouter()
   const [isOpen, setIsOpen] = useState(true)
 
+  function onClose() {
+    setIsOpen(false)
+  }
+
   return (
     <Modal
       isOpen={isOpen}
-      onClose={() => setIsOpen(false)}
+      onClose={onClose}
       onCloseComplete={() => router.back()}
     >
       <ModalOverlay />
@@ -30,7 +34,7 @@ export default function CreateAccountModal() {
         <ModalBody>Test</ModalBody>
 
         <ModalFooter>
-          <Button variant="ghost" mr={3} onClick={() => setIsOpen(false)}>
+          <Button variant="ghost" mr={3} onClick={onClose}>
             Cancel
           </Button>
           <Button colorScheme="blue">Create Account</Button>
