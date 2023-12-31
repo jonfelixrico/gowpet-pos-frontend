@@ -1,4 +1,5 @@
 import { Box, Button, Flex } from '@chakra-ui/react'
+import Link from 'next/link'
 
 export default function AccountsSettingsPage() {
   return (
@@ -6,7 +7,9 @@ export default function AccountsSettingsPage() {
       <Flex direction="column">
         <Box height="100">TODO user list</Box>
         <Flex justify="end">
-          <Button colorScheme="blue">Create User</Button>
+          <Link href="./accounts/create">
+            <Button colorScheme="blue">Create User</Button>
+          </Link>
         </Flex>
       </Flex>
     </Box>
