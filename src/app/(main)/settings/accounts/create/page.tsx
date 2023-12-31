@@ -11,16 +11,18 @@ import {
   ModalOverlay,
 } from '@chakra-ui/react'
 import { useRouter } from 'next/navigation'
+import { useState } from 'react'
 
 export default function CreateAccountModal() {
   const router = useRouter()
-
-  function onClose() {
-    router.back()
-  }
+  const [isOpen, setIsOpen] = useState(true)
 
   return (
-    <Modal isOpen={true} onClose={onClose}>
+    <Modal
+      isOpen={isOpen}
+      onClose={() => setIsOpen(false)}
+      onCloseComplete={() => router.back()}
+    >
       <ModalOverlay />
       <ModalContent>
         <ModalHeader>Create Account</ModalHeader>
@@ -28,7 +30,7 @@ export default function CreateAccountModal() {
         <ModalBody>Test</ModalBody>
 
         <ModalFooter>
-          <Button variant="ghost" mr={3} onClick={onClose}>
+          <Button variant="ghost" mr={3} onClick={() => setIsOpen(false)}>
             Cancel
           </Button>
           <Button colorScheme="blue">Create Account</Button>

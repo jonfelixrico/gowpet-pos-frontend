@@ -2,14 +2,14 @@ import { ReactNode } from 'react'
 
 export default function AccountSettingsLayout({
   children,
-  modal,
+  list,
 }: {
   children: ReactNode
-  modal: ReactNode
+  list: ReactNode
 }) {
   return (
     <>
-      {modal}
+      {list}
       {children}
     </>
   )
