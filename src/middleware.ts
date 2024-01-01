@@ -68,7 +68,7 @@ export default async function middleware(
 
   let res: NextResponse
 
-  if (destPath === '/login') {
+  if (destPath === '/login' || destPath === '/root-setup') {
     res = NextResponse.next()
   } else {
     res = redirect(req, '/login', {
