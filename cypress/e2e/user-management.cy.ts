@@ -40,5 +40,10 @@ describe('user management', () => {
 
     cy.dataCy('create-dialog').should('not.exist')
     cy.location('pathname').should('equal', '/settings/user')
+
+    // check if the added user reflects in the list
+    cy.get('[data-page=user-list]')
+      .find(`[data-username=${username}]`)
+      .should('exist')
   })
 })
