@@ -1,7 +1,7 @@
 'use client'
 
-import CreateUserFormContainer from '@/components/user/create/CreateUserFormContainer'
-import CreateUserFormFields from '@/components/user/create/CreateUserFormFields'
+import CreateUserFormContainer from '@/components/settings/user/create/CreateUserFormContainer'
+import CreateUserFormFields from '@/components/settings/user/create/CreateUserFormFields'
 import {
   Alert,
   AlertDescription,
