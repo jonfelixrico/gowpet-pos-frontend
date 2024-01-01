@@ -2,6 +2,7 @@ describe('user management', () => {
   it('shows the create dialog on create button click', () => {
     cy.visit('/settings/user')
     cy.get('[data-page="user-list"]').should('exist')
+    cy.dataCy('create-dialog').should('not.exist')
 
     cy.dataCy('create').click()
     cy.location('pathname').should('equal', '/settings/user/create')
