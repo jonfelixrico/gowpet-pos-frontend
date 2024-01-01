@@ -25,7 +25,7 @@ export default function CreateUserDialogLayout({
       size="xl"
     >
       <ModalOverlay />
-      <ModalContent>
+      <ModalContent data-cy="create-dialog">
         <CloseModalContext.Provider value={onClose}>
           {children}
         </CloseModalContext.Provider>

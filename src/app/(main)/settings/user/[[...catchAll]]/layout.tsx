@@ -21,7 +21,9 @@ export default async function UsersListLayout({
           TODO use Link component once Next.js fixes the problem
         */}
         <a href="/settings/user/create">
-          <Button colorScheme="blue">Create User</Button>
+          <Button colorScheme="blue" data-cy="create">
+            Create User
+          </Button>
         </a>
       </Flex>
 
