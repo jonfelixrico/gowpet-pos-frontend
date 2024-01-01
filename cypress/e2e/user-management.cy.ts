@@ -18,4 +18,13 @@ describe('user management', () => {
     cy.location('pathname').should('equal', '/settings/user/create')
     cy.dataCy('create-dialog').should('exist')
   })
+
+  it('returns to user list on dialog close', () => {
+    cy.visit('/settings/user/create')
+    cy.dataCy('create-dialog').should('exist')
+
+    cy.dataCy('cancel').click()
+    cy.location('pathname').should('equal', '/settings/user')
+    cy.dataCy('create-dialog').should('not.exist')
+  })
 })

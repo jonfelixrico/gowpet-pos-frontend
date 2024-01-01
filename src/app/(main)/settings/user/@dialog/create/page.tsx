@@ -65,7 +65,12 @@ export default function CreateUserDialog() {
               <Spacer />
 
               {/* TODO inject the close method here */}
-              <Button variant="ghost" mr={3} onClick={closeModal}>
+              <Button
+                variant="ghost"
+                mr={3}
+                onClick={closeModal}
+                data-cy="cancel"
+              >
                 Cancel
               </Button>
 
