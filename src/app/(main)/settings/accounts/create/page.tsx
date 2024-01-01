@@ -12,6 +12,7 @@ import {
   ModalCloseButton,
   ModalFooter,
   ModalHeader,
+  Spacer,
 } from '@chakra-ui/react'
 import { Form } from 'formik'
 import { createUser } from './actions'
@@ -54,6 +55,12 @@ export default function CreateAccountDialogPage() {
             </ModalBody>
 
             <ModalFooter>
+              <Button variant="ghost" onClick={() => props.resetForm()}>
+                Reset
+              </Button>
+
+              <Spacer />
+
               {/* TODO inject the close method here */}
               <Button variant="ghost" mr={3}>
                 Cancel
