@@ -1,4 +1,4 @@
-import CreateUserForm from '@/components/user/CreateUserForm'
+import CreateUserForm from '@/components/user/create/CreateUserForm'
 
 describe('CreateUserForm', () => {
   it('prevents incomplete input from submitting', () => {
