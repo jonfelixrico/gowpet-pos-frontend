@@ -1,5 +1,5 @@
 import SettingsTabs from '@/components/settings/SettingsTabs'
-import { Box, Card, CardBody, Container, Flex, Text } from '@chakra-ui/react'
+import { Box, Card, CardBody, Container, Flex } from '@chakra-ui/react'
 import { ReactNode } from 'react'
 
 export default function SettingsLayout({ children }: { children: ReactNode }) {

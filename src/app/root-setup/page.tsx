@@ -1,9 +1,9 @@
-import { Box, Card, CardBody, Center, Container, Flex } from '@chakra-ui/react'
+import { Box, Card, CardBody, Container, Flex } from '@chakra-ui/react'
 import { RedirectType, permanentRedirect, redirect } from 'next/navigation'
 import { apiFetchData } from '@/server-utils/resource-api-util'
-import CreateUserForm from '@/components/user/CreateUserForm'
 import { Credentials } from '@/types/login-types'
 import { revalidateTag } from 'next/cache'
+import CreateRootUserForm from '@/components/user/CreateRootUserForm'
 
 const ROOT_SETUP_TAG = 'root-setup'
 
@@ -69,7 +69,7 @@ export default async function RootSetup() {
       >
         <Card width="full">
           <CardBody>
-            <CreateUserForm onSubmit={createUser} />
+            <CreateRootUserForm onSubmit={createUser} />
           </CardBody>
         </Card>
       </Container>
