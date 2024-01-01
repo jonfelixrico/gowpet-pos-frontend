@@ -21,7 +21,7 @@ export default function CreateAccountDialogLayout({
     <Modal
       isOpen={isOpen}
       onClose={onClose}
-      onCloseComplete={() => router.back()}
+      onCloseComplete={() => router.push('/settings/accounts')}
       size="xl"
     >
       <ModalOverlay />
