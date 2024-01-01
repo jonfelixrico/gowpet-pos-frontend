@@ -20,11 +20,7 @@ export default async function UserListPage() {
 
     TODO support pagination
    */
-  const { data } = await apiFetchData<User[]>('/user?itemCount=999', {
-    headers: {
-      'Content-Type': 'application/json',
-    },
-  })
+  const { data } = await apiFetchData<User[]>('/user?itemCount=999')
 
   return (
     <If condition={data.length}>
