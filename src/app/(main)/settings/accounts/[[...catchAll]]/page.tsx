@@ -4,7 +4,7 @@ import User from '@/types/User'
 import { Center, Text } from '@chakra-ui/react'
 import { Else, If, Then } from 'react-if'
 
-export default async function AccountsSettingsPage() {
+export default async function UserListPage() {
   /*
     The BE endpoint supports pagination but since we don't expect a huge number of users, there is no need to implement
     it in the FE yet.
