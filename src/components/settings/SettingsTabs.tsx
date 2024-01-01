@@ -33,30 +33,23 @@ function SettingsTab({
   )
 }
 
-const SUBPATHS = ['billing', 'accounts']
-const SUBPATH_LABELS: Record<string, string> = {
-  billing: 'Billing',
-  accounts: 'Accounts',
-}
-
 export default function SettingsTabs() {
   const pathname = usePathname()
-  const currentSubpath = useMemo(() => {
-    const split = pathname.split('/')
-    return split[split.length - 1]
-  }, [pathname])
 
   return (
     <>
-      {SUBPATHS.map((subpath) => (
-        <SettingsTab
-          key={subpath}
-          href={`/settings/${subpath}`}
-          isActive={subpath === currentSubpath}
-        >
-          {SUBPATH_LABELS[subpath]}
-        </SettingsTab>
-      ))}
+      <SettingsTab
+        href="/settings/billing"
+        isActive={/\/billing$/.test(pathname)}
+      >
+        Billing
+      </SettingsTab>
+      <SettingsTab
+        href="/settings/accounts"
+        isActive={/\/accounts.*/.test(pathname)}
+      >
+        Accounts
+      </SettingsTab>
     </>
   )
 }
