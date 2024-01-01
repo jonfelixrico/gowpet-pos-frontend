@@ -30,6 +30,7 @@ export default function CreateAccountDialogLayout({
       isOpen={isOpen}
       onClose={onClose}
       onCloseComplete={() => router.back()}
+      size="xl"
     >
       <ModalOverlay />
       {/* TODO provide close method here */}
