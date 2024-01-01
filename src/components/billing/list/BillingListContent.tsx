@@ -3,6 +3,7 @@ import BillingListItem from './BillingListItem'
 import RefreshButton from '@/components/RefreshButton'
 import { SavedBilling } from '@/types/SavedBilling'
 import { If, Then } from 'react-if'
+import { Fragment } from 'react'
 
 export default function BillingListContent({
   billings,
@@ -29,7 +30,11 @@ export default function BillingListContent({
   return (
     <Flex {...flexProps} direction="column" gap={3} data-cy="content">
       {billings.map((billing, index) => (
-        <Flex key={billing.id} direction='column' gap={3}>
+        /*
+         * Can't use <></> here. See https://react.dev/reference/react/Fragment#rendering-a-list-of-fragments
+         * Before Next.js 14, we were using the former. But once we've upgraded to that ver, it seems to break.
+         */
+        <Fragment key={billing.id}>
           <BillingListItem
             billing={billing}
             data-cy="billing-record"
@@ -40,7 +45,7 @@ export default function BillingListContent({
               <Divider />
             </Then>
           </If>
-        </Flex>
+        </Fragment>
       ))}
     </Flex>
   )
