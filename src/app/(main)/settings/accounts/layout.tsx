@@ -2,14 +2,14 @@ import { ReactNode } from 'react'
 
 export default function AccountSettingsLayout({
   children,
-  list,
+  dialog,
 }: {
   children: ReactNode
-  list: ReactNode
+  dialog: ReactNode
 }) {
   return (
     <>
-      {list}
+      {dialog}
       {children}
     </>
   )
