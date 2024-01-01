@@ -13,7 +13,5 @@ export async function createUser(credentials: Credentials) {
     },
   })
 
-  revalidatePath('/settings/accounts')
-
-  // TODO revalidate cache for list page
+  revalidatePath('/settings/user')
 }

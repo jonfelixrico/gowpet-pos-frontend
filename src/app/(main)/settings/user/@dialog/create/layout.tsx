@@ -5,7 +5,7 @@ import { useRouter } from 'next/navigation'
 import { ReactNode, useState } from 'react'
 import CloseModalContext from './CloseModalContext'
 
-export default function CreateAccountDialogLayout({
+export default function CreateUserDialogLayout({
   children,
 }: {
   children: ReactNode
@@ -21,7 +21,7 @@ export default function CreateAccountDialogLayout({
     <Modal
       isOpen={isOpen}
       onClose={onClose}
-      onCloseComplete={() => router.replace('/settings/accounts')}
+      onCloseComplete={() => router.replace('/settings/user')}
       size="xl"
     >
       <ModalOverlay />

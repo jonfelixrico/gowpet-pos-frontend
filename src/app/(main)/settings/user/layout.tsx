@@ -1,6 +1,6 @@
 import { ReactNode } from 'react'
 
-export default function AccountSettingsLayout({
+export default function UserSettingsLayout({
   children,
   dialog,
 }: {

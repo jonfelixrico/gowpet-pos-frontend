@@ -1,7 +1,7 @@
 'use client'
 
-import CreateUserFormContainer from '@/components/user/create/CreateUserFormContainer'
-import CreateUserFormFields from '@/components/user/create/CreateUserFormFields'
+import CreateUserFormContainer from '@/components/settings/user/create/CreateUserFormContainer'
+import CreateUserFormFields from '@/components/settings/user/create/CreateUserFormFields'
 import {
   Alert,
   AlertDescription,
@@ -22,7 +22,7 @@ import { If, Then } from 'react-if'
 import { useRouter } from 'next/navigation'
 import CloseModalContext from './CloseModalContext'
 
-export default function CreateAccountDialogPage() {
+export default function CreateUserDialog() {
   const [errorMessage, setErrorMessage] = useState<string | null>(null)
   const router = useRouter()
   const closeModal = useContext(CloseModalContext)
@@ -31,7 +31,7 @@ export default function CreateAccountDialogPage() {
     try {
       await createUser(credentials)
       closeModal()
-      router.replace('/settings/accounts')
+      router.replace('/settings/user')
     } catch (e) {
       setErrorMessage('An unexpected error occured. Please try again later.')
     }
