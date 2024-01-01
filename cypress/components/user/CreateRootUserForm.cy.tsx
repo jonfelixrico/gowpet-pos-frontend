@@ -1,9 +1,9 @@
-import CreateUserForm from '@/components/user/create/CreateUserForm'
+import CreateRootUserForm from '@/components/user/CreateRootUserForm'
 
-describe('CreateUserForm', () => {
+describe('CreateRootUserForm', () => {
   it('prevents incomplete input from submitting', () => {
     const onSubmit = cy.spy().as('submit')
-    cy.mount(<CreateUserForm onSubmit={onSubmit} />)
+    cy.mount(<CreateRootUserForm onSubmit={onSubmit} />)
 
     cy.dataCy('username').type('username')
     cy.dataCy('submit').click()
@@ -23,7 +23,7 @@ describe('CreateUserForm', () => {
 
   it('it prevents mismatched passwords from submitting', () => {
     const onSubmit = cy.spy().as('submit')
-    cy.mount(<CreateUserForm onSubmit={onSubmit} />)
+    cy.mount(<CreateRootUserForm onSubmit={onSubmit} />)
 
     cy.dataCy('username').type('username')
     cy.dataCy('password').type('password')
@@ -35,7 +35,7 @@ describe('CreateUserForm', () => {
 
   it('submits if input is correct', () => {
     const onSubmit = cy.spy().as('submit')
-    cy.mount(<CreateUserForm onSubmit={onSubmit} />)
+    cy.mount(<CreateRootUserForm onSubmit={onSubmit} />)
 
     cy.dataCy('username').type('username')
     cy.dataCy('password').type('password')
