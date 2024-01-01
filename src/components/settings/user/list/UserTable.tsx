@@ -18,9 +18,10 @@ export default function UserTable({ users }: { users: User[] }) {
             <Th>Username</Th>
           </Tr>
         </Thead>
+
         <Tbody>
           {users.map(({ username }) => (
-            <Tr key={username}>
+            <Tr key={username} data-username={username}>
               <Td>{username}</Td>
             </Tr>
           ))}

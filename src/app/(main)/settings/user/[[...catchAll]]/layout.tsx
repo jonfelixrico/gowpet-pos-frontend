@@ -1,4 +1,4 @@
-import { Button, Divider, Flex, Text } from '@chakra-ui/react'
+import { Box, Button, Divider, Flex, Text } from '@chakra-ui/react'
 import { ReactNode } from 'react'
 
 export default async function UsersListLayout({
@@ -21,13 +21,15 @@ export default async function UsersListLayout({
           TODO use Link component once Next.js fixes the problem
         */}
         <a href="/settings/user/create">
-          <Button colorScheme="blue">Create User</Button>
+          <Button colorScheme="blue" data-cy="create">
+            Create User
+          </Button>
         </a>
       </Flex>
 
       <Divider />
 
-      {children}
+      <Box flex={1}>{children}</Box>
     </Flex>
   )
 }

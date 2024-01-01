@@ -65,7 +65,12 @@ export default function CreateUserDialog() {
               <Spacer />
 
               {/* TODO inject the close method here */}
-              <Button variant="ghost" mr={3} onClick={closeModal}>
+              <Button
+                variant="ghost"
+                mr={3}
+                onClick={closeModal}
+                data-cy="cancel"
+              >
                 Cancel
               </Button>
 
@@ -73,6 +78,7 @@ export default function CreateUserDialog() {
                 colorScheme="blue"
                 type="submit"
                 isLoading={props.isSubmitting}
+                data-cy="submit"
               >
                 Create
               </Button>
