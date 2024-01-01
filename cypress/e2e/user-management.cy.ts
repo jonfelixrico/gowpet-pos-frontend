@@ -21,7 +21,7 @@ describe('user management', () => {
 
   it('returns to user list on dialog close', () => {
     cy.visit('/settings/user/create')
-    const dialog = cy.dataCy('create-dialog').should('exist')
+    cy.dataCy('create-dialog').should('exist')
 
     cy.dataCy('cancel').click()
     cy.location('pathname').should('equal', '/settings/user')
