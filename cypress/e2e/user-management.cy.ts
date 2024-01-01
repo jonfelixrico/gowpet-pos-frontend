@@ -30,7 +30,7 @@ describe('user management', () => {
 
   it('supports creating new users', () => {
     cy.visit('/settings/user/create')
-    const dialog = cy.dataCy('create-dialog')
+    cy.dataCy('create-dialog').should('exist')
 
     const username = `user-${Date.now()}`
     cy.dataCy('username').type(username)
