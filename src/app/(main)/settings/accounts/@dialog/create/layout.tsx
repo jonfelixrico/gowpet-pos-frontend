@@ -25,7 +25,6 @@ export default function CreateAccountDialogLayout({
       size="xl"
     >
       <ModalOverlay />
-      {/* TODO provide close method here */}
       <ModalContent>
         <CloseModalContext.Provider value={onClose}>
           {children}
