@@ -24,7 +24,7 @@ export default async function AccountsSettingsPage() {
         <Text fontSize="lg" fontWeight="bold">
           User List
         </Text>
-        <Link href="./accounts/create">
+        <Link href="./accounts/create" prefetch={false}>
           <Button colorScheme="blue">Create User</Button>
         </Link>
       </Flex>
