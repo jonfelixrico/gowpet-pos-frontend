@@ -30,6 +30,7 @@ export default function CreateAccountDialogPage() {
   async function submit(credentials: Credentials) {
     try {
       await createUser(credentials)
+      closeModal()
       router.replace('/settings/accounts')
     } catch (e) {
       setErrorMessage('An unexpected error occured. Please try again later.')
