@@ -17,13 +17,15 @@ import {
 import { Form } from 'formik'
 import { createUser } from './actions'
 import { Credentials } from '@/types/login-types'
-import { useState } from 'react'
+import { useContext, useState } from 'react'
 import { If, Then } from 'react-if'
 import { useRouter } from 'next/navigation'
+import CloseModalContext from './CloseModalContext'
 
 export default function CreateAccountDialogPage() {
   const [errorMessage, setErrorMessage] = useState<string | null>(null)
   const router = useRouter()
+  const closeModal = useContext(CloseModalContext)
 
   async function submit(credentials: Credentials) {
     try {
@@ -62,7 +64,7 @@ export default function CreateAccountDialogPage() {
               <Spacer />
 
               {/* TODO inject the close method here */}
-              <Button variant="ghost" mr={3}>
+              <Button variant="ghost" mr={3} onClick={closeModal}>
                 Cancel
               </Button>
 

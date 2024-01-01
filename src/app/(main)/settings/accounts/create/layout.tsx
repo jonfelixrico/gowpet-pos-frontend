@@ -3,6 +3,7 @@
 import { Modal, ModalContent, ModalOverlay } from '@chakra-ui/react'
 import { useRouter } from 'next/navigation'
 import { ReactNode, useState } from 'react'
+import CloseModalContext from './CloseModalContext'
 
 export default function CreateAccountDialogLayout({
   children,
@@ -25,7 +26,11 @@ export default function CreateAccountDialogLayout({
     >
       <ModalOverlay />
       {/* TODO provide close method here */}
-      <ModalContent>{children}</ModalContent>
+      <ModalContent>
+        <CloseModalContext.Provider value={onClose}>
+          {children}
+        </CloseModalContext.Provider>
+      </ModalContent>
     </Modal>
   )
 }
