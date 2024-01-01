@@ -41,7 +41,7 @@ export default function CreateAccountDialogPage() {
       <CreateUserFormContainer onSubmit={submit}>
         {(props) => (
           <Form>
-            <ModalHeader>Create Account</ModalHeader>
+            <ModalHeader>Create User</ModalHeader>
             <ModalCloseButton />
             <ModalBody as={Flex} direction="column" gap={3}>
               <If condition={!!errorMessage}>
@@ -73,7 +73,7 @@ export default function CreateAccountDialogPage() {
                 type="submit"
                 isLoading={props.isSubmitting}
               >
-                Create Account
+                Create
               </Button>
             </ModalFooter>
           </Form>

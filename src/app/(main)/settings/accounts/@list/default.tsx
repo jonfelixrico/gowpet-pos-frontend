@@ -1,20 +1,23 @@
-import { Box, Button, Flex } from '@chakra-ui/react'
+import { Box, Button, Center, Divider, Flex, Text } from '@chakra-ui/react'
 import Link from 'next/link'
 
 export default function AccountsSettingsPage() {
   return (
-    <Box height="full">
-      <Flex direction="column">
-        <Box height="100">
-          TODO user list
-          {Date.now()}
-        </Box>
-        <Flex justify="end">
-          <Link href="./accounts/create">
-            <Button colorScheme="blue">Create User</Button>
-          </Link>
-        </Flex>
+    <Flex height="full" direction="column" gap={2}>
+      <Flex justify="space-between" align="center">
+        <Text fontSize="lg" fontWeight="bold">
+          User List
+        </Text>
+        <Link href="./accounts/create">
+          <Button colorScheme="blue">Create User</Button>
+        </Link>
       </Flex>
-    </Box>
+
+      <Divider />
+
+      <Center flex={1}>
+        <Text fontSize="xl">No users to display</Text>
+      </Center>
+    </Flex>
   )
 }
