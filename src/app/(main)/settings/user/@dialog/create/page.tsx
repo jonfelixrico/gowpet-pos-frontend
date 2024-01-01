@@ -78,6 +78,7 @@ export default function CreateUserDialog() {
                 colorScheme="blue"
                 type="submit"
                 isLoading={props.isSubmitting}
+                data-cy="submit"
               >
                 Create
               </Button>
