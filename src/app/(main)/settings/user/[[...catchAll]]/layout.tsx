@@ -1,4 +1,4 @@
-import { Button, Divider, Flex, Text } from '@chakra-ui/react'
+import { Box, Button, Divider, Flex, Text } from '@chakra-ui/react'
 import { ReactNode } from 'react'
 
 export default async function UsersListLayout({
@@ -27,7 +27,7 @@ export default async function UsersListLayout({
 
       <Divider />
 
-      {children}
+      <Box flex={1}>{children}</Box>
     </Flex>
   )
 }
