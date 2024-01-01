@@ -17,7 +17,12 @@ export default function CreateUserFormFields() {
             isInvalid={!!form.errors.username && !!form.touched.username}
           >
             <FormLabel>Username</FormLabel>
-            <Input {...field} type="text" data-cy="username" />
+            <Input
+              {...field}
+              type="text"
+              data-cy="username"
+              autoComplete="off"
+            />
             <FormErrorMessage>{String(form.errors.username)}</FormErrorMessage>
           </FormControl>
         )}
@@ -29,7 +34,12 @@ export default function CreateUserFormFields() {
             isInvalid={!!form.errors.password && !!form.touched.password}
           >
             <FormLabel>Password</FormLabel>
-            <Input {...field} type="password" data-cy="password" />
+            <Input
+              {...field}
+              type="password"
+              data-cy="password"
+              autoComplete="off"
+            />
 
             <FormErrorMessage>{String(form.errors.password)}</FormErrorMessage>
           </FormControl>
@@ -44,7 +54,12 @@ export default function CreateUserFormFields() {
             }
           >
             <FormLabel>Confirm Password</FormLabel>
-            <Input {...field} type="password" data-cy="confirm-password" />
+            <Input
+              {...field}
+              type="password"
+              data-cy="confirm-password"
+              autoComplete="off"
+            />
 
             <FormErrorMessage>
               {String(form.errors.confirmPassword)}
