@@ -1,15 +1,6 @@
 'use client'
 
-import {
-  Button,
-  Modal,
-  ModalBody,
-  ModalCloseButton,
-  ModalContent,
-  ModalFooter,
-  ModalHeader,
-  ModalOverlay,
-} from '@chakra-ui/react'
+import { Modal, ModalContent, ModalOverlay } from '@chakra-ui/react'
 import { useRouter } from 'next/navigation'
 import { ReactNode, useState } from 'react'
 
