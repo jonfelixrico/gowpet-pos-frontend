@@ -17,7 +17,7 @@ interface ConfirmCredentials extends Credentials {
   confirmPassword: string
 }
 
-export default function CreateUserForm({
+export default function CreateRootUserForm({
   onSubmit,
 }: {
   onSubmit: (credentials: Credentials) => Promise<void>
