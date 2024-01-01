@@ -31,7 +31,7 @@ export default function CreateUserDialog() {
     try {
       await createUser(credentials)
       closeModal()
-      router.replace('/settings/accounts')
+      router.replace('/settings/user')
     } catch (e) {
       setErrorMessage('An unexpected error occured. Please try again later.')
     }
