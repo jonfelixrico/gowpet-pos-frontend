@@ -22,7 +22,7 @@ import { If, Then } from 'react-if'
 import { useRouter } from 'next/navigation'
 import CloseModalContext from './CloseModalContext'
 
-export default function CreateAccountDialogPage() {
+export default function CreateUserDialog() {
   const [errorMessage, setErrorMessage] = useState<string | null>(null)
   const router = useRouter()
   const closeModal = useContext(CloseModalContext)
