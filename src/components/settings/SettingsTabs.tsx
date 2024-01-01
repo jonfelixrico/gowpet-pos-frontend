@@ -44,11 +44,8 @@ export default function SettingsTabs() {
       >
         Billing
       </SettingsTab>
-      <SettingsTab
-        href="/settings/accounts"
-        isActive={/\/accounts.*/.test(pathname)}
-      >
-        Accounts
+      <SettingsTab href="/settings/user" isActive={/\/user.*/.test(pathname)}>
+        Manage Users
       </SettingsTab>
     </>
   )
