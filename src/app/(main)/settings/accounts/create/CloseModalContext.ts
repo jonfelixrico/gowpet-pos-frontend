@@ -1,4 +1,4 @@
 import { createContext } from 'react'
 
-export const CloseModalContext = createContext(() => {})
+const CloseModalContext = createContext(() => {})
 export default CloseModalContext
