@@ -10,7 +10,7 @@ interface ConfirmCredentials extends Credentials {
   confirmPassword: string
 }
 
-export default function BaseCreateUserFormContainer({
+export default function CreateUserFormContainer({
   onSubmit,
   children,
 }: {

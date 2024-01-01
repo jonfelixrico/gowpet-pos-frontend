@@ -1,7 +1,7 @@
 'use client'
 
-import BaseCreateUserFormContainer from '@/components/user/create/BaseCreateUserFormContainer'
-import BaseCreateUserFormFields from '@/components/user/create/BaseCreateUserFormFields'
+import CreateUserFormContainer from '@/components/user/create/CreateUserFormContainer'
+import CreateUserFormFields from '@/components/user/create/CreateUserFormFields'
 import {
   Button,
   Flex,
@@ -16,13 +16,13 @@ import { createUser } from './actions'
 export default function CreateAccountDialogPage() {
   return (
     <>
-      <BaseCreateUserFormContainer onSubmit={createUser}>
+      <CreateUserFormContainer onSubmit={createUser}>
         {(props) => (
           <Form>
             <ModalHeader>Create Account</ModalHeader>
             <ModalCloseButton />
             <ModalBody as={Flex} direction="column" gap={3}>
-              <BaseCreateUserFormFields />
+              <CreateUserFormFields />
             </ModalBody>
 
             <ModalFooter>
@@ -41,7 +41,7 @@ export default function CreateAccountDialogPage() {
             </ModalFooter>
           </Form>
         )}
-      </BaseCreateUserFormContainer>
+      </CreateUserFormContainer>
     </>
   )
 }

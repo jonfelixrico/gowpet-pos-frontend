@@ -8,7 +8,7 @@ import {
 } from '@chakra-ui/react'
 import { Field, FieldProps } from 'formik'
 
-export default function BaseCreateUserFormFields() {
+export default function CreateUserFormFields() {
   return (
     <>
       <Field name="username">
