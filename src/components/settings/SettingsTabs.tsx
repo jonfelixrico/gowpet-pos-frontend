@@ -3,7 +3,7 @@
 import { Button } from '@chakra-ui/react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
-import { ReactNode, useMemo } from 'react'
+import { ReactNode } from 'react'
 import { Else, If, Then } from 'react-if'
 
 function SettingsTab({
