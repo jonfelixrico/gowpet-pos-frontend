@@ -10,6 +10,8 @@ import { Else, If, Then } from 'react-if'
  * 
  * Technically we can achieve the same effect by creating a static route for / and /create, but when switching between those two routes they will
  * end up "refreshing". By using an optional catch-all route, we're telling Next that there's no need to "refresh" the content.
+ * 
+ * TODO throw 404 if the user tried accessing any path aside from / or /create
  */
 export default async function UserListPage() {
   /*
