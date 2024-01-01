@@ -1,5 +1,6 @@
 'use client'
 
+import { DataAttributes } from '@/types/DataAttributes'
 import { Button } from '@chakra-ui/react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
@@ -10,13 +11,14 @@ function SettingsTab({
   href,
   isActive,
   children,
+  ...dataAttrs
 }: {
   href: string
   isActive: boolean
   children: ReactNode
-}) {
+} & DataAttributes) {
   return (
-    <Link href={href} prefetch={false}>
+    <Link {...dataAttrs} href={href} prefetch={false} data-active={isActive}>
       <If condition={isActive}>
         <Then>
           <Button width="full" colorScheme="blue">
@@ -41,10 +43,16 @@ export default function SettingsTabs() {
       <SettingsTab
         href="/settings/billing"
         isActive={/\/billing$/.test(pathname)}
+        data-tab="billing"
       >
         Billing
       </SettingsTab>
-      <SettingsTab href="/settings/user" isActive={/\/user.*/.test(pathname)}>
+
+      <SettingsTab
+        href="/settings/user"
+        isActive={/\/user.*/.test(pathname)}
+        data-tab="user"
+      >
         Manage Users
       </SettingsTab>
     </>
