@@ -1,9 +1,12 @@
 'use client'
 
 import {
+  Button,
   Modal,
+  ModalBody,
   ModalCloseButton,
   ModalContent,
+  ModalFooter,
   ModalHeader,
   ModalOverlay,
 } from '@chakra-ui/react'
@@ -30,11 +33,7 @@ export default function CreateAccountDialogLayout({
     >
       <ModalOverlay />
       {/* TODO provide close method here */}
-      <ModalContent>
-        <ModalHeader>Create Account</ModalHeader>
-        <ModalCloseButton />
-        {children}
-      </ModalContent>
+      <ModalContent>{children}</ModalContent>
     </Modal>
   )
 }
