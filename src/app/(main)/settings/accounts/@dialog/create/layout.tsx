@@ -21,11 +21,10 @@ export default function CreateAccountDialogLayout({
     <Modal
       isOpen={isOpen}
       onClose={onClose}
-      onCloseComplete={() => router.back()}
+      onCloseComplete={() => router.replace('/settings/accounts')}
       size="xl"
     >
       <ModalOverlay />
-      {/* TODO provide close method here */}
       <ModalContent>
         <CloseModalContext.Provider value={onClose}>
           {children}
