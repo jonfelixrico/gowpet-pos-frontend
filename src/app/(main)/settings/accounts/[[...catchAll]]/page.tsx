@@ -1,8 +1,7 @@
 import UserTable from '@/components/settings/user/list/UserTable'
 import { apiFetchData } from '@/server-utils/resource-api-util'
 import User from '@/types/User'
-import { Button, Center, Divider, Flex, Text } from '@chakra-ui/react'
-import Link from 'next/link'
+import { Center, Text } from '@chakra-ui/react'
 import { Else, If, Then } from 'react-if'
 
 export default async function AccountsSettingsPage() {
@@ -19,29 +18,16 @@ export default async function AccountsSettingsPage() {
   })
 
   return (
-    <Flex height="full" direction="column" gap={2}>
-      <Flex justify="space-between" align="center">
-        <Text fontSize="lg" fontWeight="bold">
-          User List
-        </Text>
-        <Link href="./accounts/create" prefetch={false}>
-          <Button colorScheme="blue">Create User</Button>
-        </Link>
-      </Flex>
+    <If condition={data.length}>
+      <Then>
+        <UserTable users={data} />
+      </Then>
 
-      <Divider />
-
-      <If condition={data.length}>
-        <Then>
-          <UserTable users={data} />
-        </Then>
-
-        <Else>
-          <Center flex={1}>
-            <Text fontSize="xl">No users to display</Text>
-          </Center>
-        </Else>
-      </If>
-    </Flex>
+      <Else>
+        <Center flex={1}>
+          <Text fontSize="xl">No users to display</Text>
+        </Center>
+      </Else>
+    </If>
   )
 }
