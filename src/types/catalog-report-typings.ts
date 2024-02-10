@@ -4,7 +4,12 @@ export interface CatalogReportEntry {
   quantity: number
 }
 
-export interface CatalogReportItemData {
+export interface CatalogReportItemReference {
   id: string
   name: string
+}
+
+export interface CatalogReportDto {
+  references: CatalogReportItemReference[]
+  entries: CatalogReportEntry[]
 }
