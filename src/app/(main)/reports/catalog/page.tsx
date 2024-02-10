@@ -20,26 +20,18 @@ export default function CatalogReportsPage() {
             <Table variant="simple">
               <Thead>
                 <Tr>
-                  <Th>To convert</Th>
-                  <Th>into</Th>
-                  <Th isNumeric>multiply by</Th>
+                  <Th>Name</Th>
+                  <Th isNumeric>Unit Price</Th>
+                  <Th isNumeric>Quantity</Th>
+                  <Th isNumeric>Amount</Th>
                 </Tr>
               </Thead>
               <Tbody>
                 <Tr>
-                  <Td>inches</Td>
-                  <Td>millimetres (mm)</Td>
-                  <Td isNumeric>25.4</Td>
-                </Tr>
-                <Tr>
-                  <Td>feet</Td>
-                  <Td>centimetres (cm)</Td>
-                  <Td isNumeric>30.48</Td>
-                </Tr>
-                <Tr>
-                  <Td>yards</Td>
-                  <Td>metres (m)</Td>
-                  <Td isNumeric>0.91444</Td>
+                  <Td>Test</Td>
+                  <Td isNumeric>100</Td>
+                  <Td isNumeric>100</Td>
+                  <Td isNumeric>10000</Td>
                 </Tr>
               </Tbody>
             </Table>
