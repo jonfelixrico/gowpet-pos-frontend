@@ -1,5 +1,6 @@
 import { apiFetchData } from '@/server-utils/resource-api-util'
 import {
+  Button,
   Card,
   CardBody,
   Container,
@@ -44,7 +45,17 @@ export default async function CatalogReportsPage() {
   })
 
   return (
-    <Container maxW="container.md" padding={2} as={Flex} direction="column">
+    <Container
+      maxW="container.md"
+      padding={2}
+      as={Flex}
+      direction="column"
+      gap={2}
+    >
+      <Flex justify="end">
+        <Button colorScheme="blue">Export</Button>
+      </Flex>
+
       <Card flex={1}>
         <CardBody>
           <TableContainer>
