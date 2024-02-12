@@ -1,5 +1,11 @@
 import { apiFetchData } from '@/server-utils/resource-api-util'
 import {
+  CatalogReportEntry,
+  CatalogReportItemReference,
+} from '@/types/catalog-report-typings'
+import { hydrateEntries } from '@/utils/catalog-report-utils'
+import {
+  Button,
   Card,
   CardBody,
   Container,
@@ -12,39 +18,29 @@ import {
   Thead,
   Tr,
 } from '@chakra-ui/react'
-import { keyBy } from 'lodash'
-
-interface CatalogReportEntry {
-  catalogItemId: string
-  price: number
-  quantity: number
-}
-
-interface CatalogReportItemReference {
-  id: string
-  name: string
-}
-
-interface HydratedEntry extends CatalogReportEntry {
-  name: string
-}
+import Link from 'next/link'
 
 export default async function CatalogReportsPage() {
   const { data } = await apiFetchData<{
     references: CatalogReportItemReference[]
     entries: CatalogReportEntry[]
   }>('/catalog/report')
-
-  const indexedRefs = keyBy(data.references, (ref) => ref.id)
-  const hydrated: HydratedEntry[] = data.entries.map((entry) => {
-    return {
-      ...entry,
-      name: indexedRefs[entry.catalogItemId]?.name,
-    }
-  })
+  const hydrated = hydrateEntries(data.entries, data.references)
 
   return (
-    <Container maxW="container.md" padding={2} as={Flex} direction="column">
+    <Container
+      maxW="container.md"
+      padding={2}
+      as={Flex}
+      direction="column"
+      gap={2}
+    >
+      <Flex justify="end">
+        <Link href="/reports/catalog/export" download>
+          <Button colorScheme="blue">Export</Button>
+        </Link>
+      </Flex>
+
       <Card flex={1}>
         <CardBody>
           <TableContainer>
