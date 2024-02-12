@@ -63,6 +63,15 @@ export default function RouteLinks() {
       </RouteLink>
 
       <RouteLink
+        href="/reports"
+        pattern={/^\/reports.*/}
+        currentPath={pathname}
+        data-route-link="reports"
+      >
+        Reports
+      </RouteLink>
+
+      <RouteLink
         href="/settings"
         pattern={/^\/settings.*/}
         currentPath={pathname}
