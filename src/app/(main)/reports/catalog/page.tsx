@@ -18,6 +18,7 @@ import {
   Thead,
   Tr,
 } from '@chakra-ui/react'
+import Link from 'next/link'
 
 export default async function CatalogReportsPage() {
   const { data } = await apiFetchData<{
@@ -35,7 +36,9 @@ export default async function CatalogReportsPage() {
       gap={2}
     >
       <Flex justify="end">
-        <Button colorScheme="blue">Export</Button>
+        <Link href="/reports/catalog/export" download>
+          <Button colorScheme="blue">Export</Button>
+        </Link>
       </Flex>
 
       <Card flex={1}>
