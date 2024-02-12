@@ -1,9 +1,5 @@
 import { apiFetchData } from '@/server-utils/resource-api-util'
 import {
-  CatalogReportEntry,
-  CatalogReportItemReference,
-} from '@/types/catalog-report-typings'
-import {
   Card,
   CardBody,
   Container,
@@ -16,6 +12,17 @@ import {
   Tr,
 } from '@chakra-ui/react'
 import { keyBy } from 'lodash'
+
+interface CatalogReportEntry {
+  catalogItemId: string
+  price: number
+  quantity: number
+}
+
+interface CatalogReportItemReference {
+  id: string
+  name: string
+}
 
 interface HydratedEntry extends CatalogReportEntry {
   name: string
