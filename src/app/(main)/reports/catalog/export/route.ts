@@ -18,7 +18,7 @@ export async function GET(request: NextRequest) {
     keys: ['name', 'price', 'quantity'] as Array<keyof HydratedEntry>,
   })
 
-  const filename = request.nextUrl.searchParams.get('filename') ?? 'report.csv'
+  const filename = request.nextUrl.searchParams.get('filename') || 'report.csv'
   return new NextResponse(csv, {
     headers: {
       'Content-Type': 'application/csv',
