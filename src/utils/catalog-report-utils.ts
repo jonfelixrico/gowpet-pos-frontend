@@ -4,7 +4,7 @@ import {
 } from '@/types/catalog-report-typings'
 import { keyBy } from 'lodash'
 
-interface HydratedEntry extends CatalogReportEntry {
+export interface HydratedEntry extends CatalogReportEntry {
   name: string
 }
 
