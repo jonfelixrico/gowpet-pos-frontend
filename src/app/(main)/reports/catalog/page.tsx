@@ -3,6 +3,7 @@ import {
   Card,
   CardBody,
   Container,
+  Flex,
   Table,
   TableContainer,
   Tbody,
@@ -43,8 +44,8 @@ export default async function CatalogReportsPage() {
   })
 
   return (
-    <Container maxW="container.md" padding={2}>
-      <Card>
+    <Container maxW="container.md" padding={2} as={Flex} direction="column">
+      <Card flex={1}>
         <CardBody>
           <TableContainer>
             <Table variant="simple">
