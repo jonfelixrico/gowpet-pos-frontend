@@ -1,3 +1,8 @@
+import { apiFetchData } from '@/server-utils/resource-api-util'
+import {
+  CatalogReportEntry,
+  CatalogReportItemReference,
+} from '@/types/catalog-report-typings'
 import {
   Card,
   CardBody,
@@ -10,8 +15,26 @@ import {
   Thead,
   Tr,
 } from '@chakra-ui/react'
+import { keyBy } from 'lodash'
 
-export default function CatalogReportsPage() {
+interface HydratedEntry extends CatalogReportEntry {
+  name: string
+}
+
+export default async function CatalogReportsPage() {
+  const { data } = await apiFetchData<{
+    references: CatalogReportItemReference[]
+    entries: CatalogReportEntry[]
+  }>('/catalog/report')
+
+  const indexedRefs = keyBy(data.references, (ref) => ref.id)
+  const hydrated: HydratedEntry[] = data.entries.map((entry) => {
+    return {
+      ...entry,
+      name: indexedRefs[entry.catalogItemId]?.name,
+    }
+  })
+
   return (
     <Container maxW="container.md" padding={2}>
       <Card>
@@ -27,12 +50,16 @@ export default function CatalogReportsPage() {
                 </Tr>
               </Thead>
               <Tbody>
-                <Tr>
-                  <Td>Test</Td>
-                  <Td isNumeric>100</Td>
-                  <Td isNumeric>100</Td>
-                  <Td isNumeric>10000</Td>
-                </Tr>
+                {hydrated.map((data) => {
+                  return (
+                    <Tr key={`${data.name}/${data.price}`}>
+                      <Td>{data.name}</Td>
+                      <Td>{data.price}</Td>
+                      <Td>{data.quantity}</Td>
+                      <Td>{data.price * data.quantity}</Td>
+                    </Tr>
+                  )
+                })}
               </Tbody>
             </Table>
           </TableContainer>
