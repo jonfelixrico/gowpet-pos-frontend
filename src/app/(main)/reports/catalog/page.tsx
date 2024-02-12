@@ -24,7 +24,6 @@ export default async function CatalogReportsPage() {
     references: CatalogReportItemReference[]
     entries: CatalogReportEntry[]
   }>('/catalog/report')
-
   const hydrated = hydrateEntries(data.entries, data.references)
 
   return (
