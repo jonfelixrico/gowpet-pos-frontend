@@ -3,6 +3,7 @@ import {
   CatalogReportEntry,
   CatalogReportItemReference,
 } from '@/types/catalog-report-typings'
+import { hydrateEntries } from '@/utils/catalog-report-utils'
 import {
   Button,
   Card,
@@ -17,11 +18,6 @@ import {
   Thead,
   Tr,
 } from '@chakra-ui/react'
-import { keyBy } from 'lodash'
-
-interface HydratedEntry extends CatalogReportEntry {
-  name: string
-}
 
 export default async function CatalogReportsPage() {
   const { data } = await apiFetchData<{
@@ -29,13 +25,7 @@ export default async function CatalogReportsPage() {
     entries: CatalogReportEntry[]
   }>('/catalog/report')
 
-  const indexedRefs = keyBy(data.references, (ref) => ref.id)
-  const hydrated: HydratedEntry[] = data.entries.map((entry) => {
-    return {
-      ...entry,
-      name: indexedRefs[entry.catalogItemId]?.name,
-    }
-  })
+  const hydrated = hydrateEntries(data.entries, data.references)
 
   return (
     <Container
